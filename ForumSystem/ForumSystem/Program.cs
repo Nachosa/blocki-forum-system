@@ -1,4 +1,4 @@
-namespace ForumSystem
+namespace ForumSystemBusiness
 {
     public class Program
     {
@@ -6,6 +6,7 @@ namespace ForumSystem
         {
             var builder = WebApplication.CreateBuilder(args);
             var app = builder.Build();
+            app.MapControllers();
 
             app.Run();
         }
