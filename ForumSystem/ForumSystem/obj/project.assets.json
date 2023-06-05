@@ -1,11 +1,49 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "ForumSystem.Business/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/ForumSystem.Business.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ForumSystem.Business.dll": {}
+        }
+      },
+      "ForumSystem.DataAccess/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "ForumSystem.Business": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ForumSystem.DataAccess.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ForumSystem.DataAccess.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "ForumSystem.Business/1.0.0": {
+      "type": "project",
+      "path": "../ForumService.Service/ForumSystem.Business.csproj",
+      "msbuildProject": "../ForumService.Service/ForumSystem.Business.csproj"
+    },
+    "ForumSystem.DataAccess/1.0.0": {
+      "type": "project",
+      "path": "../ForumSystem.Data/ForumSystem.DataAccess.csproj",
+      "msbuildProject": "../ForumSystem.Data/ForumSystem.DataAccess.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "ForumSystem.Business >= 1.0.0",
+      "ForumSystem.DataAccess >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Niki\\.nuget\\packages\\": {},
@@ -14,9 +52,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\ForumSystemBusiness.csproj",
-      "projectName": "ForumSystemBusiness",
-      "projectPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\ForumSystemBusiness.csproj",
+      "projectUniqueName": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\ForumSystem.Api.csproj",
+      "projectName": "ForumSystem.Api",
+      "projectPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\ForumSystem.Api.csproj",
       "packagesPath": "C:\\Users\\Niki\\.nuget\\packages\\",
       "outputPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\obj\\",
       "projectStyle": "PackageReference",
@@ -38,7 +76,14 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumService.Service\\ForumSystem.Business.csproj": {
+              "projectPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumService.Service\\ForumSystem.Business.csproj"
+            },
+            "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem.Data\\ForumSystem.DataAccess.csproj": {
+              "projectPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem.Data\\ForumSystem.DataAccess.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

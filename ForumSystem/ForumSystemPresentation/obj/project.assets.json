@@ -14,19 +14,6 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
-      },
-      "ForumSystemPersistance/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "compile": {
-          "bin/placeholder/ForumSystemPersistance.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/ForumSystemPersistance.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.AspNetCore.App"
-        ]
       }
     }
   },
@@ -35,17 +22,11 @@
       "type": "project",
       "path": "../ForumSystem/ForumSystemBusiness.csproj",
       "msbuildProject": "../ForumSystem/ForumSystemBusiness.csproj"
-    },
-    "ForumSystemPersistance/1.0.0": {
-      "type": "project",
-      "path": "../ForumSystemPersistance/ForumSystemPersistance.csproj",
-      "msbuildProject": "../ForumSystemPersistance/ForumSystemPersistance.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "ForumSystemBusiness >= 1.0.0",
-      "ForumSystemPersistance >= 1.0.0"
+      "ForumSystemBusiness >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -80,9 +61,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystemPersistance\\ForumSystemPersistance.csproj": {
-              "projectPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystemPersistance\\ForumSystemPersistance.csproj"
-            },
             "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\ForumSystemBusiness.csproj": {
               "projectPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\ForumSystemBusiness.csproj"
             }

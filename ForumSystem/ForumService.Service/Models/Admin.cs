@@ -1,4 +1,4 @@
-﻿namespace ForumSystemBusiness.Models
+﻿namespace ForumSystem.Business.Models
 {
     public class Admin
     {
