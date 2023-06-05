@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ForumSystem.DataAccess.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace ForumSystem.Business.Models
 {
@@ -16,5 +17,6 @@ namespace ForumSystem.Business.Models
         public string Content { get; set; }
         public int Likes { get; set; }
         public int Dislikes { get; set; }
+
     }
 }

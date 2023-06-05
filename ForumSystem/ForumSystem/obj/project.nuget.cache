@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HyMh/MCJSDVS391VoPizTKViEVkNimcce0U1p4wPCWMicQn4YTF88VdEmGfLoiQVlABsGP94EVklG2eCdTS+eA==",
+  "dgSpecHash": "ES/8oD3/PHPL9/JaT2qp8JXaCVwkEDUrnrcSOQAr7IklY6hl9J1RRIjwIY/FEE5SWfSck818/EwwSDPxLnIG7Q==",
   "success": true,
-  "projectFilePath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\ForumSystem.Api.csproj",
+  "projectFilePath": "C:\\Repos\\Forum System\\ForumSystem\\ForumSystem\\ForumSystem.Api.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

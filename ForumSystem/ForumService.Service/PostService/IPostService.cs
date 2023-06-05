@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.Business.Abstractions
+namespace ForumSystem.Business
 {
     public interface IPostService
     {

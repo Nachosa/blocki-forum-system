@@ -1,5 +1,6 @@
 ﻿using ForumSystem.Business.Abstractions;
 using ForumSystem.Business.Models;
+using ForumSystem.DataAccess.Models;
 
 namespace ForumSystem.DataAccess
 {
@@ -14,7 +15,9 @@ namespace ForumSystem.DataAccess
                 LastName = "Goshev",
                 Username = "goshoXx123",
                 Email = "gosho@gmail.com",
-                Password = "1234567890"
+                Password = "1234567890",
+                Role=Role.User
+                
             }
         };
         public static IList<Post> posts = new List<Post>()

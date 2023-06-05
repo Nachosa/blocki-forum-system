@@ -13,10 +13,12 @@ namespace ForumSystemBusiness
             builder.Services.AddControllers();
             builder.Services.AddScoped<IPostService, PostService>();
             builder.Services.AddScoped<IForumSystemRepository, ForumSystemRepository>();
+
             var app = builder.Build();
             app.UseDeveloperExceptionPage();
             app.UseRouting();
             app.MapControllers();
+            //app.UseEndpoints(endpoints => { endpoints.MapDefaultControllerRoute(); });
 
 
             app.Run();

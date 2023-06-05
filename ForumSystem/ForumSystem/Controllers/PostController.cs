@@ -1,17 +1,17 @@
-﻿using ForumSystem.Business.Abstractions;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ForumSystem.Business.Models;
+using ForumSystem.Business;
 
 namespace ForumSystem.Api.Controllers
 {
     [ApiController]
-    [Route("api/home")]
-    public class HomeController : ControllerBase
+    [Route("api/post")]
+    public class PostController : ControllerBase
     {
         private readonly IPostService postService;
 
-        public HomeController(IPostService postService) 
+        public PostController(IPostService postService) 
         {
             this.postService = postService;
         } 

@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ForumSystem.DataAccess.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace ForumSystem.Business.Models
 {
     public abstract class Person
     {
+        [Key]
         public int Id { get; set; }
 
         [MinLength(4, ErrorMessage = "The {0} must be at least {1} characters long.")]
@@ -18,5 +20,7 @@ namespace ForumSystem.Business.Models
         [EmailAddress]
         public string Email { get; set; }
         public string Password { get; set; }
+
+        public Role Role { get; set; }
     }
 }

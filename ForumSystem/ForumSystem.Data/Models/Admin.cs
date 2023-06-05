@@ -1,6 +1,6 @@
 ﻿namespace ForumSystem.Business.Models
 {
-    public class Admin
+    public class Admin:Person
     {
         public int PhoneNumber { get; set; }
     }
