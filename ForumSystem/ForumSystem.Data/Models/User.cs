@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ForumSystem.Business.Models
+namespace ForumSystem.DataAccess.Models
 {
     public class User : Person
     {

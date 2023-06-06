@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ForumSystem.Business.Models;
+using ForumSystem.DataAccess.Models;
 using ForumSystem.Business;
 
 namespace ForumSystem.Api.Controllers

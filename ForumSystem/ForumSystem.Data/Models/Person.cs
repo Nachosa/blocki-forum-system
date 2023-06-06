@@ -1,7 +1,7 @@
 ﻿using ForumSystem.DataAccess.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace ForumSystem.Business.Models
+namespace ForumSystem.DataAccess.Models
 {
     public abstract class Person
     {

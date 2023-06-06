@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ForumSystem.DataAccess.Models
+namespace ForumSystem.DataAccess.Dtos
 {
-    public class Post
+    public class CreatePostDto
     {
-        public int Id { get; set; }
-
-        public int UserId { get; set; }
-
         [MinLength(16, ErrorMessage = "The {0} must be at least {1} characters long.")]
         [MaxLength(64, ErrorMessage = "The {0} must be no more than {1} characters long.")]
         public string Title { get; set; }
@@ -15,11 +16,5 @@ namespace ForumSystem.DataAccess.Models
         [MinLength(32, ErrorMessage = "The {0} must be at least {1} characters long.")]
         [MaxLength(8192, ErrorMessage = "The {0} must be no more than {1} characters long.")]
         public string Content { get; set; }
-
-        public int Likes { get; set; }
-
-        public int Dislikes { get; set; }
-
-        public int Count { get; set; }
     }
 }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ForumSystem.Business.Abstractions;
-using ForumSystem.Business.Models;
+using ForumSystem.DataAccess.Models;
+using ForumSystem.DataAccess;
 
 namespace ForumSystem.Business
 {
@@ -20,6 +20,12 @@ namespace ForumSystem.Business
         public IList<Post> GetAllPosts()
         {
             return this.repo.GetAllPosts().ToList();
+        }
+
+        public Post CreatePost(Post post)
+        {
+            repo.CreatePost(post);
+            return post;
         }
     }
 }

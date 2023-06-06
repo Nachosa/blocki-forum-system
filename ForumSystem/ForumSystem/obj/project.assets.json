@@ -46,23 +46,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Atanas Iliev\\.nuget\\packages\\": {},
+    "C:\\Users\\Niki\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Repos\\Forum System\\ForumSystem\\ForumSystem\\ForumSystem.Api.csproj",
+      "projectUniqueName": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\ForumSystem.Api.csproj",
       "projectName": "ForumSystem.Api",
-      "projectPath": "C:\\Repos\\Forum System\\ForumSystem\\ForumSystem\\ForumSystem.Api.csproj",
-      "packagesPath": "C:\\Users\\Atanas Iliev\\.nuget\\packages\\",
-      "outputPath": "C:\\Repos\\Forum System\\ForumSystem\\ForumSystem\\obj\\",
+      "projectPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\ForumSystem.Api.csproj",
+      "packagesPath": "C:\\Users\\Niki\\.nuget\\packages\\",
+      "outputPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Atanas Iliev\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Niki\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -77,11 +77,11 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Repos\\Forum System\\ForumSystem\\ForumService.Service\\ForumSystem.Business.csproj": {
-              "projectPath": "C:\\Repos\\Forum System\\ForumSystem\\ForumService.Service\\ForumSystem.Business.csproj"
+            "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumService.Service\\ForumSystem.Business.csproj": {
+              "projectPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumService.Service\\ForumSystem.Business.csproj"
             },
-            "C:\\Repos\\Forum System\\ForumSystem\\ForumSystem.Data\\ForumSystem.DataAccess.csproj": {
-              "projectPath": "C:\\Repos\\Forum System\\ForumSystem\\ForumSystem.Data\\ForumSystem.DataAccess.csproj"
+            "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem.Data\\ForumSystem.DataAccess.csproj": {
+              "projectPath": "D:\\Downloads\\Works\\Telerik\\ProjectTwo\\ForumSystem\\ForumSystem.Data\\ForumSystem.DataAccess.csproj"
             }
           }
         }
@@ -114,7 +114,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

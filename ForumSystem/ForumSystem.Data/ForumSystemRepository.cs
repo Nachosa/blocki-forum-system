@@ -1,5 +1,4 @@
-﻿using ForumSystem.Business.Abstractions;
-using ForumSystem.Business.Models;
+﻿using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Models;
 
 namespace ForumSystem.DataAccess
@@ -16,7 +15,7 @@ namespace ForumSystem.DataAccess
                 Username = "goshoXx123",
                 Email = "gosho@gmail.com",
                 Password = "1234567890",
-                Role=Role.User
+                Role = Role.User
                 
             }
         };
@@ -34,6 +33,12 @@ namespace ForumSystem.DataAccess
         public IEnumerable<Post> GetAllPosts()
         {
             return new List<Post>(posts);
+        }
+
+        public Post CreatePost(Post post)
+        {
+            posts.Add(post);
+            return post;
         }
     }
 }
