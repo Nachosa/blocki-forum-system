@@ -22,7 +22,7 @@ namespace ForumSystem.DataAccess.Models
 
         public int Dislikes { get; set; }
 
-        public int Count { get; set; }
+        public static int Count { get; set; }
 
         public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
 

@@ -16,18 +16,18 @@ namespace ForumSystem.DataAccess
                 Email = "gosho@gmail.com",
                 Password = "1234567890",
                 Role = Role.User
-                
+
             }
         };
         public static IList<Post> posts = new List<Post>()
         {
-            new Post()
-            {
-                Id = 1,
-                UserId = 1,
-                Title = "Title",
-                Content = "Content"
-            }
+            //new Post()
+            //{
+            //    Id = 1,
+            //    UserId = 1,
+            //    Title = "Title",
+            //    Content = "Content"
+            //}
         };
 
         public IEnumerable<Post> GetAllPosts()
@@ -48,7 +48,12 @@ namespace ForumSystem.DataAccess
 
         public Post FindPostById(int postId)
         {
-            return posts.FirstOrDefault(post => post.Id == postId);
+            Post post = posts.FirstOrDefault(post => post.Id == postId);
+            if (post == null)
+            {
+                throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
+            }
+            return post;
         }
 
         public bool UpdatePost(int postId, Post post)
