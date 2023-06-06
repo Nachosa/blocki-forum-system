@@ -18,4 +18,16 @@ public interface IForumSystemRepository
     public void DeletePost(Post post);
 
     public Post FindPostById(int postId);
+
+    //User
+
+    public IEnumerable<User> GetAllUsers();
+
+    public User CreateUser(User user);
+
+    public bool UpdateUser(int userId, User user);
+
+    public void DeleteUser(User user);
+
+    public User FindUserById(int userId);
 }
