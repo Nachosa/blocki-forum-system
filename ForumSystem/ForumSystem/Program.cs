@@ -15,7 +15,15 @@ namespace ForumSystemBusiness
             builder.Services.AddSingleton<IForumSystemRepository, ForumSystemRepository>();
             builder.Services.AddScoped<PostMapper>();
 
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
             var app = builder.Build();
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
             app.UseDeveloperExceptionPage();
             app.UseRouting();
             app.MapControllers();
