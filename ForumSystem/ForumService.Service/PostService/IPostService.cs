@@ -13,8 +13,10 @@ namespace ForumSystem.Business
 
         public Post CreatePost(Post post);
 
-        public Post UpdatePost(Post post);
+        public bool UpdatePost(int postId, Post post);
 
         public void DeletePost(Post post);
+
+        public Post FindPostById(int postId);
     }
 }

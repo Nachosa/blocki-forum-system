@@ -28,14 +28,19 @@ namespace ForumSystem.Business
             return post;
         }
 
-        public Post UpdatePost(Post post)
+        public bool UpdatePost(int postId, Post post)
         {
-            throw new NotImplementedException();
+            return repo.UpdatePost(postId, post);
         }
 
         public void DeletePost(Post post)
         {
-            throw new NotImplementedException();
+            repo.DeletePost(post);
+        }
+
+        public Post FindPostById(int postId)
+        {
+            return repo.FindPostById(postId);
         }
     }
 }
