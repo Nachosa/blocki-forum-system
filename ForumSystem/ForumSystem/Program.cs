@@ -3,6 +3,7 @@ using ForumSystem.Api.Controllers;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Helpers;
 using ForumSystem.Business.UserService;
+using ForumSystem.Business.Helper;
 
 namespace ForumSystemBusiness
 {
@@ -14,6 +15,7 @@ namespace ForumSystemBusiness
             builder.Services.AddControllers();
             builder.Services.AddScoped<IPostService, PostService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<CreateUserMapper>();
             builder.Services.AddSingleton<IForumSystemRepository, ForumSystemRepository>();
 
             builder.Services.AddScoped<PostMapper>();
