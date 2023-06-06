@@ -92,6 +92,7 @@ namespace ForumSystem.DataAccess
         public Post FindPostById(int postId)
         {
             return posts.FirstOrDefault(post => post.Id == postId);
+            return post;
         }
 
         public bool UpdatePost(int postId, Post post)
