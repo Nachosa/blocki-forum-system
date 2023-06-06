@@ -20,6 +20,19 @@ namespace ForumSystem.DataAccess.Models
         public DateTime? DeletedOn { get; set; }
 
         public ICollection<Post> Posts { get; set; } = new HashSet<Post>();
-       
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            Tag other = (Tag)obj;
+            return Id == other.Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
