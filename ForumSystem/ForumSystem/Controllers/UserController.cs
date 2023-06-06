@@ -1,4 +1,5 @@
-﻿using ForumSystem.Business.UserService;
+﻿using ForumSystem.Business.CreateAndUpdate_UserDTO;
+using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -46,7 +47,7 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult CreateUser([FromBody] User user)
+        public IActionResult CreateUser([FromBody] CreateUserDTO user)
         {
             var createdUser = userService.CreateUser(user);
             return Ok(createdUser);

@@ -1,4 +1,5 @@
-﻿using ForumSystem.DataAccess.Models;
+﻿using ForumSystem.Business.CreateAndUpdate_UserDTO;
+using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ForumSystem.Business.UserService
     {
         public IEnumerable<User> GetAllUsers();
 
-        public User CreateUser(User user);
+        public User CreateUser(CreateUserDTO user);
 
         public bool UpdateUser(int userId, User user);
 

@@ -1,4 +1,6 @@
-﻿using ForumSystem.DataAccess;
+﻿using ForumSystem.Business.CreateAndUpdate_UserDTO;
+using ForumSystem.Business.Helper;
+using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -11,13 +13,16 @@ namespace ForumSystem.Business.UserService
     public class UserService : IUserService
     {
         private readonly IForumSystemRepository repo;
+        private readonly CreateUserMapper createUserMapper;
         public UserService()
         {
             repo = new ForumSystemRepository();
+            createUserMapper = new CreateUserMapper();
         }
-        public User CreateUser(User user)
+        public User CreateUser(CreateUserDTO userDTO)
         {
-            return repo.CreateUser(user);
+            User mappedUser=createUserMapper.Map(userDTO);
+            return repo.CreateUser(mappedUser);
         }
 
         public void DeleteUser(int userId)
@@ -35,7 +40,7 @@ namespace ForumSystem.Business.UserService
             var user = repo.FindUserById(userId);
             return user ?? throw new Exception($"User with Id={userId} was not found!");
         }
-
+        
         public IEnumerable<User> GetAllUsers()
         {
             var allUsers = repo.GetAllUsers();
