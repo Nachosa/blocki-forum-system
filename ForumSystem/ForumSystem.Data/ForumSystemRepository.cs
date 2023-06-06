@@ -135,7 +135,7 @@ namespace ForumSystem.DataAccess
         public User FindUserById(int Id)
         {
             var user = users.FirstOrDefault(u => u.Id == Id);
-            return user ?? throw new Exception($"User with Id={Id} was not found!");
+            return user;
         }
     }
 }
