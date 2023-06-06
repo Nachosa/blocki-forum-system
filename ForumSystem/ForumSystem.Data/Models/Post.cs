@@ -4,12 +4,7 @@ namespace ForumSystem.DataAccess.Models
 {
     public class Post
     {
-        private ICollection<Tag> tags;
-
-        public Post()
-        {
-            tags = new HashSet<Tag>();
-        }
+        
 
         public int Id { get; set; }
 
@@ -29,10 +24,8 @@ namespace ForumSystem.DataAccess.Models
 
         public int Count { get; set; }
 
-        public ICollection<Tag> Tags
-        {
-            get { return tags; }
-            set { tags = value; }
-        }
+        public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
+
+       
     }
 }

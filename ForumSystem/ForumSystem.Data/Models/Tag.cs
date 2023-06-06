@@ -8,13 +8,7 @@ namespace ForumSystem.DataAccess.Models
 {
     public class Tag
     {
-        private ICollection<Post> posts;
-
-        public Tag()
-        {
-            posts = new HashSet<Post>();
-        }
-
+        
         // [Key] -> creates a primary key column for 'Id' property
         public int Id { get; set; }
 
@@ -25,15 +19,7 @@ namespace ForumSystem.DataAccess.Models
         // can be null
         public DateTime? DeletedOn { get; set; }
 
-        public ICollection<Post> Posts
-        {
-            get
-            {
-                return posts;
-            } set
-            {
-                posts = value;
-            }
-        }
+        public ICollection<Post> Posts { get; set; } = new HashSet<Post>();
+       
     }
 }
