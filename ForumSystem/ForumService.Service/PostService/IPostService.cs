@@ -10,5 +10,7 @@ namespace ForumSystem.Business
     public interface IPostService
     {
         public IList<Post> GetAllPosts();
+
+        public Post CreatePost(Post post);
     }
 }

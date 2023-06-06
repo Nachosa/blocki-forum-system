@@ -1,15 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9xmOxzZgc9BGazZE8AixzgHqA2U8gCD9yI1Kd4zQlB3R8zM5T1YISUJKeR6uLaBiSdlYq5iWV+/OWmCLVjZguw==",
+  "dgSpecHash": "ES/8oD3/PHPL9/JaT2qp8JXaCVwkEDUrnrcSOQAr7IklY6hl9J1RRIjwIY/FEE5SWfSck818/EwwSDPxLnIG7Q==",
   "success": true,
   "projectFilePath": "C:\\Repos\\Forum System\\ForumSystem\\ForumSystem\\ForumSystem.Api.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Atanas Iliev\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
-    "C:\\Users\\Atanas Iliev\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
-    "C:\\Users\\Atanas Iliev\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
-    "C:\\Users\\Atanas Iliev\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
-    "C:\\Users\\Atanas Iliev\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
-    "C:\\Users\\Atanas Iliev\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }
