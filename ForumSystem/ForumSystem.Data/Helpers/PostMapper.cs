@@ -14,6 +14,7 @@ namespace ForumSystem.DataAccess.Helpers
         {
             return new Post
             {
+                UserId = postDto.UserId,
                 Title = postDto.Title,
                 Content = postDto.Content,
             };

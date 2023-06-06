@@ -27,7 +27,7 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpPost("")]
-        public Post CreatePost(CreatePostDto postDto)
+        public Post CreatePost([FromBody] CreatePostDto postDto)
         {
             Post post = postMapper.Map(postDto);
             postService.CreatePost(post);

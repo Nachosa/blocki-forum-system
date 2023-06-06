@@ -9,6 +9,8 @@ namespace ForumSystem.DataAccess.Dtos
 {
     public class CreatePostDto
     {
+        public int UserId { get; set; }
+
         [MinLength(16, ErrorMessage = "The {0} must be at least {1} characters long.")]
         [MaxLength(64, ErrorMessage = "The {0} must be no more than {1} characters long.")]
         public string Title { get; set; }
