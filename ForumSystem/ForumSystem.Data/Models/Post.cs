@@ -4,6 +4,8 @@ namespace ForumSystem.DataAccess.Models
 {
     public class Post
     {
+        
+
         public int Id { get; set; }
 
         public int UserId { get; set; }
@@ -21,5 +23,9 @@ namespace ForumSystem.DataAccess.Models
         public int Dislikes { get; set; }
 
         public int Count { get; set; }
+
+        public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
+
+       
     }
 }

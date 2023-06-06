@@ -12,4 +12,10 @@ public interface IForumSystemRepository
     public IEnumerable<Post> GetAllPosts();
 
     public Post CreatePost(Post post);
+
+    public bool UpdatePost(int postId, Post post);
+
+    public void DeletePost(Post post);
+
+    public Post FindPostById(int postId);
 }

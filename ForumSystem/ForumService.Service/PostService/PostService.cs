@@ -27,5 +27,20 @@ namespace ForumSystem.Business
             repo.CreatePost(post);
             return post;
         }
+
+        public bool UpdatePost(int postId, Post post)
+        {
+            return repo.UpdatePost(postId, post);
+        }
+
+        public void DeletePost(Post post)
+        {
+            repo.DeletePost(post);
+        }
+
+        public Post FindPostById(int postId)
+        {
+            return repo.FindPostById(postId);
+        }
     }
 }
