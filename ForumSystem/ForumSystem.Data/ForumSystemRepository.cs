@@ -15,7 +15,7 @@ namespace ForumSystem.DataAccess
                 Username = "goshoXx123",
                 Email = "gosho@gmail.com",
                 Password = "1234567890",
-                Role = Role.User               
+                Role = Role.User
             },
             new User()
             {
@@ -118,6 +118,7 @@ namespace ForumSystem.DataAccess
 
         public User CreateUser(User user)
         {
+            user.Id = users.OrderByDescending(u => u.Id).FirstOrDefault().Id + 1;
             users.Add(user);
             return user;
         }

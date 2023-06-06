@@ -1,4 +1,5 @@
-﻿using ForumSystem.Business.CreateAndUpdate_UserDTO;
+﻿using AutoMapper;
+using ForumSystem.Business.CreateAndUpdate_UserDTO;
 using ForumSystem.Business.Helper;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Models;
@@ -13,16 +14,26 @@ namespace ForumSystem.Business.UserService
     public class UserService : IUserService
     {
         private readonly IForumSystemRepository repo;
-        private readonly CreateUserMapper createUserMapper;
-        public UserService()
+        private readonly IMapper createUserMapper;
+        public UserService(IForumSystemRepository repo,IMapper createUserMapper)
         {
-            repo = new ForumSystemRepository();
-            createUserMapper = new CreateUserMapper();
+            this.repo = repo;
+            this.createUserMapper = createUserMapper;
         }
         public User CreateUser(CreateUserDTO userDTO)
         {
-            User mappedUser=createUserMapper.Map(userDTO);
+            User mappedUser=createUserMapper.Map<User>(userDTO);
             return repo.CreateUser(mappedUser);
+        }
+        public IEnumerable<User> GetAllUsers()
+        {
+            var allUsers = repo.GetAllUsers();
+            bool anyUsers = allUsers.Any();
+            if (anyUsers == false)
+            {
+                throw new Exception("There aren't any users yet!");
+            }
+            return allUsers;
         }
 
         public void DeleteUser(int userId)
@@ -41,16 +52,6 @@ namespace ForumSystem.Business.UserService
             return user ?? throw new Exception($"User with Id={userId} was not found!");
         }
         
-        public IEnumerable<User> GetAllUsers()
-        {
-            var allUsers = repo.GetAllUsers();
-            bool anyUsers = allUsers.Any();
-            if (anyUsers == false)
-            {
-                throw new Exception("There aren't any users yet!");
-            }
-            return allUsers;
-        }
 
         public bool UpdateUser(int userId, User user)
         {
