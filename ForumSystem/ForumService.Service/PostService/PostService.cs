@@ -27,5 +27,15 @@ namespace ForumSystem.Business
             repo.CreatePost(post);
             return post;
         }
+
+        public Post UpdatePost(Post post)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeletePost(Post post)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

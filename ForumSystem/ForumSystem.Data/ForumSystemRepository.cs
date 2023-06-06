@@ -40,5 +40,32 @@ namespace ForumSystem.DataAccess
             posts.Add(post);
             return post;
         }
+
+        public void DeletePost(Post post)
+        {
+            posts.Remove(post);
+        }
+
+        public Post FindPostById(int postId)
+        {
+            return posts.FirstOrDefault(post => post.Id == postId);
+        }
+
+        public bool UpdatePost(int postId, Post post)
+        {
+            var existingPost = FindPostById(postId);
+
+            if (existingPost == null)
+            {
+                return false;
+            }
+
+            existingPost.Title = post.Title;
+            existingPost.Content = post.Content;
+            existingPost.Dislikes = post.Dislikes;
+            existingPost.Likes = post.Likes;
+
+            return true;
+        }
     }
 }

@@ -6,7 +6,34 @@ using System.Threading.Tasks;
 
 namespace ForumSystem.DataAccess.Models
 {
-    internal class Tag
+    public class Tag
     {
+        private ICollection<Post> posts;
+
+        public Tag()
+        {
+            posts = new HashSet<Post>();
+        }
+
+        // [Key] -> creates a primary key column for 'Id' property
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        // can be null
+        public DateTime? DeletedOn { get; set; }
+
+        public ICollection<Post> Posts
+        {
+            get
+            {
+                return posts;
+            } set
+            {
+                posts = value;
+            }
+        }
     }
 }

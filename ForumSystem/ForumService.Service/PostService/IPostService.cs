@@ -12,5 +12,9 @@ namespace ForumSystem.Business
         public IList<Post> GetAllPosts();
 
         public Post CreatePost(Post post);
+
+        public Post UpdatePost(Post post);
+
+        public void DeletePost(Post post);
     }
 }
