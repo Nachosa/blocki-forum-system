@@ -91,7 +91,8 @@ namespace ForumSystem.DataAccess
 
         public Post FindPostById(int postId)
         {
-            return posts.FirstOrDefault(post => post.Id == postId);
+            var post = posts.FirstOrDefault(post => post.Id == postId);
+            return post ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
 
         public bool UpdatePost(int postId, Post post)

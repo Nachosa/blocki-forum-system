@@ -14,11 +14,11 @@ namespace ForumSystem.Api.Controllers
         private readonly IPostService postService;
         private readonly PostMapper postMapper;
 
-        public PostController(IPostService postService) 
+        public PostController(IPostService postService, PostMapper postMapper)
         {
             this.postService = postService;
-            this.postMapper = new PostMapper();
-        } 
+            this.postMapper = postMapper;
+        }
 
         [HttpGet("")]
         public IList<Post> GetPosts()
@@ -26,12 +26,27 @@ namespace ForumSystem.Api.Controllers
             return postService.GetAllPosts();
         }
 
-        [HttpPost("")]
-        public Post CreatePost([FromBody] CreatePostDto postDto)
+        [HttpGet("{id}")]
+        public IActionResult GetPostById(int id)
         {
-            Post post = postMapper.Map(postDto);
-            postService.CreatePost(post);
-            return post;
+            try
+            {
+                Post post = this.postService.FindPostById(id);
+                GetPostDto postDto = postMapper.MapGet(post);
+
+                return this.StatusCode(StatusCodes.Status200OK, postDto);
+            }
+            catch (ArgumentNullException e)
+            {
+                return this.StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
+        }
+
+        [HttpPost("")]
+        public IActionResult CreatePost([FromBody] CreatePostDto postDto)
+        {
+            postService.CreatePost(postDto);
+            return this.StatusCode(StatusCodes.Status200OK, postDto);
         }
     }
 }

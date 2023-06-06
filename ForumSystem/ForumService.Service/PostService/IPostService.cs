@@ -1,4 +1,5 @@
-﻿using ForumSystem.DataAccess.Models;
+﻿using ForumSystem.DataAccess.Dtos;
+using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace ForumSystem.Business
     {
         public IList<Post> GetAllPosts();
 
-        public Post CreatePost(Post post);
+        public Post CreatePost(CreatePostDto postDto);
 
         public bool UpdatePost(int postId, Post post);
 
