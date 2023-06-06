@@ -33,7 +33,5 @@ namespace ForumSystem.Api.Controllers
             postService.CreatePost(post);
             return post;
         }
-
-        [HttpPut("")]
     }
 }

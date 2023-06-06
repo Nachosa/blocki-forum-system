@@ -26,6 +26,18 @@ namespace ForumSystem.DataAccess.Models
 
         public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
 
-       
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            Post other = (Post)obj;
+            return Id == other.Id; // Compare based on the unique ID property
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
