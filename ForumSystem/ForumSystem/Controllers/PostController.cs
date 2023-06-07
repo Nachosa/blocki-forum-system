@@ -64,5 +64,19 @@ namespace ForumSystem.Api.Controllers
                 return this.StatusCode(StatusCodes.Status404NotFound, e.Message);
             }
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeletePostById(int id)
+        {
+            try
+            {
+                Post post = this.postService.DeletePostById(id);
+                return this.StatusCode(StatusCodes.Status200OK, post);
+            }
+            catch (ArgumentNullException e)
+            {
+                return this.StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
+        }
     }
 }

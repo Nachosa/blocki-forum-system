@@ -16,7 +16,7 @@ namespace ForumSystem.Business
 
         public Post UpdatePostContent(Post post, UpdatePostContentDto postContentDto);
 
-        public void DeletePost(Post post);
+        public Post DeletePostById(int postId);
 
         public Post FindPostById(int postId);
     }

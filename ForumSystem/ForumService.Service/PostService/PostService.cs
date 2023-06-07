@@ -44,9 +44,9 @@ namespace ForumSystem.Business
             return repo.UpdatePostContent(post, postContentDto);
         }
 
-        public void DeletePost(Post post)
+        public Post DeletePostById(int postId)
         {
-            repo.DeletePost(post);
+            return repo.DeletePostById(postId);
         }
 
         public Post FindPostById(int postId)

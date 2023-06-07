@@ -1,6 +1,7 @@
 ﻿using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Dtos;
 using ForumSystem.DataAccess.Models;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 
 namespace ForumSystem.DataAccess
@@ -97,9 +98,14 @@ namespace ForumSystem.DataAccess
             return post;
         }
 
-        public void DeletePost(Post post)
+        public Post DeletePostById(int postId)
         {
-            posts.Remove(post);
+            var post = posts.FirstOrDefault(post => post.Id == postId);
+            if (post == null)
+                throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
+            else
+                posts.Remove(post);
+                return post;
         }
 
         public Post FindPostById(int postId)
@@ -129,9 +135,9 @@ namespace ForumSystem.DataAccess
         public bool UpdateUser(User user)
         {
             var userToupdate = users.FirstOrDefault(u => u.Id == user.Id);
-            userToupdate.FirstName= user.FirstName;
-            userToupdate.LastName= user.LastName;
-            userToupdate.Email= user.Email;           
+            userToupdate.FirstName = user.FirstName;
+            userToupdate.LastName = user.LastName;
+            userToupdate.Email = user.Email;
             return true;
         }
 
