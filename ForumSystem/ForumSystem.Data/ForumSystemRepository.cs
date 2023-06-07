@@ -73,6 +73,18 @@ namespace ForumSystem.DataAccess
             }
         };
 
+        public static IList<Comment> comments = new List<Comment>()
+        {
+            new Comment()
+            {
+                Id = 1,
+                PostId = 1,
+                AuthorId = 1,
+                Title = "Title",
+                Content = "Content"
+            }
+        };
+
         public IEnumerable<Post> GetAllPosts()
         {
             return new List<Post>(posts);
@@ -138,6 +150,43 @@ namespace ForumSystem.DataAccess
         {
             var user = users.FirstOrDefault(u => u.Id == Id);
             return user;
+        }
+
+        public IEnumerable<Comment> GetAllComments()
+        {
+            return comments;
+        }
+
+        public Comment CreateComment(Comment comment)
+        {
+            comments.Add(comment);
+            return comment;
+        }
+
+        public bool UpdateComment(int commentId, Comment comment)
+        {
+            var existingComment = FindCommentById(commentId);
+
+            if (existingComment == null)
+            {
+                return false;
+            }
+
+            existingComment.Title = comment.Title;
+            existingComment.Content = comment.Content;
+
+            return true;
+        }
+
+        public void DeleteComment(Comment comment)
+        {
+            comments.Remove(comment);
+        }
+
+        public Comment FindCommentById(int commentId)
+        {
+            var comment = comments.FirstOrDefault(comment => comment.Id == commentId);
+            return comment ?? throw new ArgumentNullException($"Comment with id={commentId} doesn't exist.");
         }
     }
 }
