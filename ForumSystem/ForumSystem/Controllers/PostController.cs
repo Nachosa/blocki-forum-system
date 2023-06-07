@@ -12,12 +12,10 @@ namespace ForumSystem.Api.Controllers
     public class PostController : ControllerBase
     {
         private readonly IPostService postService;
-        private readonly PostMapper postMapper;
 
-        public PostController(IPostService postService, PostMapper postMapper)
+        public PostController(IPostService postService)
         {
             this.postService = postService;
-            this.postMapper = postMapper;
         }
 
         [HttpGet("")]
@@ -32,9 +30,7 @@ namespace ForumSystem.Api.Controllers
         {
             try
             {
-                Post post = this.postService.FindPostById(id);
-                GetPostDto postDto = postMapper.MapGet(post);
-
+                GetPostDto postDto = this.postService.FindPostById(id);
                 return this.StatusCode(StatusCodes.Status200OK, postDto);
             }
             catch (ArgumentNullException e)
@@ -55,8 +51,7 @@ namespace ForumSystem.Api.Controllers
         {
             try
             {
-                Post post = this.postService.FindPostById(id);
-                post = postService.UpdatePostContent(post, postContentDto);
+                Post post = postService.UpdatePostContent(id, postContentDto);
                 return this.StatusCode(StatusCodes.Status200OK, post);
             }
             catch (ArgumentNullException e)

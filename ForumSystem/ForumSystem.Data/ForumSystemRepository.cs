@@ -114,9 +114,13 @@ namespace ForumSystem.DataAccess
             return post ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
 
-        public Post UpdatePostContent(Post post, UpdatePostContentDto postContentDto)
+        public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto)
         {
-            post.Content = postContentDto.Content;
+            var post = posts.FirstOrDefault(post => post.Id == postId);
+            if (post == null)
+                throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
+            else
+                post.Content = postContentDto.Content;
             return post;
         }
 

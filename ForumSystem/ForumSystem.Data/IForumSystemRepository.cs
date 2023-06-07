@@ -14,7 +14,7 @@ public interface IForumSystemRepository
 
     public Post CreatePost(Post post);
 
-    public Post UpdatePostContent(Post post, UpdatePostContentDto postContentDto);
+    public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto);
 
     public Post DeletePostById(int postId);
 
