@@ -80,7 +80,6 @@ namespace ForumSystem.DataAccess
                 Id = 1,
                 PostId = 1,
                 AuthorId = 1,
-                Title = "Title",
                 Content = "Content"
             }
         };
@@ -172,7 +171,6 @@ namespace ForumSystem.DataAccess
                 return false;
             }
 
-            existingComment.Title = comment.Title;
             existingComment.Content = comment.Content;
 
             return true;
