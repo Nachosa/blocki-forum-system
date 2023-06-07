@@ -26,7 +26,7 @@ public interface IForumSystemRepository
 
     public User CreateUser(User user);
 
-    public bool UpdateUser(int userId, User user);
+    public bool UpdateUser(User user);
 
     public void DeleteUser(User user);
 

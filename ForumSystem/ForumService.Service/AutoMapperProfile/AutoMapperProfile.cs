@@ -14,6 +14,8 @@ namespace ForumSystem.Business.AutoMapperProfile
         public AutoMapperProfile()
         {
             CreateMap<CreateUserDTO, User>();
+            CreateMap<UpdateUserDTO, User>();
+
         }
 
     }

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ForumSystem.DataAccess.Exceptions;
 
 namespace ForumSystem.Business.UserService
 {
@@ -53,9 +54,19 @@ namespace ForumSystem.Business.UserService
         }
         
 
-        public bool UpdateUser(int userId, User user)
+        public bool UpdateUser(int userId, UpdateUserDTO userDTO)
         {
-            throw new NotImplementedException();
+            var userToUpdate = repo.FindUserById(userId);
+            if (userToUpdate is null)
+            {
+                throw new EntityNotFoundException($"User with id:{userId} was not found!");
+            }
+            var mappedUser = userMapper.Map<User>(userDTO);
+            mappedUser.Id = userId;
+            repo.UpdateUser(mappedUser);
+            return true;
+
+
         }
     }
 }

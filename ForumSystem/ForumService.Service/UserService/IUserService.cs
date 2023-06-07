@@ -14,7 +14,7 @@ namespace ForumSystem.Business.UserService
 
         public User CreateUser(CreateUserDTO user);
 
-        public bool UpdateUser(int userId, User user);
+        public bool UpdateUser(int userId, UpdateUserDTO user);
 
         public void DeleteUser(int Id);
 

@@ -1,5 +1,6 @@
 ﻿using ForumSystem.Business.CreateAndUpdate_UserDTO;
 using ForumSystem.Business.UserService;
+using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,10 +55,18 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpPut("{Id}")]
-        public IActionResult UpdateUser(int Id, [FromBody] User userValues)
+        public IActionResult UpdateUser(int Id, [FromBody] UpdateUserDTO userValues)
         {
-            var updatedUser = userService.UpdateUser(Id, userValues);
-            return Ok(updatedUser);
+            try
+            {
+                var updatedUser = userService.UpdateUser(Id, userValues);
+                return Ok("Update successful!");
+
+            }
+            catch (EntityNotFoundException e)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
         }
 
         [HttpDelete("{Id}")]

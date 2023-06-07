@@ -125,9 +125,13 @@ namespace ForumSystem.DataAccess
             return user;
         }
 
-        public bool UpdateUser(int userId, User user)
+        public bool UpdateUser(User user)
         {
-            throw new NotImplementedException();
+            var userToupdate = users.FirstOrDefault(u => u.Id == user.Id);
+            userToupdate.FirstName= user.FirstName;
+            userToupdate.LastName= user.LastName;
+            userToupdate.Email= user.Email;           
+            return true;
         }
 
         public void DeleteUser(User user)

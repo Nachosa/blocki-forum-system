@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ForumSystem.DataAccess.Exceptions
 {
-    internal class EntityNotFoundException:ApplicationException
+    public class EntityNotFoundException:ApplicationException
     {
         public EntityNotFoundException(string message)
             :base(message)
