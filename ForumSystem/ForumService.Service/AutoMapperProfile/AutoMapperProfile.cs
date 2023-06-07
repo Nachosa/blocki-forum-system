@@ -17,7 +17,7 @@ namespace ForumSystem.Business.AutoMapperProfile
             CreateMap<CreateUserDTO, User>();
             CreateMap<UpdateUserDTO, User>();
             CreateMap<CreatePostDto, Post>();
-            CreateMap<GetPostDto, Post>();
+            CreateMap<Post, GetPostDto>();
             CreateMap<UpdatePostContentDto, Post>();
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForumSystem.DataAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,5 +21,7 @@ namespace ForumSystem.DataAccess.Dtos
         public int Likes { get; set; }
 
         public int Dislikes { get; set; }
+
+        public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
     }
 }

@@ -10,7 +10,7 @@ namespace ForumSystem.DataAccess;
 
 public interface IForumSystemRepository
 {
-    public IEnumerable<Post> GetAllPosts();
+    public IEnumerable<Post> GetPosts();
 
     public Post CreatePost(Post post);
 

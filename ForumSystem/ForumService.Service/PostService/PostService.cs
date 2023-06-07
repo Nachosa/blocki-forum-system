@@ -22,9 +22,10 @@ namespace ForumSystem.Business
             this.postMapper = postMapper;
         }
 
-        public IList<Post> GetAllPosts()
+        public IList<GetPostDto> GetPosts()
         {
-            return this.repo.GetAllPosts().ToList();
+            IList<Post> posts = this.repo.GetPosts().ToList();
+            return posts.Select(post => postMapper.Map<GetPostDto>(post)).ToList();
         }
 
         public Post CreatePost(CreatePostDto postDto)

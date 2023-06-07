@@ -65,16 +65,7 @@ namespace ForumSystem.DataAccess
 
             }
         };
-        public static IList<Post> posts = new List<Post>()
-        {
-            new Post()
-            {
-                Id = 1,
-                UserId = 1,
-                Title = "Title",
-                Content = "Content"
-            }
-        };
+        public static IList<Post> posts = new List<Post>();
 
         public static IList<Comment> comments = new List<Comment>()
         {
@@ -87,7 +78,7 @@ namespace ForumSystem.DataAccess
             }
         };
 
-        public IEnumerable<Post> GetAllPosts()
+        public IEnumerable<Post> GetPosts()
         {
             return new List<Post>(posts);
         }
