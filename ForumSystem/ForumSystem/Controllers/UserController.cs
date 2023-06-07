@@ -24,7 +24,7 @@ namespace ForumSystem.Api.Controllers
             {
                 return Ok(userService.GetAllUsers());
             }
-            catch (Exception e)
+            catch (EntityNotFoundException e)
             {
                 return BadRequest(e.Message);
             }
@@ -40,7 +40,7 @@ namespace ForumSystem.Api.Controllers
                 return Ok(user);
 
             }
-            catch (Exception e)
+            catch (EntityNotFoundException e)
             {
 
                 return StatusCode(StatusCodes.Status404NotFound, e.Message);

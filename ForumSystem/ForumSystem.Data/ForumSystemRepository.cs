@@ -130,9 +130,10 @@ namespace ForumSystem.DataAccess
         public bool UpdateUser(User user)
         {
             var userToupdate = users.FirstOrDefault(u => u.Id == user.Id);
-            userToupdate.FirstName = user.FirstName;
-            userToupdate.LastName = user.LastName;
-            userToupdate.Email = user.Email;
+            userToupdate.FirstName = user.FirstName ?? userToupdate.FirstName;
+            userToupdate.LastName= user.LastName ?? userToupdate.LastName;
+            userToupdate.Email = user.Email ?? userToupdate.Email;
+            userToupdate.Password = user.Password ?? userToupdate.Password;
             return true;
         }
 

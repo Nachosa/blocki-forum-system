@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Exceptions;
+using ForumSystem.Business.CreateUpdateGet_UserDTO;
 
 namespace ForumSystem.Business.UserService
 {
@@ -16,25 +17,27 @@ namespace ForumSystem.Business.UserService
     {
         private readonly IForumSystemRepository repo;
         private readonly IMapper userMapper;
-        public UserService(IForumSystemRepository repo,IMapper createUserMapper)
+        public UserService(IForumSystemRepository repo, IMapper createUserMapper)
         {
             this.repo = repo;
             this.userMapper = createUserMapper;
         }
         public User CreateUser(CreateUserDTO userDTO)
         {
-            User mappedUser=userMapper.Map<User>(userDTO);
+            User mappedUser = userMapper.Map<User>(userDTO);
             return repo.CreateUser(mappedUser);
         }
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<GetUserDTO> GetAllUsers()
         {
+           
             var allUsers = repo.GetAllUsers();
-            bool anyUsers = allUsers.Any();
-            if (anyUsers == false)
+
+            if (!allUsers.Any())
             {
-                throw new Exception("There aren't any users yet!");
+                throw new EntityNotFoundException("There aren't any users yet!");
             }
-            return allUsers;
+
+            return allUsers.Select(currentUser => userMapper.Map<GetUserDTO>(currentUser));
         }
 
         public void DeleteUser(int userId)
@@ -47,12 +50,13 @@ namespace ForumSystem.Business.UserService
             repo.DeleteUser(userToDelete);
         }
 
-        public User FindUserById(int userId)
+        public GetUserDTO FindUserById(int userId)
         {
-            var user = repo.FindUserById(userId);
-            return user ?? throw new Exception($"User with Id={userId} was not found!");
+            var originalUser = repo.FindUserById(userId) ?? throw new EntityNotFoundException($"User with Id={userId} was not found!");
+            GetUserDTO userDTO = userMapper.Map<GetUserDTO>(originalUser);
+            return userDTO;
         }
-        
+
 
         public bool UpdateUser(int userId, UpdateUserDTO userDTO)
         {
