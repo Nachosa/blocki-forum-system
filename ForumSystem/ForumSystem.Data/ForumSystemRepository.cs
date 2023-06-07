@@ -1,6 +1,7 @@
 ﻿using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Dtos;
 using ForumSystem.DataAccess.Models;
+using System.ComponentModel.Design;
 
 namespace ForumSystem.DataAccess
 {
@@ -179,6 +180,12 @@ namespace ForumSystem.DataAccess
         {
             var comment = comments.FirstOrDefault(comment => comment.Id == commentId);
             return comment ?? throw new ArgumentNullException($"Comment with id={commentId} doesn't exist.");
+        }
+
+        public IEnumerable<Comment> FindCommentsByPostId(int postId)
+        {
+            var post = posts.FirstOrDefault(post => post.Id == postId);
+            return post.Comments ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
     }
 }
