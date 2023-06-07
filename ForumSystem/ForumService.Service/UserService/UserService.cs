@@ -14,15 +14,15 @@ namespace ForumSystem.Business.UserService
     public class UserService : IUserService
     {
         private readonly IForumSystemRepository repo;
-        private readonly IMapper createUserMapper;
+        private readonly IMapper userMapper;
         public UserService(IForumSystemRepository repo,IMapper createUserMapper)
         {
             this.repo = repo;
-            this.createUserMapper = createUserMapper;
+            this.userMapper = createUserMapper;
         }
         public User CreateUser(CreateUserDTO userDTO)
         {
-            User mappedUser=createUserMapper.Map<User>(userDTO);
+            User mappedUser=userMapper.Map<User>(userDTO);
             return repo.CreateUser(mappedUser);
         }
         public IEnumerable<User> GetAllUsers()

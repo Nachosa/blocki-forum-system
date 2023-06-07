@@ -52,6 +52,7 @@ namespace ForumSystem.Api.Controllers
             var createdUser = userService.CreateUser(user);
             return Ok(createdUser);
         }
+
         [HttpPut("{Id}")]
         public IActionResult UpdateUser(int Id, [FromBody] User userValues)
         {
