@@ -14,10 +14,10 @@ namespace ForumSystem.Business
 
         public Post CreatePost(CreatePostDto postDto);
 
-        public Post UpdatePostContent(Post post, UpdatePostContentDto postContentDto);
+        public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto);
 
-        public void DeletePost(Post post);
+        public Post DeletePostById(int postId);
 
-        public Post FindPostById(int postId);
+        public GetPostDto FindPostById(int postId);
     }
 }

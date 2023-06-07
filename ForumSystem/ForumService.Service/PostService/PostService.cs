@@ -7,15 +7,16 @@ using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Helpers;
 using ForumSystem.DataAccess.Dtos;
+using AutoMapper;
 
 namespace ForumSystem.Business
 {
     public class PostService : IPostService
     {
         private readonly IForumSystemRepository repo;
-        private readonly PostMapper postMapper;
+        private readonly IMapper postMapper;
 
-        public PostService (IForumSystemRepository repo, PostMapper postMapper) 
+        public PostService(IForumSystemRepository repo, IMapper postMapper)
         {
             this.repo = repo;
             this.postMapper = postMapper;
@@ -28,7 +29,7 @@ namespace ForumSystem.Business
 
         public Post CreatePost(CreatePostDto postDto)
         {
-            Post post = postMapper.MapCreate(postDto);
+            Post post = postMapper.Map<Post>(postDto);
 
             post.Id = Post.Count;
             post.Likes = 0;
@@ -39,19 +40,19 @@ namespace ForumSystem.Business
             return post;
         }
 
-        public Post UpdatePostContent(Post post, UpdatePostContentDto postContentDto)
+        public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto)
         {
-            return repo.UpdatePostContent(post, postContentDto);
+            return repo.UpdatePostContent(postId, postContentDto);
         }
 
-        public void DeletePost(Post post)
+        public Post DeletePostById(int postId)
         {
-            repo.DeletePost(post);
+            return repo.DeletePostById(postId);
         }
 
-        public Post FindPostById(int postId)
+        public GetPostDto FindPostById(int postId)
         {
-            return repo.FindPostById(postId);
+            return postMapper.Map<GetPostDto>(repo.FindPostById(postId));
         }
     }
 }
