@@ -43,4 +43,6 @@ public interface IForumSystemRepository
     public void DeleteComment(Comment comment);
 
     public Comment FindCommentById(int commentId);
+
+    public IEnumerable<Comment> FindCommentsByPostId(int postId);
 }

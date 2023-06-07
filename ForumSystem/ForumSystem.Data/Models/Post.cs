@@ -24,6 +24,8 @@ namespace ForumSystem.DataAccess.Models
 
         public static int Count { get; set; }
 
+        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+
         public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
 
         public override bool Equals(object obj)

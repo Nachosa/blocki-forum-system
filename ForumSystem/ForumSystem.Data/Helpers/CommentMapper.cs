@@ -39,5 +39,17 @@ namespace ForumSystem.DataAccess.Helpers
                 Dislikes = commentDTO.Dislikes
             };
         }
+
+        public static List<CommentDTO> MapToDTOList(IEnumerable<Comment> comments)
+        {
+            List<CommentDTO> commentDTOs = new List<CommentDTO>();
+
+            foreach (Comment comment in comments)
+            {
+                commentDTOs.Add(MapToDTO(comment));
+            }
+
+            return commentDTOs;
+        }
     }
 }

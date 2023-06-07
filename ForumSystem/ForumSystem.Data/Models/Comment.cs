@@ -18,6 +18,8 @@ namespace ForumSystem.DataAccess.Models
 
         public DateTime? DeletedOn { get; set; }
 
+        public DateTime? CreatedOn { get; set; }
+
         public int Likes { get; set; }
 
         public int Dislikes { get; set; }
