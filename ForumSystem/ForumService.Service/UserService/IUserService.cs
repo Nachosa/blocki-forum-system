@@ -1,4 +1,5 @@
 ﻿using ForumSystem.Business.CreateAndUpdate_UserDTO;
+using ForumSystem.Business.CreateUpdateGet_UserDTO;
 using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace ForumSystem.Business.UserService
 {
     public interface IUserService
     {
-        public IEnumerable<User> GetAllUsers();
+        public IEnumerable<GetUserDTO> GetAllUsers();
 
         public User CreateUser(CreateUserDTO user);
 
@@ -18,6 +19,6 @@ namespace ForumSystem.Business.UserService
 
         public void DeleteUser(int Id);
 
-        public User FindUserById(int userId);
+        public GetUserDTO FindUserById(int userId);
     }
 }

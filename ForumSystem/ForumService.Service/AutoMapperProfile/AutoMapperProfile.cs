@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ForumSystem.Business.CreateAndUpdate_UserDTO;
+using ForumSystem.Business.CreateUpdateGet_UserDTO;
 using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace ForumSystem.Business.AutoMapperProfile
         {
             CreateMap<CreateUserDTO, User>();
             CreateMap<UpdateUserDTO, User>();
+            CreateMap<User, GetUserDTO>();
+
 
         }
 
