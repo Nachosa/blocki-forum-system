@@ -21,9 +21,10 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpGet("")]
-        public IList<Post> GetPosts()
+        public IActionResult GetPosts()
         {
-            return postService.GetAllPosts();
+            IList<Post> result = this.postService.GetAllPosts();
+            return this.StatusCode(StatusCodes.Status200OK, result);
         }
 
         [HttpGet("{id}")]
