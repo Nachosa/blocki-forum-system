@@ -14,7 +14,7 @@ namespace ForumSystem.Business
 
         public Post CreatePost(CreatePostDto postDto);
 
-        public bool UpdatePost(int postId, Post post);
+        public Post UpdatePostContent(Post post, UpdatePostContentDto postContentDto);
 
         public void DeletePost(Post post);
 
