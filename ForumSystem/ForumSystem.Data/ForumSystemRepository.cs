@@ -1,4 +1,5 @@
 ﻿using ForumSystem.DataAccess;
+using ForumSystem.DataAccess.Dtos;
 using ForumSystem.DataAccess.Models;
 
 namespace ForumSystem.DataAccess
@@ -106,21 +107,10 @@ namespace ForumSystem.DataAccess
             return post ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
 
-        public bool UpdatePost(int postId, Post post)
+        public Post UpdatePostContent(Post post, UpdatePostContentDto postContentDto)
         {
-            var existingPost = FindPostById(postId);
-
-            if (existingPost == null)
-            {
-                return false;
-            }
-
-            existingPost.Title = post.Title;
-            existingPost.Content = post.Content;
-            existingPost.Dislikes = post.Dislikes;
-            existingPost.Likes = post.Likes;
-
-            return true;
+            post.Content = postContentDto.Content;
+            return post;
         }
 
         public IEnumerable<User> GetAllUsers()

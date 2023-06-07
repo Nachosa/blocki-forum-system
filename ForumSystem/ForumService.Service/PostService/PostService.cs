@@ -39,9 +39,9 @@ namespace ForumSystem.Business
             return post;
         }
 
-        public bool UpdatePost(int postId, Post post)
+        public Post UpdatePostContent(Post post, UpdatePostContentDto postContentDto)
         {
-            return repo.UpdatePost(postId, post);
+            return repo.UpdatePostContent(post, postContentDto);
         }
 
         public void DeletePost(Post post)

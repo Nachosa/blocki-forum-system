@@ -21,9 +21,10 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpGet("")]
-        public IList<Post> GetPosts()
+        public IActionResult GetPosts()
         {
-            return postService.GetAllPosts();
+            IList<Post> result = this.postService.GetAllPosts();
+            return this.StatusCode(StatusCodes.Status200OK, result);
         }
 
         [HttpGet("{id}")]
@@ -47,6 +48,21 @@ namespace ForumSystem.Api.Controllers
         {
             postService.CreatePost(postDto);
             return this.StatusCode(StatusCodes.Status200OK, postDto);
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult UpdatePostContent(int id, [FromBody] UpdatePostContentDto postContentDto)
+        {
+            try
+            {
+                Post post = this.postService.FindPostById(id);
+                post = postService.UpdatePostContent(post, postContentDto);
+                return this.StatusCode(StatusCodes.Status200OK, post);
+            }
+            catch (ArgumentNullException e)
+            {
+                return this.StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
         }
     }
 }

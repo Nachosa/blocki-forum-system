@@ -1,4 +1,5 @@
-﻿using ForumSystem.DataAccess.Models;
+﻿using ForumSystem.DataAccess.Dtos;
+using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ public interface IForumSystemRepository
 
     public Post CreatePost(Post post);
 
-    public bool UpdatePost(int postId, Post post);
+    public Post UpdatePostContent(Post post, UpdatePostContentDto postContentDto);
 
     public void DeletePost(Post post);
 
