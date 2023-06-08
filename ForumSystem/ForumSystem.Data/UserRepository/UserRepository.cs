@@ -94,10 +94,28 @@ namespace ForumSystem.DataAccess.UserRepository
             users.Remove(user);
         }
 
-        public User FindUserById(int Id)
+        public User GetUserById(int Id)
         {
             var user = users.FirstOrDefault(u => u.Id == Id);
             return user;
+        }
+
+        public IEnumerable<User> GetUsersByFirstName(string firstName)
+        {
+            var usersWithThatName = users.Where(u => u.FirstName == firstName);
+            return usersWithThatName;
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            var userWithThatEmail = users.FirstOrDefault(u => u.Email == email);
+            return userWithThatEmail;
+        }
+
+        public User GetUserByUserName(string UserName)
+        {
+            var userWithThatUserName = users.FirstOrDefault(u => u.Username == UserName);
+            return userWithThatUserName;
         }
     }
 }

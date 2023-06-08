@@ -9,14 +9,14 @@ namespace ForumSystem.DataAccess.PostRepository
 {
     public interface IPostRepository
     {
-        public IEnumerable<Post> GetPosts();
+        IEnumerable<Post> GetPosts();
 
-        public Post GetPostById(int postId);
+        Post GetPostById(int postId);
 
-        public Post CreatePost(Post post);
+        Post CreatePost(Post post);
 
-        public Post UpdatePostContent(int postId, Post postContentDto);
+        Post UpdatePostContent(int postId, Post postContentDto);
 
-        public Post DeletePostById(int postId);
+        Post DeletePostById(int postId);
     }
 }

@@ -24,6 +24,8 @@ namespace ForumSystem.DataAccess.Models
 
         public int? PhoneNumber { get; set; }
 
+        public ICollection<Post> Posts { get; set; } = new List<Post>();
+
         public Role Role { get; set; } = Role.User;
     }
 }

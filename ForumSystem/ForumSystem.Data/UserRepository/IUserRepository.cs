@@ -9,14 +9,20 @@ namespace ForumSystem.DataAccess.UserRepository
 {
     public interface IUserRepository
     {
-        public IEnumerable<User> GetAllUsers();
+        IEnumerable<User> GetAllUsers();
 
-        public User FindUserById(int userId);
+        User GetUserById(int userId);
 
-        public User CreateUser(User user);
+        IEnumerable<User> GetUsersByFirstName(string firstName);
 
-        public bool UpdateUser(User user);
+        User GetUserByEmail(string email);
 
-        public void DeleteUser(User user);
+        User GetUserByUserName(string UserName);
+
+        User CreateUser(User user);
+
+        bool UpdateUser(User user);
+
+        void DeleteUser(User user);
     }
 }

@@ -10,14 +10,14 @@ namespace ForumSystem.Business
 {
     public interface IPostService
     {
-        public IList<GetPostDto> GetPosts();
+        IList<GetPostDto> GetPosts();
 
-        public Post CreatePost(CreatePostDto postDto);
+        Post CreatePost(CreatePostDto postDto);
 
-        public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto);
+        Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto);
 
-        public Post DeletePostById(int postId);
+        Post DeletePostById(int postId);
 
-        public GetPostDto GetPostById(int postId);
+        GetPostDto GetPostById(int postId);
     }
 }

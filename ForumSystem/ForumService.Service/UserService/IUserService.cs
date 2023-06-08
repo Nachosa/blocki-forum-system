@@ -11,14 +11,20 @@ namespace ForumSystem.Business.UserService
 {
     public interface IUserService
     {
-        public IEnumerable<GetUserDTO> GetAllUsers();
+        IEnumerable<GetUserDTO> GetAllUsers();
 
-        public User CreateUser(CreateUserDTO user);
+        User CreateUser(CreateUserDTO user);
 
-        public bool UpdateUser(int userId, UpdateUserDTO user);
+        bool UpdateUser(int userId, UpdateUserDTO user);
 
-        public void DeleteUser(int Id);
+        void DeleteUser(int Id);
 
-        public GetUserDTO FindUserById(int userId);
+        GetUserDTO GetUserById(int userId);
+
+        IEnumerable<GetUserDTO> GetUsersByFirstName(string firstName);
+
+        GetUserDTO GetUserByEmail(string email);
+
+        GetUserDTO GetUserByUserName(string userName);
     }
 }
