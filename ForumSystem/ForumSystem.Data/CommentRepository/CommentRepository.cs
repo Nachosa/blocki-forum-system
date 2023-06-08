@@ -59,7 +59,7 @@ namespace ForumSystem.DataAccess.CommentRepository
 
         public IEnumerable<Comment> FindCommentsByPostId(int postId)
         {
-            var post = PostRepository.posts.FirstOrDefault(post => post.Id == postId);
+            var post = PostRepository.PostRepository.posts.FirstOrDefault(post => post.Id == postId);
             return post.Comments ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
     }
