@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.DataAccess.CommentRepository
+namespace ForumSystem.DataAccess.CommentRepo
 {
     public interface ICommentRepository
     {

@@ -4,9 +4,9 @@ using ForumSystem.DataAccess;
 using ForumSystem.Business.UserService;
 using ForumSystem.Business.AutoMapperProfile;
 using ForumSystem.Business.CommentService;
-using ForumSystem.DataAccess.UserRepository;
-using ForumSystem.DataAccess.CommentRepository;
-using ForumSystem.DataAccess.PostRepository;
+using ForumSystem.DataAccess.UserRepo;
+using ForumSystem.DataAccess.CommentRepo;
+using ForumSystem.DataAccess.PostRepo;
 
 namespace ForumSystemBusiness
 {

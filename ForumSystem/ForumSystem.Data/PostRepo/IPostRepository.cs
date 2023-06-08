@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.DataAccess.PostRepository
+namespace ForumSystem.DataAccess.PostRepo
 {
     public interface IPostRepository
     {

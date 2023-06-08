@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DTO.CommentDTO;
 using ForumSystem.DataAccess;
-using ForumSystem.DataAccess.CommentRepository;
+using ForumSystem.DataAccess.CommentRepo;
 using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;

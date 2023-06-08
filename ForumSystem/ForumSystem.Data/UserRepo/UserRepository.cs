@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Models;
 
-namespace ForumSystem.DataAccess.UserRepository
+namespace ForumSystem.DataAccess.UserRepo
 {
     public class UserRepository : IUserRepository
     {

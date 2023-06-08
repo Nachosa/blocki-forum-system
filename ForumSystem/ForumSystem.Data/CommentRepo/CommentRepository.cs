@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Models;
-using ForumSystem.DataAccess.PostRepository;
+using ForumSystem.DataAccess.PostRepo;
 
-namespace ForumSystem.DataAccess.CommentRepository
+namespace ForumSystem.DataAccess.CommentRepo
 {
     public class CommentRepository : ICommentRepository
     {
@@ -59,7 +59,7 @@ namespace ForumSystem.DataAccess.CommentRepository
 
         public IEnumerable<Comment> FindCommentsByPostId(int postId)
         {
-            var post = PostRepository.PostRepository.posts.FirstOrDefault(post => post.Id == postId);
+            var post = PostRepository.posts.FirstOrDefault(post => post.Id == postId);
             return post.Comments ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
 

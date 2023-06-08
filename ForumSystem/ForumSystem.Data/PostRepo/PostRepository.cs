@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ForumSystem.DataAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ForumSystem.DataAccess.Models;
 
-namespace ForumSystem.DataAccess.PostRepository
+namespace ForumSystem.DataAccess.PostRepo
 {
     public class PostRepository : IPostRepository
     {

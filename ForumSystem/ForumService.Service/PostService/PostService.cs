@@ -7,7 +7,7 @@ using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Dtos;
 using AutoMapper;
-using ForumSystem.DataAccess.PostRepository;
+using ForumSystem.DataAccess.PostRepo;
 
 namespace ForumSystem.Business
 {
