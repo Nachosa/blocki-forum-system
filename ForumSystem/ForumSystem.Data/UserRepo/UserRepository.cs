@@ -79,19 +79,20 @@ namespace ForumSystem.DataAccess.UserRepo
             return user;
         }
 
-        public bool UpdateUser(User user)
+        public User UpdateUser(User user)
         {
             var userToupdate = users.FirstOrDefault(u => u.Id == user.Id);
             userToupdate.FirstName = user.FirstName ?? userToupdate.FirstName;
             userToupdate.LastName = user.LastName ?? userToupdate.LastName;
             userToupdate.Email = user.Email ?? userToupdate.Email;
             userToupdate.Password = user.Password ?? userToupdate.Password;
-            return true;
+            return userToupdate;
         }
 
-        public void DeleteUser(User user)
+        public bool DeleteUser(User user)
         {
             users.Remove(user);
+            return true;
         }
 
         public User GetUserById(int Id)

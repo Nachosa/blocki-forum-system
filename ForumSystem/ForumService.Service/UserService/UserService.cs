@@ -40,14 +40,14 @@ namespace ForumSystem.Business.UserService
             return allUsers.Select(currentUser => userMapper.Map<GetUserDTO>(currentUser));
         }
 
-        public void DeleteUser(int userId)
+        public bool DeleteUser(int userId)
         {
             var userToDelete = repo.GetUserById(userId);
             if (userToDelete is null)
             {
                 throw new Exception($"User with Id={userId} was not found!");
             }
-            repo.DeleteUser(userToDelete);
+           return repo.DeleteUser(userToDelete);
         }
 
         public GetUserDTO GetUserById(int userId)
@@ -58,7 +58,7 @@ namespace ForumSystem.Business.UserService
         }
 
 
-        public bool UpdateUser(int userId, UpdateUserDTO userDTO)
+        public GetUserDTO UpdateUser(int userId, UpdateUserDTO userDTO)
         {
             var userToUpdate = repo.GetUserById(userId);
             if (userToUpdate is null)
@@ -67,8 +67,9 @@ namespace ForumSystem.Business.UserService
             }
             var mappedUser = userMapper.Map<User>(userDTO);
             mappedUser.Id = userId;
-            repo.UpdateUser(mappedUser);
-            return true;
+            var updatedUser=repo.UpdateUser(mappedUser);
+            GetUserDTO updatedUserDTO = userMapper.Map<GetUserDTO>(updatedUser);
+            return updatedUserDTO;
 
 
         }
