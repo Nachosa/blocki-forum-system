@@ -28,6 +28,7 @@ namespace ForumSystem.DataAccess.CommentRepo
 
         public Comment CreateComment(Comment comment)
         {
+            comment.Id = comments.OrderByDescending(c => c.Id).FirstOrDefault().Id + 1;
             comments.Add(comment);
             return comment;
         }
