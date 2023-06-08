@@ -10,15 +10,15 @@ namespace ForumSystem.Business.CommentService
 {
     public interface ICommentService
     {
-        public IList<CommentDTO> GetAllComments();
+        public IList<GetCommentDto> GetAllComments();
 
-        public Comment CreateComment(CommentDTO commentDTO);
+        public Comment CreateComment(CreateCommentDto commentDTO);
 
-        public Comment UpdateCommentContent(int commentId, CommentDTO commentDTO);
+        public Comment UpdateCommentContent(int commentId, UpdateCommentContentDto commentDTO);
 
         public void DeleteComment(Comment comment);
 
-        public CommentDTO FindCommentById(int commentId);
+        public GetCommentDto FindCommentById(int commentId);
 
         public Comment DeleteCommentById(int commentId);
     }

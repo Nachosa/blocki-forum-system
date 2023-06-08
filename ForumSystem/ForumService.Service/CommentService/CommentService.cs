@@ -22,7 +22,7 @@ namespace ForumSystem.Business.CommentService
             this.repo = repo;
         }
 
-        public Comment CreateComment(CommentDTO commentDTO)
+        public Comment CreateComment(CreateCommentDto commentDTO)
         {
             Comment comment = mapper.Map<Comment>(commentDTO);
 
@@ -43,19 +43,19 @@ namespace ForumSystem.Business.CommentService
             return repo.DeleteCommentById(commentId);
         }
 
-        public CommentDTO FindCommentById(int commentId)
+        public GetCommentDto FindCommentById(int commentId)
         {
-            return mapper.Map<CommentDTO>(repo.FindCommentById(commentId));
+            return mapper.Map<GetCommentDto>(repo.FindCommentById(commentId));
         }
 
-        public IList<CommentDTO> GetAllComments()
+        public IList<GetCommentDto> GetAllComments()
         {
             IList<Comment> comments = repo.GetAllComments().ToList();
-            return comments.Select(comment => mapper.Map<CommentDTO>(comment)).ToList();
+            return comments.Select(comment => mapper.Map<GetCommentDto>(comment)).ToList();
         }
 
         // update comment in repo should take a commentDTO
-        public Comment UpdateCommentContent(int commentId, CommentDTO commentDTO)
+        public Comment UpdateCommentContent(int commentId, UpdateCommentContentDto commentDTO)
         {
             var mappedComment = mapper.Map<Comment>(commentDTO);
 

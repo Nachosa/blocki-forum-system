@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO.CommentDTO;
 
 namespace ForumSystem.Business.AutoMapperProfile
 {
@@ -23,6 +24,10 @@ namespace ForumSystem.Business.AutoMapperProfile
             CreateMap<CreatePostDto, Post>();
             CreateMap<Post, GetPostDto>();
             CreateMap<UpdatePostContentDto, Post>();
+
+            CreateMap<CreateCommentDto, Comment>();
+            CreateMap<Comment, GetCommentDto>();
+            CreateMap<UpdateCommentContentDto, Comment>();
         }
 
     }

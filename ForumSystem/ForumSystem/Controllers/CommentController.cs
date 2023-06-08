@@ -29,7 +29,7 @@ namespace ForumSystem.Api.Controllers
         {
             try
             {
-                CommentDTO commentDTO = commentService.FindCommentById(id);
+                GetCommentDto commentDTO = commentService.FindCommentById(id);
                 return StatusCode(StatusCodes.Status200OK, commentDTO);
             }
             catch (ArgumentNullException e)
@@ -39,14 +39,14 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult CreateComment([FromBody] CommentDTO commentDto)
+        public IActionResult CreateComment([FromBody] CreateCommentDto commentDto)
         {
             commentService.CreateComment(commentDto);
             return StatusCode(StatusCodes.Status200OK, commentDto);
         }
 
         [HttpPatch("{id}")]
-        public IActionResult UpdateCommentContent(int id, [FromBody] CommentDTO commentContentDto)
+        public IActionResult UpdateCommentContent(int id, [FromBody] UpdateCommentContentDto commentContentDto)
         {
             try
             {
