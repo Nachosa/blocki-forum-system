@@ -1,11 +1,11 @@
 ﻿using ForumSystemDTO.UserDTO;
 using ForumSystem.DataAccess.Models;
-using ForumSystem.DataAccess.QuerryParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ForumSystem.DataAccess.QueryParams;
 
 namespace ForumSystem.Business.UserService
 {

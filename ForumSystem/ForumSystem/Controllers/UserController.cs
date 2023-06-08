@@ -3,7 +3,7 @@ using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
-using ForumSystem.DataAccess.QuerryParams;
+using ForumSystem.DataAccess.QueryParams;
 
 namespace ForumSystem.Api.Controllers
 {

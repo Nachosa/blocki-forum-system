@@ -8,8 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.UserRepo;
-using ForumSystem.DataAccess.QuerryParams;
 using ForumSystemDTO.UserDTO;
+using ForumSystem.DataAccess.QueryParams;
 
 namespace ForumSystem.Business.UserService
 {

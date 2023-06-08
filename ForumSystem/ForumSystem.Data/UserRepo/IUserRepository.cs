@@ -1,5 +1,5 @@
 ﻿using ForumSystem.DataAccess.Models;
-using ForumSystem.DataAccess.QuerryParams;
+using ForumSystem.DataAccess.QueryParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
