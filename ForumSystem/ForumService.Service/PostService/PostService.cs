@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess;
-using ForumSystem.DataAccess.Helpers;
+using ForumSystem.DataAccess.ReposContracts;
 using ForumSystem.DataAccess.Dtos;
 using AutoMapper;
 
@@ -13,10 +13,10 @@ namespace ForumSystem.Business
 {
     public class PostService : IPostService
     {
-        private readonly IForumSystemRepository repo;
+        private readonly IPostRepository repo;
         private readonly IMapper postMapper;
 
-        public PostService(IForumSystemRepository repo, IMapper postMapper)
+        public PostService(IPostRepository repo, IMapper postMapper)
         {
             this.repo = repo;
             this.postMapper = postMapper;
@@ -49,9 +49,9 @@ namespace ForumSystem.Business
             return repo.DeletePostById(postId);
         }
 
-        public GetPostDto FindPostById(int postId)
+        public GetPostDto GetPostById(int postId)
         {
-            return postMapper.Map<GetPostDto>(repo.FindPostById(postId));
+            return postMapper.Map<GetPostDto>(repo.GetPostById(postId));
         }
     }
 }

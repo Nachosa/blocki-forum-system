@@ -6,18 +6,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.Business
+namespace ForumSystem.DataAccess.ReposContracts
 {
-    public interface IPostService
+    public interface IPostRepository
     {
-        public IList<GetPostDto> GetPosts();
+        public IEnumerable<Post> GetPosts();
 
-        public Post CreatePost(CreatePostDto postDto);
+        public Post GetPostById(int postId);
+
+        public Post CreatePost(Post post);
 
         public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto);
 
         public Post DeletePostById(int postId);
-
-        public GetPostDto GetPostById(int postId);
     }
 }

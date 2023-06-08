@@ -29,7 +29,7 @@ namespace ForumSystem.Api.Controllers
         {
             try
             {
-                GetPostDto postDto = this.postService.FindPostById(id);
+                GetPostDto postDto = this.postService.GetPostById(id);
                 return this.StatusCode(StatusCodes.Status200OK, postDto);
             }
             catch (ArgumentNullException e)
