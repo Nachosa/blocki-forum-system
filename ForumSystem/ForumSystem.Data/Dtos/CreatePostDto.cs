@@ -9,6 +9,7 @@ namespace ForumSystem.DataAccess.Dtos
 {
     public class CreatePostDto
     {
+        [Required(ErrorMessage = "The {0} field is required")]
         public int UserId { get; set; }
 
         [Required(ErrorMessage = "The {0} field is required")]

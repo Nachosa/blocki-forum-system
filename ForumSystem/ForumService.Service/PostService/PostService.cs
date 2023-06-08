@@ -33,8 +33,6 @@ namespace ForumSystem.Business
             Post post = postMapper.Map<Post>(postDto);
 
             post.Id = Post.Count;
-            post.Likes = 0;
-            post.Dislikes = 0;
             Post.Count += 1;
 
             repo.CreatePost(post);

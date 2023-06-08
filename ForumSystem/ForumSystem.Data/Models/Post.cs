@@ -18,11 +18,11 @@ namespace ForumSystem.DataAccess.Models
         [MaxLength(8192, ErrorMessage = "The {0} must be no more than {1} characters long.")]
         public string Content { get; set; }
 
-        public int Likes { get; set; }
+        public int Likes { get; set; } = 0;
 
-        public int Dislikes { get; set; }
+        public int Dislikes { get; set; } = 0;
 
-        public static int Count { get; set; }
+        public static int Count { get; set; } = 0;
 
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 

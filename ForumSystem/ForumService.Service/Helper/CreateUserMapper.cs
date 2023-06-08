@@ -19,7 +19,6 @@ namespace ForumSystem.Business.Helper
             user.Password = userDTO.Password;
             user.Email = userDTO.Email;
             user.Role = Role.User;
-            user.Restricted = false;
             return user;
         }
     }

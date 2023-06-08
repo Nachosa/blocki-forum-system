@@ -8,7 +8,7 @@ namespace ForumSystem.DataAccess.Models
 {
     public enum Role
     {
-        None=1,
+        Blocked,
         User,
         Admin
     }
