@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DTO\DTO.csproj" />
     <ProjectReference Include="..\ForumService.Service\ForumSystem.Business.csproj" />
     <ProjectReference Include="..\ForumSystem.Data\ForumSystem.DataAccess.csproj" />
   </ItemGroup>
