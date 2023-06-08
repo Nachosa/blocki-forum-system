@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumSystem.Business", "For
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumSystem.DataAccess", "ForumSystem.Data\ForumSystem.DataAccess.csproj", "{08F9BE92-46CC-4963-A827-400BF9588C5B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO", "DTO\DTO.csproj", "{AA5EC452-9334-4475-B2CB-2A1EF951EC86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumSystemDTO", "DTO\ForumSystemDTO.csproj", "{AA5EC452-9334-4475-B2CB-2A1EF951EC86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

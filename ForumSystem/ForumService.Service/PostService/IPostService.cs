@@ -1,5 +1,5 @@
 ﻿using ForumSystem.Api.QueryParams;
-using ForumSystem.DataAccess.Dtos;
+using ForumSystemDTO.PostDTO;
 using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;

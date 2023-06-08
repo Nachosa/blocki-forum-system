@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.DataAccess.Dtos
+namespace ForumSystemDTO.PostDTO
 {
     public class GetPostDto
     {

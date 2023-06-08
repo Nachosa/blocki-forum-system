@@ -1,4 +1,5 @@
 ﻿using ForumSystem.DataAccess.Models;
+using ForumSystem.DataAccess.QuerryParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,7 @@ namespace ForumSystem.DataAccess.UserRepo
 
         User GetUserById(int userId);
 
-        IEnumerable<User> GetUsersByFirstName(string firstName);
-
-        User GetUserByEmail(string email);
-
-        User GetUserByUserName(string UserName);
+        List<User> Searchby(UserQueryParams queryParams);
 
         User CreateUser(User user);
 

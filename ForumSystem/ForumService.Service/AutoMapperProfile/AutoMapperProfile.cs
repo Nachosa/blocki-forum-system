@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using ForumSystem.Business.CreateAndUpdate_UserDTO;
-using ForumSystem.DataAccess.Dtos;
-using ForumSystem.Business.CreateUpdateGet_UserDTO;
+using ForumSystemDTO.PostDTO;
 using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -9,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO.CommentDTO;
+using ForumSystemDTO.UserDTO;
 
 namespace ForumSystem.Business.AutoMapperProfile
 {

@@ -1,8 +1,9 @@
-﻿using ForumSystem.Business.CreateAndUpdate_UserDTO;
+﻿using ForumSystemDTO.UserDTO;
 using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
+using ForumSystem.DataAccess.QuerryParams;
 
 namespace ForumSystem.Api.Controllers
 {
@@ -16,13 +17,22 @@ namespace ForumSystem.Api.Controllers
         {
             this.userService = userService;
         }
-
+        //Get all users or get Users by First name ,Email and Username
         [HttpGet("")]
-        public IActionResult GetAllUsers()
+        public IActionResult GetUsers([FromQuery] UserQueryParams queryParams)
         {
             try
             {
-                return Ok(userService.GetAllUsers());
+                if (queryParams.UserName is null &
+                    queryParams.FirstName is null &
+                    queryParams.Email is null)
+                {
+                    return Ok(userService.GetAllUsers());
+                }
+                else
+                {
+                    return Ok(userService.SearchBy(queryParams));
+                }
             }
             catch (EntityNotFoundException e)
             {
@@ -30,48 +40,6 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
-        //Get user or users by FirstName
-        [HttpGet("name")]
-        public IActionResult GetUsersByFirstName([FromQuery] string firstname)
-        {
-            try
-            {
-                var usersWithThatName=userService.GetUsersByFirstName(firstname);
-                return Ok(usersWithThatName);
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpGet("email")]
-        public IActionResult GetUsersByEmail([FromQuery] string email)
-        {
-            try
-            {
-                var usersWithThatEmail = userService.GetUserByEmail(email);
-                return Ok(usersWithThatEmail);
-            }
-            catch (EntityNotFoundException e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        [HttpGet("username")]
-        public IActionResult GetUsersByUserName([FromQuery] string userName)
-        {
-            try
-            {
-                var usersWithThatEmail = userService.GetUserByUserName(userName);
-                return Ok(usersWithThatEmail);
-            }
-            catch (EntityNotFoundException e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
 
         //Get user by ID
         [HttpGet("{Id:int}")]

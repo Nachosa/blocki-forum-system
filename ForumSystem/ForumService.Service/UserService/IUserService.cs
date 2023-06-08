@@ -1,6 +1,6 @@
-﻿using ForumSystem.Business.CreateAndUpdate_UserDTO;
-using ForumSystem.Business.CreateUpdateGet_UserDTO;
+﻿using ForumSystemDTO.UserDTO;
 using ForumSystem.DataAccess.Models;
+using ForumSystem.DataAccess.QuerryParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +21,8 @@ namespace ForumSystem.Business.UserService
 
         GetUserDTO GetUserById(int userId);
 
-        IEnumerable<GetUserDTO> GetUsersByFirstName(string firstName);
+        List<GetUserDTO> SearchBy(UserQueryParams queryParams);
 
-        GetUserDTO GetUserByEmail(string email);
 
-        GetUserDTO GetUserByUserName(string userName);
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Models;
+using ForumSystem.DataAccess.QuerryParams;
 
 namespace ForumSystem.DataAccess.UserRepo
 {
@@ -117,6 +118,25 @@ namespace ForumSystem.DataAccess.UserRepo
         {
             var userWithThatUserName = users.FirstOrDefault(u => u.Username == UserName);
             return userWithThatUserName;
+        }
+
+        public List<User> Searchby(UserQueryParams queryParams)
+        {
+            var result = users.ToList();
+
+            if (!(queryParams.FirstName is null))
+            {
+                result = result.FindAll(u => u.FirstName.Contains(queryParams.FirstName, StringComparison.InvariantCultureIgnoreCase));
+            }
+            if (!(queryParams.UserName is null))
+            {
+                result = result.FindAll(u => u.Username == queryParams.FirstName);
+            }
+            if (!(queryParams.Email is null))
+            {
+                result = result.FindAll(u => u.Email == queryParams.Email);
+            }
+            return result;
         }
     }
 }

@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystemDTO.UserDTO
+namespace ForumSystem.DataAccess.QuerryParams
 {
-    public class GetUserDTO
+    public class UserQueryParams
     {
         public string FirstName { get; set; }
 
-        public string LastName { get; set; }
-
         public string UserName { get; set; }
+
+        public string Email { get; set; }
     }
 }

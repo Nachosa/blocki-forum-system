@@ -1,6 +1,5 @@
 ﻿using ForumSystem.Business;
 using ForumSystem.Business.CommentService;
-using ForumSystem.DataAccess.Dtos;
 using ForumSystem.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using DTO.CommentDTO;

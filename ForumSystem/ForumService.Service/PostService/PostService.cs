@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess;
-using ForumSystem.DataAccess.Dtos;
+using ForumSystemDTO.PostDTO;
 using AutoMapper;
 using ForumSystem.DataAccess.PostRepo;
 using ForumSystem.Api.QueryParams;

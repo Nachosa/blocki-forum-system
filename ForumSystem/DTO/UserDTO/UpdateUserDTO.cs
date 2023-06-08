@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.Business.CreateAndUpdate_UserDTO
+namespace ForumSystemDTO.UserDTO
 {
     public class UpdateUserDTO
     {

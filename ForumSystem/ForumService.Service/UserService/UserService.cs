@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ForumSystem.Business.CreateAndUpdate_UserDTO;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Models;
 using System;
@@ -8,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Exceptions;
-using ForumSystem.Business.CreateUpdateGet_UserDTO;
 using ForumSystem.DataAccess.UserRepo;
+using ForumSystem.DataAccess.QuerryParams;
+using ForumSystemDTO.UserDTO;
 
 namespace ForumSystem.Business.UserService
 {
@@ -39,6 +39,17 @@ namespace ForumSystem.Business.UserService
 
             return allUsers.Select(currentUser => userMapper.Map<GetUserDTO>(currentUser));
         }
+        public List<GetUserDTO> SearchBy(UserQueryParams queryParams)
+        {
+            var originalUsers = repo.Searchby(queryParams);
+
+            if (originalUsers.Count == 0)
+            {
+                throw new EntityNotFoundException($"User not found!");
+            }
+            return originalUsers.Select(u => userMapper.Map<GetUserDTO>(u)).ToList();
+            
+        }
 
         public bool DeleteUser(int userId)
         {
@@ -47,7 +58,7 @@ namespace ForumSystem.Business.UserService
             {
                 throw new Exception($"User with Id={userId} was not found!");
             }
-           return repo.DeleteUser(userToDelete);
+            return repo.DeleteUser(userToDelete);
         }
 
         public GetUserDTO GetUserById(int userId)
@@ -67,43 +78,13 @@ namespace ForumSystem.Business.UserService
             }
             var mappedUser = userMapper.Map<User>(userDTO);
             mappedUser.Id = userId;
-            var updatedUser=repo.UpdateUser(mappedUser);
+            var updatedUser = repo.UpdateUser(mappedUser);
             GetUserDTO updatedUserDTO = userMapper.Map<GetUserDTO>(updatedUser);
             return updatedUserDTO;
 
 
         }
 
-        public IEnumerable<GetUserDTO> GetUsersByFirstName(string firstName)
-        {
-            var originalUsers = repo.GetUsersByFirstName(firstName);
-            if (originalUsers.Count() == 0)
-            {
-                throw new EntityNotFoundException($"User with name:{firstName} was not found!");
-            }
-            return originalUsers.Select(currentUser => userMapper.Map<GetUserDTO>(currentUser));
 
-        }
-
-        public GetUserDTO GetUserByEmail(string email)
-        {
-            var originalUser = repo.GetUserByEmail(email);
-            if (originalUser is null)
-            {
-                throw new EntityNotFoundException($"User with email:{email} was not found!");
-            }
-            return userMapper.Map<GetUserDTO>(originalUser);
-        }
-
-        public GetUserDTO GetUserByUserName(string userName)
-        {
-            var originalUser = repo.GetUserByUserName(userName);
-            if (originalUser is null)
-            {
-                throw new EntityNotFoundException($"User with username:{userName} was not found!");
-            }
-            return userMapper.Map<GetUserDTO>(originalUser);
-
-        }
     }
 }
