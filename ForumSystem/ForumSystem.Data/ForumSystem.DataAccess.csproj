@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="QuerryParams\" />
+    <Compile Remove="QuerryParams\**" />
+    <EmbeddedResource Remove="QuerryParams\**" />
+    <None Remove="QuerryParams\**" />
   </ItemGroup>
 
 </Project>

@@ -68,16 +68,16 @@ namespace ForumSystem.DataAccess.PostRepo
         }
 
         //(Опционално) Може би ще е добре да направим параметрите за сортиране да са повече от един и да се сплитват, за да се сортира по няколко неща.
-        public List<Post> SortBy(PostQueryParameters filterParameters, List<Post> posts)
+        public List<Post> SortBy(PostQueryParameters sortParameters, List<Post> posts)
         {
-            if (!string.IsNullOrEmpty(filterParameters.SortBy))
+            if (!string.IsNullOrEmpty(sortParameters.SortBy))
             {
-                if (filterParameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
+                if (sortParameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
                 {
                     posts = posts.OrderBy(post => post.Title).ToList();
                 }
 
-                if (!string.IsNullOrEmpty(filterParameters.SortOrder) && filterParameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
+                if (!string.IsNullOrEmpty(sortParameters.SortOrder) && sortParameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
                 {
                     posts.Reverse();
                 }
