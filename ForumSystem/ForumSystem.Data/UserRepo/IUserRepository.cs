@@ -21,8 +21,8 @@ namespace ForumSystem.DataAccess.UserRepo
 
         User CreateUser(User user);
 
-        bool UpdateUser(User user);
+        User UpdateUser(User user);
 
-        void DeleteUser(User user);
+        bool DeleteUser(User user);
     }
 }

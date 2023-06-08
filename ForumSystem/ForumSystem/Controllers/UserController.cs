@@ -103,7 +103,7 @@ namespace ForumSystem.Api.Controllers
             try
             {
                 var updatedUser = userService.UpdateUser(Id, userValues);
-                return Ok("Update successful!");
+                return Ok(updatedUser);
 
             }
             catch (EntityNotFoundException e)
@@ -118,7 +118,7 @@ namespace ForumSystem.Api.Controllers
             try
             {
                 userService.DeleteUser(Id);
-                return Ok();
+                return Ok("User Deleted!");
 
             }
             catch (Exception e)
