@@ -1,4 +1,5 @@
-﻿using ForumSystem.DataAccess.Dtos;
+﻿using ForumSystem.Api.QueryParams;
+using ForumSystem.DataAccess.Dtos;
 using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace ForumSystem.Business
 {
     public interface IPostService
     {
-        IList<GetPostDto> GetPosts();
+        IList<GetPostDto> GetPosts(PostQueryParameters queryParams);
 
         Post CreatePost(CreatePostDto postDto);
 

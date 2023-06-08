@@ -1,4 +1,5 @@
-﻿using ForumSystem.DataAccess.Models;
+﻿using ForumSystem.Api.QueryParams;
+using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace ForumSystem.DataAccess.PostRepo
 {
     public interface IPostRepository
     {
-        IEnumerable<Post> GetPosts();
+        IEnumerable<Post> GetPosts(PostQueryParameters queryParameters);
 
         Post GetPostById(int postId);
 

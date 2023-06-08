@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.Business;
 using ForumSystem.DataAccess.Dtos;
+using ForumSystem.Api.QueryParams;
 
 namespace ForumSystem.Api.Controllers
 {
@@ -18,9 +19,9 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpGet("")]
-        public IActionResult GetPosts()
+        public IActionResult GetPosts([FromQuery] PostQueryParameters queryParams)
         {
-            return this.StatusCode(StatusCodes.Status200OK, this.postService.GetPosts());
+            return this.StatusCode(StatusCodes.Status200OK, this.postService.GetPosts(queryParams));
         }
 
         [HttpGet("{id}")]

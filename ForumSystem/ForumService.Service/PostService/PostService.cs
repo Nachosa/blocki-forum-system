@@ -8,6 +8,7 @@ using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Dtos;
 using AutoMapper;
 using ForumSystem.DataAccess.PostRepo;
+using ForumSystem.Api.QueryParams;
 
 namespace ForumSystem.Business
 {
@@ -22,9 +23,9 @@ namespace ForumSystem.Business
             this.postMapper = postMapper;
         }
 
-        public IList<GetPostDto> GetPosts()
+        public IList<GetPostDto> GetPosts(PostQueryParameters queryParams)
         {
-            IList<Post> posts = this.repo.GetPosts().ToList();
+            IList<Post> posts = this.repo.GetPosts(queryParams).ToList();
             return posts.Select(post => postMapper.Map<GetPostDto>(post)).ToList();
         }
 

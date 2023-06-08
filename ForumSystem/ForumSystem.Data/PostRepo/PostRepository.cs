@@ -1,4 +1,5 @@
-﻿using ForumSystem.DataAccess.Models;
+﻿using ForumSystem.Api.QueryParams;
+using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,14 @@ namespace ForumSystem.DataAccess.PostRepo
 {
     public class PostRepository : IPostRepository
     {
-        public static IList<Post> posts = new List<Post>();
+        public static List<Post> posts = new List<Post>();
 
-        public IEnumerable<Post> GetPosts()
+        public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
         {
-            return new List<Post>(posts);
+            List<Post> postsToProcess = new List<Post>(posts);
+            postsToProcess = FilterBy(queryParameters, postsToProcess);
+            postsToProcess = SortBy(queryParameters, postsToProcess);
+            return postsToProcess;
         }
 
         public Post CreatePost(Post post)
@@ -46,6 +50,40 @@ namespace ForumSystem.DataAccess.PostRepo
             else
                 post.Content = newPost.Content;
             return post;
+        }
+
+        public List<Post> FilterBy(PostQueryParameters filterParameters, List<Post> posts)
+        {
+            if (!string.IsNullOrEmpty(filterParameters.Title))
+            {
+                posts = posts.FindAll(post => post.Title.Contains(filterParameters.Title, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            if (!string.IsNullOrEmpty(filterParameters.Content))
+            {
+                posts = posts.FindAll(post => post.Content.Contains(filterParameters.Content, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            return posts;
+        }
+
+        //(Опционално) Може би ще е добре да направим параметрите за сортиране да са повече от един и да се сплитват, за да се сортира по няколко неща.
+        public List<Post> SortBy(PostQueryParameters filterParameters, List<Post> posts)
+        {
+            if (!string.IsNullOrEmpty(filterParameters.SortBy))
+            {
+                if (filterParameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    posts = posts.OrderBy(post => post.Title).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(filterParameters.SortOrder) && filterParameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    posts.Reverse();
+                }
+            }
+
+            return posts;
         }
     }
 }
