@@ -10,6 +10,8 @@ namespace ForumSystem.DataAccess.Models
         [DataType(DataType.Text)]
         public string Content { get; set; }
 
+        public static int Count { get; set; } = 0;
+
         public int AuthorId { get; set; }
 
         public int PostId { get; set; }

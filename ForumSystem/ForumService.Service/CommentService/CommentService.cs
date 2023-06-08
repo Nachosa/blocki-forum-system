@@ -1,4 +1,5 @@
-﻿using ForumSystem.DataAccess;
+﻿using AutoMapper;
+using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Dtos;
 using ForumSystem.DataAccess.Helpers;
 using ForumSystem.DataAccess.Models;
@@ -10,63 +11,48 @@ using System.Threading.Tasks;
 
 namespace ForumSystem.Business.CommentService
 {
-    public class CommentService
+    public class CommentService : ICommentService
     {
         private readonly IForumSystemRepository repo;
+        private readonly IMapper mapper;
 
-        public CommentService(IForumSystemRepository repository)
+        public CommentService(IForumSystemRepository repo, IMapper mapper)
         {
-            repo = repository;
+            this.mapper = mapper;
+            this.repo = repo;
         }
 
-        public CommentDTO GetCommentById(int commentId)
+        public Comment CreateComment(CommentDTO commentDTO)
         {
-            Comment comment = repo.FindCommentById(commentId);
-            return CommentMapper.MapToDTO(comment);
-        }
+            Comment comment = mapper.Map<Comment>(commentDTO);
 
-        public IEnumerable<CommentDTO> GetCommentsForPost(int postId)
-        {
-            IEnumerable<Comment> comments = repo.FindCommentsByPostId(postId);
-            return CommentMapper.MapToDTOList(comments);
-        }
+            comment.Id = Comment.Count;
+            Comment.Count += 1;
 
-        public void CreateComment(CommentDTO commentDTO)
-        {
-            Comment comment = CommentMapper.MapToModel(commentDTO);
-            comment.CreatedOn = DateTime.Now;
             repo.CreateComment(comment);
+            return comment;
         }
 
-        public void UpdateComment(CommentDTO commentDTO)
+        public void DeleteComment(Comment comment)
         {
-            Comment comment = repo.FindCommentById(commentDTO.Id);
-
-            if (comment == null)
-            {
-                // Handle error or throw an exception
-                return;
-            }
-
-            comment.Content = commentDTO.Content;
-
-            repo.UpdateComment(commentDTO.Id, comment);
+            repo.DeleteComment(comment);
         }
 
-        public void DeleteComment(int commentId)
+        public CommentDTO FindCommentById(int commentId)
         {
-            Comment comment = repo.FindCommentById(commentId);
+            return mapper.Map<CommentDTO>(repo.FindCommentById(commentId));
+        }
 
-            if (comment == null)
-            {
-                // Handle error or throw an exception
-                return;
-            }
+        public IList<CommentDTO> GetAllComments()
+        {
+            IList<Comment> comments = repo.GetAllComments().ToList();
+            return comments.Select(comment => mapper.Map<CommentDTO>(comment)).ToList();
+        }
 
-            comment.IsDeleted = true;
-            comment.DeletedOn = DateTime.Now;
-
-            repo.UpdateComment(commentId, comment);
+        // update comment in repo should take a commentDTO
+        public Comment UpdateCommentContent(int commentId, CommentDTO commentDTO)
+        {
+            return repo.UpdateComment(commentId, commentDTO);
         }
     }
 }
