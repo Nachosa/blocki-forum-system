@@ -20,5 +20,7 @@ namespace ForumSystem.DataAccess.CommentRepository
         public Comment FindCommentById(int commentId);
 
         public IEnumerable<Comment> FindCommentsByPostId(int postId);
+
+        public Comment DeleteCommentById(int commentId);
     }
 }

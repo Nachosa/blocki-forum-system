@@ -62,5 +62,15 @@ namespace ForumSystem.DataAccess.CommentRepository
             var post = PostRepository.PostRepository.posts.FirstOrDefault(post => post.Id == postId);
             return post.Comments ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
+
+        public Comment DeleteCommentById(int commentId)
+        {
+            var comment = comments.FirstOrDefault(comment => comment.Id == commentId);
+            if (comment == null)
+                throw new ArgumentNullException($"Comment with id={commentId} doesn't exist.");
+            else
+                comments.Remove(comment);
+            return comment;
+        }
     }
 }

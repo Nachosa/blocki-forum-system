@@ -38,6 +38,11 @@ namespace ForumSystem.Business.CommentService
             repo.DeleteComment(comment);
         }
 
+        public Comment DeleteCommentById(int commentId)
+        {
+            return repo.DeleteCommentById(commentId);
+        }
+
         public CommentDTO FindCommentById(int commentId)
         {
             return mapper.Map<CommentDTO>(repo.FindCommentById(commentId));
