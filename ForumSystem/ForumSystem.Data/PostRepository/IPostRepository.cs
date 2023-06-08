@@ -17,6 +17,6 @@ namespace ForumSystem.DataAccess.PostRepository
 
         public Post UpdatePostContent(int postId, Post postContentDto);
 
-        public Post DeletePostById(int postId);
+        public bool DeletePostById(int postId);
     }
 }

@@ -63,8 +63,8 @@ namespace ForumSystem.Api.Controllers
         {
             try
             {
-                Post post = this.postService.DeletePostById(id);
-                return this.StatusCode(StatusCodes.Status200OK, post);
+                var isDeleted = this.postService.DeletePostById(id);
+                return this.StatusCode(StatusCodes.Status200OK, isDeleted);
             }
             catch (ArgumentNullException e)
             {

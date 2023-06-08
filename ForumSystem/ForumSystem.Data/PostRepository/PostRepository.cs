@@ -22,14 +22,14 @@ namespace ForumSystem.DataAccess.PostRepository
             return post;
         }
 
-        public Post DeletePostById(int postId)
+        public bool DeletePostById(int postId)
         {
             var post = posts.FirstOrDefault(post => post.Id == postId);
             if (post == null)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             else
                 posts.Remove(post);
-            return post;
+            return true;
         }
 
         public Post GetPostById(int postId)
@@ -38,13 +38,13 @@ namespace ForumSystem.DataAccess.PostRepository
             return post ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
 
-        public Post UpdatePostContent(int postId, Post postContentDto)
+        public Post UpdatePostContent(int postId, Post newPost)
         {
             var post = posts.FirstOrDefault(post => post.Id == postId);
             if (post == null)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             else
-                post.Content = postContentDto.Content;
+                post.Content = newPost.Content;
             return post;
         }
     }
