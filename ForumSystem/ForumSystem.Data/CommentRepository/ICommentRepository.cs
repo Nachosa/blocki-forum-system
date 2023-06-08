@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.DataAccess.ReposContracts
+namespace ForumSystem.DataAccess.CommentRepository
 {
     public interface ICommentRepository
     {
@@ -13,7 +13,7 @@ namespace ForumSystem.DataAccess.ReposContracts
 
         public Comment CreateComment(Comment comment);
 
-        public bool UpdateComment(int commentId, Comment comment);
+        public Comment UpdateComment(int commentId, Comment comment);
 
         public void DeleteComment(Comment comment);
 

@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess;
-using ForumSystem.DataAccess.ReposContracts;
 using ForumSystem.DataAccess.Dtos;
 using AutoMapper;
+using ForumSystem.DataAccess.PostRepository;
 
 namespace ForumSystem.Business
 {
@@ -41,7 +41,8 @@ namespace ForumSystem.Business
 
         public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto)
         {
-            return repo.UpdatePostContent(postId, postContentDto);
+            var mappedPost=postMapper.Map<Post>(postContentDto);
+            return repo.UpdatePostContent(postId, mappedPost);
         }
 
         public Post DeletePostById(int postId)

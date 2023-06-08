@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Models;
-using ForumSystem.DataAccess.ReposContracts;
 
-namespace ForumSystem.DataAccess.Repos
+namespace ForumSystem.DataAccess.UserRepository
 {
     public class UserRepository : IUserRepository
     {

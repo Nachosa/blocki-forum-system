@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Models;
-using ForumSystem.DataAccess.ReposContracts;
+using ForumSystem.DataAccess.PostRepository;
 
-namespace ForumSystem.DataAccess.Repos
+namespace ForumSystem.DataAccess.CommentRepository
 {
     public class CommentRepository : ICommentRepository
     {
@@ -32,18 +32,18 @@ namespace ForumSystem.DataAccess.Repos
             return comment;
         }
 
-        public bool UpdateComment(int commentId, Comment comment)
+        public Comment UpdateComment(int commentId, Comment comment)
         {
             var existingComment = FindCommentById(commentId);
 
             if (existingComment == null)
             {
-                return false;
+                return comment;
             }
 
             existingComment.Content = comment.Content;
 
-            return true;
+            return comment;
         }
 
         public void DeleteComment(Comment comment)

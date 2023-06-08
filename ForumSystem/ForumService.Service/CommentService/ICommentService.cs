@@ -1,4 +1,4 @@
-﻿using ForumSystem.DataAccess.Dtos;
+﻿using DTO.CommentDTO;
 using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;

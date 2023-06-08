@@ -1,12 +1,11 @@
-﻿using ForumSystem.DataAccess.Dtos;
-using ForumSystem.DataAccess.Models;
+﻿using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.DataAccess.ReposContracts
+namespace ForumSystem.DataAccess.PostRepository
 {
     public interface IPostRepository
     {
@@ -16,7 +15,7 @@ namespace ForumSystem.DataAccess.ReposContracts
 
         public Post CreatePost(Post post);
 
-        public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto);
+        public Post UpdatePostContent(int postId, Post postContentDto);
 
         public Post DeletePostById(int postId);
     }

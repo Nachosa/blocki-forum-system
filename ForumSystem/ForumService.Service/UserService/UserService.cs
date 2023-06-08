@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using ForumSystem.Business.CreateAndUpdate_UserDTO;
-using ForumSystem.Business.Helper;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Models;
 using System;
@@ -10,14 +9,15 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.Business.CreateUpdateGet_UserDTO;
+using ForumSystem.DataAccess.UserRepository;
 
 namespace ForumSystem.Business.UserService
 {
     public class UserService : IUserService
     {
-        private readonly IForumSystemRepository repo;
+        private readonly IUserRepository repo;
         private readonly IMapper userMapper;
-        public UserService(IForumSystemRepository repo, IMapper createUserMapper)
+        public UserService(IUserRepository repo, IMapper createUserMapper)
         {
             this.repo = repo;
             this.userMapper = createUserMapper;

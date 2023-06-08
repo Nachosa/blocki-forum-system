@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ForumSystem.DataAccess.Dtos;
 using ForumSystem.DataAccess.Models;
-using ForumSystem.DataAccess.ReposContracts;
 
-namespace ForumSystem.DataAccess.Repos
+namespace ForumSystem.DataAccess.PostRepository
 {
     public class PostRepository : IPostRepository
     {
@@ -40,7 +38,7 @@ namespace ForumSystem.DataAccess.Repos
             return post ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
 
-        public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto)
+        public Post UpdatePostContent(int postId, Post postContentDto)
         {
             var post = posts.FirstOrDefault(post => post.Id == postId);
             if (post == null)

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.Business;
-using ForumSystem.DataAccess.Helpers;
 using ForumSystem.DataAccess.Dtos;
 
 namespace ForumSystem.Api.Controllers

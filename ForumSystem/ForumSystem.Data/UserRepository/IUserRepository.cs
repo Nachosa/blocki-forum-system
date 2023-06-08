@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.DataAccess.ReposContracts
+namespace ForumSystem.DataAccess.UserRepository
 {
     public interface IUserRepository
     {

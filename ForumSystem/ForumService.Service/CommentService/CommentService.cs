@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using DTO.CommentDTO;
 using ForumSystem.DataAccess;
-using ForumSystem.DataAccess.Dtos;
-using ForumSystem.DataAccess.Helpers;
+using ForumSystem.DataAccess.CommentRepository;
 using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -13,10 +13,10 @@ namespace ForumSystem.Business.CommentService
 {
     public class CommentService : ICommentService
     {
-        private readonly IForumSystemRepository repo;
+        private readonly ICommentRepository repo;
         private readonly IMapper mapper;
 
-        public CommentService(IForumSystemRepository repo, IMapper mapper)
+        public CommentService(ICommentRepository repo, IMapper mapper)
         {
             this.mapper = mapper;
             this.repo = repo;
@@ -32,7 +32,7 @@ namespace ForumSystem.Business.CommentService
             repo.CreateComment(comment);
             return comment;
         }
-
+        
         public void DeleteComment(Comment comment)
         {
             repo.DeleteComment(comment);
@@ -52,7 +52,9 @@ namespace ForumSystem.Business.CommentService
         // update comment in repo should take a commentDTO
         public Comment UpdateCommentContent(int commentId, CommentDTO commentDTO)
         {
-            return repo.UpdateComment(commentId, commentDTO);
+            var mappedComment = mapper.Map<Comment>(commentDTO);
+
+            return repo.UpdateComment(commentId, mappedComment);
         }
     }
 }
