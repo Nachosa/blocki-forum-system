@@ -7,7 +7,7 @@ using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.Dtos;
 using AutoMapper;
-using ForumSystem.DataAccess.PostRepository;
+using ForumSystem.DataAccess.PostRepo;
 
 namespace ForumSystem.Business
 {
@@ -41,11 +41,11 @@ namespace ForumSystem.Business
 
         public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto)
         {
-            var mappedPost=postMapper.Map<Post>(postContentDto);
+            var mappedPost = postMapper.Map<Post>(postContentDto);
             return repo.UpdatePostContent(postId, mappedPost);
         }
 
-        public Post DeletePostById(int postId)
+        public bool DeletePostById(int postId)
         {
             return repo.DeletePostById(postId);
         }

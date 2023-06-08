@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.DataAccess.PostRepository
+namespace ForumSystem.DataAccess.PostRepo
 {
     public interface IPostRepository
     {
@@ -17,6 +17,6 @@ namespace ForumSystem.DataAccess.PostRepository
 
         Post UpdatePostContent(int postId, Post postContentDto);
 
-        Post DeletePostById(int postId);
+        public bool DeletePostById(int postId);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using DTO.CommentDTO;
 using ForumSystem.DataAccess;
-using ForumSystem.DataAccess.CommentRepository;
+using ForumSystem.DataAccess.CommentRepo;
 using ForumSystem.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -36,6 +36,11 @@ namespace ForumSystem.Business.CommentService
         public void DeleteComment(Comment comment)
         {
             repo.DeleteComment(comment);
+        }
+
+        public Comment DeleteCommentById(int commentId)
+        {
+            return repo.DeleteCommentById(commentId);
         }
 
         public CommentDTO FindCommentById(int commentId)

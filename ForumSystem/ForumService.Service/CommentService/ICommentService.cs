@@ -19,5 +19,7 @@ namespace ForumSystem.Business.CommentService
         public void DeleteComment(Comment comment);
 
         public CommentDTO FindCommentById(int commentId);
+
+        public Comment DeleteCommentById(int commentId);
     }
 }

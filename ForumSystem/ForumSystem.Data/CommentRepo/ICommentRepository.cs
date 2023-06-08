@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ForumSystem.DataAccess.CommentRepository
+namespace ForumSystem.DataAccess.CommentRepo
 {
     public interface ICommentRepository
     {
@@ -20,5 +20,7 @@ namespace ForumSystem.DataAccess.CommentRepository
         public Comment FindCommentById(int commentId);
 
         public IEnumerable<Comment> FindCommentsByPostId(int postId);
+
+        public Comment DeleteCommentById(int commentId);
     }
 }

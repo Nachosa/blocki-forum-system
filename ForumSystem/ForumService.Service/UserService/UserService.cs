@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.Business.CreateUpdateGet_UserDTO;
-using ForumSystem.DataAccess.UserRepository;
+using ForumSystem.DataAccess.UserRepo;
 
 namespace ForumSystem.Business.UserService
 {
