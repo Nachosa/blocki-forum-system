@@ -65,6 +65,16 @@ namespace ForumSystem.DataAccess.PostRepo
                 posts = posts.FindAll(post => post.Content.Contains(filterParameters.Content, StringComparison.InvariantCultureIgnoreCase));
             }
 
+            if (!(filterParameters.MinDate == null))
+            {
+                posts = posts.FindAll(post => post.CreatedOn >= filterParameters.MinDate);
+            }
+
+            if (!(filterParameters.MaxDate == null))
+            {
+                posts = posts.FindAll(post => post.CreatedOn <= filterParameters.MaxDate);
+            }
+
             return posts;
         }
 

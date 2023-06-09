@@ -21,7 +21,20 @@ namespace ForumSystem.Api.Controllers
         [HttpGet("")]
         public IActionResult GetPosts([FromQuery] PostQueryParameters queryParams)
         {
-            return this.StatusCode(StatusCodes.Status200OK, this.postService.GetPosts(queryParams));
+            try
+            {
+                //Най-вероятно ще трябват още проверки.
+                if (queryParams.MaxDate < queryParams.MinDate)
+                {
+                    throw new ArgumentException("Invalid date range!");
+                }
+                return this.StatusCode(StatusCodes.Status200OK, this.postService.GetPosts(queryParams));
+            }
+            //Трябва да си оправя exception-ите навсякъде, може би да са къстъм?
+            catch (ArgumentException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message); ;
+            }
         }
 
         [HttpGet("{id}")]
