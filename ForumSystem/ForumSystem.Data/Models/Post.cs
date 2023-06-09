@@ -20,12 +20,9 @@ namespace ForumSystem.DataAccess.Models
 
         public int Likes { get; set; } = 0;
 
-        public int Dislikes { get; set; } = 0;
-
         public static int Count { get; set; } = 0;
 
         public DateTime CreatedOn { get; set; } = DateTime.Now;
-
 
         public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
 
