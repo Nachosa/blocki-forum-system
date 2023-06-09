@@ -3,6 +3,7 @@ using DTO.CommentDTO;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.CommentRepo;
 using ForumSystem.DataAccess.Models;
+using ForumSystem.DataAccess.QueryParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace ForumSystem.Business.CommentService
             return mapper.Map<GetCommentDto>(repo.FindCommentById(commentId));
         }
 
-        public IList<GetCommentDto> GetAllComments()
+        public IList<GetCommentDto> GetAllComments(CommentQueryParameters queryParams)
         {
             IList<Comment> comments = repo.GetAllComments().ToList();
             return comments.Select(comment => mapper.Map<GetCommentDto>(comment)).ToList();
