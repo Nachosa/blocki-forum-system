@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.PostRepo;
+using ForumSystem.DataAccess.QueryParams;
 
 namespace ForumSystem.DataAccess.CommentRepo
 {
@@ -72,6 +74,39 @@ namespace ForumSystem.DataAccess.CommentRepo
             else
                 comments.Remove(comment);
             return comment;
+        }
+
+        public List<Comment> FilterBy(CommentQueryParameters filterParameters, List<Comment> comments)
+        {
+            if (filterParameters.Date != DateTime.MinValue)
+            {
+                comments = comments.FindAll(comment => comment.CreatedOn == filterParameters.Date);
+            }
+
+            if (!string.IsNullOrEmpty(filterParameters.Content))
+            {
+                comments = comments.FindAll(post => post.Content.Contains(filterParameters.Content, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            return comments;
+        }
+
+        public List<Comment> SortBy(CommentQueryParameters sortParameters, List<Comment> comments)
+        {
+            if (!string.IsNullOrEmpty(sortParameters.SortBy))
+            {
+                if (sortParameters.SortBy.Equals("date", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    comments = comments.OrderBy(comment => comment.CreatedOn).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(sortParameters.SortOrder) && sortParameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    comments.Reverse();
+                }
+            }
+
+            return comments;
         }
     }
 }

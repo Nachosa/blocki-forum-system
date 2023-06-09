@@ -3,6 +3,8 @@ using ForumSystem.Business.CommentService;
 using ForumSystem.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using DTO.CommentDTO;
+using ForumSystem.Api.QueryParams;
+using ForumSystem.DataAccess.QueryParams;
 
 namespace ForumSystem.Api.Controllers
 {
@@ -18,9 +20,9 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpGet("")]
-        public IActionResult GetComments()
+        public IActionResult GetComments([FromQuery] CommentQueryParameters queryParams)
         {
-            return StatusCode(StatusCodes.Status200OK, commentService.GetAllComments());
+            return StatusCode(StatusCodes.Status200OK, commentService.GetAllComments(queryParams));
         }
 
         [HttpGet("{id}")]
