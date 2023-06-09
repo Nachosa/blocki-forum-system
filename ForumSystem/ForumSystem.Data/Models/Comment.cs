@@ -20,7 +20,7 @@ namespace ForumSystem.DataAccess.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public DateTime? CreatedOn { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public int Likes { get; set; }
 
