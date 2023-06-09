@@ -22,7 +22,19 @@ namespace ForumSystem.Api.Controllers
         [HttpGet("")]
         public IActionResult GetComments([FromQuery] CommentQueryParameters queryParams)
         {
-            return StatusCode(StatusCodes.Status200OK, commentService.GetAllComments(queryParams));
+            try
+            {
+                if (queryParams.MaxDate < queryParams.MinDate)
+                {
+                    throw new ArgumentException("Invalid date range!");
+                }
+
+                return StatusCode(StatusCodes.Status200OK, commentService.GetAllComments(queryParams));
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
         }
 
         [HttpGet("{id}")]

@@ -78,9 +78,10 @@ namespace ForumSystem.DataAccess.CommentRepo
 
         public List<Comment> FilterBy(CommentQueryParameters filterParameters, List<Comment> comments)
         {
-            if (filterParameters.Date != DateTime.MinValue)
+            if (filterParameters.MinDate <= filterParameters.MaxDate)
             {
-                comments = comments.FindAll(comment => comment.CreatedOn == filterParameters.Date);
+                comments = comments.FindAll(comment => comment.CreatedOn >= filterParameters.MinDate
+                                           && comment.CreatedOn <= filterParameters.MaxDate);
             }
 
             if (!string.IsNullOrEmpty(filterParameters.Content))
