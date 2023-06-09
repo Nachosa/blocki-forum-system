@@ -20,7 +20,7 @@ namespace ForumSystemDTO.PostDTO
 
         public int Likes { get; set; }
 
-        public int Dislikes { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
 
         public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
     }

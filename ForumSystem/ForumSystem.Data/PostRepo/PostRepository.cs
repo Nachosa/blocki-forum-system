@@ -52,6 +52,7 @@ namespace ForumSystem.DataAccess.PostRepo
             return post;
         }
 
+        //(Опционално) Филтриране по дата на създаване.
         public List<Post> FilterBy(PostQueryParameters filterParameters, List<Post> posts)
         {
             if (!string.IsNullOrEmpty(filterParameters.Title))
@@ -75,6 +76,10 @@ namespace ForumSystem.DataAccess.PostRepo
                 if (sortParameters.SortBy.Equals("title", StringComparison.InvariantCultureIgnoreCase))
                 {
                     posts = posts.OrderBy(post => post.Title).ToList();
+                }
+                if (sortParameters.SortBy.Equals("date", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    posts = posts.OrderBy(post => post.CreatedOn).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(sortParameters.SortOrder) && sortParameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
