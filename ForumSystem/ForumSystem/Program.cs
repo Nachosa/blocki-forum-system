@@ -14,6 +14,7 @@ using ForumSystem.DataAccess.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumSystemBusiness
 {
@@ -29,6 +30,10 @@ namespace ForumSystemBusiness
             builder.Services.AddScoped<IPostService, PostService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddDbContext<ForumSystemContext>(options =>
+            {
+                options.UseSqlServer(@"Server=DESKTOP-SH4M5UA;Database=ForumSystemDatabase;Integrated Security=True;");
+            });
 
             builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
