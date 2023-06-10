@@ -33,8 +33,8 @@ namespace ForumSystem.Business
         {
             Post post = postMapper.Map<Post>(postDto);
 
-            post.Id = Post.Count;
-            Post.Count += 1;
+            //post.Id = Post.Count;
+            //Post.Count += 1;
 
             repo.CreatePost(post);
             return post;

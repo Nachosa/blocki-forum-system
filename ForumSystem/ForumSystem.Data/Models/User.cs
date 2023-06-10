@@ -2,7 +2,7 @@
 
 namespace ForumSystem.DataAccess.Models
 {
-    public class User
+    public class User : Entity
     {
         [Key]
         public int Id { get; set; }
@@ -23,9 +23,6 @@ namespace ForumSystem.DataAccess.Models
         public string Password { get; set; }
 
         public int? PhoneNumber { get; set; }
-
-        public DateTime CreatedOn { get; set; } = DateTime.Now;
-
 
         public ICollection<Post> Posts { get; set; } = new List<Post>();
 

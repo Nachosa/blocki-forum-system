@@ -23,6 +23,7 @@ namespace ForumSystem.DataAccess.PostRepo
         public Post CreatePost(Post post)
         {
             posts.Add(post);
+            post.Id = posts.OrderByDescending(p => p.Id).FirstOrDefault().Id + 1;
             return post;
         }
 

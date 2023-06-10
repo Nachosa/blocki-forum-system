@@ -18,7 +18,7 @@ namespace ForumSystem.DataAccess.CommentRepo
             {
                 Id = 1,
                 PostId = 1,
-                AuthorId = 1,
+                UserId = 1,
                 Content = "Content"
             }
         };

@@ -2,13 +2,14 @@
 
 namespace ForumSystem.DataAccess.Models
 {
-    public class Post
+    public class Post : Entity
     {
-        
-
+        [Key]
         public int Id { get; set; }
 
         public int UserId { get; set; }
+
+        public User User { get; set; }
 
         [MinLength(16, ErrorMessage = "The {0} must be at least {1} characters long.")]
         [MaxLength(64, ErrorMessage = "The {0} must be no more than {1} characters long.")]
@@ -18,28 +19,26 @@ namespace ForumSystem.DataAccess.Models
         [MaxLength(8192, ErrorMessage = "The {0} must be no more than {1} characters long.")]
         public string Content { get; set; }
 
-        public int Likes { get; set; } = 0;
+        public ICollection<User> Likes { get; set; } = new List<User>();
 
-        public static int Count { get; set; } = 0;
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
-        public DateTime CreatedOn { get; set; } = DateTime.Now;
+        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
-        public ICollection<Comment> Comments { get; set; } = new HashSet<Comment>();
+        #region methods
+        //public override bool Equals(object obj)
+        //{
+        //    if (obj == null || GetType() != obj.GetType())
+        //        return false;
 
-        public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
+        //    Post other = (Post)obj;
+        //    return Id == other.Id; // Compare based on the unique ID property
+        //}
 
-        public override bool Equals(object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-                return false;
-
-            Post other = (Post)obj;
-            return Id == other.Id; // Compare based on the unique ID property
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
+        //public override int GetHashCode()
+        //{
+        //    return Id.GetHashCode();
+        //}
+        #endregion
     }
 }

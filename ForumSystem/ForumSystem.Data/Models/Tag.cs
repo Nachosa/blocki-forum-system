@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ForumSystem.DataAccess.Models
 {
-    public class Tag
+    public class Tag : Entity
     {
         
-        // [Key] -> creates a primary key column for 'Id' property
+        [Key]
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public bool IsDeleted { get; set; }
+        public ICollection<Post> Posts { get; set; } = new List<Post>();
 
-        // can be null
-        public DateTime? DeletedOn { get; set; }
-
-        public ICollection<Post> Posts { get; set; } = new HashSet<Post>();
-
+        #region methods
         public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType())
@@ -34,5 +31,6 @@ namespace ForumSystem.DataAccess.Models
         {
             return Id.GetHashCode();
         }
+        #endregion
     }
 }

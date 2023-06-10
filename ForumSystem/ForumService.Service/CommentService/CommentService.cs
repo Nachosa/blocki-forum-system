@@ -27,8 +27,8 @@ namespace ForumSystem.Business.CommentService
         {
             Comment comment = mapper.Map<Comment>(commentDTO);
 
-            comment.Id = Comment.Count;
-            Comment.Count += 1;
+            //comment.Id = Comment.Count;
+            //Comment.Count += 1;
 
             repo.CreateComment(comment);
             return comment;
