@@ -27,6 +27,9 @@ namespace ForumSystem.DataAccess.Models
 
         public ICollection<Post> Posts { get; set; } = new List<Post>();
 
+        public ICollection<Likes> Likes { get; set; } = new List<Likes>();
+
+
         public Role Role { get; set; } = Role.User;
     }
 }

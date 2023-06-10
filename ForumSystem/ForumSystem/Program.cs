@@ -32,7 +32,7 @@ namespace ForumSystemBusiness
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddDbContext<ForumSystemContext>(options =>
             {
-                options.UseSqlServer(@"Server=DESKTOP-SH4M5UA;Database=ForumSystemDatabase;Integrated Security=True;");
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
 
             builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
