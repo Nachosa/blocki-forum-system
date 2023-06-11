@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ForumSystem.DataAccess.Models
 {
@@ -27,9 +28,12 @@ namespace ForumSystem.DataAccess.Models
 
         public ICollection<Post> Posts { get; set; } = new List<Post>();
 
-        public ICollection<Likes> Likes { get; set; } = new List<Likes>();
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
+        public ICollection<Like> Likes { get; set; } = new List<Like>();
 
-        public Role Role { get; set; } = Role.User;
+        [ForeignKey("Role")]
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }

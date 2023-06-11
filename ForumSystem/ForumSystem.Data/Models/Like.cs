@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ForumSystem.DataAccess.Models
 {
-    public class Likes
+    public class Like
     {
         public int Id { get; set; }
 

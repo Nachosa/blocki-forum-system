@@ -20,7 +20,7 @@ namespace ForumSystem.DataAccess.Models
         [MaxLength(8192, ErrorMessage = "The {0} must be no more than {1} characters long.")]
         public string Content { get; set; }
 
-        public ICollection<Likes> Likes { get; set; } = new List<Likes>();
+        public ICollection<Like> Likes { get; set; } = new List<Like>();
 
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 

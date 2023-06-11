@@ -6,10 +6,24 @@ using System.Threading.Tasks;
 
 namespace ForumSystem.DataAccess.Models
 {
-    public enum Role
+    public enum Roles
     {
-        Blocked,
-        User,
-        Admin
+        Blocked = 1,
+        User = 2,
+        Admin = 3
+    }
+
+    public class Role
+    {
+        public Role() 
+        {
+            TheRole = Roles.User;
+            Id = (int)TheRole;
+        }
+
+        public int Id { get; set; }
+        public Roles TheRole { get; set; }
+        public ICollection<User> Users { get; set;} = new List<User>();
+
     }
 }

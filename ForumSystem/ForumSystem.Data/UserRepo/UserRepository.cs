@@ -20,7 +20,6 @@ namespace ForumSystem.DataAccess.UserRepo
                 Username = "goshoXx123",
                 Email = "gosho@gmail.com",
                 Password = "1234567890",
-                Role = Role.User
             },
             new User()
             {
@@ -30,7 +29,6 @@ namespace ForumSystem.DataAccess.UserRepo
                 Username = "BarekaXx123",
                 Email = "Nikolai@gmail.com",
                 Password = "1234567890",
-                Role = Role.User
 
             },
             new User()
@@ -41,8 +39,6 @@ namespace ForumSystem.DataAccess.UserRepo
                 Username = "BokoMoko",
                 Email = "gosho@gmail.com",
                 Password = "1234567890",
-                Role = Role.User
-
             },
             new User()
             {
@@ -52,8 +48,6 @@ namespace ForumSystem.DataAccess.UserRepo
                 Username = "Cvete123",
                 Email = "Cvetan@gmail.com",
                 Password = "1234567890",
-                Role = Role.User
-
             },
             new User()
             {
@@ -63,8 +57,6 @@ namespace ForumSystem.DataAccess.UserRepo
                 Username = "BrainDamage123",
                 Email = "Kopeikin@gmail.com",
                 Password = "1234567890",
-                Role = Role.User
-
             }
         };
 
