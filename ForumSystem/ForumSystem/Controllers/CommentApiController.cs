@@ -10,11 +10,11 @@ namespace ForumSystem.Api.Controllers
 {
     [ApiController]
     [Route("api/comment")]
-    public class CommentController : ControllerBase
+    public class CommentApiController : ControllerBase
     {
         private readonly ICommentService commentService;
 
-        public CommentController(ICommentService commentService)
+        public CommentApiController(ICommentService commentService)
         {
             this.commentService = commentService;
         }

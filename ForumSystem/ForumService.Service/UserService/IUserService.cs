@@ -15,11 +15,14 @@ namespace ForumSystem.Business.UserService
 
         User CreateUser(CreateUserDTO user);
 
-        GetUserDTO UpdateUser(int userId, UpdateUserDTO user);
+        GetUserDTO UpdateUser(string username, UpdateUserDTO user);
 
         bool DeleteUser(int Id);
 
         GetUserDTO GetUserById(int userId);
+
+        User GetUserByUserName(string userName);
+
 
         List<GetUserDTO> SearchBy(UserQueryParams queryParams);
 

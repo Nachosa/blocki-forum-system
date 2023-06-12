@@ -14,6 +14,8 @@ namespace ForumSystem.DataAccess.UserRepo
 
         User GetUserById(int userId);
 
+        User GetUserByUserName(string userName);
+
         List<User> Searchby(UserQueryParams queryParams);
 
         User CreateUser(User user);

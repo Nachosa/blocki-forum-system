@@ -9,7 +9,7 @@ namespace ForumSystem.Api.Controllers
 {
     [ApiController]
     [Route("api/home")]
-    public class HomeController : ControllerBase
+    public class HomeApiController : ControllerBase
     {
         //На този ROUTE се очаква да бъде Public частта!!!
 

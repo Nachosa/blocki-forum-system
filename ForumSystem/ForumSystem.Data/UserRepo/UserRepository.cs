@@ -10,6 +10,13 @@ namespace ForumSystem.DataAccess.UserRepo
 {
     public class UserRepository : IUserRepository
     {
+        private readonly ForumSystemContext forumDb;
+
+        public UserRepository(ForumSystemContext forumDb)
+        {
+            this.forumDb = forumDb;
+        }
+
         public static IList<User> users = new List<User>()
         {
             new User()
@@ -19,7 +26,8 @@ namespace ForumSystem.DataAccess.UserRepo
                 LastName = "Goshev",
                 Username = "goshoXx123",
                 Email = "gosho@gmail.com",
-                Password = "1234567890",
+                Password = "MTIzNDU2Nzg5MA==",
+                //1234567890
             },
             new User()
             {
@@ -28,7 +36,8 @@ namespace ForumSystem.DataAccess.UserRepo
                 LastName = "Barekov",
                 Username = "BarekaXx123",
                 Email = "Nikolai@gmail.com",
-                Password = "1234567890",
+                Password = "MTIzNDU2Nzg5MA==",
+                //1234567890
 
             },
             new User()
@@ -38,7 +47,8 @@ namespace ForumSystem.DataAccess.UserRepo
                 LastName = "Borisov",
                 Username = "BokoMoko",
                 Email = "gosho@gmail.com",
-                Password = "1234567890",
+                Password = "MTIzNDU2Nzg5MA==",
+                //1234567890
             },
             new User()
             {
@@ -47,7 +57,8 @@ namespace ForumSystem.DataAccess.UserRepo
                 LastName = "Cvetanov",
                 Username = "Cvete123",
                 Email = "Cvetan@gmail.com",
-                Password = "1234567890",
+                Password = "MTIzNDU2Nzg5MA==",
+                //1234567890
             },
             new User()
             {
@@ -56,13 +67,15 @@ namespace ForumSystem.DataAccess.UserRepo
                 LastName = "Kopeikin",
                 Username = "BrainDamage123",
                 Email = "Kopeikin@gmail.com",
-                Password = "1234567890",
+                Password = "MTIzNDU2Nzg5MA==",
+                //1234567890
             }
         };
 
         public IEnumerable<User> GetAllUsers()
         {
-            return users;
+            var result = forumDb.Users.ToList();
+            return result;
         }
 
         public User CreateUser(User user)
@@ -74,7 +87,7 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public User UpdateUser(User user)
         {
-            var userToupdate = users.FirstOrDefault(u => u.Id == user.Id);
+            var userToupdate = users.FirstOrDefault(u => u.Username == user.Username);
             userToupdate.FirstName = user.FirstName ?? userToupdate.FirstName;
             userToupdate.LastName = user.LastName ?? userToupdate.LastName;
             userToupdate.Email = user.Email ?? userToupdate.Email;

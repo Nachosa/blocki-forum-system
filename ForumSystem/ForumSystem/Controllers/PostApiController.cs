@@ -9,11 +9,11 @@ namespace ForumSystem.Api.Controllers
 {
     [ApiController]
     [Route("api/post")]
-    public class PostController : ControllerBase
+    public class PostApiController : ControllerBase
     {
         private readonly IPostService postService;
 
-        public PostController(IPostService postService)
+        public PostApiController(IPostService postService)
         {
             this.postService = postService;
         }

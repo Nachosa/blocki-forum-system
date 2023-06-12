@@ -32,7 +32,6 @@ namespace ForumSystem.DataAccess.Models
 
         public ICollection<Like> Likes { get; set; } = new List<Like>();
 
-        [ForeignKey("Role")]
         public int RoleId { get; set; }
         public Role Role { get; set; }
     }

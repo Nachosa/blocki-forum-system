@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ForumSystemContext))]
-    [Migration("20230611175549_ForumSystem3")]
-    partial class ForumSystem3
+    [Migration("20230612142539_nullable")]
+    partial class nullable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,7 +39,7 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -71,7 +71,16 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<int?>("CommentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PostId")
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("PostId")
                         .HasColumnType("int");
 
                     b.Property<int>("UserId")
@@ -83,10 +92,11 @@ namespace ForumSystem.DataAccess.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("UserId", "PostId")
-                        .IsUnique();
+                    b.HasIndex("UserId", "PostId", "CommentId")
+                        .IsUnique()
+                        .HasFilter("[PostId] IS NOT NULL AND [CommentId] IS NOT NULL");
 
-                    b.ToTable("Like");
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.Post", b =>
@@ -104,7 +114,7 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -132,12 +142,29 @@ namespace ForumSystem.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("TheRole")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Blocked"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.Tag", b =>
@@ -151,7 +178,7 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -176,7 +203,7 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -200,7 +227,7 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<int?>("PhoneNumber")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoleId")
+                    b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
@@ -211,6 +238,68 @@ namespace ForumSystem.DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2023, 6, 12, 17, 25, 39, 181, DateTimeKind.Local).AddTicks(2889),
+                            Email = "gosho@gmail.com",
+                            FirstName = "Gosho",
+                            IsDeleted = false,
+                            LastName = "Goshev",
+                            Password = "MTIzNDU2Nzg5MA==",
+                            RoleId = 2,
+                            Username = "goshoXx123"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2023, 6, 12, 17, 25, 39, 181, DateTimeKind.Local).AddTicks(2923),
+                            Email = "Nikolai@gmail.com",
+                            FirstName = "Nikolai",
+                            IsDeleted = false,
+                            LastName = "Barekov",
+                            Password = "MTIzNDU2Nzg5MA==",
+                            RoleId = 2,
+                            Username = "BarekaXx123"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2023, 6, 12, 17, 25, 39, 181, DateTimeKind.Local).AddTicks(2967),
+                            Email = "gosho@gmail.com",
+                            FirstName = "Boiko",
+                            IsDeleted = false,
+                            LastName = "Borisov",
+                            Password = "MTIzNDU2Nzg5MA==",
+                            RoleId = 2,
+                            Username = "BokoMoko"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOn = new DateTime(2023, 6, 12, 17, 25, 39, 181, DateTimeKind.Local).AddTicks(2970),
+                            Email = "Cvetan@gmail.com",
+                            FirstName = "Cvetan",
+                            IsDeleted = false,
+                            LastName = "Cvetanov",
+                            Password = "MTIzNDU2Nzg5MA==",
+                            RoleId = 2,
+                            Username = "Cvete123"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedOn = new DateTime(2023, 6, 12, 17, 25, 39, 181, DateTimeKind.Local).AddTicks(2973),
+                            Email = "Kopeikin@gmail.com",
+                            FirstName = "Kosta",
+                            IsDeleted = false,
+                            LastName = "Kopeikin",
+                            Password = "MTIzNDU2Nzg5MA==",
+                            RoleId = 2,
+                            Username = "BrainDamage123"
+                        });
                 });
 
             modelBuilder.Entity("PostTag", b =>
@@ -249,21 +338,22 @@ namespace ForumSystem.DataAccess.Migrations
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.Like", b =>
                 {
-                    b.HasOne("ForumSystem.DataAccess.Models.Comment", null)
+                    b.HasOne("ForumSystem.DataAccess.Models.Comment", "Comment")
                         .WithMany("Likes")
-                        .HasForeignKey("CommentId");
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("ForumSystem.DataAccess.Models.Post", "Post")
                         .WithMany("Likes")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PostId");
 
                     b.HasOne("ForumSystem.DataAccess.Models.User", "User")
                         .WithMany("Likes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("Comment");
 
                     b.Navigation("Post");
 
@@ -285,7 +375,9 @@ namespace ForumSystem.DataAccess.Migrations
                 {
                     b.HasOne("ForumSystem.DataAccess.Models.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Role");
                 });

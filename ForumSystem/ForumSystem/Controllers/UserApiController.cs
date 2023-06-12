@@ -4,18 +4,21 @@ using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using ForumSystem.DataAccess.QueryParams;
+using ForumSystem.Business.AuthenticationManager;
 
 namespace ForumSystem.Api.Controllers
 {
     [ApiController]
     [Route("api/users")]
-    public class UserController : ControllerBase
+    public class UserApiController : ControllerBase
     {
         private readonly IUserService userService;
+        private readonly IAuthManager authManager;
 
-        public UserController(IUserService userService)
+        public UserApiController(IUserService userService,IAuthManager authManager)
         {
             this.userService = userService;
+            this.authManager = authManager;
         }
         //Get all users or get Users by First name ,Email and Username
         [HttpGet("")]
@@ -65,12 +68,15 @@ namespace ForumSystem.Api.Controllers
             return Ok(createdUser);
         }
 
-        [HttpPut("{Id}")]
-        public IActionResult UpdateUser(int Id, [FromBody] UpdateUserDTO userValues)
+        [HttpPut("update")]
+        public IActionResult UpdateUser([FromHeader] string credentials,[FromBody] UpdateUserDTO userValues)
         {
+            string[] usernameAndPassword = credentials.Split(':');
+            string userName = usernameAndPassword[0];
             try
             {
-                var updatedUser = userService.UpdateUser(Id, userValues);
+                authManager.CheckUser(credentials);
+                var updatedUser = userService.UpdateUser(userName, userValues);
                 return Ok(updatedUser);
 
             }

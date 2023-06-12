@@ -22,6 +22,35 @@ namespace ForumSystem.Business.UserService
             this.repo = repo;
             this.userMapper = createUserMapper;
         }
+        public GetUserDTO GetUserById(int userId)
+        {
+            var originalUser = repo.GetUserById(userId) ?? throw new EntityNotFoundException($"User with Id={userId} was not found!");
+            GetUserDTO userDTO = userMapper.Map<GetUserDTO>(originalUser);
+            return userDTO;
+        }
+        public GetUserDTO UpdateUser(string userName, UpdateUserDTO userDTO)
+        {
+            var userToUpdate = repo.GetUserByUserName(userName);
+            if (userToUpdate is null)
+            {
+                throw new EntityNotFoundException($"User with username:{userName} was not found!");
+            }
+            var mappedUser = userMapper.Map<User>(userDTO);
+            var updatedUser = repo.UpdateUser(mappedUser);
+            GetUserDTO updatedUserDTO = userMapper.Map<GetUserDTO>(updatedUser);
+            return updatedUserDTO;
+
+
+        }
+        public User GetUserByUserName(string userName)
+        {
+            var user = repo.GetUserByUserName(userName);
+            if (user is null)
+            {
+                throw new EntityNotFoundException($"User with id:{userName} was not found!");
+            }
+            return user;
+        }
         public User CreateUser(CreateUserDTO userDTO)
         {
             User mappedUser = userMapper.Map<User>(userDTO);
@@ -59,30 +88,6 @@ namespace ForumSystem.Business.UserService
                 throw new Exception($"User with Id={userId} was not found!");
             }
             return repo.DeleteUser(userToDelete);
-        }
-
-        public GetUserDTO GetUserById(int userId)
-        {
-            var originalUser = repo.GetUserById(userId) ?? throw new EntityNotFoundException($"User with Id={userId} was not found!");
-            GetUserDTO userDTO = userMapper.Map<GetUserDTO>(originalUser);
-            return userDTO;
-        }
-
-
-        public GetUserDTO UpdateUser(int userId, UpdateUserDTO userDTO)
-        {
-            var userToUpdate = repo.GetUserById(userId);
-            if (userToUpdate is null)
-            {
-                throw new EntityNotFoundException($"User with id:{userId} was not found!");
-            }
-            var mappedUser = userMapper.Map<User>(userDTO);
-            mappedUser.Id = userId;
-            var updatedUser = repo.UpdateUser(mappedUser);
-            GetUserDTO updatedUserDTO = userMapper.Map<GetUserDTO>(updatedUser);
-            return updatedUserDTO;
-
-
         }
 
 

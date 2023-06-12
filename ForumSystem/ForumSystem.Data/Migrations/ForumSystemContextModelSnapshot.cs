@@ -36,7 +36,7 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -68,6 +68,15 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<int?>("CommentId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int?>("PostId")
                         .HasColumnType("int");
 
@@ -84,7 +93,7 @@ namespace ForumSystem.DataAccess.Migrations
                         .IsUnique()
                         .HasFilter("[PostId] IS NOT NULL AND [CommentId] IS NOT NULL");
 
-                    b.ToTable("Like");
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.Post", b =>
@@ -102,7 +111,7 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -130,12 +139,29 @@ namespace ForumSystem.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("TheRole")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Role");
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Blocked"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "User"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.Tag", b =>
@@ -149,7 +175,7 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
@@ -174,7 +200,7 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DeletedOn")
+                    b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -209,6 +235,68 @@ namespace ForumSystem.DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2023, 6, 12, 17, 25, 39, 181, DateTimeKind.Local).AddTicks(2889),
+                            Email = "gosho@gmail.com",
+                            FirstName = "Gosho",
+                            IsDeleted = false,
+                            LastName = "Goshev",
+                            Password = "MTIzNDU2Nzg5MA==",
+                            RoleId = 2,
+                            Username = "goshoXx123"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2023, 6, 12, 17, 25, 39, 181, DateTimeKind.Local).AddTicks(2923),
+                            Email = "Nikolai@gmail.com",
+                            FirstName = "Nikolai",
+                            IsDeleted = false,
+                            LastName = "Barekov",
+                            Password = "MTIzNDU2Nzg5MA==",
+                            RoleId = 2,
+                            Username = "BarekaXx123"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2023, 6, 12, 17, 25, 39, 181, DateTimeKind.Local).AddTicks(2967),
+                            Email = "gosho@gmail.com",
+                            FirstName = "Boiko",
+                            IsDeleted = false,
+                            LastName = "Borisov",
+                            Password = "MTIzNDU2Nzg5MA==",
+                            RoleId = 2,
+                            Username = "BokoMoko"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOn = new DateTime(2023, 6, 12, 17, 25, 39, 181, DateTimeKind.Local).AddTicks(2970),
+                            Email = "Cvetan@gmail.com",
+                            FirstName = "Cvetan",
+                            IsDeleted = false,
+                            LastName = "Cvetanov",
+                            Password = "MTIzNDU2Nzg5MA==",
+                            RoleId = 2,
+                            Username = "Cvete123"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedOn = new DateTime(2023, 6, 12, 17, 25, 39, 181, DateTimeKind.Local).AddTicks(2973),
+                            Email = "Kopeikin@gmail.com",
+                            FirstName = "Kosta",
+                            IsDeleted = false,
+                            LastName = "Kopeikin",
+                            Password = "MTIzNDU2Nzg5MA==",
+                            RoleId = 2,
+                            Username = "BrainDamage123"
+                        });
                 });
 
             modelBuilder.Entity("PostTag", b =>
