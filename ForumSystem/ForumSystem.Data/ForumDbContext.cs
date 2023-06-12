@@ -20,7 +20,7 @@ namespace ForumSystem.DataAccess
         {
             // Configure unique constraint for user liking a post
             modelBuilder.Entity<Like>()
-                .HasIndex(l => new { l.UserId, l.PostId })
+                .HasIndex(l => new { l.UserId, l.PostId, l.CommentId })
                 .IsUnique();
 
             modelBuilder.Entity<User>()
@@ -40,6 +40,12 @@ namespace ForumSystem.DataAccess
                 .HasMany(u => u.Comments)
                 .WithOne(c => c.User)
                 .HasForeignKey(c => c.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Comment>()
+                .HasMany(c => c.Likes)
+                .WithOne(l => l.Comment)
+                .HasForeignKey(l => l.CommentId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(modelBuilder);
