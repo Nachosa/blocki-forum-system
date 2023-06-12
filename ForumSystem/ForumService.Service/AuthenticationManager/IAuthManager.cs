@@ -9,9 +9,9 @@ namespace ForumSystem.Business.AuthenticationManager
 {
     public  interface IAuthManager
     {
-        User CheckUser(string credentials);
+        User UserCheck(string credentials);
 
-        void IsAdmin(string credentials);
+        void AdminCheck(string credentials);
 
 
     }

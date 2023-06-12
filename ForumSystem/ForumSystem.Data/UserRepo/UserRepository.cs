@@ -17,61 +17,6 @@ namespace ForumSystem.DataAccess.UserRepo
             this.forumDb = forumDb;
         }
 
-        public static IList<User> users = new List<User>()
-        {
-            new User()
-            {
-                Id = 1,
-                FirstName = "Gosho",
-                LastName = "Goshev",
-                Username = "goshoXx123",
-                Email = "gosho@gmail.com",
-                Password = "MTIzNDU2Nzg5MA==",
-                //1234567890
-            },
-            new User()
-            {
-                Id = 2,
-                FirstName = "Nikolai",
-                LastName = "Barekov",
-                Username = "BarekaXx123",
-                Email = "Nikolai@gmail.com",
-                Password = "MTIzNDU2Nzg5MA==",
-                //1234567890
-
-            },
-            new User()
-            {
-                Id = 3,
-                FirstName = "Boiko",
-                LastName = "Borisov",
-                Username = "BokoMoko",
-                Email = "gosho@gmail.com",
-                Password = "MTIzNDU2Nzg5MA==",
-                //1234567890
-            },
-            new User()
-            {
-                Id = 4,
-                FirstName = "Cvetan",
-                LastName = "Cvetanov",
-                Username = "Cvete123",
-                Email = "Cvetan@gmail.com",
-                Password = "MTIzNDU2Nzg5MA==",
-                //1234567890
-            },
-            new User()
-            {
-                Id = 5,
-                FirstName = "Kosta",
-                LastName = "Kopeikin",
-                Username = "BrainDamage123",
-                Email = "Kopeikin@gmail.com",
-                Password = "MTIzNDU2Nzg5MA==",
-                //1234567890
-            }
-        };
-
         public User CreateUser(User user)
         {
             user.RoleId = 2;

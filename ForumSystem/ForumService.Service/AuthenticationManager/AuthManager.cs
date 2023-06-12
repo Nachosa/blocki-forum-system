@@ -18,7 +18,7 @@ namespace ForumSystem.Business.AuthenticationManager
             this.userService = userService;
         }
 
-        public User CheckUser(string credentials)
+        public User UserCheck(string credentials)
         {
             if(credentials is null) throw new UnauthenticatedOperationException("Please enter credentials!");
             string[] usernameAndPassword = credentials.Split(':');
@@ -37,9 +37,9 @@ namespace ForumSystem.Business.AuthenticationManager
 
         }
 
-        public void IsAdmin(string credentials)
+        public void AdminCheck(string credentials)
         {
-            var user = CheckUser(credentials);
+            var user = UserCheck(credentials);
             if (user.RoleId != 3)
             {
                 throw new UnauthorizedAccessException("You'r not admin!");

@@ -9,7 +9,7 @@ using ForumSystem.DataAccess.QueryParams;
 namespace ForumSystem.Api.Controllers
 {
     [ApiController]
-    [Route("api/comment")]
+    [Route("api/comments")]
     public class CommentApiController : ControllerBase
     {
         private readonly ICommentService commentService;

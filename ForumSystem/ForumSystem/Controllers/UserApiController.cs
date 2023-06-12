@@ -42,42 +42,40 @@ namespace ForumSystem.Api.Controllers
         [HttpGet("")]
         public IActionResult GetUsers([FromHeader] string credentials, [FromQuery] UserQueryParams queryParams)
         {
+            authManager.AdminCheck(credentials);
             try
             {
                 if (queryParams.UserName is null &
                     queryParams.FirstName is null &
                     queryParams.Email is null)
                 {
-                    authManager.IsAdmin(credentials);
                     var usersDTO = userService.GetAllUsers().Select(u => mapper.Map<GetUserDTO>(u));
                     return Ok(usersDTO);
                 }
                 else
                 {
-                    authManager.IsAdmin(credentials);
                     var usersDTO = userService.GetAllUsers().Select(u => mapper.Map<GetUserDTO>(u));
                     return Ok(usersDTO);
                 }
             }
             catch (EntityNotFoundException e)
             {
-                return BadRequest(e.Message);
+                return NotFound(e.Message);
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
         }
 
-        [HttpPut("update")]
+        [HttpPut("")]
         public IActionResult UpdateUser([FromHeader] string credentials, [FromBody] UpdateUserDTO userValues)
         {
             string[] usernameAndPassword = credentials.Split(':');
             string userName = usernameAndPassword[0];
             try
             {
-                authManager.CheckUser(credentials);
+                authManager.UserCheck(credentials);
                 var mapped = mapper.Map<User>(userValues);
                 var updatedUser = userService.UpdateUser(userName, mapped);
                 GetUserDTO updatedUserDTO = mapper.Map<GetUserDTO>(updatedUser);
@@ -100,12 +98,12 @@ namespace ForumSystem.Api.Controllers
 
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("")]
         public IActionResult DeleteUser([FromHeader] string credentials, [FromBody] string userName)
         {
             try
             {
-                authManager.IsAdmin(credentials);
+                authManager.AdminCheck(credentials);
                 userService.DeleteUser(userName);
                 return Ok("User Deleted!");
 

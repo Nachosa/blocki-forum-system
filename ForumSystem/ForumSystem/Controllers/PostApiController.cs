@@ -8,7 +8,7 @@ using ForumSystem.Api.QueryParams;
 namespace ForumSystem.Api.Controllers
 {
     [ApiController]
-    [Route("api/post")]
+    [Route("api/posts")]
     public class PostApiController : ControllerBase
     {
         private readonly IPostService postService;
