@@ -18,14 +18,14 @@ namespace ForumSystem.Business.AuthenticationManager
             this.userService = userService;
         }
 
-        public User CheckUser(string credentilas)
+        public User CheckUser(string credentials)
         {
-            string[] usernameAndPassword = credentilas.Split(':');
+            if(credentials is null) throw new UnauthenticatedOperationException("Please enter credentials!");
+            string[] usernameAndPassword = credentials.Split(':');
             string userName = usernameAndPassword[0];
             string password = usernameAndPassword[1];
 
             string encodedPassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
-
 
             var user = userService.GetUserByUserName(userName);
             if (user.Password == encodedPassword)
@@ -35,12 +35,16 @@ namespace ForumSystem.Business.AuthenticationManager
 
             throw new UnauthenticatedOperationException("Invalid username or password!");
 
-
         }
 
-        public bool IsAdmin(string credentials)
+        public void IsAdmin(string credentials)
         {
-            throw new NotImplementedException();
+            var user = CheckUser(credentials);
+            if (user.RoleId != 3)
+            {
+                throw new UnauthorizedAccessException("You'r not admin!");
+            }
+            
         }
     }
 }

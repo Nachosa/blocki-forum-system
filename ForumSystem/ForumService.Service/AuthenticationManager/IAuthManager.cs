@@ -11,7 +11,7 @@ namespace ForumSystem.Business.AuthenticationManager
     {
         User CheckUser(string credentials);
 
-        bool IsAdmin(string credentials);
+        void IsAdmin(string credentials);
 
 
     }
