@@ -5,6 +5,8 @@ using ForumSystem.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using ForumSystem.DataAccess.QueryParams;
 using ForumSystem.Business.AuthenticationManager;
+using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ForumSystem.Api.Controllers
 {
@@ -14,15 +16,31 @@ namespace ForumSystem.Api.Controllers
     {
         private readonly IUserService userService;
         private readonly IAuthManager authManager;
+        private readonly IMapper mapper;
 
-        public UserApiController(IUserService userService,IAuthManager authManager)
+        public UserApiController(IUserService userService, IAuthManager authManager, IMapper mapper)
         {
             this.userService = userService;
             this.authManager = authManager;
+            this.mapper = mapper;
         }
         //Get all users or get Users by First name ,Email and Username
+        [HttpPost("")]
+        public IActionResult CreateUser([FromBody] CreateUserDTO user)
+        {
+            try
+            {
+                var createdUser = userService.CreateUser(user);
+                GetUserDTO result = mapper.Map<GetUserDTO>(createdUser);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
         [HttpGet("")]
-        public IActionResult GetUsers([FromQuery] UserQueryParams queryParams)
+        public IActionResult GetUsers([FromHeader] string credentials, [FromQuery] UserQueryParams queryParams)
         {
             try
             {
@@ -30,68 +48,65 @@ namespace ForumSystem.Api.Controllers
                     queryParams.FirstName is null &
                     queryParams.Email is null)
                 {
-                    return Ok(userService.GetAllUsers());
+                    authManager.IsAdmin(credentials);
+                    var usersDTO = userService.GetAllUsers().Select(u => mapper.Map<GetUserDTO>(u));
+                    return Ok(usersDTO);
                 }
                 else
                 {
-                    return Ok(userService.SearchBy(queryParams));
+                    authManager.IsAdmin(credentials);
+                    var usersDTO = userService.GetAllUsers().Select(u => mapper.Map<GetUserDTO>(u));
+                    return Ok(usersDTO);
                 }
             }
             catch (EntityNotFoundException e)
             {
                 return BadRequest(e.Message);
             }
-        }
-
-
-        //Get user by ID
-        [HttpGet("{Id:int}")]
-        public IActionResult GetUserById(int Id)
-        {
-            try
-            {
-                var user = userService.GetUserById(Id);
-                return Ok(user);
-
-            }
-            catch (EntityNotFoundException e)
+            catch (Exception e)
             {
 
-                return StatusCode(StatusCodes.Status404NotFound, e.Message);
+                return BadRequest(e.Message);
             }
-        }
-
-        [HttpPost("")]
-        public IActionResult CreateUser([FromBody] CreateUserDTO user)
-        {
-            var createdUser = userService.CreateUser(user);
-            return Ok(createdUser);
         }
 
         [HttpPut("update")]
-        public IActionResult UpdateUser([FromHeader] string credentials,[FromBody] UpdateUserDTO userValues)
+        public IActionResult UpdateUser([FromHeader] string credentials, [FromBody] UpdateUserDTO userValues)
         {
             string[] usernameAndPassword = credentials.Split(':');
             string userName = usernameAndPassword[0];
             try
             {
                 authManager.CheckUser(credentials);
-                var updatedUser = userService.UpdateUser(userName, userValues);
-                return Ok(updatedUser);
+                var mapped = mapper.Map<User>(userValues);
+                var updatedUser = userService.UpdateUser(userName, mapped);
+                GetUserDTO updatedUserDTO = mapper.Map<GetUserDTO>(updatedUser);
+
+                return Ok(updatedUserDTO);
 
             }
             catch (EntityNotFoundException e)
             {
                 return StatusCode(StatusCodes.Status404NotFound, e.Message);
             }
+            catch (UnauthenticatedOperationException e)
+            {
+                return Unauthorized(e.Message);
+            }
+            catch (EmailAlreadyExistException e)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+            }
+
         }
 
-        [HttpDelete("{Id}")]
-        public IActionResult DeleteUser(int Id)
+        [HttpDelete("delete")]
+        public IActionResult DeleteUser([FromHeader] string credentials, [FromBody] string userName)
         {
             try
             {
-                userService.DeleteUser(Id);
+                authManager.IsAdmin(credentials);
+                userService.DeleteUser(userName);
                 return Ok("User Deleted!");
 
             }

@@ -11,6 +11,6 @@ namespace ForumSystem.DataAccess.Models
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         //public DateTime ModifiedOn { get; set; }
         public DateTime? DeletedOn { get; set; } 
-        public bool IsDeleted { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

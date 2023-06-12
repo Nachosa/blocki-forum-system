@@ -20,7 +20,9 @@ namespace ForumSystem.DataAccess.UserRepo
 
         User CreateUser(User user);
 
-        User UpdateUser(User user);
+        User UpdateUser(string userName,User user);
+
+        bool EmailExist(string email);
 
         bool DeleteUser(User user);
     }

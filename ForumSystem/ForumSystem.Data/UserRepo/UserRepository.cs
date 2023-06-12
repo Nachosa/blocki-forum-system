@@ -72,75 +72,77 @@ namespace ForumSystem.DataAccess.UserRepo
             }
         };
 
-        public IEnumerable<User> GetAllUsers()
-        {
-            var result = forumDb.Users.ToList();
-            return result;
-        }
-
         public User CreateUser(User user)
         {
-            user.Id = users.OrderByDescending(u => u.Id).FirstOrDefault().Id + 1;
-            users.Add(user);
+            user.RoleId = 2;
+            forumDb.Users.Add(user);
+            forumDb.SaveChanges();
             return user;
         }
-
-        public User UpdateUser(User user)
+        //Retrun all NOT DELETED USERS!
+        public IEnumerable<User> GetAllUsers()
         {
-            var userToupdate = users.FirstOrDefault(u => u.Username == user.Username);
+            var result = forumDb.Users.Where(u => u.IsDeleted == false).ToList();
+            return result;
+        }
+        public User GetUserByEmail(string email)
+        {
+            var userWithThatEmail = forumDb.Users.FirstOrDefault(u => u.Email == email);
+            return userWithThatEmail;
+        }
+        public User GetUserByUserName(string UserName)
+        {
+            var userWithThatUserName = forumDb.Users.FirstOrDefault(u => u.Username == UserName);
+            return userWithThatUserName;
+        }
+        public User GetUserById(int Id)
+        {
+            var user = forumDb.Users.FirstOrDefault(u => u.Id == Id);
+            return user;
+        }
+        public IEnumerable<User> GetUsersByFirstName(string firstName)
+        {
+            var usersWithThatName = forumDb.Users.Where(u => u.FirstName == firstName);
+            return usersWithThatName;
+        }
+        public List<User> Searchby(UserQueryParams queryParams)
+        {
+            var result = forumDb.Users.ToList();
+
+            if (queryParams.FirstName is not null)
+            {
+                result = result.FindAll(u => u.FirstName.Contains(queryParams.FirstName, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
+            if (queryParams.UserName is not null)
+            {
+                result = result.FindAll(u => u.Username == queryParams.FirstName);
+            }
+            if (queryParams.Email is not null)
+            {
+                result = result.FindAll(u => u.Email == queryParams.Email);
+            }
+            return result;
+        }
+        public User UpdateUser(string userName, User user)
+        {
+            var userToupdate = forumDb.Users.FirstOrDefault(u => u.Username == userName);
             userToupdate.FirstName = user.FirstName ?? userToupdate.FirstName;
             userToupdate.LastName = user.LastName ?? userToupdate.LastName;
             userToupdate.Email = user.Email ?? userToupdate.Email;
             userToupdate.Password = user.Password ?? userToupdate.Password;
+            forumDb.SaveChanges();
             return userToupdate;
         }
-
         public bool DeleteUser(User user)
         {
-            users.Remove(user);
+            var userToDelete = forumDb.Users.FirstOrDefault(u => u.Id == user.Id);
+            userToDelete.IsDeleted = true;
+            forumDb.SaveChanges();
             return true;
         }
-
-        public User GetUserById(int Id)
+        public bool EmailExist(string email)
         {
-            var user = users.FirstOrDefault(u => u.Id == Id);
-            return user;
-        }
-
-        public IEnumerable<User> GetUsersByFirstName(string firstName)
-        {
-            var usersWithThatName = users.Where(u => u.FirstName == firstName);
-            return usersWithThatName;
-        }
-
-        public User GetUserByEmail(string email)
-        {
-            var userWithThatEmail = users.FirstOrDefault(u => u.Email == email);
-            return userWithThatEmail;
-        }
-
-        public User GetUserByUserName(string UserName)
-        {
-            var userWithThatUserName = users.FirstOrDefault(u => u.Username == UserName);
-            return userWithThatUserName;
-        }
-
-        public List<User> Searchby(UserQueryParams queryParams)
-        {
-            var result = users.ToList();
-
-            if (!(queryParams.FirstName is null))
-            {
-                result = result.FindAll(u => u.FirstName.Contains(queryParams.FirstName, StringComparison.InvariantCultureIgnoreCase));
-            }
-            if (!(queryParams.UserName is null))
-            {
-                result = result.FindAll(u => u.Username == queryParams.FirstName);
-            }
-            if (!(queryParams.Email is null))
-            {
-                result = result.FindAll(u => u.Email == queryParams.Email);
-            }
+            bool result = forumDb.Users.Any(u => u.Email == email);
             return result;
         }
     }

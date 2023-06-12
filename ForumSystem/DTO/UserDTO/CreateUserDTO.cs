@@ -29,8 +29,7 @@ namespace ForumSystemDTO.UserDTO
 
         [Required(ErrorMessage = "Please enter {0}")]
         public string Password { get; set; }
-
-        public int PhoneNumber { get; set; }
+        public int? PhoneNumber { get; set; }
 
     }
 }
