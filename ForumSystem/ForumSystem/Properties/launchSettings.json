@@ -1,22 +1,14 @@
-﻿{
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:7361",
-      "sslPort": 44311
-    }
-  },
+{
   "profiles": {
     "ForumSystem": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "api/post",
-      "applicationUrl": "http://localhost:7026;http://localhost:5083",
+      "launchUrl": "api/home",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:7026;http://localhost:5083"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -24,6 +16,14 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
+    }
+  },
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:7361",
+      "sslPort": 44311
     }
   }
 }

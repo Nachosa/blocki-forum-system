@@ -23,19 +23,13 @@ namespace ForumSystem.Business
             this.postMapper = postMapper;
         }
 
-        public IList<GetPostDto> GetPosts(PostQueryParameters queryParams)
+        public IList<Post> GetPosts(PostQueryParameters queryParams)
         {
-            IList<Post> posts = this.repo.GetPosts(queryParams).ToList();
-            return posts.Select(post => postMapper.Map<GetPostDto>(post)).ToList();
+            return this.repo.GetPosts(queryParams).ToList();
         }
 
-        public Post CreatePost(CreatePostDto postDto)
+        public Post CreatePost(Post post)
         {
-            Post post = postMapper.Map<Post>(postDto);
-
-            //post.Id = Post.Count;
-            //Post.Count += 1;
-
             repo.CreatePost(post);
             return post;
         }
@@ -51,9 +45,9 @@ namespace ForumSystem.Business
             return repo.DeletePostById(postId);
         }
 
-        public GetPostDto GetPostById(int postId)
+        public Post GetPostById(int postId)
         {
-            return postMapper.Map<GetPostDto>(repo.GetPostById(postId));
+            return repo.GetPostById(postId);
         }
     }
 }

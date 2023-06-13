@@ -19,7 +19,7 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
         {
-            List<Post> postsToProcess = new List<Post>(forumDb.Posts);
+            List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false));
             postsToProcess = FilterBy(queryParameters, postsToProcess);
             postsToProcess = SortBy(queryParameters, postsToProcess);
             return postsToProcess;
@@ -46,7 +46,10 @@ namespace ForumSystem.DataAccess.PostRepo
         public Post GetPostById(int postId)
         {
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
-            return post ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
+            if (post.IsDeleted)
+                throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
+            else
+                return post;
         }
 
         public Post UpdatePostContent(int postId, Post newPost)
@@ -56,7 +59,7 @@ namespace ForumSystem.DataAccess.PostRepo
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             else
                 post.Content = newPost.Content;
-                forumDb.SaveChanges();
+            forumDb.SaveChanges();
             return post;
         }
 

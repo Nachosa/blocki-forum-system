@@ -4,6 +4,9 @@ using ForumSystem.DataAccess.Models;
 using ForumSystem.Business;
 using ForumSystemDTO.PostDTO;
 using ForumSystem.Api.QueryParams;
+using AutoMapper;
+using ForumSystem.Business.AuthenticationManager;
+using Microsoft.Extensions.Hosting;
 
 namespace ForumSystem.Api.Controllers
 {
@@ -12,15 +15,20 @@ namespace ForumSystem.Api.Controllers
     public class PostApiController : ControllerBase
     {
         private readonly IPostService postService;
+        private readonly IAuthManager authManager;
+        private readonly IMapper postMapper;
 
-        public PostApiController(IPostService postService)
+        public PostApiController(IPostService postService, IAuthManager authManager, IMapper postMapper)
         {
+            this.authManager = authManager;
             this.postService = postService;
+            this.postMapper = postMapper;
         }
 
         [HttpGet("")]
-        public IActionResult GetPosts([FromQuery] PostQueryParameters queryParams)
+        public IActionResult GetPosts([FromHeader] string credentials, [FromQuery] PostQueryParameters queryParams)
         {
+            authManager.UserCheck(credentials);
             try
             {
                 //Най-вероятно ще трябват още проверки.
@@ -28,7 +36,9 @@ namespace ForumSystem.Api.Controllers
                 {
                     throw new ArgumentException("Invalid date range!");
                 }
-                return this.StatusCode(StatusCodes.Status200OK, this.postService.GetPosts(queryParams));
+                var posts = postService.GetPosts(queryParams);
+                var mappedPosts = posts.Select(post => postMapper.Map<GetPostDto>(post)).ToList();
+                return this.StatusCode(StatusCodes.Status200OK, mappedPosts);
             }
             //Трябва да си оправя exception-ите навсякъде, може би да са къстъм?
             catch (ArgumentException e)
@@ -38,12 +48,14 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetPostById(int id)
+        public IActionResult GetPostById(int id, [FromHeader] string credentials)
         {
+            authManager.AdminCheck(credentials);
             try
             {
-                GetPostDto postDto = this.postService.GetPostById(id);
-                return this.StatusCode(StatusCodes.Status200OK, postDto);
+                var post = this.postService.GetPostById(id);
+                var mappedPost = postMapper.Map<GetPostDto>(post);
+                return this.StatusCode(StatusCodes.Status200OK, mappedPost);
             }
             catch (ArgumentNullException e)
             {
@@ -52,9 +64,11 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult CreatePost([FromBody] CreatePostDto postDto)
+        public IActionResult CreatePost([FromHeader] string credentials, [FromBody] CreatePostDto postDto)
         {
-            postService.CreatePost(postDto);
+            authManager.BlockedCheck(credentials);
+            var post = postMapper.Map<Post>(postDto);
+            postService.CreatePost(post);
             return this.StatusCode(StatusCodes.Status200OK, postDto);
         }
 
