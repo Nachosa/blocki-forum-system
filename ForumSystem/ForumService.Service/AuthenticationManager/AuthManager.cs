@@ -46,5 +46,15 @@ namespace ForumSystem.Business.AuthenticationManager
             }
             
         }
+
+        public void BlockedCheck(string credentials)
+        {
+            var user = UserCheck(credentials);
+            if (user.RoleId == 1)
+            {
+                throw new UnauthorizedAccessException("You'r blocked,can't perform this action");
+            }
+
+        }
     }
 }

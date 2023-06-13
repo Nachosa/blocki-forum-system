@@ -13,6 +13,8 @@ namespace ForumSystem.Business.AuthenticationManager
 
         void AdminCheck(string credentials);
 
+        public void BlockedCheck(string credentials);
+
 
     }
 }
