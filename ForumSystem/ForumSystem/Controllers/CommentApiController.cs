@@ -77,8 +77,8 @@ namespace ForumSystem.Api.Controllers
         {
             try
             {
-                Comment comment = commentService.DeleteCommentById(id);
-                return StatusCode(StatusCodes.Status200OK, comment);
+                var isDeleted = commentService.DeleteCommentById(id);
+                return StatusCode(StatusCodes.Status200OK, isDeleted);
             }
             catch (ArgumentNullException e)
             {

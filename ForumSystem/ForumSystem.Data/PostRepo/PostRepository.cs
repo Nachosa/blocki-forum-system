@@ -10,11 +10,16 @@ namespace ForumSystem.DataAccess.PostRepo
 {
     public class PostRepository : IPostRepository
     {
-        public static List<Post> posts = new List<Post>();
+        private readonly ForumSystemContext forumDb;
+
+        public PostRepository(ForumSystemContext forumDb)
+        {
+            this.forumDb = forumDb;
+        }
 
         public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
         {
-            List<Post> postsToProcess = new List<Post>(posts);
+            List<Post> postsToProcess = new List<Post>(forumDb.Posts);
             postsToProcess = FilterBy(queryParameters, postsToProcess);
             postsToProcess = SortBy(queryParameters, postsToProcess);
             return postsToProcess;
@@ -22,34 +27,36 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public Post CreatePost(Post post)
         {
-            posts.Add(post);
-            post.Id = posts.OrderByDescending(p => p.Id).FirstOrDefault().Id + 1;
+            forumDb.Posts.Add(post);
+            forumDb.SaveChanges();
             return post;
         }
 
         public bool DeletePostById(int postId)
         {
-            var post = posts.FirstOrDefault(post => post.Id == postId);
+            var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
             if (post == null)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             else
-                posts.Remove(post);
+                post.IsDeleted = true;
+            forumDb.SaveChanges();
             return true;
         }
 
         public Post GetPostById(int postId)
         {
-            var post = posts.FirstOrDefault(post => post.Id == postId);
+            var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
             return post ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
 
         public Post UpdatePostContent(int postId, Post newPost)
         {
-            var post = posts.FirstOrDefault(post => post.Id == postId);
+            var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
             if (post == null)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             else
                 post.Content = newPost.Content;
+                forumDb.SaveChanges();
             return post;
         }
 

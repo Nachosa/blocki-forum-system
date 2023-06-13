@@ -1,4 +1,5 @@
 ﻿using ForumSystem.DataAccess.Models;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,10 +19,15 @@ namespace ForumSystemDTO.PostDTO
         [MaxLength(8192, ErrorMessage = "The {0} must be no more than {1} characters long.")]
         public string Content { get; set; }
 
-        public int Likes { get; set; }
+        public int LikeCount
+        {
+            get { return Likes.Count; }
+        }
+
+        public ICollection<Like> Likes { get; set; } = new List<Like>();
 
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
-        public ICollection<Tag> Tags { get; set; } = new HashSet<Tag>();
+        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
     }
 }

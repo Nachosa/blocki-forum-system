@@ -216,13 +216,29 @@ namespace ForumSystem.DataAccess
                     PostId=4,
                 }
             };
-            
+
 
             builder.Entity<User>().HasData(users);
             builder.Entity<Post>().HasData(posts);
-            builder.Entity<Comment>().HasData(comments);    
+            builder.Entity<Comment>().HasData(comments);
 
-            
+            IList<Like> likes = new List<Like>
+            {
+                new Like
+                {
+                    Id=1,
+                    UserId = 2,
+                    PostId=1,
+                },
+
+                new Like
+                {
+                    Id=2,
+                    UserId = 2,
+                    PostId=1,
+                },
+            };
+
         }
 
 

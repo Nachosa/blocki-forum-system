@@ -34,14 +34,16 @@ namespace ForumSystem.Business.CommentService
             return comment;
         }
         
-        public void DeleteComment(Comment comment)
-        {
-            repo.DeleteComment(comment);
-        }
+        //Не работи след базата.
+        //public void DeleteComment(Comment comment)
+        //{
+        //    repo.DeleteComment(comment);
+        //}
 
-        public Comment DeleteCommentById(int commentId)
+        public bool DeleteCommentById(int commentId)
         {
-            return repo.DeleteCommentById(commentId);
+            repo.DeleteCommentById(commentId);
+            return true;
         }
 
         public GetCommentDto FindCommentById(int commentId)

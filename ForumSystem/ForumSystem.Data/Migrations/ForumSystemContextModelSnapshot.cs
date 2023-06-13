@@ -54,7 +54,7 @@ namespace ForumSystem.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
 
                     b.HasData(
                         new
@@ -131,7 +131,7 @@ namespace ForumSystem.DataAccess.Migrations
                         .IsUnique()
                         .HasFilter("[PostId] IS NOT NULL AND [CommentId] IS NOT NULL");
 
-                    b.ToTable("Likes");
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.Post", b =>
@@ -166,7 +166,7 @@ namespace ForumSystem.DataAccess.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
 
                     b.HasData(
                         new
@@ -236,7 +236,7 @@ namespace ForumSystem.DataAccess.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("PostTags");
+                    b.ToTable("PostTags", (string)null);
                 });
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.Role", b =>
@@ -252,7 +252,7 @@ namespace ForumSystem.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
 
                     b.HasData(
                         new
@@ -294,7 +294,7 @@ namespace ForumSystem.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.User", b =>
@@ -342,7 +342,7 @@ namespace ForumSystem.DataAccess.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
                     b.HasData(
                         new

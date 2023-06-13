@@ -12,26 +12,23 @@ namespace ForumSystem.DataAccess.CommentRepo
 {
     public class CommentRepository : ICommentRepository
     {
-        public static IList<Comment> comments = new List<Comment>()
+        private readonly ForumSystemContext forumDb;
+
+        public CommentRepository(ForumSystemContext forumDb)
         {
-            new Comment()
-            {
-                Id = 1,
-                PostId = 1,
-                UserId = 1,
-                Content = "Content"
-            }
-        };
+            this.forumDb = forumDb;
+        }
 
         public IEnumerable<Comment> GetAllComments()
         {
-            return comments;
+            return forumDb.Comments;
         }
 
         public Comment CreateComment(Comment comment)
         {
-            comment.Id = comments.OrderByDescending(c => c.Id).FirstOrDefault().Id + 1;
-            comments.Add(comment);
+            comment.Id = forumDb.Comments.OrderByDescending(c => c.Id).FirstOrDefault().Id + 1;
+            forumDb.Comments.Add(comment);
+            forumDb.SaveChanges();
             return comment;
         }
 
@@ -49,31 +46,33 @@ namespace ForumSystem.DataAccess.CommentRepo
             return comment;
         }
 
-        public void DeleteComment(Comment comment)
-        {
-            comments.Remove(comment);
-        }
+        //След базата не работи.
+        //public void DeleteComment(Comment comment)
+        //{
+        //    comments.Remove(comment);
+        //}
 
         public Comment FindCommentById(int commentId)
         {
-            var comment = comments.FirstOrDefault(comment => comment.Id == commentId);
+            var comment = forumDb.Comments.FirstOrDefault(comment => comment.Id == commentId);
             return comment ?? throw new ArgumentNullException($"Comment with id={commentId} doesn't exist.");
         }
 
         public IEnumerable<Comment> FindCommentsByPostId(int postId)
         {
-            var post = PostRepository.posts.FirstOrDefault(post => post.Id == postId);
+            var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
             return post.Comments ?? throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
         }
 
-        public Comment DeleteCommentById(int commentId)
+        public bool DeleteCommentById(int commentId)
         {
-            var comment = comments.FirstOrDefault(comment => comment.Id == commentId);
+            var comment = forumDb.Comments.FirstOrDefault(comment => comment.Id == commentId);
             if (comment == null)
                 throw new ArgumentNullException($"Comment with id={commentId} doesn't exist.");
             else
-                comments.Remove(comment);
-            return comment;
+                comment.IsDeleted = true;
+                forumDb.SaveChanges();
+            return true;
         }
 
         public List<Comment> FilterBy(CommentQueryParameters filterParameters, List<Comment> comments)

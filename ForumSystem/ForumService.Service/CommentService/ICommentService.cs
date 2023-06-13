@@ -18,10 +18,10 @@ namespace ForumSystem.Business.CommentService
 
         public Comment UpdateCommentContent(int commentId, UpdateCommentContentDto commentDTO);
 
-        public void DeleteComment(Comment comment);
+        //public Comment DeleteComment(Comment comment);
 
         public GetCommentDto FindCommentById(int commentId);
 
-        public Comment DeleteCommentById(int commentId);
+        public bool DeleteCommentById(int commentId);
     }
 }
