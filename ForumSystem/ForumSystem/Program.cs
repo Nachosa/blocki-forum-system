@@ -16,6 +16,8 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using ForumSystem.Business.AuthenticationManager;
+using ForumSystem.DataAccess.AdminRepo;
+using ForumSystem.Business.AdminService;
 
 namespace ForumSystemBusiness
 {
@@ -28,8 +30,10 @@ namespace ForumSystemBusiness
             builder.Services.AddScoped<IPostRepository, PostRepository>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+            builder.Services.AddScoped<IAdminRepository, AdminRepository>();
             builder.Services.AddScoped<IPostService, PostService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<IAuthManager, AuthManager>();
 

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.QueryParams;
+using ForumSystem.DataAccess.Exceptions;
 
 namespace ForumSystem.Business.UserService
 {
@@ -14,6 +15,8 @@ namespace ForumSystem.Business.UserService
         User CreateUser(CreateUserDTO user);
         IEnumerable<User> GetAllUsers();
         User GetUserById(int userId);
+        public User GetUserByEmail(string email);
+      
         User GetUserByUserName(string userName);
 
         List<User> SearchBy(UserQueryParams queryParams);

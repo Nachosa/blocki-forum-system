@@ -32,7 +32,7 @@ namespace ForumSystem.DataAccess.Models
 
         public ICollection<Like> Likes { get; set; } = new List<Like>();
 
-        public int RoleId { get; set; }
+        public int RoleId { get; set; } = 2;
         public Role Role { get; set; }
     }
 }
