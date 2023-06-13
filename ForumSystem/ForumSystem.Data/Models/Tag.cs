@@ -15,7 +15,7 @@ namespace ForumSystem.DataAccess.Models
 
         public string Name { get; set; }
 
-        public ICollection<Post> Posts { get; set; } = new List<Post>();
+        public ICollection<PostTag> Posts { get; set; } = new List<PostTag>();
 
         #region methods
         public override bool Equals(object obj)

@@ -61,7 +61,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 1,
                             Content = "Bitcon is the best!",
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5697),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1491),
                             IsDeleted = false,
                             PostId = 1,
                             UserId = 2
@@ -70,7 +70,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 2,
                             Content = "Bitcoin is trash",
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5702),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1495),
                             IsDeleted = false,
                             PostId = 2,
                             UserId = 3
@@ -79,7 +79,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 3,
                             Content = "Ethereum is better",
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5704),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1498),
                             IsDeleted = false,
                             PostId = 3,
                             UserId = 3
@@ -88,7 +88,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 4,
                             Content = "Ripple is the new best crypto",
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5706),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1500),
                             IsDeleted = false,
                             PostId = 4,
                             UserId = 4
@@ -173,7 +173,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 1,
                             Content = "A non-convertible currency is one that one cannot exchange that currency on the international foreign exchange market. Outside the country, this currency has no value — it may also be referred to as locked money. For example, the Indian rupee is a semi-non convertible currency outside of India while dollars can be exchanged in all countries around the world.",
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5641),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1466),
                             IsDeleted = false,
                             Title = "WILL BITCOIN BE USED BY THE ENTIRE WORLD?",
                             UserId = 2
@@ -182,7 +182,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 2,
                             Content = "If governments decide to opt for a non-convertible currency, it is mainly to prevent capital flight abroad. In effect, by preventing convertibility, residents are then \"forced\" to use the currency in the country. Although the currency cannot leave the territory, it is nevertheless possible via complex financial instruments such as non-deliverable forwards (NDFs).",
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5646),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1471),
                             IsDeleted = false,
                             Title = "WHY DO SOME COUNTRIES OPT FOR NON-CONVERTIBLE CURRENCIES?",
                             UserId = 3
@@ -191,7 +191,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 3,
                             Content = "Since then, the idea of ​​a single currency or a return to the gold standard has been put back on the table. It’s not a new idea, actually.\r\n\r\nDuring the Bretton Woods agreement, John Mayard Keynes proposed the creation of an international currency called the bancor, fixed by a basket of strong currencies of industrialized countries. His proposal was not accepted but his idea has continued across generations of economists.",
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5649),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1474),
                             IsDeleted = false,
                             Title = "THE IDEA OF ​​A SINGLE WORLD CURRENCY.",
                             UserId = 4
@@ -200,7 +200,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 4,
                             Content = "f there were no more national currencies, foreign exchange market-based problems and conversion fees would end immediately. Countries would no longer have a monetary barrier and could trade more freely. This would improve and increase international trade. All nations would benefit, especially countries with fragile currencies because there would be no more exchange risk.",
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5691),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1483),
                             IsDeleted = false,
                             Title = "WHAT WOULD BE THE BENEFITS OF A WORLD CURRENCY?",
                             UserId = 5
@@ -209,7 +209,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 5,
                             Content = "The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol.",
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5693),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1486),
                             IsDeleted = false,
                             Title = "No Central Authority ",
                             UserId = 3
@@ -348,7 +348,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5592),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1406),
                             Email = "gosho@gmail.com",
                             FirstName = "Gosho",
                             IsDeleted = false,
@@ -360,7 +360,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5623),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1445),
                             Email = "Nikolai@gmail.com",
                             FirstName = "Nikolai",
                             IsDeleted = false,
@@ -372,7 +372,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5626),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1449),
                             Email = "gosho@gmail.com",
                             FirstName = "Boiko",
                             IsDeleted = false,
@@ -384,7 +384,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5629),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1452),
                             Email = "Cvetan@gmail.com",
                             FirstName = "Cvetan",
                             IsDeleted = false,
@@ -396,7 +396,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5631),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1455),
                             Email = "Kopeikin@gmail.com",
                             FirstName = "Kosta",
                             IsDeleted = false,
@@ -408,7 +408,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5635),
+                            CreatedOn = new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1460),
                             Email = "Admin@gmail.com",
                             FirstName = "Admin",
                             IsDeleted = false,
@@ -417,21 +417,6 @@ namespace ForumSystem.DataAccess.Migrations
                             RoleId = 3,
                             Username = "Admin"
                         });
-                });
-
-            modelBuilder.Entity("PostTag", b =>
-                {
-                    b.Property<int>("PostsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostsId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("PostTag");
                 });
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.Comment", b =>
@@ -491,13 +476,13 @@ namespace ForumSystem.DataAccess.Migrations
             modelBuilder.Entity("ForumSystem.DataAccess.Models.PostTag", b =>
                 {
                     b.HasOne("ForumSystem.DataAccess.Models.Post", "Post")
-                        .WithMany()
+                        .WithMany("Tags")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ForumSystem.DataAccess.Models.Tag", "Tag")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -518,21 +503,6 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("PostTag", b =>
-                {
-                    b.HasOne("ForumSystem.DataAccess.Models.Post", null)
-                        .WithMany()
-                        .HasForeignKey("PostsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ForumSystem.DataAccess.Models.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ForumSystem.DataAccess.Models.Comment", b =>
                 {
                     b.Navigation("Likes");
@@ -543,11 +513,18 @@ namespace ForumSystem.DataAccess.Migrations
                     b.Navigation("Comments");
 
                     b.Navigation("Likes");
+
+                    b.Navigation("Tags");
                 });
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.Role", b =>
                 {
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("ForumSystem.DataAccess.Models.Tag", b =>
+                {
+                    b.Navigation("Posts");
                 });
 
             modelBuilder.Entity("ForumSystem.DataAccess.Models.User", b =>

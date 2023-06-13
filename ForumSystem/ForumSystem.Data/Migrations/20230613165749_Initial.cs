@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ForumSystem.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -124,30 +124,6 @@ namespace ForumSystem.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PostTag",
-                columns: table => new
-                {
-                    PostsId = table.Column<int>(type: "int", nullable: false),
-                    TagsId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PostTag", x => new { x.PostsId, x.TagsId });
-                    table.ForeignKey(
-                        name: "FK_PostTag_Posts_PostsId",
-                        column: x => x.PostsId,
-                        principalTable: "Posts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PostTag_Tags_TagsId",
-                        column: x => x.TagsId,
-                        principalTable: "Tags",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PostTags",
                 columns: table => new
                 {
@@ -221,12 +197,12 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "Email", "FirstName", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5592), null, "gosho@gmail.com", "Gosho", false, "Goshev", "MTIzNDU2Nzg5MA==", null, 2, "goshoXx123" },
-                    { 2, new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5623), null, "Nikolai@gmail.com", "Nikolai", false, "Barekov", "MTIzNDU2Nzg5MA==", null, 2, "BarekaXx123" },
-                    { 3, new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5626), null, "gosho@gmail.com", "Boiko", false, "Borisov", "MTIzNDU2Nzg5MA==", null, 2, "BokoMoko" },
-                    { 4, new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5629), null, "Cvetan@gmail.com", "Cvetan", false, "Cvetanov", "MTIzNDU2Nzg5MA==", null, 2, "Cvete123" },
-                    { 5, new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5631), null, "Kopeikin@gmail.com", "Kosta", false, "Kopeikin", "MTIzNDU2Nzg5MA==", null, 2, "BrainDamage123" },
-                    { 6, new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5635), null, "Admin@gmail.com", "Admin", false, "Adminov", "MTIzNDU2Nzg5MA==", null, 3, "Admin" }
+                    { 1, new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1406), null, "gosho@gmail.com", "Gosho", false, "Goshev", "MTIzNDU2Nzg5MA==", null, 2, "goshoXx123" },
+                    { 2, new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1445), null, "Nikolai@gmail.com", "Nikolai", false, "Barekov", "MTIzNDU2Nzg5MA==", null, 2, "BarekaXx123" },
+                    { 3, new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1449), null, "gosho@gmail.com", "Boiko", false, "Borisov", "MTIzNDU2Nzg5MA==", null, 2, "BokoMoko" },
+                    { 4, new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1452), null, "Cvetan@gmail.com", "Cvetan", false, "Cvetanov", "MTIzNDU2Nzg5MA==", null, 2, "Cvete123" },
+                    { 5, new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1455), null, "Kopeikin@gmail.com", "Kosta", false, "Kopeikin", "MTIzNDU2Nzg5MA==", null, 2, "BrainDamage123" },
+                    { 6, new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1460), null, "Admin@gmail.com", "Admin", false, "Adminov", "MTIzNDU2Nzg5MA==", null, 3, "Admin" }
                 });
 
             migrationBuilder.InsertData(
@@ -234,11 +210,11 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "Content", "CreatedOn", "DeletedOn", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "A non-convertible currency is one that one cannot exchange that currency on the international foreign exchange market. Outside the country, this currency has no value — it may also be referred to as locked money. For example, the Indian rupee is a semi-non convertible currency outside of India while dollars can be exchanged in all countries around the world.", new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5641), null, false, "WILL BITCOIN BE USED BY THE ENTIRE WORLD?", 2 },
-                    { 2, "If governments decide to opt for a non-convertible currency, it is mainly to prevent capital flight abroad. In effect, by preventing convertibility, residents are then \"forced\" to use the currency in the country. Although the currency cannot leave the territory, it is nevertheless possible via complex financial instruments such as non-deliverable forwards (NDFs).", new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5646), null, false, "WHY DO SOME COUNTRIES OPT FOR NON-CONVERTIBLE CURRENCIES?", 3 },
-                    { 3, "Since then, the idea of ​​a single currency or a return to the gold standard has been put back on the table. It’s not a new idea, actually.\r\n\r\nDuring the Bretton Woods agreement, John Mayard Keynes proposed the creation of an international currency called the bancor, fixed by a basket of strong currencies of industrialized countries. His proposal was not accepted but his idea has continued across generations of economists.", new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5649), null, false, "THE IDEA OF ​​A SINGLE WORLD CURRENCY.", 4 },
-                    { 4, "f there were no more national currencies, foreign exchange market-based problems and conversion fees would end immediately. Countries would no longer have a monetary barrier and could trade more freely. This would improve and increase international trade. All nations would benefit, especially countries with fragile currencies because there would be no more exchange risk.", new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5691), null, false, "WHAT WOULD BE THE BENEFITS OF A WORLD CURRENCY?", 5 },
-                    { 5, "The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol.", new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5693), null, false, "No Central Authority ", 3 }
+                    { 1, "A non-convertible currency is one that one cannot exchange that currency on the international foreign exchange market. Outside the country, this currency has no value — it may also be referred to as locked money. For example, the Indian rupee is a semi-non convertible currency outside of India while dollars can be exchanged in all countries around the world.", new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1466), null, false, "WILL BITCOIN BE USED BY THE ENTIRE WORLD?", 2 },
+                    { 2, "If governments decide to opt for a non-convertible currency, it is mainly to prevent capital flight abroad. In effect, by preventing convertibility, residents are then \"forced\" to use the currency in the country. Although the currency cannot leave the territory, it is nevertheless possible via complex financial instruments such as non-deliverable forwards (NDFs).", new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1471), null, false, "WHY DO SOME COUNTRIES OPT FOR NON-CONVERTIBLE CURRENCIES?", 3 },
+                    { 3, "Since then, the idea of ​​a single currency or a return to the gold standard has been put back on the table. It’s not a new idea, actually.\r\n\r\nDuring the Bretton Woods agreement, John Mayard Keynes proposed the creation of an international currency called the bancor, fixed by a basket of strong currencies of industrialized countries. His proposal was not accepted but his idea has continued across generations of economists.", new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1474), null, false, "THE IDEA OF ​​A SINGLE WORLD CURRENCY.", 4 },
+                    { 4, "f there were no more national currencies, foreign exchange market-based problems and conversion fees would end immediately. Countries would no longer have a monetary barrier and could trade more freely. This would improve and increase international trade. All nations would benefit, especially countries with fragile currencies because there would be no more exchange risk.", new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1483), null, false, "WHAT WOULD BE THE BENEFITS OF A WORLD CURRENCY?", 5 },
+                    { 5, "The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol.", new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1486), null, false, "No Central Authority ", 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -246,10 +222,10 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "Content", "CreatedOn", "DeletedOn", "IsDeleted", "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Bitcon is the best!", new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5697), null, false, 1, 2 },
-                    { 2, "Bitcoin is trash", new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5702), null, false, 2, 3 },
-                    { 3, "Ethereum is better", new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5704), null, false, 3, 3 },
-                    { 4, "Ripple is the new best crypto", new DateTime(2023, 6, 13, 10, 38, 19, 136, DateTimeKind.Local).AddTicks(5706), null, false, 4, 4 }
+                    { 1, "Bitcon is the best!", new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1491), null, false, 1, 2 },
+                    { 2, "Bitcoin is trash", new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1495), null, false, 2, 3 },
+                    { 3, "Ethereum is better", new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1498), null, false, 3, 3 },
+                    { 4, "Ripple is the new best crypto", new DateTime(2023, 6, 13, 19, 57, 48, 947, DateTimeKind.Local).AddTicks(1500), null, false, 4, 4 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -285,11 +261,6 @@ namespace ForumSystem.DataAccess.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostTag_TagsId",
-                table: "PostTag",
-                column: "TagsId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PostTags_PostId",
                 table: "PostTags",
                 column: "PostId");
@@ -310,9 +281,6 @@ namespace ForumSystem.DataAccess.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Likes");
-
-            migrationBuilder.DropTable(
-                name: "PostTag");
 
             migrationBuilder.DropTable(
                 name: "PostTags");

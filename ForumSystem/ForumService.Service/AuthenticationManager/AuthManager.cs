@@ -42,7 +42,7 @@ namespace ForumSystem.Business.AuthenticationManager
             var user = UserCheck(credentials);
             if (user.RoleId != 3)
             {
-                throw new UnauthorizedAccessException("You'r not admin!");
+                throw new UnauthorizedAccessException("You'rе not admin!");
             }
             
         }
@@ -52,7 +52,7 @@ namespace ForumSystem.Business.AuthenticationManager
             var user = UserCheck(credentials);
             if (user.RoleId == 1)
             {
-                throw new UnauthorizedAccessException("You'r blocked,can't perform this action");
+                throw new UnauthorizedAccessException("You'rе blocked, can't perform this action");
             }
 
         }
