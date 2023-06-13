@@ -35,7 +35,7 @@ namespace ForumSystem.DataAccess.PostRepo
         public bool DeletePostById(int postId)
         {
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
-            if (post == null)
+            if (post == null || post.IsDeleted)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             else
                 post.IsDeleted = true;
@@ -46,16 +46,16 @@ namespace ForumSystem.DataAccess.PostRepo
         public Post GetPostById(int postId)
         {
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
-            if (post.IsDeleted)
+            if (post == null || post.IsDeleted)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             else
                 return post;
         }
 
-        public Post UpdatePostContent(int postId, Post newPost)
+        public Post UpdatePostContent(int postId, Post newPost, string userName)
         {
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
-            if (post == null)
+            if (post == null || post.IsDeleted)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             else
                 post.Content = newPost.Content;

@@ -72,13 +72,18 @@ namespace ForumSystem.Api.Controllers
             return this.StatusCode(StatusCodes.Status200OK, postDto);
         }
 
+        //В момента прави безкраен цикъл и не работи!
         [HttpPatch("{id}")]
-        public IActionResult UpdatePostContent(int id, [FromBody] UpdatePostContentDto postContentDto)
+        public IActionResult UpdatePostContent(int id, [FromBody] UpdatePostContentDto postContentDto, [FromHeader] string credentials)
         {
+            authManager.BlockedCheck(credentials);
+            string[] usernameAndPassword = credentials.Split(':');
+            string userName = usernameAndPassword[0];
             try
             {
-                Post post = postService.UpdatePostContent(id, postContentDto);
-                return this.StatusCode(StatusCodes.Status200OK, post);
+                var mappedPost = postMapper.Map<Post>(postContentDto);
+                mappedPost = postService.UpdatePostContent(id, mappedPost, userName);
+                return this.StatusCode(StatusCodes.Status200OK, mappedPost);
             }
             catch (ArgumentNullException e)
             {

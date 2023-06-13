@@ -14,40 +14,42 @@ namespace ForumSystem.Business
 {
     public class PostService : IPostService
     {
-        private readonly IPostRepository repo;
-        private readonly IMapper postMapper;
+        private readonly IPostRepository postRepo;
 
-        public PostService(IPostRepository repo, IMapper postMapper)
+        public PostService(IPostRepository postRepo)
         {
-            this.repo = repo;
-            this.postMapper = postMapper;
+            this.postRepo = postRepo;
         }
 
         public IList<Post> GetPosts(PostQueryParameters queryParams)
         {
-            return this.repo.GetPosts(queryParams).ToList();
+            return this.postRepo.GetPosts(queryParams).ToList();
         }
 
         public Post CreatePost(Post post)
         {
-            repo.CreatePost(post);
+            postRepo.CreatePost(post);
             return post;
         }
 
-        public Post UpdatePostContent(int postId, UpdatePostContentDto postContentDto)
+        public Post UpdatePostContent(int postId, Post post, string userName)
         {
-            var mappedPost = postMapper.Map<Post>(postContentDto);
-            return repo.UpdatePostContent(postId, mappedPost);
+            var postUser = postRepo.GetPostById(postId).User.Username;
+            if (postUser != userName)
+            {
+                throw new ArgumentException("Can't update other user's posts!");
+            }
+            return postRepo.UpdatePostContent(postId, post, userName);
         }
 
         public bool DeletePostById(int postId)
         {
-            return repo.DeletePostById(postId);
+            return postRepo.DeletePostById(postId);
         }
 
         public Post GetPostById(int postId)
         {
-            return repo.GetPostById(postId);
+            return postRepo.GetPostById(postId);
         }
     }
 }
