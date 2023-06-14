@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ForumSystem.DataAccess.Models
 {
@@ -26,6 +27,7 @@ namespace ForumSystem.DataAccess.Models
 
         public int? PhoneNumber { get; set; }
 
+        [JsonIgnore]
         public ICollection<Post> Posts { get; set; } = new List<Post>();
 
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();

@@ -34,11 +34,6 @@ namespace ForumSystem.Business
 
         public Post UpdatePostContent(int postId, Post post, string userName)
         {
-            var postUser = postRepo.GetPostById(postId).User.Username;
-            if (postUser != userName)
-            {
-                throw new ArgumentException("Can't update other user's posts!");
-            }
             return postRepo.UpdatePostContent(postId, post, userName);
         }
 

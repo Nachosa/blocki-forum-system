@@ -21,7 +21,7 @@ namespace ForumSystem.Business.AutoMapperProfile
 
 
             CreateMap<CreatePostDto, Post>();
-            CreateMap<Post, GetPostDto>();
+            CreateMap<Post, GetPostDto>().ForMember(pDto => pDto.UserName, opt => opt.MapFrom(p => p.User.Username));
             CreateMap<UpdatePostContentDto, Post>();
 
             CreateMap<CreateCommentDto, Comment>();

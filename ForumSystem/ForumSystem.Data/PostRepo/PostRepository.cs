@@ -1,5 +1,6 @@
 ﻿using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +20,7 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
         {
-            List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false));
+            List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false).Include(p => p.Likes).Include(p => p.User));
             postsToProcess = FilterBy(queryParameters, postsToProcess);
             postsToProcess = SortBy(queryParameters, postsToProcess);
             return postsToProcess;
@@ -45,7 +46,8 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public Post GetPostById(int postId)
         {
-            var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
+            //Include преди FirstOrDefault ми се струва много бавно.
+            var post = forumDb.Posts.Include(p => p.Likes).Include(p => p.User).FirstOrDefault(post => post.Id == postId);
             if (post == null || post.IsDeleted)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             else
@@ -57,9 +59,11 @@ namespace ForumSystem.DataAccess.PostRepo
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
             if (post == null || post.IsDeleted)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
+            if (post.User.Username != userName)
+                throw new ArgumentException("Can't update other user's posts!");
             else
                 post.Content = newPost.Content;
-            forumDb.SaveChanges();
+                forumDb.SaveChanges();
             return post;
         }
 

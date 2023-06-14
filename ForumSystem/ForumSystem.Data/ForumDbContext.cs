@@ -228,14 +228,14 @@ namespace ForumSystem.DataAccess
                 {
                     Id=1,
                     UserId = 2,
-                    PostId=1,
+                    PostId=2,
                 },
 
                 new Like
                 {
                     Id=2,
                     UserId = 2,
-                    PostId=1,
+                    PostId=2,
                 },
             };
 

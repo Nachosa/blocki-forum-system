@@ -82,8 +82,9 @@ namespace ForumSystem.Api.Controllers
             try
             {
                 var mappedPost = postMapper.Map<Post>(postContentDto);
-                mappedPost = postService.UpdatePostContent(id, mappedPost, userName);
-                return this.StatusCode(StatusCodes.Status200OK, mappedPost);
+                var updatedPost = postService.UpdatePostContent(id, mappedPost, userName);
+                var updatedPostDto = postMapper.Map<GetPostDto>(updatedPost);
+                return this.StatusCode(StatusCodes.Status200OK, updatedPostDto);
             }
             catch (ArgumentNullException e)
             {

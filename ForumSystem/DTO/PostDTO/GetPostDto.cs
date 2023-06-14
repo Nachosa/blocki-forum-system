@@ -19,10 +19,7 @@ namespace ForumSystemDTO.PostDTO
         [MaxLength(8192, ErrorMessage = "The {0} must be no more than {1} characters long.")]
         public string Content { get; set; }
 
-        public int LikeCount
-        {
-            get { return Likes.Count; }
-        }
+        public string UserName { get; set; }
 
         public ICollection<Like> Likes { get; set; } = new List<Like>();
 
