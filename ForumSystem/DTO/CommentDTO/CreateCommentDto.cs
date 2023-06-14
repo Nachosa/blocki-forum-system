@@ -12,6 +12,8 @@ namespace DTO.CommentDTO
         [Required(ErrorMessage = "The {0} field is required")]
         public int UserId { get; set; }
 
+        public int PostId { get; set; }
+
         [Required(ErrorMessage = "The {0} field is required")]
         [MinLength(32, ErrorMessage = "The {0} must be at least {1} characters long.")]
         [MaxLength(8192, ErrorMessage = "The {0} must be no more than {1} characters long.")]

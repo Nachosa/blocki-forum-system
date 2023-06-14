@@ -5,6 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using DTO.CommentDTO;
 using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.QueryParams;
+using AutoMapper;
+using ForumSystem.Business.AuthenticationManager;
+using ForumSystem.Business.UserService;
+using ForumSystem.DataAccess.Exceptions;
+using ForumSystemDTO.UserDTO;
 
 namespace ForumSystem.Api.Controllers
 {
@@ -13,6 +18,9 @@ namespace ForumSystem.Api.Controllers
     public class CommentApiController : ControllerBase
     {
         private readonly ICommentService commentService;
+        private readonly IPostService postService;
+        private readonly IAuthManager authManager;
+        private readonly IMapper mapper;
 
         public CommentApiController(ICommentService commentService)
         {
@@ -56,6 +64,30 @@ namespace ForumSystem.Api.Controllers
         {
             commentService.CreateComment(commentDto);
             return StatusCode(StatusCodes.Status200OK, commentDto);
+        }
+
+        // just testing
+        [HttpPost("")]
+        public IActionResult AddCommentToThread([FromHeader] string credentials, [FromBody] CreateCommentDto commentDto)
+        {
+            try
+            {
+                authManager.UserCheck(credentials);
+
+                Comment comment = commentService.CreateComment(commentDto);
+                Post post = postService.GetPostById(commentDto.PostId);
+                post.Comments.Add(comment);
+
+                return StatusCode(StatusCodes.Status200OK, commentDto);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
+            catch (UnauthenticatedOperationException e)
+            {
+                return Unauthorized(e.Message);
+            }
         }
 
         [HttpPatch("{id}")]
