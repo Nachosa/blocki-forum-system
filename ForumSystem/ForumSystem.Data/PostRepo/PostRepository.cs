@@ -26,6 +26,14 @@ namespace ForumSystem.DataAccess.PostRepo
             return postsToProcess;
         }
 
+        public ICollection<Post> GetUserPosts(int userId, PostQueryParameters queryParameters)
+        {
+            List<Post> userPosts=forumDb.Posts.Where(p=>p.UserId==userId && p.IsDeleted == false).Include(l=>l.Likes).ToList();
+            userPosts=FilterBy(queryParameters, userPosts);
+            userPosts=SortBy(queryParameters, userPosts);   
+            return userPosts;
+
+        }
         public Post CreatePost(Post post)
         {
             forumDb.Posts.Add(post);
@@ -39,6 +47,7 @@ namespace ForumSystem.DataAccess.PostRepo
             if (post == null || post.IsDeleted)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             else
+                post.DeletedOn=DateTime.Now;
                 post.IsDeleted = true;
             forumDb.SaveChanges();
             return true;
@@ -107,6 +116,10 @@ namespace ForumSystem.DataAccess.PostRepo
                 {
                     posts = posts.OrderBy(post => post.CreatedOn).ToList();
                 }
+                if (sortParameters.SortBy.Equals("likes", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    posts = posts.OrderBy(post => post.Likes.Count).ToList();
+                }
 
                 if (!string.IsNullOrEmpty(sortParameters.SortOrder) && sortParameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
                 {
@@ -116,5 +129,6 @@ namespace ForumSystem.DataAccess.PostRepo
 
             return posts;
         }
+
     }
 }

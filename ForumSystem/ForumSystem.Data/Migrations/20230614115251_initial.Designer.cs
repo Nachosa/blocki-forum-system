@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ForumSystemContext))]
-    [Migration("20230614090553_LikesSeed")]
-    partial class LikesSeed
+    [Migration("20230614115251_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -64,7 +64,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 1,
                             Content = "Bitcon is the best!",
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5453),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(964),
                             IsDeleted = false,
                             PostId = 1,
                             UserId = 2
@@ -73,7 +73,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 2,
                             Content = "Bitcoin is trash",
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5457),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(969),
                             IsDeleted = false,
                             PostId = 2,
                             UserId = 3
@@ -82,7 +82,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 3,
                             Content = "Ethereum is better",
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5460),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(972),
                             IsDeleted = false,
                             PostId = 3,
                             UserId = 3
@@ -91,7 +91,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 4,
                             Content = "Ripple is the new best crypto",
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5463),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(974),
                             IsDeleted = false,
                             PostId = 4,
                             UserId = 4
@@ -140,7 +140,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5516),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(1020),
                             IsDeleted = false,
                             PostId = 2,
                             UserId = 3
@@ -148,7 +148,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5520),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(1024),
                             IsDeleted = false,
                             PostId = 2,
                             UserId = 2
@@ -156,7 +156,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5523),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(1026),
                             IsDeleted = false,
                             PostId = 2,
                             UserId = 1
@@ -164,7 +164,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5525),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(1028),
                             IsDeleted = false,
                             PostId = 4,
                             UserId = 1
@@ -210,7 +210,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 1,
                             Content = "A non-convertible currency is one that one cannot exchange that currency on the international foreign exchange market. Outside the country, this currency has no value — it may also be referred to as locked money. For example, the Indian rupee is a semi-non convertible currency outside of India while dollars can be exchanged in all countries around the world.",
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5435),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(949),
                             IsDeleted = false,
                             Title = "WILL BITCOIN BE USED BY THE ENTIRE WORLD?",
                             UserId = 2
@@ -219,7 +219,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 2,
                             Content = "If governments decide to opt for a non-convertible currency, it is mainly to prevent capital flight abroad. In effect, by preventing convertibility, residents are then \"forced\" to use the currency in the country. Although the currency cannot leave the territory, it is nevertheless possible via complex financial instruments such as non-deliverable forwards (NDFs).",
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5440),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(953),
                             IsDeleted = false,
                             Title = "WHY DO SOME COUNTRIES OPT FOR NON-CONVERTIBLE CURRENCIES?",
                             UserId = 3
@@ -228,7 +228,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 3,
                             Content = "Since then, the idea of ​​a single currency or a return to the gold standard has been put back on the table. It’s not a new idea, actually.\r\n\r\nDuring the Bretton Woods agreement, John Mayard Keynes proposed the creation of an international currency called the bancor, fixed by a basket of strong currencies of industrialized countries. His proposal was not accepted but his idea has continued across generations of economists.",
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5443),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(956),
                             IsDeleted = false,
                             Title = "THE IDEA OF ​​A SINGLE WORLD CURRENCY.",
                             UserId = 4
@@ -237,7 +237,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 4,
                             Content = "f there were no more national currencies, foreign exchange market-based problems and conversion fees would end immediately. Countries would no longer have a monetary barrier and could trade more freely. This would improve and increase international trade. All nations would benefit, especially countries with fragile currencies because there would be no more exchange risk.",
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5446),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(958),
                             IsDeleted = false,
                             Title = "WHAT WOULD BE THE BENEFITS OF A WORLD CURRENCY?",
                             UserId = 5
@@ -246,7 +246,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 5,
                             Content = "The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol.",
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5449),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(960),
                             IsDeleted = false,
                             Title = "No Central Authority ",
                             UserId = 3
@@ -385,7 +385,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5378),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(902),
                             Email = "gosho@gmail.com",
                             FirstName = "Gosho",
                             IsDeleted = false,
@@ -397,7 +397,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5414),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(932),
                             Email = "Nikolai@gmail.com",
                             FirstName = "Nikolai",
                             IsDeleted = false,
@@ -409,7 +409,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5418),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(936),
                             Email = "gosho@gmail.com",
                             FirstName = "Boiko",
                             IsDeleted = false,
@@ -421,7 +421,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5421),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(938),
                             Email = "Cvetan@gmail.com",
                             FirstName = "Cvetan",
                             IsDeleted = false,
@@ -433,7 +433,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5424),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(941),
                             Email = "Kopeikin@gmail.com",
                             FirstName = "Kosta",
                             IsDeleted = false,
@@ -445,7 +445,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2023, 6, 14, 12, 5, 52, 798, DateTimeKind.Local).AddTicks(5430),
+                            CreatedOn = new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(945),
                             Email = "Admin@gmail.com",
                             FirstName = "Admin",
                             IsDeleted = false,

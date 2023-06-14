@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.QueryParams;
 using ForumSystem.DataAccess.Exceptions;
+using ForumSystem.Api.QueryParams;
 
 namespace ForumSystem.Business.UserService
 {
@@ -14,6 +15,8 @@ namespace ForumSystem.Business.UserService
     {
         User CreateUser(CreateUserDTO user);
         IEnumerable<User> GetAllUsers();
+
+        ICollection<Post> GetUserPosts(PostQueryParameters queryParams, int id);
         User GetUserById(int userId);
         public User GetUserByEmail(string email);
       
@@ -23,7 +26,7 @@ namespace ForumSystem.Business.UserService
 
         User UpdateUser(string username, User user);
 
-        bool DeleteUser(string userName);
+        bool DeleteUser(string userName,int? userId);
 
 
     }

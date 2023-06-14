@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ForumSystem.DataAccess.AdminRepo;
 using ForumSystem.DataAccess.Exceptions;
+using ForumSystem.DataAccess.PostRepo;
 using ForumSystem.DataAccess.UserRepo;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,14 @@ namespace ForumSystem.Business.AdminService
     {
         private readonly IAdminRepository adminRepo;
         private readonly IUserRepository userRepo;
+        private readonly IPostRepository postRepo;
         private readonly IMapper userMapper;
-        public AdminService(IUserRepository userRepo, IMapper createUserMapper,IAdminRepository adminRepo)
+        public AdminService(IUserRepository userRepo,IPostRepository postRepo, IMapper createUserMapper,IAdminRepository adminRepo)
         {
             this.adminRepo = adminRepo;
             this.userRepo = userRepo;
             this.userMapper = createUserMapper;
+            this.postRepo = postRepo;
         }
 
 
@@ -83,6 +86,17 @@ namespace ForumSystem.Business.AdminService
                 throw new ArgumentNullException("Please privide Id or email of the user!");
             }
         }
-    
+
+        public void DeletePost(int? id)
+        {
+            if(id is null) new ArgumentNullException("Please privide Id of the post!");
+            var post = postRepo.GetPostById((int)id);
+            if (post is null)
+            {
+                throw new EntityNotFoundException($"Post with {id} was not found!");
+            }
+            postRepo.DeletePostById((int)id);
+            
+        }
     }
 }

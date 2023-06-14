@@ -10,21 +10,25 @@ using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.UserRepo;
 using ForumSystemDTO.UserDTO;
 using ForumSystem.DataAccess.QueryParams;
+using ForumSystem.Api.QueryParams;
+using ForumSystem.DataAccess.PostRepo;
 
 namespace ForumSystem.Business.UserService
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository repo;
+        private readonly IUserRepository userRepo;
+        private readonly IPostRepository postRepo;
         private readonly IMapper userMapper;
-        public UserService(IUserRepository repo, IMapper createUserMapper)
+        public UserService(IUserRepository userRepo, IMapper createUserMapper,IPostRepository postRepo)
         {
-            this.repo = repo;
+            this.userRepo = userRepo;
             this.userMapper = createUserMapper;
+            this.postRepo = postRepo;
         }
         public User CreateUser(CreateUserDTO userDTO)
         {
-            if (repo.EmailExist(userDTO.Email))
+            if (userRepo.EmailExist(userDTO.Email))
             {
                 throw new EmailAlreadyExistException("Email already exist!");
             }
@@ -33,12 +37,12 @@ namespace ForumSystem.Business.UserService
             userDTO.Password = decodePassword;
 
             User mappedUser = userMapper.Map<User>(userDTO);
-            return repo.CreateUser(mappedUser);
+            return userRepo.CreateUser(mappedUser);
         }
         public IEnumerable<User> GetAllUsers()
         {
 
-            var allUsers = repo.GetAllUsers();
+            var allUsers = userRepo.GetAllUsers();
 
             if (!allUsers.Any())
             {
@@ -47,19 +51,27 @@ namespace ForumSystem.Business.UserService
 
             return allUsers;
         }
+        public ICollection<Post> GetUserPosts(PostQueryParameters queryParams, int userId)
+        {
+            var User = userRepo.GetUserById(userId) ?? throw new EntityNotFoundException($"User with Id={userId} was not found!");
+            var posts = postRepo.GetUserPosts(userId, queryParams);
+            return posts;
+
+        }
         public User GetUserById(int userId)
         {
-            var originalUser = repo.GetUserById(userId) ?? throw new EntityNotFoundException($"User with Id={userId} was not found!");
+            var originalUser = userRepo.GetUserById(userId) ?? throw new EntityNotFoundException($"User with Id={userId} was not found!");
             return originalUser;
         }
+
         public User GetUserByEmail(string email)
         {
-            var originalUser = repo.GetUserByEmail(email) ?? throw new EntityNotFoundException($"User with Email={email} was not found!");
+            var originalUser = userRepo.GetUserByEmail(email) ?? throw new EntityNotFoundException($"User with Email={email} was not found!");
             return originalUser;
         }
         public User GetUserByUserName(string userName)
         {
-            var user = repo.GetUserByUserName(userName);
+            var user = userRepo.GetUserByUserName(userName);
             if (user is null)
             {
                 throw new EntityNotFoundException($"User with username:{userName} was not found!");
@@ -69,7 +81,7 @@ namespace ForumSystem.Business.UserService
 
         public List<User> SearchBy(UserQueryParams queryParams)
         {
-            var originalUsers = repo.Searchby(queryParams);
+            var originalUsers = userRepo.Searchby(queryParams);
 
             if (originalUsers.Count == 0)
             {
@@ -82,31 +94,39 @@ namespace ForumSystem.Business.UserService
         {
             if (userNewValues.Email != null)
             {
-                if (repo.EmailExist(userNewValues.Email))
+                if (userRepo.EmailExist(userNewValues.Email))
                 {
                     throw new EmailAlreadyExistException("Email already exist!");
                 }
             }
 
-            var userToUpdate = repo.GetUserByUserName(userName);
+            var userToUpdate = userRepo.GetUserByUserName(userName);
             if (userToUpdate is null)
             {
                 throw new EntityNotFoundException($"User with username:{userName} was not found!");
             }
             // var mappedUser = userMapper.Map<User>(userDTO);
-            var updatedUser = repo.UpdateUser(userName, userNewValues);
+            var updatedUser = userRepo.UpdateUser(userName, userNewValues);
             return updatedUser;
 
 
         }
-        public bool DeleteUser(string userName)
+        public bool DeleteUser(string userName,int? userId)
         {
-            var userToDelete = repo.GetUserByUserName(userName);
-            if (userToDelete is null)
+            if (userId is not null)
             {
-                throw new EntityNotFoundException($"User with Id={userName} was not found!");
+                var userToDelete = userRepo.GetUserById((int)userId);
+                if(userToDelete is null) throw new EntityNotFoundException($"User with Id={userId} was not found!");
+                return userRepo.DeleteUser(userToDelete);
+
             }
-            return repo.DeleteUser(userToDelete);
+            else if (userName is not null)
+            {
+                var userToDelete = userRepo.GetUserByUserName(userName);
+                if (userToDelete is null) throw new EntityNotFoundException($"User with username={userName} was not found!");
+                return userRepo.DeleteUser(userToDelete);
+            }
+            throw new EntityNotFoundException("Please provide Id or Username for the user to be deleted!");
         }
 
     }

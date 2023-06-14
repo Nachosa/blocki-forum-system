@@ -67,5 +67,20 @@ namespace ForumSystem.Api.Controllers
 
         }
 
+        [HttpDelete("{id}")]
+        public IActionResult DeletePost([FromHeader] string credentials,int id)
+        {
+            try
+            {
+                authManager.AdminCheck(credentials);
+                adminService.DeletePost(id);
+                return Ok("Post Deleted!");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }

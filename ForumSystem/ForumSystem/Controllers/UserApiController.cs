@@ -7,6 +7,8 @@ using ForumSystem.DataAccess.QueryParams;
 using ForumSystem.Business.AuthenticationManager;
 using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
+using ForumSystem.Api.QueryParams;
+using ForumSystemDTO.PostDTO;
 
 namespace ForumSystem.Api.Controllers
 {
@@ -68,6 +70,21 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
+        [HttpGet("{id}/posts")]
+        public IActionResult GetUserPosts(int id,[FromHeader] string credentials, [FromQuery] PostQueryParameters queryParams)
+        {
+            try
+            {
+                authManager.UserCheck(credentials);
+                var posts=userService.GetUserPosts(queryParams,id).Select(u=>mapper.Map<GetPostDto>(u));
+                return Ok(posts);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPut("")]
         public IActionResult UpdateUser([FromHeader] string credentials, [FromBody] UpdateUserDTO userValues)
         {
@@ -99,12 +116,12 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpDelete("")]
-        public IActionResult DeleteUser([FromHeader] string credentials, [FromBody] string userName)
+        public IActionResult DeleteUser([FromHeader] string credentials, [FromQuery] string userName,int? id)
         {
             try
             {
                 authManager.AdminCheck(credentials);
-                userService.DeleteUser(userName);
+                userService.DeleteUser(userName,id);
                 return Ok("User Deleted!");
 
             }

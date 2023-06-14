@@ -30,26 +30,31 @@ namespace ForumSystem.DataAccess.UserRepo
             var result = forumDb.Users.Where(u => u.IsDeleted == false).ToList();
             return result;
         }
+
         public User GetUserById(int Id)
         {
-            var user = forumDb.Users.FirstOrDefault(u => u.Id == Id);
+            var user = forumDb.Users.FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
             return user;
         }
+
         public User GetUserByUserName(string UserName)
         {
-            var userWithThatUserName = forumDb.Users.FirstOrDefault(u => u.Username == UserName);
+            var userWithThatUserName = forumDb.Users.FirstOrDefault(u => u.Username == UserName && u.IsDeleted == false);
             return userWithThatUserName;
         }
+
         public User GetUserByEmail(string email)
         {
             var userWithThatEmail = forumDb.Users.FirstOrDefault(u => u.Email == email);
             return userWithThatEmail;
         }
+
         public IEnumerable<User> GetUsersByFirstName(string firstName)
         {
             var usersWithThatName = forumDb.Users.Where(u => u.FirstName == firstName);
             return usersWithThatName;
         }
+
         public List<User> Searchby(UserQueryParams queryParams)
         {
             var result = forumDb.Users.ToList();
@@ -68,6 +73,7 @@ namespace ForumSystem.DataAccess.UserRepo
             }
             return result;
         }
+
         public User UpdateUser(string userName, User user)
         {
             var userToupdate = forumDb.Users.FirstOrDefault(u => u.Username == userName);
@@ -78,21 +84,24 @@ namespace ForumSystem.DataAccess.UserRepo
             forumDb.SaveChanges();
             return userToupdate;
         }
+
         public bool MakeUserAdmin(User user)
         {
             user.RoleId = 3;
             forumDb.SaveChanges();
             return true;
         }
+
         public bool EmailExist(string email)
         {
             bool result = forumDb.Users.Any(u => string.Equals(u.Email, email, StringComparison.OrdinalIgnoreCase));
             return result;
         }
+
         public bool DeleteUser(User user)
         {
-            var userToDelete = forumDb.Users.FirstOrDefault(u => u.Id == user.Id);
-            userToDelete.IsDeleted = true;
+            user.DeletedOn = DateTime.Now;
+            user.IsDeleted = true;
             forumDb.SaveChanges();
             return true;
         }

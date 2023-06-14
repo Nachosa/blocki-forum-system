@@ -14,5 +14,7 @@ namespace ForumSystem.Business.AdminService
 
         void UnBlockUser(int? id, string email);
 
+        void DeletePost(int? id);
+
     }
 }

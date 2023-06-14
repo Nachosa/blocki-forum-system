@@ -14,6 +14,8 @@ namespace ForumSystem.DataAccess.PostRepo
 
         Post GetPostById(int postId);
 
+        ICollection<Post> GetUserPosts(int userId, PostQueryParameters queryParameters);
+
         Post CreatePost(Post post);
 
         Post UpdatePostContent(int postId, Post post, string userName);
