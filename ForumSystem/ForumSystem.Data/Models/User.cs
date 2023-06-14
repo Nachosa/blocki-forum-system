@@ -32,6 +32,7 @@ namespace ForumSystem.DataAccess.Models
 
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 
+        [JsonIgnore]
         public ICollection<Like> Likes { get; set; } = new List<Like>();
 
         public int RoleId { get; set; } = 2;

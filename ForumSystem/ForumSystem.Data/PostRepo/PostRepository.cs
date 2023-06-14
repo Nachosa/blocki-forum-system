@@ -59,6 +59,7 @@ namespace ForumSystem.DataAccess.PostRepo
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
             if (post == null || post.IsDeleted)
                 throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
+            //Проверка дали юзъра е админ ако не съвпада?
             if (post.User.Username != userName)
                 throw new ArgumentException("Can't update other user's posts!");
             else

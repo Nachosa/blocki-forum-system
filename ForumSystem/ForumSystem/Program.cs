@@ -36,6 +36,7 @@ namespace ForumSystemBusiness
             builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<IAuthManager, AuthManager>();
+            //builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             builder.Services.AddDbContext<ForumSystemContext>(options =>
             {

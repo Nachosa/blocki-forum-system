@@ -227,7 +227,7 @@ namespace ForumSystem.DataAccess
                 new Like
                 {
                     Id=1,
-                    UserId = 2,
+                    UserId = 3,
                     PostId=2,
                 },
 
@@ -237,7 +237,23 @@ namespace ForumSystem.DataAccess
                     UserId = 2,
                     PostId=2,
                 },
+
+                new Like
+                {
+                    Id=3,
+                    UserId = 1,
+                    PostId=2,
+                },
+
+                new Like
+                {
+                    Id=4,
+                    UserId = 1,
+                    PostId=4,
+                },
             };
+
+            builder.Entity<Like>().HasData(likes);
 
         }
 
