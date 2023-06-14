@@ -67,18 +67,18 @@ namespace ForumSystem.Api.Controllers
         }
 
         // just testing
-        [HttpPost("")]
-        public IActionResult AddCommentToThread([FromHeader] string credentials, [FromBody] CreateCommentDto commentDto)
+        [HttpPost("{postId}")]
+        public IActionResult AddCommentToThread([FromHeader] string credentials, int postId,  [FromBody] CreateCommentDto commentDto)
         {
             try
             {
                 authManager.UserCheck(credentials);
 
                 Comment comment = commentService.CreateComment(commentDto);
-                Post post = postService.GetPostById(commentDto.PostId);
+                Post post = postService.GetPostById(postId);
                 post.Comments.Add(comment);
 
-                return StatusCode(StatusCodes.Status200OK, commentDto);
+                return Ok();
             }
             catch (EntityNotFoundException e)
             {
