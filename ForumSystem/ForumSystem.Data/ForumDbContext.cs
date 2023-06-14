@@ -36,6 +36,13 @@ namespace ForumSystem.DataAccess
             //    .HasForeignKey(l => l.PostId)
             //    .OnDelete(DeleteBehavior.Cascade);
 
+            //Configure Post and Comment relationship
+            //builder.Entity<Post>()
+            //    .HasMany(c => c.Comments)
+            //    .WithOne(p => p.Post)
+            //    .HasForeignKey(p => p.PostId)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
             builder.Entity<User>()
                 .HasMany(u => u.Comments)
                 .WithOne(c => c.User)

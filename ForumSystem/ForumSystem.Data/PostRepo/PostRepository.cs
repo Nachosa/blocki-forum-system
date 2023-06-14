@@ -28,7 +28,7 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public ICollection<Post> GetUserPosts(int userId, PostQueryParameters queryParameters)
         {
-            List<Post> userPosts=forumDb.Posts.Where(p=>p.UserId==userId && p.IsDeleted == false).Include(l=>l.Likes).ToList();
+            List<Post> userPosts=forumDb.Posts.Where(p=>p.UserId==userId && p.IsDeleted == false).Include(p=>p.Likes).ToList();
             userPosts=FilterBy(queryParameters, userPosts);
             userPosts=SortBy(queryParameters, userPosts);   
             return userPosts;
