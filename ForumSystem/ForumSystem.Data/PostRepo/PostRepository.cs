@@ -130,5 +130,15 @@ namespace ForumSystem.DataAccess.PostRepo
             return posts;
         }
 
+        public ICollection<Post> GetPostsWithTag(string tag1)
+        {
+            var posts = forumDb.Posts.Include(p => p.Tags).Where(p => p.Tags.Any(t => t.Tag.Name == tag1));
+            return posts.ToList();
+        }
+
+        public Tag GetTagWithName(string name)
+        {
+            return forumDb.Tags.FirstOrDefault(t => t.Name == name);
+        }
     }
 }

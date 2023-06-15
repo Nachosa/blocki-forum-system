@@ -9,6 +9,7 @@ using AutoMapper;
 using Microsoft.IdentityModel.Tokens;
 using ForumSystem.Api.QueryParams;
 using ForumSystemDTO.PostDTO;
+using ForumSystem.Business;
 
 namespace ForumSystem.Api.Controllers
 {
@@ -18,13 +19,15 @@ namespace ForumSystem.Api.Controllers
     {
         private readonly IUserService userService;
         private readonly IAuthManager authManager;
+        private readonly IPostService postService;
         private readonly IMapper mapper;
 
-        public UserApiController(IUserService userService, IAuthManager authManager, IMapper mapper)
+        public UserApiController(IUserService userService, IAuthManager authManager, IMapper mapper,IPostService postService)
         {
             this.userService = userService;
             this.authManager = authManager;
             this.mapper = mapper;
+            this.postService = postService;
         }
         //Get all users or get Users by First name ,Email and Username
         [HttpPost("")]
@@ -86,12 +89,12 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpGet("postwithtag")]
-        public IActionResult AllPostsWithTags([FromHeader] string credentials, [FromQuery] string tag1,string tag2)
+        public IActionResult AllPostsWithTag([FromHeader] string credentials, [FromQuery] string tag)
         {
             try
             {
                 authManager.UserCheck(credentials);
-                var posts = userService.GetPostsWithTag(tag1);
+                var posts = postService.GetPostsWithTag(tag);
                 return Ok(posts);
 
             }

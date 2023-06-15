@@ -34,13 +34,13 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public User GetUserById(int Id)
         {
-            var user = forumDb.Users.FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
+            var user = forumDb.Users.Include(p=>p.Posts).Include(c=>c.Comments).FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
             return user;
         }
 
         public User GetUserByUserName(string UserName)
         {
-            var userWithThatUserName = forumDb.Users.FirstOrDefault(u => u.Username == UserName && u.IsDeleted == false);
+            var userWithThatUserName = forumDb.Users.Include(p => p.Posts).Include(c => c.Comments).FirstOrDefault(u => u.Username == UserName && u.IsDeleted == false);
             return userWithThatUserName;
         }
 
@@ -105,20 +105,22 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public bool DeleteUser(User user)
         {
+            foreach(var Comment in user.Comments)
+            {
+                Comment.DeletedOn = DateTime.Now;
+                Comment.IsDeleted = true;
+            }
+            foreach (var Post in user.Posts)
+            {
+                Post.DeletedOn = DateTime.Now;
+                Post.IsDeleted = true;
+            }
             user.DeletedOn = DateTime.Now;
             user.IsDeleted = true;
             forumDb.SaveChanges();
             return true;
         }
 
-        public Tag GetTagWithName(string tag1)
-        {
-            return forumDb.Tags.FirstOrDefault(t => t.Name == tag1);
-        }
-        public ICollection<Post> GetPostsWithTag(string tag1)
-        {
-            var posts = forumDb.Posts.Include(p => p.Tags).Where(p => p.Tags.Any(t => t.Tag.Name == tag1));
-            return posts.ToList();
-        }
+        
     }
 }

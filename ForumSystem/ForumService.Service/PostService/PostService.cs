@@ -9,6 +9,7 @@ using ForumSystemDTO.PostDTO;
 using AutoMapper;
 using ForumSystem.DataAccess.PostRepo;
 using ForumSystem.Api.QueryParams;
+using ForumSystem.DataAccess.Exceptions;
 
 namespace ForumSystem.Business
 {
@@ -45,6 +46,14 @@ namespace ForumSystem.Business
         public Post GetPostById(int postId)
         {
             return postRepo.GetPostById(postId);
+        }
+        public ICollection<Post> GetPostsWithTag(string tag1)
+        {
+            var tag = postRepo.GetTagWithName(tag1);
+            if (tag is null) throw new EntityNotFoundException("Tag with name:{tag1} was not found!");
+            var posts = postRepo.GetPostsWithTag(tag1);
+            if (posts is null || posts.Count == 0) throw new EntityNotFoundException("Posts with tag:{tag1} were not found!");
+            return posts;
         }
     }
 }

@@ -129,13 +129,6 @@ namespace ForumSystem.Business.UserService
             throw new EntityNotFoundException("Please provide Id or Username for the user to be deleted!");
         }
 
-        public ICollection<Post> GetPostsWithTag(string tag1)
-        {
-            var tag = userRepo.GetTagWithName(tag1);
-            if (tag is null) throw new EntityNotFoundException("Tag with name:{tag1} was not found!");
-            var posts = userRepo.GetPostsWithTag(tag1);
-            if (posts is null|| posts.Count==0) throw new EntityNotFoundException("Posts with tag:{tag1} were not found!");
-            return posts;
-        }
+       
     }
 }
