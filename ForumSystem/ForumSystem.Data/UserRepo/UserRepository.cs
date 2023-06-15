@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.QueryParams;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumSystem.DataAccess.UserRepo
 {
@@ -74,6 +75,7 @@ namespace ForumSystem.DataAccess.UserRepo
             return result;
         }
 
+
         public User UpdateUser(string userName, User user)
         {
             var userToupdate = forumDb.Users.FirstOrDefault(u => u.Username == userName);
@@ -85,12 +87,15 @@ namespace ForumSystem.DataAccess.UserRepo
             return userToupdate;
         }
 
+
+
         public bool MakeUserAdmin(User user)
         {
             user.RoleId = 3;
             forumDb.SaveChanges();
             return true;
         }
+
 
         public bool EmailExist(string email)
         {
@@ -106,5 +111,14 @@ namespace ForumSystem.DataAccess.UserRepo
             return true;
         }
 
+        public Tag GetTagWithName(string tag1)
+        {
+            return forumDb.Tags.FirstOrDefault(t => t.Name == tag1);
+        }
+        public ICollection<Post> GetPostsWithTag(string tag1)
+        {
+            var posts = forumDb.Posts.Include(p => p.Tags).Where(p => p.Tags.Any(t => t.Tag.Name == tag1));
+            return posts.ToList();
+        }
     }
 }

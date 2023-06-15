@@ -13,6 +13,10 @@ namespace ForumSystem.DataAccess.UserRepo
         User CreateUser(User user);
         IEnumerable<User> GetAllUsers();
 
+        ICollection<Post> GetPostsWithTag(string tag1);
+
+        public Tag GetTagWithName(string tag1);
+
         User GetUserById(int userId);
 
         User GetUserByUserName(string userName);

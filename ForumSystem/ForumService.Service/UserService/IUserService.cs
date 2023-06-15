@@ -17,6 +17,8 @@ namespace ForumSystem.Business.UserService
         IEnumerable<User> GetAllUsers();
 
         ICollection<Post> GetUserPosts(PostQueryParameters queryParams, int id);
+
+        ICollection<Post> GetPostsWithTag(string tag1);
         User GetUserById(int userId);
         public User GetUserByEmail(string email);
       

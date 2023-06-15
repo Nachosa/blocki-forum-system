@@ -85,6 +85,23 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
+        [HttpGet("postwithtag")]
+        public IActionResult AllPostsWithTags([FromHeader] string credentials, [FromQuery] string tag1,string tag2)
+        {
+            try
+            {
+                authManager.UserCheck(credentials);
+                var posts = userService.GetPostsWithTag(tag1);
+                return Ok(posts);
+
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPut("")]
         public IActionResult UpdateUser([FromHeader] string credentials, [FromBody] UpdateUserDTO userValues)
         {
@@ -131,5 +148,7 @@ namespace ForumSystem.Api.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+
     }
 }
