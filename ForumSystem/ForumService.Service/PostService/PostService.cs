@@ -50,9 +50,9 @@ namespace ForumSystem.Business
         public ICollection<Post> GetPostsWithTag(string tag1)
         {
             var tag = postRepo.GetTagWithName(tag1);
-            if (tag is null) throw new EntityNotFoundException("Tag with name:{tag1} was not found!");
+            if (tag is null) throw new EntityNotFoundException($"Tag with name:{tag1} was not found!");
             var posts = postRepo.GetPostsWithTag(tag1);
-            if (posts is null || posts.Count == 0) throw new EntityNotFoundException("Posts with tag:{tag1} were not found!");
+            if (posts is null || posts.Count == 0) throw new EntityNotFoundException($"Posts with tag:{tag1} were not found!");
             return posts;
         }
     }
