@@ -63,6 +63,23 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
+        [HttpGet("tag")]
+        public IActionResult AllPostsWithTag([FromHeader] string credentials, [FromQuery] string tag)
+        {
+            try
+            {
+                authManager.UserCheck(credentials);
+                var posts = postService.GetPostsWithTag(tag);
+                return Ok(posts);
+
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost("")]
         public IActionResult CreatePost([FromHeader] string credentials, [FromBody] CreatePostDto postDto)
         {

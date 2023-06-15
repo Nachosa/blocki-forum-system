@@ -19,15 +19,13 @@ namespace ForumSystem.Api.Controllers
     {
         private readonly IUserService userService;
         private readonly IAuthManager authManager;
-        private readonly IPostService postService;
         private readonly IMapper mapper;
 
-        public UserApiController(IUserService userService, IAuthManager authManager, IMapper mapper,IPostService postService)
+        public UserApiController(IUserService userService, IAuthManager authManager, IMapper mapper)
         {
             this.userService = userService;
             this.authManager = authManager;
             this.mapper = mapper;
-            this.postService = postService;
         }
         //Get all users or get Users by First name ,Email and Username
         [HttpPost("")]
@@ -88,22 +86,6 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
-        [HttpGet("postwithtag")]
-        public IActionResult AllPostsWithTag([FromHeader] string credentials, [FromQuery] string tag)
-        {
-            try
-            {
-                authManager.UserCheck(credentials);
-                var posts = postService.GetPostsWithTag(tag);
-                return Ok(posts);
-
-            }
-            catch (Exception e)
-            {
-
-                return BadRequest(e.Message);
-            }
-        }
 
         [HttpPut("")]
         public IActionResult UpdateUser([FromHeader] string credentials, [FromBody] UpdateUserDTO userValues)
