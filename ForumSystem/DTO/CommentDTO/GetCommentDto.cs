@@ -16,6 +16,5 @@ namespace DTO.CommentDTO
 
         public int Likes { get; set; }
 
-        public int Dislikes { get; set; }
     }
 }

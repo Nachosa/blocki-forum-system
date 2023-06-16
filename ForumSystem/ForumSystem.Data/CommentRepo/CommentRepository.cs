@@ -7,6 +7,7 @@ using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.PostRepo;
 using ForumSystem.DataAccess.QueryParams;
+using Microsoft.EntityFrameworkCore;
 
 namespace ForumSystem.DataAccess.CommentRepo
 {
@@ -54,7 +55,7 @@ namespace ForumSystem.DataAccess.CommentRepo
 
         public Comment FindCommentById(int commentId)
         {
-            var comment = forumDb.Comments.FirstOrDefault(comment => comment.Id == commentId);
+            var comment = forumDb.Comments.Include(c=>c.Likes).FirstOrDefault(comment => comment.Id == commentId);
             return comment ?? throw new ArgumentNullException($"Comment with id={commentId} doesn't exist.");
         }
 
