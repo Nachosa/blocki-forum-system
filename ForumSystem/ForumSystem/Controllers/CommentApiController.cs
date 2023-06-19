@@ -20,11 +20,12 @@ namespace ForumSystem.Api.Controllers
         private readonly ICommentService commentService;
         private readonly IPostService postService;
         private readonly IAuthManager authManager;
-        private readonly IMapper mapper;
 
-        public CommentApiController(ICommentService commentService)
+        public CommentApiController(ICommentService commentService, IPostService postService, IAuthManager authManager)
         {
             this.commentService = commentService;
+            this.postService = postService;
+            this.authManager = authManager;
         }
 
         [HttpGet("")]
