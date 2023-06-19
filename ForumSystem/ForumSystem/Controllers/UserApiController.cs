@@ -27,7 +27,6 @@ namespace ForumSystem.Api.Controllers
             this.authManager = authManager;
             this.mapper = mapper;
         }
-        //Get all users or get Users by First name ,Email and Username
         [HttpPost("")]
         public IActionResult CreateUser([FromBody] CreateUserDTO user)
         {
@@ -57,7 +56,7 @@ namespace ForumSystem.Api.Controllers
                 }
                 else
                 {
-                    var usersDTO = userService.GetAllUsers().Select(u => mapper.Map<GetUserDTO>(u));
+                    var usersDTO = userService.SearchBy(queryParams).Select(u => mapper.Map<GetUserDTO>(u));
                     return Ok(usersDTO);
                 }
             }

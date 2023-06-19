@@ -58,6 +58,7 @@ namespace ForumSystem.Business.UserService
             return posts;
 
         }
+
         public User GetUserById(int userId)
         {
             var originalUser = userRepo.GetUserById(userId) ?? throw new EntityNotFoundException($"User with Id={userId} was not found!");
@@ -69,6 +70,7 @@ namespace ForumSystem.Business.UserService
             var originalUser = userRepo.GetUserByEmail(email) ?? throw new EntityNotFoundException($"User with Email={email} was not found!");
             return originalUser;
         }
+
         public User GetUserByUserName(string userName)
         {
             var user = userRepo.GetUserByUserName(userName);
@@ -90,6 +92,7 @@ namespace ForumSystem.Business.UserService
             return originalUsers;
 
         }
+
         public User UpdateUser(string userName, User userNewValues)
         {
             if (userNewValues.Email != null)
@@ -111,6 +114,7 @@ namespace ForumSystem.Business.UserService
 
 
         }
+
         public bool DeleteUser(string userName,int? userId)
         {
             if (userId is not null)
