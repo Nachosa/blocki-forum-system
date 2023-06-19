@@ -18,7 +18,7 @@ namespace ForumSystem.Business.CommentService
 
         public Comment UpdateCommentContent(int commentId, UpdateCommentContentDto commentDTO);
 
-        //public Comment DeleteComment(Comment comment);
+        //public bool DeleteComment(Comment comment, string userName, int? commentId);
 
         public GetCommentDto FindCommentById(int commentId);
 

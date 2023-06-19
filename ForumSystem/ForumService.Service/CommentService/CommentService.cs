@@ -2,8 +2,10 @@
 using DTO.CommentDTO;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.CommentRepo;
+using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.QueryParams;
+using ForumSystem.DataAccess.UserRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,55 +16,52 @@ namespace ForumSystem.Business.CommentService
 {
     public class CommentService : ICommentService
     {
-        private readonly ICommentRepository repo;
+        private readonly ICommentRepository commentRepo;
         private readonly IMapper mapper;
+        private readonly IUserRepository userRepository;
 
-        public CommentService(ICommentRepository repo, IMapper mapper)
+        public CommentService(ICommentRepository commentRepo, IMapper mapper, IUserRepository userRepository)
         {
+            this.commentRepo = commentRepo;
             this.mapper = mapper;
-            this.repo = repo;
+            this.userRepository = userRepository;
         }
 
         public Comment CreateComment(CreateCommentDto commentDTO)
         {
             Comment comment = mapper.Map<Comment>(commentDTO);
-
-            //comment.Id = Comment.Count;
-            //Comment.Count += 1;
-
-            repo.CreateComment(comment);
-            return comment;
+            return commentRepo.CreateComment(comment);
         }
-        
-        //Не работи след базата.
-        //public void DeleteComment(Comment comment)
-        //{
-        //    repo.DeleteComment(comment);
-        //}
 
         public bool DeleteCommentById(int commentId)
         {
-            repo.DeleteCommentById(commentId);
+            var commentToDelete = commentRepo.FindCommentById(commentId) ?? throw new EntityNotFoundException($"Comment with ID = {commentId} was not found!");
+            commentRepo.DeleteCommentById(commentId);
             return true;
         }
 
         public GetCommentDto FindCommentById(int commentId)
         {
-            return mapper.Map<GetCommentDto>(repo.FindCommentById(commentId));
+            return mapper.Map<GetCommentDto>(commentRepo.FindCommentById(commentId)) ?? throw new EntityNotFoundException($"Comment with Id={commentId} was not found!");
         }
 
         public IList<GetCommentDto> GetAllComments(CommentQueryParameters queryParams)
         {
-            IList<Comment> comments = repo.GetAllComments().ToList();
+            IList<Comment> comments = commentRepo.GetAllComments().ToList();
+
+            if (!comments.Any())
+            {
+                throw new EntityNotFoundException("There aren't any comments yet!");
+            }
+
             return comments.Select(comment => mapper.Map<GetCommentDto>(comment)).ToList();
         }
 
-        // update comment in repo should take a commentDTO
         public Comment UpdateCommentContent(int commentId, UpdateCommentContentDto commentDTO)
         {
             var mappedComment = mapper.Map<Comment>(commentDTO);
 
-            return repo.UpdateComment(commentId, mappedComment);
+            return commentRepo.UpdateComment(commentId, mappedComment);
         }
     }
 }

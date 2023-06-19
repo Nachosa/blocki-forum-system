@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,40 +23,57 @@ namespace ForumSystem.DataAccess.CommentRepo
 
         public IEnumerable<Comment> GetAllComments()
         {
-            return forumDb.Comments;
+            return forumDb.Comments.Where(c => c.IsDeleted == false).ToList();
         }
 
         public Comment CreateComment(Comment comment)
         {
-            comment.Id = forumDb.Comments.OrderByDescending(c => c.Id).FirstOrDefault().Id + 1;
+            comment.Id = forumDb.Comments
+                .Where(c => c.IsDeleted == false)
+                .OrderByDescending(c => c.Id)
+                .Select(c => c.Id)
+                .FirstOrDefault() + 1;
+
             forumDb.Comments.Add(comment);
             forumDb.SaveChanges();
+
             return comment;
         }
 
         public Comment UpdateComment(int commentId, Comment comment)
         {
-            var existingComment = FindCommentById(commentId);
+            // pre-database implementation (still builds)
+            //var existingComment = FindCommentById(commentId);
 
-            if (existingComment == null)
-            {
-                return comment;
-            }
+            //if (existingComment == null)
+            //{
+            //    return comment;
+            //}
 
-            existingComment.Content = comment.Content;
+            //existingComment.Content = comment.Content;
 
-            return comment;
+            //return comment;
+
+            var commentToUpdate = forumDb.Comments.FirstOrDefault(c => c.Id == commentId);
+
+            commentToUpdate.Content = comment.Content ?? commentToUpdate.Content;
+            forumDb.SaveChanges();
+
+            return commentToUpdate;
         }
 
-        //След базата не работи.
-        //public void DeleteComment(Comment comment)
-        //{
-        //    comments.Remove(comment);
-        //}
+        public bool DeleteComment(Comment comment)
+        {
+            comment.DeletedOn = DateTime.Now;
+            comment.IsDeleted = true;
+            forumDb.SaveChanges();
+
+            return true;
+        }
 
         public Comment FindCommentById(int commentId)
         {
-            var comment = forumDb.Comments.Include(c=>c.Likes).FirstOrDefault(comment => comment.Id == commentId);
+            var comment = forumDb.Comments.Include(c => c.Likes).FirstOrDefault(comment => comment.Id == commentId);
             return comment ?? throw new ArgumentNullException($"Comment with id={commentId} doesn't exist.");
         }
 
@@ -67,13 +85,16 @@ namespace ForumSystem.DataAccess.CommentRepo
 
         public bool DeleteCommentById(int commentId)
         {
-            var comment = forumDb.Comments.FirstOrDefault(comment => comment.Id == commentId);
-            if (comment == null)
-                throw new ArgumentNullException($"Comment with id={commentId} doesn't exist.");
-            else
-                comment.IsDeleted = true;
-                forumDb.SaveChanges();
-            return true;
+            var comment = forumDb.Comments.FirstOrDefault(c => c.Id == commentId);
+
+            // security checks should be done in upper layers
+            //if (comment == null)
+            //    throw new ArgumentNullException($"Comment with id={commentId} doesn't exist.");
+            //else
+            //    comment.IsDeleted = true;
+            //    forumDb.SaveChanges();
+
+            return DeleteComment(comment);
         }
 
         public List<Comment> FilterBy(CommentQueryParameters filterParameters, List<Comment> comments)

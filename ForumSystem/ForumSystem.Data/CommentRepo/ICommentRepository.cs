@@ -15,7 +15,7 @@ namespace ForumSystem.DataAccess.CommentRepo
 
         public Comment UpdateComment(int commentId, Comment comment);
 
-        //public void DeleteComment(Comment comment);
+        public bool DeleteComment(Comment comment);
 
         public Comment FindCommentById(int commentId);
 

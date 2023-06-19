@@ -16,5 +16,8 @@ namespace DTO.CommentDTO
 
         public int Likes { get; set; }
 
+        // needed to perform security checks
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

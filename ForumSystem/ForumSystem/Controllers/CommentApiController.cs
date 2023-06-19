@@ -17,15 +17,17 @@ namespace ForumSystem.Api.Controllers
     [Route("api/comments")]
     public class CommentApiController : ControllerBase
     {
+        private readonly IAuthManager authManager;
         private readonly ICommentService commentService;
         private readonly IPostService postService;
-        private readonly IAuthManager authManager;
+        private readonly IUserService userService;
 
-        public CommentApiController(ICommentService commentService, IPostService postService, IAuthManager authManager)
+        public CommentApiController(IAuthManager authManager, ICommentService commentService, IPostService postService, IUserService userService)
         {
+            this.authManager = authManager;
             this.commentService = commentService;
             this.postService = postService;
-            this.authManager = authManager;
+            this.userService = userService;
         }
 
         [HttpGet("")]
@@ -46,12 +48,12 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetCommentById(int id)
+        [HttpGet("{commentId}")]
+        public IActionResult GetCommentById(int commentId)
         {
             try
             {
-                GetCommentDto commentDTO = commentService.FindCommentById(id);
+                GetCommentDto commentDTO = commentService.FindCommentById(commentId);
                 return StatusCode(StatusCodes.Status200OK, commentDTO);
             }
             catch (ArgumentNullException e)
@@ -60,25 +62,23 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
-        [HttpPost("")]
-        public IActionResult CreateComment([FromBody] CreateCommentDto commentDto)
-        {
-            commentService.CreateComment(commentDto);
-            return StatusCode(StatusCodes.Status200OK, commentDto);
-        }
+        //[HttpPost("")]
+        //public IActionResult CreateComment([FromHeader] string credentials, [FromBody] CreateCommentDto commentDto)
+        //{
+        //    authManager.BlockedCheck(credentials);
+        //    commentService.CreateComment(commentDto);
+        //    return StatusCode(StatusCodes.Status200OK, commentDto);
+        //}
 
-        // just testing
         [HttpPost("{postId}")]
-        public IActionResult AddCommentToThread([FromHeader] string credentials, int postId,  [FromBody] CreateCommentDto commentDto)
+        public IActionResult CreateComment([FromBody] CreateCommentDto commentDto, [FromHeader] string credentials, int postId)
         {
             try
             {
-                authManager.UserCheck(credentials);
-
+                authManager.BlockedCheck(credentials);
                 Comment comment = commentService.CreateComment(commentDto);
                 Post post = postService.GetPostById(postId);
                 post.Comments.Add(comment);
-
                 return Ok();
             }
             catch (EntityNotFoundException e)
@@ -91,13 +91,21 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult UpdateCommentContent(int id, [FromBody] UpdateCommentContentDto commentContentDto)
+        [HttpPatch("{commentId}")]
+        public IActionResult UpdateCommentContent([FromBody] UpdateCommentContentDto commentContentDto, [FromHeader] string credentials, [FromQuery] string username, int commentId)
         {
             try
             {
-                Comment comment = commentService.UpdateCommentContent(id, commentContentDto);
-                return StatusCode(StatusCodes.Status200OK, comment);
+                authManager.BlockedCheck(credentials);
+                var comment = commentService.FindCommentById(commentId);
+                var user = userService.GetUserByUserName(username);
+
+                if (comment.UserId != user.Id)
+                {
+                    throw new ArgumentException("You have to be the author of this comment in order to update it!");
+                }
+
+                return StatusCode(StatusCodes.Status200OK, commentService.UpdateCommentContent(commentId, commentContentDto));
             }
             catch (ArgumentNullException e)
             {
@@ -105,12 +113,22 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteCommentById(int id)
+        [HttpDelete("{commentId}")]
+        public IActionResult DeleteCommentById([FromHeader] string credentials, [FromQuery] string username, int commentId)
         {
             try
             {
-                var isDeleted = commentService.DeleteCommentById(id);
+                authManager.BlockedCheck(credentials);
+                var comment = commentService.FindCommentById(commentId);
+                var user = userService.GetUserByUserName(username);
+
+                if (comment.UserId != user.Id && user.Role.Id != 1) // user is neither admin or author
+                {
+                    throw new ArgumentException("You have to be the author of this comment or an admin in order to delete it!");
+                }
+
+                var isDeleted = commentService.DeleteCommentById(commentId);
+
                 return StatusCode(StatusCodes.Status200OK, isDeleted);
             }
             catch (ArgumentNullException e)
