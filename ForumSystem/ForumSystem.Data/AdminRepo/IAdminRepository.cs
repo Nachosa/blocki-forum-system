@@ -9,10 +9,10 @@ namespace ForumSystem.DataAccess.AdminRepo
 {
     public interface IAdminRepository
     {
-        void MakeUserAdmin(User user);
-
-        void BlockUser(User user);
-
-        void UnBlockUser(User user);
+        bool MakeUserAdmin(User user);
+        
+        bool BlockUser(User user);
+        
+        bool UnBlockUser(User user);
     }
 }

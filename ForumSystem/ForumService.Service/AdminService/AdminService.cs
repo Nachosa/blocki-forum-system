@@ -26,38 +26,38 @@ namespace ForumSystem.Business.AdminService
         }
 
 
-        public void MakeUserAdmin(int? id, string email)
+        public bool MakeUserAdmin(int? id, string email)
         {
             if (id is not null)
             {
                 var user = userRepo.GetUserById((int)id);
                 if (user is null) throw new EntityNotFoundException($"User with Id:{id} was not found!");
-                adminRepo.MakeUserAdmin(user);
+                return adminRepo.MakeUserAdmin(user);
             }
             else if (email is not null)
             {
                 var user = userRepo.GetUserByEmail(email);
                 if (user is null) throw new EntityNotFoundException($"User with Email:{email} was not found!");
-                adminRepo.MakeUserAdmin(user);
+                return adminRepo.MakeUserAdmin(user);
             }
             else
             {
                 throw new ArgumentNullException("Please privide Id or email of the user!");
             }
         }
-        public void BlockUser(int? id, string email)
+        public bool BlockUser(int? id, string email)
         {
             if (id is not null)
             {
                 var user = userRepo.GetUserById((int)id);
                 if (user is null) throw new EntityNotFoundException($"User with Id:{id} was not found!");
-                adminRepo.BlockUser(user);
+                return adminRepo.BlockUser(user);
             }
             else if (email is not null)
             {
                 var user = userRepo.GetUserByEmail(email);
                 if (user is null) throw new EntityNotFoundException($"User with Email:{email} was not found!");
-                adminRepo.BlockUser(user);
+                return adminRepo.BlockUser(user);
             }
             else
             {
@@ -65,21 +65,21 @@ namespace ForumSystem.Business.AdminService
             }
         }
 
-        public void UnBlockUser(int? id,string email)
+        public bool UnBlockUser(int? id,string email)
         {
             if (id is not null)
             {
                 var user = userRepo.GetUserById((int)id);
                 if (user is null) throw new EntityNotFoundException($"User with Id:{id} was not found!");
                 if(user.RoleId==2) throw new EntityNotBlockedException("User wasn't blocked so you can't ublock!");
-                adminRepo.UnBlockUser(user);
+                return adminRepo.UnBlockUser(user);
             }
             else if (email is not null)
             {
                 var user = userRepo.GetUserByEmail(email);
                 if (user is null) throw new EntityNotFoundException($"User with Email:{email} was not found!");
                 if (user.RoleId == 2) throw new EntityNotBlockedException("User wasn't blocked so you can't ublock!");
-                adminRepo.UnBlockUser(user);
+                return adminRepo.UnBlockUser(user);
             }
             else
             {
@@ -87,7 +87,7 @@ namespace ForumSystem.Business.AdminService
             }
         }
 
-        public void DeletePost(int? id)
+        public bool DeletePost(int? id)
         {
             if(id is null) new ArgumentNullException("Please privide Id of the post!");
             var post = postRepo.GetPostById((int)id);
@@ -95,7 +95,7 @@ namespace ForumSystem.Business.AdminService
             {
                 throw new EntityNotFoundException($"Post with {id} was not found!");
             }
-            postRepo.DeletePostById((int)id);
+            return postRepo.DeletePostById((int)id);
             
         }
     }

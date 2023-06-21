@@ -8,13 +8,13 @@ namespace ForumSystem.Business.AdminService
 {
     public interface IAdminService
     {
-        void MakeUserAdmin(int? id, string email);
+        bool MakeUserAdmin(int? id, string email);
 
-        void BlockUser(int? id, string email);
+        bool BlockUser(int? id, string email);
 
-        void UnBlockUser(int? id, string email);
+        bool UnBlockUser(int? id, string email);
 
-        void DeletePost(int? id);
+        bool DeletePost(int? id);
 
     }
 }

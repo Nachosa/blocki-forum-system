@@ -14,22 +14,25 @@ namespace ForumSystem.DataAccess.AdminRepo
         {
             this.forumDb = forumDb;
         }
-        public void BlockUser(User user)
+        public bool BlockUser(User user)
         {
             user.RoleId = 1;
             forumDb.SaveChanges();
+            return true;
         }
 
-        public void MakeUserAdmin(User user)
+        public bool MakeUserAdmin(User user)
         {
             user.RoleId = 3;
             forumDb.SaveChanges();
+            return true;
         }
 
-        public void UnBlockUser(User user)
+        public bool UnBlockUser(User user)
         {
             user.RoleId = 2;
             forumDb.SaveChanges();
+            return true;
         }
     }
 }
