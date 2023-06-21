@@ -3,6 +3,7 @@ using ForumSystem.DataAccess.AdminRepo;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.PostRepo;
 using ForumSystem.DataAccess.UserRepo;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace ForumSystem.Business.AdminService
                 if (user is null) throw new EntityNotFoundException($"User with Id:{id} was not found!");
                 return adminRepo.MakeUserAdmin(user);
             }
-            else if (email is not null)
+            else if (!email.IsNullOrEmpty())
             {
                 var user = userRepo.GetUserByEmail(email);
                 if (user is null) throw new EntityNotFoundException($"User with Email:{email} was not found!");
@@ -53,7 +54,7 @@ namespace ForumSystem.Business.AdminService
                 if (user is null) throw new EntityNotFoundException($"User with Id:{id} was not found!");
                 return adminRepo.BlockUser(user);
             }
-            else if (email is not null)
+            else if (!email.IsNullOrEmpty())
             {
                 var user = userRepo.GetUserByEmail(email);
                 if (user is null) throw new EntityNotFoundException($"User with Email:{email} was not found!");
@@ -74,7 +75,7 @@ namespace ForumSystem.Business.AdminService
                 if(user.RoleId==2) throw new EntityNotBlockedException("User wasn't blocked so you can't ublock!");
                 return adminRepo.UnBlockUser(user);
             }
-            else if (email is not null)
+            else if (!email.IsNullOrEmpty())
             {
                 var user = userRepo.GetUserByEmail(email);
                 if (user is null) throw new EntityNotFoundException($"User with Email:{email} was not found!");
@@ -89,7 +90,7 @@ namespace ForumSystem.Business.AdminService
 
         public bool DeletePost(int? id)
         {
-            if(id is null) new ArgumentNullException("Please privide Id of the post!");
+            if(id is null) throw new ArgumentNullException("Please privide Id of the post!");
             var post = postRepo.GetPostById((int)id);
             if (post is null)
             {
