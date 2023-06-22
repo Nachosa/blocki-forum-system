@@ -10,6 +10,7 @@ using AutoMapper;
 using ForumSystem.DataAccess.PostRepo;
 using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Exceptions;
+using ForumSystem.Business.AuthenticationManager;
 
 namespace ForumSystem.Business
 {
@@ -33,13 +34,21 @@ namespace ForumSystem.Business
             return post;
         }
 
-        public Post UpdatePostContent(int postId, Post post, string userName)
+        public Post UpdatePostContent(int postId, Post newPost, string userName)
         {
-            return postRepo.UpdatePostContent(postId, post, userName);
+            var currPost = postRepo.GetPostById(postId);
+            //Проверката дали е админ трябва по-скоро да се прави от AuthManager - injection?
+            if (currPost.User.Username != userName)
+                throw new UnauthenticatedOperationException("Can't update other user's posts!");
+            else
+                return postRepo.UpdatePostContent(newPost, currPost);
         }
 
-        public bool DeletePostById(int postId)
+        public bool DeletePostById(int postId, string userName)
         {
+            var post = postRepo.GetPostById(postId); 
+            if (post.User.Username != userName)
+                throw new UnauthenticatedOperationException("Can't delete other user's posts!");
             return postRepo.DeletePostById(postId);
         }
 
@@ -47,6 +56,7 @@ namespace ForumSystem.Business
         {
             return postRepo.GetPostById(postId);
         }
+
         public ICollection<Post> GetPostsWithTag(string tag1)
         {
             var tag = postRepo.GetTagWithName(tag1);
