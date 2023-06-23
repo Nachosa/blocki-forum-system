@@ -19,7 +19,7 @@ namespace ForumSystem.DataAccess.UserRepo
         User GetUserByEmail(string email);
         public IEnumerable<User> GetUsersByFirstName(string firstName);
      
-        List<User> Searchby(UserQueryParams queryParams);
+        List<User> SearchBy(UserQueryParams queryParams);
 
         User UpdateUser(string userName,User user);
 

@@ -44,25 +44,20 @@ namespace ForumSystem.Api.Controllers
         [HttpGet("")]
         public IActionResult GetUsers([FromHeader] string credentials, [FromQuery] UserQueryParams queryParams)
         {
-            authManager.AdminCheck(credentials);
             try
             {
-                if (queryParams.UserName is null &
-                    queryParams.FirstName is null &
-                    queryParams.Email is null)
-                {
-                    var usersDTO = userService.GetAllUsers().Select(u => mapper.Map<GetUserDTO>(u));
-                    return Ok(usersDTO);
-                }
-                else
-                {
-                    var usersDTO = userService.SearchBy(queryParams).Select(u => mapper.Map<GetUserDTO>(u));
-                    return Ok(usersDTO);
-                }
+                authManager.AdminCheck(credentials);
+                var usersDTO = userService.SearchBy(queryParams).Select(u => mapper.Map<GetUserDTO>(u));
+                return Ok(usersDTO);
+
             }
             catch (EntityNotFoundException e)
             {
                 return NotFound(e.Message);
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                return (StatusCode(StatusCodes.Status401Unauthorized, e.Message));
             }
             catch (Exception e)
             {
@@ -71,12 +66,12 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpGet("{id}/posts")]
-        public IActionResult GetUserPosts(int id,[FromHeader] string credentials, [FromQuery] PostQueryParameters queryParams)
+        public IActionResult GetUserPosts(int id, [FromHeader] string credentials, [FromQuery] PostQueryParameters queryParams)
         {
             try
             {
                 authManager.UserCheck(credentials);
-                var posts=userService.GetUserPosts(queryParams,id).Select(u=>mapper.Map<GetPostDto>(u));
+                var posts = userService.GetUserPosts(queryParams, id).Select(u => mapper.Map<GetPostDto>(u));
                 return Ok(posts);
             }
             catch (Exception e)
@@ -117,12 +112,12 @@ namespace ForumSystem.Api.Controllers
         }
 
         [HttpDelete("")]
-        public IActionResult DeleteUser([FromHeader] string credentials, [FromQuery] string userName,int? id)
+        public IActionResult DeleteUser([FromHeader] string credentials, [FromQuery] string userName, int? id)
         {
             try
             {
                 authManager.AdminCheck(credentials);
-                userService.DeleteUser(userName,id);
+                userService.DeleteUser(userName, id);
                 return Ok("User Deleted!");
 
             }

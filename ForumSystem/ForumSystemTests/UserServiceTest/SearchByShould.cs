@@ -56,7 +56,7 @@ namespace ForumSystemTests.UserServiceTest
             var mapperMock = new Mock<IMapper>();
             var sut = new UserService(userRepoMock.Object, mapperMock.Object, postRepoMock.Object);
 
-            userRepoMock.Setup(repo => repo.Searchby(queryParams)).Returns(users);
+            userRepoMock.Setup(repo => repo.SearchBy(queryParams)).Returns(users);
 
             var result = sut.SearchBy(queryParams);
 
@@ -76,7 +76,7 @@ namespace ForumSystemTests.UserServiceTest
             var mapperMock = new Mock<IMapper>();
             var sut = new UserService(userRepoMock.Object, mapperMock.Object, postRepoMock.Object);
 
-            userRepoMock.Setup(repo => repo.Searchby(queryParams)).Returns(users);
+            userRepoMock.Setup(repo => repo.SearchBy(queryParams)).Returns(users);
 
             Assert.ThrowsException<EntityNotFoundException>(() => sut.SearchBy(queryParams));
 

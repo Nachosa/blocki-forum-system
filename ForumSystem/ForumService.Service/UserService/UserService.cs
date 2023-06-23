@@ -20,7 +20,7 @@ namespace ForumSystem.Business.UserService
         private readonly IUserRepository userRepo;
         private readonly IPostRepository postRepo;
         private readonly IMapper userMapper;
-        public UserService(IUserRepository userRepo, IMapper createUserMapper,IPostRepository postRepo)
+        public UserService(IUserRepository userRepo, IMapper createUserMapper, IPostRepository postRepo)
         {
             this.userRepo = userRepo;
             this.userMapper = createUserMapper;
@@ -83,13 +83,23 @@ namespace ForumSystem.Business.UserService
 
         public List<User> SearchBy(UserQueryParams queryParams)
         {
-            var originalUsers = userRepo.Searchby(queryParams);
+            List<User> users;
+            if (queryParams.UserName is null &
+                   queryParams.FirstName is null &
+                   queryParams.Email is null)
+            {
+                users = userRepo.GetAllUsers().ToList();
+            }
+            else
+            {
+                users = userRepo.SearchBy(queryParams);
+            }
 
-            if (originalUsers.Count == 0)
+            if (users.Count == 0)
             {
                 throw new EntityNotFoundException($"User not found!");
             }
-            return originalUsers;
+            return users;
 
         }
 
@@ -115,12 +125,12 @@ namespace ForumSystem.Business.UserService
 
         }
 
-        public bool DeleteUser(string userName,int? userId)
+        public bool DeleteUser(string userName, int? userId)
         {
             if (userId is not null)
             {
                 var userToDelete = userRepo.GetUserById((int)userId);
-                if(userToDelete is null) throw new EntityNotFoundException($"User with Id={userId} was not found!");
+                if (userToDelete is null) throw new EntityNotFoundException($"User with Id={userId} was not found!");
                 return userRepo.DeleteUser(userToDelete);
 
             }
@@ -133,6 +143,6 @@ namespace ForumSystem.Business.UserService
             throw new EntityNotFoundException("Please provide Id or Username for the user to be deleted!");
         }
 
-       
+
     }
 }

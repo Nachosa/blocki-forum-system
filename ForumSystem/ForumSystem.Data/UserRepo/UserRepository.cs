@@ -56,7 +56,7 @@ namespace ForumSystem.DataAccess.UserRepo
             return usersWithThatName;
         }
 
-        public List<User> Searchby(UserQueryParams queryParams)
+        public List<User> SearchBy(UserQueryParams queryParams)
         {
             var result = forumDb.Users.ToList();
 
@@ -66,7 +66,7 @@ namespace ForumSystem.DataAccess.UserRepo
             }
             if (queryParams.UserName is not null)
             {
-                result = result.FindAll(u => u.Username == queryParams.FirstName);
+                result = result.FindAll(u => u.Username == queryParams.UserName);
             }
             if (queryParams.Email is not null)
             {

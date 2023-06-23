@@ -149,6 +149,30 @@ namespace ForumSystem.DataAccess
                 RoleId = 3
 
                 //1234567890
+            },
+            new User()
+            {
+                Id = 7,
+                FirstName = "Andrea",
+                LastName = "Paynera",
+                Username = "TopAndreika",
+                Email = "Andrea@gmail.com",
+                Password = "MTIzNDU2Nzg5MA==",
+                RoleId = 2
+
+                //1234567890
+            },
+            new User()
+            {
+                Id = 8,
+                FirstName = "Emanuela",
+                LastName = "Paynera",
+                Username = "TopEmanuelka",
+                Email = "Emanuela@gmail.com",
+                Password = "MTIzNDU2Nzg5MA==",
+                RoleId = 2
+
+                //1234567890
             }
             };
             IList<Post> posts = new List<Post>

@@ -67,7 +67,7 @@ namespace ForumSystem.Api.Controllers
 
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{userId}")]
         public IActionResult DeletePost([FromHeader] string credentials,int id)
         {
             try

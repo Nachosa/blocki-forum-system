@@ -197,12 +197,14 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "Email", "FirstName", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(902), null, "gosho@gmail.com", "Gosho", false, "Goshev", "MTIzNDU2Nzg5MA==", null, 2, "goshoXx123" },
-                    { 2, new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(932), null, "Nikolai@gmail.com", "Nikolai", false, "Barekov", "MTIzNDU2Nzg5MA==", null, 2, "BarekaXx123" },
-                    { 3, new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(936), null, "gosho@gmail.com", "Boiko", false, "Borisov", "MTIzNDU2Nzg5MA==", null, 2, "BokoMoko" },
-                    { 4, new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(938), null, "Cvetan@gmail.com", "Cvetan", false, "Cvetanov", "MTIzNDU2Nzg5MA==", null, 2, "Cvete123" },
-                    { 5, new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(941), null, "Kopeikin@gmail.com", "Kosta", false, "Kopeikin", "MTIzNDU2Nzg5MA==", null, 2, "BrainDamage123" },
-                    { 6, new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(945), null, "Admin@gmail.com", "Admin", false, "Adminov", "MTIzNDU2Nzg5MA==", null, 3, "Admin" }
+                    { 1, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(2976), null, "gosho@gmail.com", "Gosho", false, "Goshev", "MTIzNDU2Nzg5MA==", null, 2, "goshoXx123" },
+                    { 2, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3019), null, "Nikolai@gmail.com", "Nikolai", false, "Barekov", "MTIzNDU2Nzg5MA==", null, 2, "BarekaXx123" },
+                    { 3, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3024), null, "gosho@gmail.com", "Boiko", false, "Borisov", "MTIzNDU2Nzg5MA==", null, 2, "BokoMoko" },
+                    { 4, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3027), null, "Cvetan@gmail.com", "Cvetan", false, "Cvetanov", "MTIzNDU2Nzg5MA==", null, 2, "Cvete123" },
+                    { 5, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3031), null, "Kopeikin@gmail.com", "Kosta", false, "Kopeikin", "MTIzNDU2Nzg5MA==", null, 2, "BrainDamage123" },
+                    { 6, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3038), null, "Admin@gmail.com", "Admin", false, "Adminov", "MTIzNDU2Nzg5MA==", null, 3, "Admin" },
+                    { 7, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3043), null, "Andrea@gmail.com", "Andrea", false, "Paynera", "MTIzNDU2Nzg5MA==", null, 2, "TopAndreika" },
+                    { 8, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3048), null, "Emanuela@gmail.com", "Emanuela", false, "Paynera", "MTIzNDU2Nzg5MA==", null, 2, "TopEmanuelka" }
                 });
 
             migrationBuilder.InsertData(
@@ -210,11 +212,11 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "Content", "CreatedOn", "DeletedOn", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "A non-convertible currency is one that one cannot exchange that currency on the international foreign exchange market. Outside the country, this currency has no value — it may also be referred to as locked money. For example, the Indian rupee is a semi-non convertible currency outside of India while dollars can be exchanged in all countries around the world.", new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(949), null, false, "WILL BITCOIN BE USED BY THE ENTIRE WORLD?", 2 },
-                    { 2, "If governments decide to opt for a non-convertible currency, it is mainly to prevent capital flight abroad. In effect, by preventing convertibility, residents are then \"forced\" to use the currency in the country. Although the currency cannot leave the territory, it is nevertheless possible via complex financial instruments such as non-deliverable forwards (NDFs).", new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(953), null, false, "WHY DO SOME COUNTRIES OPT FOR NON-CONVERTIBLE CURRENCIES?", 3 },
-                    { 3, "Since then, the idea of ​​a single currency or a return to the gold standard has been put back on the table. It’s not a new idea, actually.\r\n\r\nDuring the Bretton Woods agreement, John Mayard Keynes proposed the creation of an international currency called the bancor, fixed by a basket of strong currencies of industrialized countries. His proposal was not accepted but his idea has continued across generations of economists.", new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(956), null, false, "THE IDEA OF ​​A SINGLE WORLD CURRENCY.", 4 },
-                    { 4, "f there were no more national currencies, foreign exchange market-based problems and conversion fees would end immediately. Countries would no longer have a monetary barrier and could trade more freely. This would improve and increase international trade. All nations would benefit, especially countries with fragile currencies because there would be no more exchange risk.", new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(958), null, false, "WHAT WOULD BE THE BENEFITS OF A WORLD CURRENCY?", 5 },
-                    { 5, "The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol.", new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(960), null, false, "No Central Authority ", 3 }
+                    { 1, "A non-convertible currency is one that one cannot exchange that currency on the international foreign exchange market. Outside the country, this currency has no value — it may also be referred to as locked money. For example, the Indian rupee is a semi-non convertible currency outside of India while dollars can be exchanged in all countries around the world.", new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3056), null, false, "WILL BITCOIN BE USED BY THE ENTIRE WORLD?", 2 },
+                    { 2, "If governments decide to opt for a non-convertible currency, it is mainly to prevent capital flight abroad. In effect, by preventing convertibility, residents are then \"forced\" to use the currency in the country. Although the currency cannot leave the territory, it is nevertheless possible via complex financial instruments such as non-deliverable forwards (NDFs).", new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3064), null, false, "WHY DO SOME COUNTRIES OPT FOR NON-CONVERTIBLE CURRENCIES?", 3 },
+                    { 3, "Since then, the idea of ​​a single currency or a return to the gold standard has been put back on the table. It’s not a new idea, actually.\r\n\r\nDuring the Bretton Woods agreement, John Mayard Keynes proposed the creation of an international currency called the bancor, fixed by a basket of strong currencies of industrialized countries. His proposal was not accepted but his idea has continued across generations of economists.", new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3069), null, false, "THE IDEA OF ​​A SINGLE WORLD CURRENCY.", 4 },
+                    { 4, "f there were no more national currencies, foreign exchange market-based problems and conversion fees would end immediately. Countries would no longer have a monetary barrier and could trade more freely. This would improve and increase international trade. All nations would benefit, especially countries with fragile currencies because there would be no more exchange risk.", new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3074), null, false, "WHAT WOULD BE THE BENEFITS OF A WORLD CURRENCY?", 5 },
+                    { 5, "The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol.", new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3079), null, false, "No Central Authority ", 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -222,10 +224,10 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "Content", "CreatedOn", "DeletedOn", "IsDeleted", "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Bitcon is the best!", new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(964), null, false, 1, 2 },
-                    { 2, "Bitcoin is trash", new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(969), null, false, 2, 3 },
-                    { 3, "Ethereum is better", new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(972), null, false, 3, 3 },
-                    { 4, "Ripple is the new best crypto", new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(974), null, false, 4, 4 }
+                    { 1, "Bitcon is the best!", new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3085), null, false, 1, 2 },
+                    { 2, "Bitcoin is trash", new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3092), null, false, 2, 3 },
+                    { 3, "Ethereum is better", new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3096), null, false, 3, 3 },
+                    { 4, "Ripple is the new best crypto", new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3099), null, false, 4, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -233,10 +235,10 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "CommentId", "CreatedOn", "DeletedOn", "IsDeleted", "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(1020), null, false, 2, 3 },
-                    { 2, null, new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(1024), null, false, 2, 2 },
-                    { 3, null, new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(1026), null, false, 2, 1 },
-                    { 4, null, new DateTime(2023, 6, 14, 14, 52, 51, 131, DateTimeKind.Local).AddTicks(1028), null, false, 4, 1 }
+                    { 1, null, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3302), null, false, 2, 3 },
+                    { 2, null, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3313), null, false, 2, 2 },
+                    { 3, null, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3318), null, false, 2, 1 },
+                    { 4, null, new DateTime(2023, 6, 23, 10, 35, 37, 322, DateTimeKind.Local).AddTicks(3321), null, false, 4, 1 }
                 });
 
             migrationBuilder.CreateIndex(
