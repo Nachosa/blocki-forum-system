@@ -11,16 +11,19 @@ using ForumSystem.DataAccess.PostRepo;
 using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.Business.AuthenticationManager;
+using ForumSystem.DataAccess.UserRepo;
 
 namespace ForumSystem.Business
 {
     public class PostService : IPostService
     {
         private readonly IPostRepository postRepo;
+        private readonly IUserRepository userRepo;
 
-        public PostService(IPostRepository postRepo)
+        public PostService(IPostRepository postRepo, IUserRepository userRepo)
         {
             this.postRepo = postRepo;
+            this.userRepo = userRepo;
         }
 
         public IList<Post> GetPosts(PostQueryParameters queryParams)
@@ -32,6 +35,19 @@ namespace ForumSystem.Business
         {
             postRepo.CreatePost(post);
             return post;
+        }
+
+        public bool LikePost(int postId, string userName)
+        {
+            var post = postRepo.GetPostById(postId);
+            var user = userRepo.GetUserByUserName(userName);
+            var like = post.Likes.FirstOrDefault(l => l.UserId == user.Id);
+            if (like != null)
+            {
+                throw new DuplicateEntityException("You can't like a post twice!");
+            }
+            postRepo.LikePost(post, user);
+            return true;
         }
 
         public Post UpdatePostContent(int postId, Post newPost, string userName)
@@ -46,7 +62,7 @@ namespace ForumSystem.Business
 
         public bool DeletePostById(int postId, string userName)
         {
-            var post = postRepo.GetPostById(postId); 
+            var post = postRepo.GetPostById(postId);
             if (post.User.Username != userName)
                 throw new UnauthenticatedOperationException("Can't delete other user's posts!");
             return postRepo.DeletePostById(postId);

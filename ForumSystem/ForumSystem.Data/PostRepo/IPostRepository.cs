@@ -22,6 +22,8 @@ namespace ForumSystem.DataAccess.PostRepo
 
         Post CreatePost(Post post);
 
+        bool LikePost(Post post, User user);
+
         Post UpdatePostContent(Post newPost, Post currPost);
 
         bool DeletePostById(int postId);

@@ -29,9 +29,9 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public ICollection<Post> GetUserPosts(int userId, PostQueryParameters queryParameters)
         {
-            List<Post> userPosts=forumDb.Posts.Where(p=>p.UserId==userId && p.IsDeleted == false).Include(p=>p.Likes).ToList();
-            userPosts=FilterBy(queryParameters, userPosts);
-            userPosts=SortBy(queryParameters, userPosts);   
+            List<Post> userPosts = forumDb.Posts.Where(p => p.UserId == userId && p.IsDeleted == false).Include(p => p.Likes).ToList();
+            userPosts = FilterBy(queryParameters, userPosts);
+            userPosts = SortBy(queryParameters, userPosts);
             return userPosts;
 
         }
@@ -42,13 +42,20 @@ namespace ForumSystem.DataAccess.PostRepo
             return post;
         }
 
+        public bool LikePost(Post post, User user)
+        {
+            forumDb.Likes.Add(new Like { PostId = post.Id, UserId = user.Id });
+            forumDb.SaveChanges();
+            return true;
+        }
+
         public bool DeletePostById(int postId)
         {
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
             if (post == null || post.IsDeleted)
                 throw new EntityNotFoundException($"Post with id={postId} doesn't exist.");
             else
-                post.DeletedOn=DateTime.Now;
+                post.DeletedOn = DateTime.Now;
                 post.IsDeleted = true;
             forumDb.SaveChanges();
             return true;
@@ -67,8 +74,8 @@ namespace ForumSystem.DataAccess.PostRepo
         public Post UpdatePostContent(Post newPost, Post currPost)
         {
             //Проверка дали юзъра е админ ако не съвпада?
-                currPost.Content = newPost.Content;
-                forumDb.SaveChanges();
+            currPost.Content = newPost.Content;
+            forumDb.SaveChanges();
             return currPost;
         }
 
