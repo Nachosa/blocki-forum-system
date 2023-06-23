@@ -128,6 +128,10 @@ namespace ForumSystem.Api.Controllers
             {
                 return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
+            catch (EntityNotFoundException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
         }
 
         [HttpPatch("{id}")]

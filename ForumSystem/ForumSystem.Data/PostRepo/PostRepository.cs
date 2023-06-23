@@ -49,6 +49,8 @@ namespace ForumSystem.DataAccess.PostRepo
             return true;
         }
 
+        //Може би ще е добре тук да се преизползва GetPostById, но пък ще е ненужно инклудването на Id и User?
+        //Изтриване и на лайковете и коментарите на поста?
         public bool DeletePostById(int postId)
         {
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
