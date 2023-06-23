@@ -1,4 +1,5 @@
 ﻿using ForumSystem.Api.QueryParams;
+using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -45,7 +46,7 @@ namespace ForumSystem.DataAccess.PostRepo
         {
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
             if (post == null || post.IsDeleted)
-                throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
+                throw new EntityNotFoundException($"Post with id={postId} doesn't exist.");
             else
                 post.DeletedOn=DateTime.Now;
                 post.IsDeleted = true;
@@ -58,23 +59,17 @@ namespace ForumSystem.DataAccess.PostRepo
             //Include преди FirstOrDefault ми се струва много бавно.
             var post = forumDb.Posts.Include(p => p.Likes).Include(p => p.User).FirstOrDefault(post => post.Id == postId);
             if (post == null || post.IsDeleted)
-                throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
+                throw new EntityNotFoundException($"Post with id={postId} doesn't exist.");
             else
                 return post;
         }
 
-        public Post UpdatePostContent(int postId, Post newPost, string userName)
+        public Post UpdatePostContent(Post newPost, Post currPost)
         {
-            var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
-            if (post == null || post.IsDeleted)
-                throw new ArgumentNullException($"Post with id={postId} doesn't exist.");
             //Проверка дали юзъра е админ ако не съвпада?
-            if (post.User.Username != userName)
-                throw new ArgumentException("Can't update other user's posts!");
-            else
-                post.Content = newPost.Content;
+                currPost.Content = newPost.Content;
                 forumDb.SaveChanges();
-            return post;
+            return currPost;
         }
 
         //(Опционално) Филтриране по дата на създаване.

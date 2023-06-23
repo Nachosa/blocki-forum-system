@@ -22,7 +22,7 @@ namespace ForumSystem.DataAccess.PostRepo
 
         Post CreatePost(Post post);
 
-        Post UpdatePostContent(int postId, Post post, string userName);
+        Post UpdatePostContent(Post newPost, Post currPost);
 
         bool DeletePostById(int postId);
     }

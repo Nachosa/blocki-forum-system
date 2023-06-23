@@ -19,7 +19,7 @@ namespace ForumSystem.Business
 
         public Post UpdatePostContent(int postId, Post post, string userName);
 
-        bool DeletePostById(int postId);
+        bool DeletePostById(int postId, string userName);
 
         Post GetPostById(int postId);
     }
