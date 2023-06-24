@@ -18,9 +18,34 @@ namespace ForumSystem.DataAccess
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            ConfigureMigration(builder);
+
+            base.OnModelCreating(builder);
+
+            CreateSeed(builder);
+        }
+
+
+        public DbSet<Post> Posts { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Comment> Comments { get; set; }
+
+        public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<Like> Likes { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<PostTag> PostTags { get; set; }
+
+        protected void ConfigureMigration(ModelBuilder builder)
+        {
             // Configure unique constraint for user liking a post
+            // Попринцип работи нормално дори и когато един юзър хареса, отхареса и после пак хареса същия пост, но не съм сигурен защо, все си мисля че трябва да има и Id в долната конфигурация.
             builder.Entity<Like>()
-                .HasIndex(l => new { l.UserId, l.PostId, l.CommentId })
+                .HasIndex(l => new { /*l.Id, */l.UserId, l.PostId, l.CommentId })
                 .IsUnique();
 
             builder.Entity<User>()
@@ -54,9 +79,10 @@ namespace ForumSystem.DataAccess
                 .WithOne(l => l.Comment)
                 .HasForeignKey(l => l.CommentId)
                 .OnDelete(DeleteBehavior.NoAction);
+        }
 
-            base.OnModelCreating(builder);
-
+        protected void CreateSeed(ModelBuilder builder)
+        {
             IList<Role> roles = new List<Role>
             {
                 new Role
@@ -75,7 +101,9 @@ namespace ForumSystem.DataAccess
                     Name = "Admin"
                 }
             };
+
             builder.Entity<Role>().HasData(roles);
+
             IList<User> users = new List<User>
             {
             new User()
@@ -175,6 +203,7 @@ namespace ForumSystem.DataAccess
                 //1234567890
             }
             };
+
             IList<Post> posts = new List<Post>
             {
                 new Post
@@ -215,6 +244,7 @@ namespace ForumSystem.DataAccess
 
                 }
             };
+
             IList<Comment> comments = new List<Comment>
             {
                 new Comment
@@ -248,11 +278,6 @@ namespace ForumSystem.DataAccess
                 }
             };
 
-
-            builder.Entity<User>().HasData(users);
-            builder.Entity<Post>().HasData(posts);
-            builder.Entity<Comment>().HasData(comments);
-
             IList<Like> likes = new List<Like>
             {
                 new Like
@@ -284,24 +309,10 @@ namespace ForumSystem.DataAccess
                 },
             };
 
+            builder.Entity<User>().HasData(users);
+            builder.Entity<Post>().HasData(posts);
+            builder.Entity<Comment>().HasData(comments);
             builder.Entity<Like>().HasData(likes);
-
         }
-
-
-        public DbSet<Post> Posts { get; set; }
-
-        public DbSet<User> Users { get; set; }
-
-        public DbSet<Comment> Comments { get; set; }
-
-        public DbSet<Tag> Tags { get; set; }
-
-        public DbSet<Like> Likes { get; set; }
-
-        public DbSet<Role> Roles { get; set; }
-
-        public DbSet<PostTag> PostTags { get; set; }
-
     }
 }
