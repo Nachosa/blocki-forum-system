@@ -31,7 +31,9 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public ICollection<Post> GetUserPosts(int userId, PostQueryParameters queryParameters)
         {
-            List<Post> userPosts = forumDb.Posts.Where(p => p.UserId == userId && p.IsDeleted == false).Include(p => p.Likes).ToList();
+            List<Post> userPosts = forumDb.Posts.Where(p => p.UserId == userId && p.IsDeleted == false)
+                                                .Include(p => p.Likes.Where(l => l.IsDeleted == false))
+                                                .ToList();
             userPosts = FilterBy(queryParameters, userPosts);
             userPosts = SortBy(queryParameters, userPosts);
             return userPosts;
@@ -53,7 +55,7 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public Like GetLike(int postId, int userId)
         {
-            var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId);
+            var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId && l.IsDeleted == false);
             return like;
         }
 
