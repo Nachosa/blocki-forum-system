@@ -134,6 +134,32 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
+        [HttpPost("unlike/{postId}")]
+        public IActionResult UnikePost(int postId, [FromHeader] string credentials)
+        {
+            try
+            {
+                authManager.BlockedCheck(credentials);
+                string[] usernameAndPassword = credentials.Split(':');
+                string userName = usernameAndPassword[0];
+
+                postService.UnlikePost(postId, userName);
+                return this.StatusCode(StatusCodes.Status200OK, true);
+            }
+            catch (UnauthenticatedOperationException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+            catch (DuplicateEntityException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+        }
+
         [HttpPatch("{id}")]
         public IActionResult UpdatePostContent(int id, [FromBody] UpdatePostContentDto postContentDto, [FromHeader] string credentials)
         {

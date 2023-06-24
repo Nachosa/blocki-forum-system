@@ -39,14 +39,30 @@ namespace ForumSystem.Business
 
         public bool LikePost(int postId, string userName)
         {
+            //В момента взимам поста и юзъра само за да проверя дали съществуват.
             var post = postRepo.GetPostById(postId);
             var user = userRepo.GetUserByUserName(userName);
-            var like = post.Likes.FirstOrDefault(l => l.UserId == user.Id);
+            var like = postRepo.GetLike(postId, user.Id);
             if (like != null)
             {
                 throw new DuplicateEntityException("You can't like a post twice!");
             }
+            //Може би ще е по-добре да се подават само ИД-тата?
             postRepo.LikePost(post, user);
+            return true;
+        }
+
+        public bool UnlikePost(int postId, string userName)
+        {
+            //В момента взимам поста и юзъра само за да проверя дали съществуват.
+            var post = postRepo.GetPostById(postId);
+            var user = userRepo.GetUserByUserName(userName);
+            var like = postRepo.GetLike(postId, user.Id);
+            if (like == null)
+            {
+                throw new DuplicateEntityException("You haven't liked this post!");
+            }
+            postRepo.UnikePost(like);
             return true;
         }
 

@@ -19,6 +19,8 @@ namespace ForumSystem.Business
 
         public bool LikePost(int postId, string userName);
 
+        public bool UnlikePost(int postId, string userName);
+
         public Post UpdatePostContent(int postId, Post post, string userName);
 
         bool DeletePostById(int postId, string userName);

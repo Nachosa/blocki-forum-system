@@ -21,7 +21,9 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
         {
-            List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false).Include(p => p.Likes).Include(p => p.User));
+            List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
+                                                                    .Include(p => p.Likes.Where(l => l.IsDeleted == false))
+                                                                    .Include(p => p.User));
             postsToProcess = FilterBy(queryParameters, postsToProcess);
             postsToProcess = SortBy(queryParameters, postsToProcess);
             return postsToProcess;
@@ -45,6 +47,19 @@ namespace ForumSystem.DataAccess.PostRepo
         public bool LikePost(Post post, User user)
         {
             forumDb.Likes.Add(new Like { PostId = post.Id, UserId = user.Id });
+            forumDb.SaveChanges();
+            return true;
+        }
+
+        public Like GetLike(int postId, int userId)
+        {
+            var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId);
+            return like;
+        }
+
+        public bool UnikePost(Like like)
+        {
+            like.IsDeleted = true;
             forumDb.SaveChanges();
             return true;
         }

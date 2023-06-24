@@ -22,7 +22,11 @@ namespace ForumSystem.DataAccess.PostRepo
 
         Post CreatePost(Post post);
 
+        public Like GetLike(int postId, int userId);
+
         bool LikePost(Post post, User user);
+
+        public bool UnikePost(Like like);
 
         Post UpdatePostContent(Post newPost, Post currPost);
 
