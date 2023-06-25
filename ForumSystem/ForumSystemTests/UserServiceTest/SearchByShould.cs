@@ -19,7 +19,7 @@ namespace ForumSystemTests.UserServiceTest
     public class SearchByShould
     {
         [TestMethod]
-        public void Return_Users()
+        public void Return_All_Users()
         {
             List<User> users = new List<User>()
             {
@@ -56,11 +56,11 @@ namespace ForumSystemTests.UserServiceTest
             var mapperMock = new Mock<IMapper>();
             var sut = new UserService(userRepoMock.Object, mapperMock.Object, postRepoMock.Object);
 
-            userRepoMock.Setup(repo => repo.SearchBy(queryParams)).Returns(users);
+            userRepoMock.Setup(repo => repo.GetAllUsers()).Returns(users);
 
             var result = sut.SearchBy(queryParams);
 
-            Assert.AreEqual(users, result);
+            CollectionAssert.AreEqual(users, result);
 
         }
         [TestMethod]

@@ -54,11 +54,9 @@ namespace ForumSystemTests.UserServiceTest
                 .Setup(repo => repo.CreateUser(user))
                 .Returns(user);
 
-            mapperMock
-                .Setup(mapper => mapper.Map<User>(userDTO))
-                .Returns(user);
+            
 
-            var result=sut.CreateUser(userDTO);
+            var result=sut.CreateUser(user);
             
             Assert.AreEqual(user, result);
 
@@ -104,11 +102,8 @@ namespace ForumSystemTests.UserServiceTest
                 .Setup(repo => repo.CreateUser(user))
                 .Returns(user);
 
-            mapperMock
-                .Setup(mapper => mapper.Map<User>(userDTO))
-                .Returns(user);
-
-            Assert.ThrowsException<EmailAlreadyExistException>(() => sut.CreateUser(userDTO));
+     
+            Assert.ThrowsException<EmailAlreadyExistException>(() => sut.CreateUser(user));
         }
 
     }

@@ -28,11 +28,12 @@ namespace ForumSystem.Api.Controllers
             this.mapper = mapper;
         }
         [HttpPost("")]
-        public IActionResult CreateUser([FromBody] CreateUserDTO user)
+        public IActionResult CreateUser([FromBody] CreateUserDTO userDTO)
         {
             try
             {
-                var createdUser = userService.CreateUser(user);
+                User mappedUser = mapper.Map<User>(userDTO);
+                var createdUser = userService.CreateUser(mappedUser);
                 GetUserDTO result = mapper.Map<GetUserDTO>(createdUser);
                 return Ok(result);
             }
