@@ -97,12 +97,66 @@ namespace ForumSystem.Api.Controllers
             try
             {
                 authManager.BlockedCheck(credentials);
+                string[] usernameAndPassword = credentials.Split(':');
+                string userName = usernameAndPassword[0];
 
                 var post = postMapper.Map<Post>(postDto);
-                postService.CreatePost(post);
+                postService.CreatePost(post, userName);
                 return this.StatusCode(StatusCodes.Status200OK, postDto);
             }
             catch (UnauthenticatedOperationException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+        }
+
+        [HttpPost("like/{postId}")]
+        public IActionResult LikePost(int postId , [FromHeader] string credentials)
+        {
+            try
+            {
+                authManager.BlockedCheck(credentials);
+                string[] usernameAndPassword = credentials.Split(':');
+                string userName = usernameAndPassword[0];
+
+                postService.LikePost(postId, userName);
+                return this.StatusCode(StatusCodes.Status200OK, true);
+            }
+            catch (UnauthenticatedOperationException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+            catch (DuplicateEntityException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+        }
+
+        [HttpPost("unlike/{postId}")]
+        public IActionResult UnikePost(int postId, [FromHeader] string credentials)
+        {
+            try
+            {
+                authManager.BlockedCheck(credentials);
+                string[] usernameAndPassword = credentials.Split(':');
+                string userName = usernameAndPassword[0];
+
+                postService.UnlikePost(postId, userName);
+                return this.StatusCode(StatusCodes.Status200OK, true);
+            }
+            catch (UnauthenticatedOperationException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+            catch (DuplicateEntityException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+            catch (EntityNotFoundException e)
             {
                 return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }

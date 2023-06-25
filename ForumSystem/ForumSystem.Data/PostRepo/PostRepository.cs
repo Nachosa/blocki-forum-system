@@ -21,7 +21,9 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
         {
-            List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false).Include(p => p.Likes).Include(p => p.User));
+            List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
+                                                                    .Include(p => p.Likes.Where(l => l.IsDeleted == false))
+                                                                    .Include(p => p.User));
             postsToProcess = FilterBy(queryParameters, postsToProcess);
             postsToProcess = SortBy(queryParameters, postsToProcess);
             return postsToProcess;
@@ -29,9 +31,11 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public ICollection<Post> GetUserPosts(int userId, PostQueryParameters queryParameters)
         {
-            List<Post> userPosts=forumDb.Posts.Where(p=>p.UserId==userId && p.IsDeleted == false).Include(p=>p.Likes).ToList();
-            userPosts=FilterBy(queryParameters, userPosts);
-            userPosts=SortBy(queryParameters, userPosts);   
+            List<Post> userPosts = forumDb.Posts.Where(p => p.UserId == userId && p.IsDeleted == false)
+                                                .Include(p => p.Likes.Where(l => l.IsDeleted == false))
+                                                .ToList();
+            userPosts = FilterBy(queryParameters, userPosts);
+            userPosts = SortBy(queryParameters, userPosts);
             return userPosts;
 
         }
@@ -42,13 +46,35 @@ namespace ForumSystem.DataAccess.PostRepo
             return post;
         }
 
+        public bool LikePost(Post post, User user)
+        {
+            forumDb.Likes.Add(new Like { PostId = post.Id, UserId = user.Id });
+            forumDb.SaveChanges();
+            return true;
+        }
+
+        public Like GetLike(int postId, int userId)
+        {
+            var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId && l.IsDeleted == false);
+            return like;
+        }
+
+        public bool UnikePost(Like like)
+        {
+            like.IsDeleted = true;
+            forumDb.SaveChanges();
+            return true;
+        }
+
+        //Може би ще е добре тук да се преизползва GetPostById, но пък ще е ненужно инклудването на Id и User?
+        //Изтриване и на лайковете и коментарите на поста?
         public bool DeletePostById(int postId)
         {
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
             if (post == null || post.IsDeleted)
                 throw new EntityNotFoundException($"Post with id={postId} doesn't exist.");
             else
-                post.DeletedOn=DateTime.Now;
+                post.DeletedOn = DateTime.Now;
                 post.IsDeleted = true;
             forumDb.SaveChanges();
             return true;
@@ -67,8 +93,8 @@ namespace ForumSystem.DataAccess.PostRepo
         public Post UpdatePostContent(Post newPost, Post currPost)
         {
             //Проверка дали юзъра е админ ако не съвпада?
-                currPost.Content = newPost.Content;
-                forumDb.SaveChanges();
+            currPost.Content = newPost.Content;
+            forumDb.SaveChanges();
             return currPost;
         }
 

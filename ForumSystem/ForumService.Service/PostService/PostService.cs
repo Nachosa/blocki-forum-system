@@ -11,16 +11,19 @@ using ForumSystem.DataAccess.PostRepo;
 using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.Business.AuthenticationManager;
+using ForumSystem.DataAccess.UserRepo;
 
 namespace ForumSystem.Business
 {
     public class PostService : IPostService
     {
         private readonly IPostRepository postRepo;
+        private readonly IUserRepository userRepo;
 
-        public PostService(IPostRepository postRepo)
+        public PostService(IPostRepository postRepo, IUserRepository userRepo)
         {
             this.postRepo = postRepo;
+            this.userRepo = userRepo;
         }
 
         public IList<Post> GetPosts(PostQueryParameters queryParams)
@@ -28,16 +31,47 @@ namespace ForumSystem.Business
             return this.postRepo.GetPosts(queryParams).ToList();
         }
 
-        public Post CreatePost(Post post)
+        public Post CreatePost(Post post, string userName)
         {
+            var user = userRepo.GetUserByUserName(userName);
+            post.UserId = user.Id;
             postRepo.CreatePost(post);
             return post;
+        }
+
+        public bool LikePost(int postId, string userName)
+        {
+            //В момента взимам поста и юзъра само за да проверя дали съществуват.
+            var post = postRepo.GetPostById(postId);
+            var user = userRepo.GetUserByUserName(userName);
+            var like = postRepo.GetLike(postId, user.Id);
+            if (like != null)
+            {
+                throw new DuplicateEntityException("You can't like a post twice!");
+            }
+            //Може би ще е по-добре да се подават само ИД-тата?
+            postRepo.LikePost(post, user);
+            return true;
+        }
+
+        public bool UnlikePost(int postId, string userName)
+        {
+            //В момента взимам поста и юзъра само за да проверя дали съществуват.
+            var post = postRepo.GetPostById(postId);
+            var user = userRepo.GetUserByUserName(userName);
+            var like = postRepo.GetLike(postId, user.Id);
+            if (like == null)
+            {
+                throw new DuplicateEntityException("You haven't liked this post!");
+            }
+            postRepo.UnikePost(like);
+            return true;
         }
 
         public Post UpdatePostContent(int postId, Post newPost, string userName)
         {
             var currPost = postRepo.GetPostById(postId);
-            //Проверката дали е админ трябва по-скоро да се прави от AuthManager - injection?
+            //Проверка за админ, как да се направи?
             if (currPost.User.Username != userName)
                 throw new UnauthenticatedOperationException("Can't update other user's posts!");
             else
@@ -46,7 +80,8 @@ namespace ForumSystem.Business
 
         public bool DeletePostById(int postId, string userName)
         {
-            var post = postRepo.GetPostById(postId); 
+            var post = postRepo.GetPostById(postId);
+            //Проверка за админ, как да се направи?
             if (post.User.Username != userName)
                 throw new UnauthenticatedOperationException("Can't delete other user's posts!");
             return postRepo.DeletePostById(postId);
