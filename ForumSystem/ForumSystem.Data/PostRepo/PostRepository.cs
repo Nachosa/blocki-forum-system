@@ -125,17 +125,17 @@ namespace ForumSystem.DataAccess.PostRepo
                 posts = posts.FindAll(post => post.Content.Contains(filterParameters.Content, StringComparison.InvariantCultureIgnoreCase));
             }
 
-            if (!(filterParameters.MinDate == null))
+            if (filterParameters.MinDate is not null)
             {
                 posts = posts.FindAll(post => post.CreatedOn >= filterParameters.MinDate);
             }
 
-            if (!(filterParameters.MaxDate == null))
+            if (filterParameters.MaxDate is not null)
             {
                 posts = posts.FindAll(post => post.CreatedOn <= filterParameters.MaxDate);
             }
 
-            if (!(filterParameters.Tag == null))
+            if (filterParameters.Tag is not null)
             {
                 var tag = tagRepo.GetTagByName(filterParameters.Tag);
                 if (tag != null)

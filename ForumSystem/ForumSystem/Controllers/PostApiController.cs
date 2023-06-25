@@ -111,7 +111,7 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
-        [HttpPost("like/{postId}")]
+        [HttpPost("{postId}/like")]
         public IActionResult LikePost(int postId , [FromHeader] string credentials)
         {
             try
@@ -137,7 +137,7 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
-        [HttpPost("unlike/{postId}")]
+        [HttpPost("{postId}/unlike")]
         public IActionResult UnikePost(int postId, [FromHeader] string credentials)
         {
             try
@@ -163,7 +163,7 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
-        [HttpPatch("tag/{postId}")]
+        [HttpPatch("{postId}/tag")]
         public IActionResult TagPost(int postId, [FromHeader] string credentials, [FromBody] TagDto tagDto)
         {
             try
