@@ -14,10 +14,12 @@ namespace ForumSystem.DataAccess.PostRepo
     public class PostRepository : IPostRepository
     {
         private readonly ForumSystemContext forumDb;
+        private readonly ITagRepository tagRepo;
 
-        public PostRepository(ForumSystemContext forumDb)
+        public PostRepository(ForumSystemContext forumDb, ITagRepository tagRepo)
         {
             this.forumDb = forumDb;
+            this.tagRepo = tagRepo;
         }
 
         public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
@@ -133,7 +135,7 @@ namespace ForumSystem.DataAccess.PostRepo
 
             if (!(filterParameters.Tag == null))
             {
-                var tag = GetTagWithName(filterParameters.Tag);
+                var tag = tagRepo.GetTagByName(filterParameters.Tag);
                 if (tag != null)
                     posts = posts.FindAll(post => post.Tags.Any(pt => pt.Id == tag.Id));
                 //Тук не съм сигурен, че това е най-рентабилния вариант ако няма такъв таг.
@@ -171,15 +173,15 @@ namespace ForumSystem.DataAccess.PostRepo
             return posts;
         }
 
-        public ICollection<Post> GetPostsWithTag(string tag1)
-        {
-            var posts = forumDb.Posts.Include(p => p.Tags).Where(p => p.Tags.Any(t => t.Tag.Name == tag1));
-            return posts.ToList();
-        }
+        //public ICollection<Post> GetPostsWithTag(string tag1)
+        //{
+        //    var posts = forumDb.Posts.Include(p => p.Tags).Where(p => p.Tags.Any(t => t.Tag.Name == tag1));
+        //    return posts.ToList();
+        //}
 
-        public Tag GetTagWithName(string name)
-        {
-            return forumDb.Tags.FirstOrDefault(t => t.Name == name);
-        }
+        //public Tag GetTagWithName(string name)
+        //{
+        //    return forumDb.Tags.FirstOrDefault(t => t.Name == name);
+        //}
     }
 }

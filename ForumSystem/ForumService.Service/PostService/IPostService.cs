@@ -13,7 +13,7 @@ namespace ForumSystem.Business
     {
         public IList<Post> GetPosts(PostQueryParameters queryParams);
 
-        public ICollection<Post> GetPostsWithTag(string tag1);
+        //public ICollection<Post> GetPostsWithTag(string tag1);
 
         public Post CreatePost(Post post, string userName);
 

@@ -43,7 +43,7 @@ namespace ForumSystem.DataAccess.TagRepo
         public Tag GetTagById(int tagId)
         {
             //Мисля че това .Include(t => t.Name) ще изкара грешка
-            var tag = forumDb.Tags.Include(t => t.Name).FirstOrDefault(tag => tag.Id == tagId);
+            var tag = forumDb.Tags.FirstOrDefault(tag => tag.Id == tagId);
 
             if (tag == null || tag.IsDeleted)
                 throw new ArgumentNullException($"Tag with id={tagId} doesn't exist.");
@@ -59,7 +59,7 @@ namespace ForumSystem.DataAccess.TagRepo
 
         public IEnumerable<Tag> GetTags(TagQueryParameters queryParameters)
         {
-            List<Tag> tagsToProcess = new List<Tag>(forumDb.Tags.Where(t => t.IsDeleted == false).Include(t => t.Name));
+            List<Tag> tagsToProcess = new List<Tag>(forumDb.Tags.Where(t => t.IsDeleted == false));
             tagsToProcess = FilterBy(queryParameters, tagsToProcess);
             tagsToProcess = SortBy(queryParameters, tagsToProcess);
             return tagsToProcess;
