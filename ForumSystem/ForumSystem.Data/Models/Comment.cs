@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ForumSystem.DataAccess.Models
 {
@@ -13,12 +14,15 @@ namespace ForumSystem.DataAccess.Models
 
         [ForeignKey("User")]
         public int UserId { get; set; }
+        //[JsonIgnore]
         public User User { get; set; }
 
         [ForeignKey("Post")]
         public int PostId { get; set; }
+        //[JsonIgnore]
         public Post Post { get; set; }
 
+        //[JsonIgnore]
         public ICollection<Like> Likes { get; set; } = new List<Like>();
 
     }

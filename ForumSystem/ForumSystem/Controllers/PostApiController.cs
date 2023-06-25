@@ -40,7 +40,7 @@ namespace ForumSystem.Api.Controllers
                 authManager.UserCheck(credentials);
 
                 var posts = postService.GetPosts(queryParams);
-                var mappedPosts = posts.Select(post => postMapper.Map<GetPostDto>(post)).ToList();
+                var mappedPosts = posts.Select(post => postMapper.Map<GetPostDtoAbbreviated>(post)).ToList();
                 return this.StatusCode(StatusCodes.Status200OK, mappedPosts);
             }
             //Трябва да си оправя exception-ите навсякъде, може би да са къстъм?

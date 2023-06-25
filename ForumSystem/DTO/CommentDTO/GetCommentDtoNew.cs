@@ -7,21 +7,20 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace DTO.CommentDTO
+namespace ForumSystemDTO.CommentDTO
 {
-    public class GetCommentDto
+    public class GetCommentDtoNew
     {
         [MinLength(32, ErrorMessage = "The {0} must be at least {1} characters long.")]
         [MaxLength(8192, ErrorMessage = "The {0} must be no more than {1} characters long.")]
         public string Content { get; set; }
 
-        public int Likes { get; set; }
+        public string UserName { get; set; }
+
+        public int LikesCount { get; set; }
 
         // needed to perform security checks
         //Може да се махне когато се премести мапването от сървиса в контролера.
-        //Ще трябва да се мапне само името на юзъра а не целия обект при връщане - както е в GetCommentDtoNew.
-        public int UserId { get; set; }
-        [JsonIgnore]
-        public User User { get; set; }
+        //Ще трябва да се мапне само името на юзъра а не целия обект при връщане.
     }
 }
