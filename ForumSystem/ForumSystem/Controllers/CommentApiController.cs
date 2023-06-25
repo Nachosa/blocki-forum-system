@@ -1,15 +1,16 @@
-﻿using ForumSystem.Business;
-using ForumSystem.Business.CommentService;
-using ForumSystem.DataAccess.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
 using DTO.CommentDTO;
 using ForumSystem.Api.QueryParams;
-using ForumSystem.DataAccess.QueryParams;
-using AutoMapper;
+using ForumSystem.Business;
 using ForumSystem.Business.AuthenticationManager;
+using ForumSystem.Business.CommentService;
 using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
+using ForumSystem.DataAccess.Models;
+using ForumSystem.DataAccess.QueryParams;
 using ForumSystemDTO.UserDTO;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design;
 
 namespace ForumSystem.Api.Controllers
 {
@@ -19,32 +20,44 @@ namespace ForumSystem.Api.Controllers
     {
         private readonly IAuthManager authManager;
         private readonly ICommentService commentService;
-        private readonly IPostService postService;
-        private readonly IUserService userService;
 
-        public CommentApiController(IAuthManager authManager, ICommentService commentService, IPostService postService, IUserService userService)
+        public CommentApiController(IAuthManager authManager, ICommentService commentService)
         {
             this.authManager = authManager;
             this.commentService = commentService;
-            this.postService = postService;
-            this.userService = userService;
         }
 
-        [HttpGet("")]
-        public IActionResult GetComments([FromQuery] CommentQueryParameters queryParams)
+        [HttpPost("{postId}")]
+        public IActionResult CreateComment([FromBody] CreateCommentDto commentDto, [FromHeader] string credentials, int postId)
         {
             try
             {
-                if (queryParams.MaxDate < queryParams.MinDate)
-                {
-                    throw new ArgumentException("Invalid date range!");
-                }
-
-                return StatusCode(StatusCodes.Status200OK, commentService.GetAllComments(queryParams));
+                authManager.BlockedCheck(credentials);
+                return StatusCode(StatusCodes.Status200OK, commentService.CreateComment(commentDto, postId));
             }
-            catch (ArgumentException e)
+            catch (EntityNotFoundException e)
             {
-                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
+            catch (UnauthenticatedOperationException e)
+            {
+                return Unauthorized(e.Message);
+            }
+        }
+
+        [HttpDelete("{commentId}")]
+        public IActionResult DeleteCommentById([FromHeader] string credentials, int commentId)
+        {
+            try
+            {
+                authManager.BlockedCheck(credentials);
+                string username = credentials.Split(':')[0];
+
+                return StatusCode(StatusCodes.Status200OK, commentService.DeleteCommentById(commentId, username));
+            }
+            catch (ArgumentNullException e)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
             }
         }
 
@@ -62,74 +75,33 @@ namespace ForumSystem.Api.Controllers
             }
         }
 
-        //[HttpPost("")]
-        //public IActionResult CreateComment([FromHeader] string credentials, [FromBody] CreateCommentDto commentDto)
-        //{
-        //    authManager.BlockedCheck(credentials);
-        //    commentService.CreateComment(commentDto);
-        //    return StatusCode(StatusCodes.Status200OK, commentDto);
-        //}
-
-        [HttpPost("{postId}")]
-        public IActionResult CreateComment([FromBody] CreateCommentDto commentDto, [FromHeader] string credentials, int postId)
+        [HttpGet("")]
+        public IActionResult GetComments([FromQuery] CommentQueryParameters queryParameters)
         {
             try
             {
-                authManager.BlockedCheck(credentials);
-                Comment comment = commentService.CreateComment(commentDto);
-                Post post = postService.GetPostById(postId);
-                post.Comments.Add(comment);
-                return Ok();
+                if (queryParameters.MaxDate < queryParameters.MinDate)
+                {
+                    throw new ArgumentException("Invalid date range!");
+                }
+
+                return StatusCode(StatusCodes.Status200OK, commentService.GetAllComments(queryParameters));
             }
-            catch (EntityNotFoundException e)
+            catch (ArgumentException e)
             {
-                return StatusCode(StatusCodes.Status404NotFound, e.Message);
-            }
-            catch (UnauthenticatedOperationException e)
-            {
-                return Unauthorized(e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
         }
 
         [HttpPatch("{commentId}")]
-        public IActionResult UpdateCommentContent([FromBody] UpdateCommentContentDto commentContentDto, [FromHeader] string credentials, [FromQuery] string username, int commentId)
+        public IActionResult UpdateCommentContent([FromBody] UpdateCommentContentDto commentContentDto, [FromHeader] string credentials, int commentId)
         {
             try
             {
                 authManager.BlockedCheck(credentials);
-                var comment = commentService.FindCommentById(commentId);
-                var user = userService.GetUserByUserName(username);
+                string username = credentials.Split(':')[0];
 
-                if (comment.UserId != user.Id)
-                {
-                    throw new ArgumentException("You have to be the author of this comment in order to update it!");
-                }
-
-                return StatusCode(StatusCodes.Status200OK, commentService.UpdateCommentContent(commentId, commentContentDto));
-            }
-            catch (ArgumentNullException e)
-            {
-                return StatusCode(StatusCodes.Status404NotFound, e.Message);
-            }
-        }
-
-        [HttpDelete("{commentId}")]
-        public IActionResult DeleteCommentById([FromHeader] string credentials, [FromQuery] string username, int commentId)
-        {
-            try
-            {
-                authManager.BlockedCheck(credentials);
-                var comment = commentService.FindCommentById(commentId);
-                var user = userService.GetUserByUserName(username);
-
-                if (comment.UserId != user.Id && user.Role.Id != 1) // user is neither admin or author
-                {
-                    throw new ArgumentException("You have to be the author of this comment or an admin in order to delete it!");
-                }
-
-                var isDeleted = commentService.DeleteCommentById(commentId);
-
-                return StatusCode(StatusCodes.Status200OK, isDeleted);
+                return StatusCode(StatusCodes.Status200OK, commentService.UpdateCommentContent(commentId, commentContentDto, username));
             }
             catch (ArgumentNullException e)
             {
