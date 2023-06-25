@@ -15,7 +15,7 @@ namespace ForumSystem.Business
 
         public ICollection<Post> GetPostsWithTag(string tag1);
 
-        public Post CreatePost(Post post);
+        public Post CreatePost(Post post, string userName);
 
         public bool LikePost(int postId, string userName);
 

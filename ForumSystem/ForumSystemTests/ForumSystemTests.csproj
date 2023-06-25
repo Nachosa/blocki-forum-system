@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <Folder Include="CommentServiceTest\" />
-    <Folder Include="PostServiceTest\" />
   </ItemGroup>
 
 </Project>

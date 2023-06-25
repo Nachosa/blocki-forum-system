@@ -18,6 +18,7 @@ namespace ForumSystem.DataAccess
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //Вкарах ги в отделни методи за по-чисто, дано не направи проблем в бъдеще.
             ConfigureMigration(builder);
 
             base.OnModelCreating(builder);

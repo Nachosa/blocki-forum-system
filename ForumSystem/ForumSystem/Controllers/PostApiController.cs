@@ -97,9 +97,11 @@ namespace ForumSystem.Api.Controllers
             try
             {
                 authManager.BlockedCheck(credentials);
+                string[] usernameAndPassword = credentials.Split(':');
+                string userName = usernameAndPassword[0];
 
                 var post = postMapper.Map<Post>(postDto);
-                postService.CreatePost(post);
+                postService.CreatePost(post, userName);
                 return this.StatusCode(StatusCodes.Status200OK, postDto);
             }
             catch (UnauthenticatedOperationException e)

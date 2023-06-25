@@ -26,6 +26,8 @@ namespace ForumSystem.Business.UserService
             this.userMapper = createUserMapper;
             this.postRepo = postRepo;
         }
+
+        //Местим мапването в контролерите.
         public User CreateUser(CreateUserDTO userDTO)
         {
             if (userRepo.EmailExist(userDTO.Email))
