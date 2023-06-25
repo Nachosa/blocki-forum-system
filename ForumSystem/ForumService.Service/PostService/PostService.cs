@@ -49,9 +49,7 @@ namespace ForumSystem.Business
             var user = userRepo.GetUserByUserName(userName);
             var like = postRepo.GetLike(postId, user.Id);
             if (like != null)
-            {
                 throw new DuplicateEntityException("You can't like a post twice!");
-            }
             //Може би ще е по-добре да се подават само ИД-тата?
             postRepo.LikePost(post, user);
             return true;
@@ -64,9 +62,7 @@ namespace ForumSystem.Business
             var user = userRepo.GetUserByUserName(userName);
             var like = postRepo.GetLike(postId, user.Id);
             if (like == null)
-            {
                 throw new DuplicateEntityException("You haven't liked this post!");
-            }
             postRepo.UnikePost(like);
             return true;
         }
@@ -81,6 +77,8 @@ namespace ForumSystem.Business
                 throw new UnauthenticatedOperationException("Can't tag other user's posts!");
             if (existingTag == null)
                 tag = tagRepo.CreateTag(tag);
+            else if (existingTag.Posts.Any(p => p.PostId == postId))
+                throw new DuplicateEntityException("The post already has that tag!");
             postRepo.TagPost(currPost, tag);
             return true;
         }
