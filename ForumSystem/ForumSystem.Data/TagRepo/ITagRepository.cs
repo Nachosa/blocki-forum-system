@@ -15,6 +15,8 @@ namespace ForumSystem.DataAccess.TagRepo
 
         Tag GetTagById(int tagId);
 
+        Tag GetTagByName(string name);
+
         Tag CreateTag(Tag tag);
 
         Tag UpdateTagName(int tagId, Tag tag, string userName);

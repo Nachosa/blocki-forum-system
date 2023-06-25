@@ -103,8 +103,6 @@ namespace ForumSystem.DataAccess
                 }
             };
 
-            builder.Entity<Role>().HasData(roles);
-
             IList<User> users = new List<User>
             {
             new User()
@@ -310,6 +308,16 @@ namespace ForumSystem.DataAccess
                 },
             };
 
+            //IList<Tag> tags = new List<Tag>
+            //{
+            //    new Tag
+            //    {
+            //        Id = 1,
+            //        Name = "investments"
+            //    }
+            //};
+
+            builder.Entity<Role>().HasData(roles);
             builder.Entity<User>().HasData(users);
             builder.Entity<Post>().HasData(posts);
             builder.Entity<Comment>().HasData(comments);

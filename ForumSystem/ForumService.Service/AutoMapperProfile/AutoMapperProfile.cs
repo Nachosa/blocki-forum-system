@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DTO.CommentDTO;
 using ForumSystemDTO.UserDTO;
+using ForumSystemDTO.TagDTO;
 
 namespace ForumSystem.Business.AutoMapperProfile
 {
@@ -30,6 +31,9 @@ namespace ForumSystem.Business.AutoMapperProfile
             CreateMap<Comment, GetCommentDto>()
                 .ForMember(pDto => pDto.Likes, opt => opt.MapFrom(p => p.Likes.Count));
             CreateMap<UpdateCommentContentDto, Comment>();
+
+            CreateMap<TagDto, Tag>();
+            CreateMap<Tag, TagDto>();
         }
 
     }

@@ -4,9 +4,11 @@ using ForumSystem.DataAccess;
 using ForumSystem.Business.UserService;
 using ForumSystem.Business.AutoMapperProfile;
 using ForumSystem.Business.CommentService;
+using ForumSystem.Business.TagService;
 using ForumSystem.DataAccess.UserRepo;
 using ForumSystem.DataAccess.CommentRepo;
 using ForumSystem.DataAccess.PostRepo;
+using ForumSystem.DataAccess.TagRepo;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -31,10 +33,12 @@ namespace ForumSystemBusiness
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ICommentRepository, CommentRepository>();
             builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+            builder.Services.AddScoped<ITagRepository, TagRepository>();
             builder.Services.AddScoped<IPostService, PostService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IAdminService, AdminService>();
             builder.Services.AddScoped<ICommentService, CommentService>();
+            builder.Services.AddScoped<ITagService, TagService>();
             builder.Services.AddScoped<IAuthManager, AuthManager>();
             //builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 

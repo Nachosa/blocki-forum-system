@@ -12,6 +12,7 @@ using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.Business.AuthenticationManager;
 using ForumSystem.DataAccess.UserRepo;
+using ForumSystem.DataAccess.TagRepo;
 
 namespace ForumSystem.Business
 {
@@ -19,11 +20,13 @@ namespace ForumSystem.Business
     {
         private readonly IPostRepository postRepo;
         private readonly IUserRepository userRepo;
+        private readonly ITagRepository tagRepo;
 
-        public PostService(IPostRepository postRepo, IUserRepository userRepo)
+        public PostService(IPostRepository postRepo, IUserRepository userRepo, ITagRepository tagRepo)
         {
             this.postRepo = postRepo;
             this.userRepo = userRepo;
+            this.tagRepo = tagRepo;
         }
 
         public IList<Post> GetPosts(PostQueryParameters queryParams)
@@ -65,6 +68,20 @@ namespace ForumSystem.Business
                 throw new DuplicateEntityException("You haven't liked this post!");
             }
             postRepo.UnikePost(like);
+            return true;
+        }
+
+        public bool TagPost(int postId, string userName, Tag tag)
+        {
+            //В момента взимам поста и юзъра само за да проверя дали съществуват.
+            var currPost = postRepo.GetPostById(postId);
+            var user = userRepo.GetUserByUserName(userName);
+            var existingTag = tagRepo.GetTagByName(tag.Name);
+            if (currPost.User.Username != userName)
+                throw new UnauthenticatedOperationException("Can't tag other user's posts!");
+            if (existingTag == null)
+                tag = tagRepo.CreateTag(tag);
+            postRepo.TagPost(currPost, tag);
             return true;
         }
 

@@ -28,6 +28,8 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public bool UnikePost(Like like);
 
+        bool TagPost(Post post, Tag tag);
+
         Post UpdatePostContent(Post newPost, Post currPost);
 
         bool DeletePostById(int postId);

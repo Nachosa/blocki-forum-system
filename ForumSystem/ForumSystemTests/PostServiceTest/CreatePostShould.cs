@@ -3,6 +3,7 @@ using ForumSystem.Business;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.PostRepo;
 using ForumSystem.DataAccess.UserRepo;
+using ForumSystem.DataAccess.TagRepo;
 using ForumSystemDTO.UserDTO;
 using ForumSystemDTO.PostDTO;
 using Moq;
@@ -40,7 +41,8 @@ namespace ForumSystemTests.PostServiceTest
 
             var userRepoMock = new Mock<IUserRepository>();
             var postRepoMock = new Mock<IPostRepository>();
-            var spt = new PostService(postRepoMock.Object, userRepoMock.Object);
+            var tagRepoMock = new Mock<ITagRepository>();
+            var spt = new PostService(postRepoMock.Object, userRepoMock.Object, tagRepoMock.Object);
 
             userRepoMock
                 .Setup(repo => repo.GetUserByUserName(user.Username))

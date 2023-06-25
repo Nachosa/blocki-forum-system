@@ -66,6 +66,13 @@ namespace ForumSystem.DataAccess.PostRepo
             return true;
         }
 
+        public bool TagPost(Post post, Tag tag)
+        {
+            forumDb.PostTags.Add(new PostTag { PostId = post.Id, TagId = tag.Id });
+            forumDb.SaveChanges();
+            return true;
+        }
+
         //Може би ще е добре тук да се преизползва GetPostById, но пък ще е ненужно инклудването на Id и User?
         //Изтриване и на лайковете и коментарите на поста?
         public bool DeletePostById(int postId)
