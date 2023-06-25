@@ -26,19 +26,16 @@ namespace ForumSystem.Business.UserService
             this.userMapper = createUserMapper;
             this.postRepo = postRepo;
         }
-
-        //Местим мапването в контролерите.
-        public User CreateUser(CreateUserDTO userDTO)
+        public User CreateUser(User mappedUser)
         {
-            if (userRepo.EmailExist(userDTO.Email))
+            if (userRepo.EmailExist(mappedUser.Email))
             {
                 throw new EmailAlreadyExistException("Email already exist!");
             }
 
-            string decodePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(userDTO.Password));
-            userDTO.Password = decodePassword;
+            string decodePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(mappedUser.Password));
+            mappedUser.Password = decodePassword;
 
-            User mappedUser = userMapper.Map<User>(userDTO);
             return userRepo.CreateUser(mappedUser);
         }
         public IEnumerable<User> GetAllUsers()

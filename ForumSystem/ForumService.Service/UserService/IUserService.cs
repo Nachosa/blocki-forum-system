@@ -13,7 +13,7 @@ namespace ForumSystem.Business.UserService
 {
     public interface IUserService
     {
-        User CreateUser(CreateUserDTO user);
+        User CreateUser(User user);
         IEnumerable<User> GetAllUsers();
 
         ICollection<Post> GetUserPosts(PostQueryParameters queryParams, int id);
