@@ -50,6 +50,12 @@ namespace ForumSystem.DataAccess.TagRepo
                 return tag;
         }
 
+        public Tag GetTagByName(string name)
+        {
+            var tag = forumDb.Tags.FirstOrDefault(tag => tag.Name == name);
+            return tag;
+        }
+
         public IEnumerable<Tag> GetTags(TagQueryParameters queryParameters)
         {
             List<Tag> tagsToProcess = new List<Tag>(forumDb.Tags.Where(t => t.IsDeleted == false).Include(t => t.Name));

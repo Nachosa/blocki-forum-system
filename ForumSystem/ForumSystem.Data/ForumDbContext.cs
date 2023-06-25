@@ -18,6 +18,7 @@ namespace ForumSystem.DataAccess
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //Вкарах ги в отделни методи за по-чисто, дано не направи проблем в бъдеще.
             ConfigureMigration(builder);
 
             base.OnModelCreating(builder);
@@ -101,8 +102,6 @@ namespace ForumSystem.DataAccess
                     Name = "Admin"
                 }
             };
-
-            builder.Entity<Role>().HasData(roles);
 
             IList<User> users = new List<User>
             {
@@ -309,6 +308,16 @@ namespace ForumSystem.DataAccess
                 },
             };
 
+            //IList<Tag> tags = new List<Tag>
+            //{
+            //    new Tag
+            //    {
+            //        Id = 1,
+            //        Name = "investments"
+            //    }
+            //};
+
+            builder.Entity<Role>().HasData(roles);
             builder.Entity<User>().HasData(users);
             builder.Entity<Post>().HasData(posts);
             builder.Entity<Comment>().HasData(comments);

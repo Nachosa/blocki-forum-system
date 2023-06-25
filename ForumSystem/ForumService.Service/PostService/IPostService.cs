@@ -15,11 +15,13 @@ namespace ForumSystem.Business
 
         public ICollection<Post> GetPostsWithTag(string tag1);
 
-        public Post CreatePost(Post post);
+        public Post CreatePost(Post post, string userName);
 
         public bool LikePost(int postId, string userName);
 
         public bool UnlikePost(int postId, string userName);
+
+        bool TagPost(int postId, string userName, Tag tag);
 
         public Post UpdatePostContent(int postId, Post post, string userName);
 

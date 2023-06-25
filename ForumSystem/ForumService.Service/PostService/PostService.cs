@@ -12,6 +12,7 @@ using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.Business.AuthenticationManager;
 using ForumSystem.DataAccess.UserRepo;
+using ForumSystem.DataAccess.TagRepo;
 
 namespace ForumSystem.Business
 {
@@ -19,11 +20,13 @@ namespace ForumSystem.Business
     {
         private readonly IPostRepository postRepo;
         private readonly IUserRepository userRepo;
+        private readonly ITagRepository tagRepo;
 
-        public PostService(IPostRepository postRepo, IUserRepository userRepo)
+        public PostService(IPostRepository postRepo, IUserRepository userRepo, ITagRepository tagRepo)
         {
             this.postRepo = postRepo;
             this.userRepo = userRepo;
+            this.tagRepo = tagRepo;
         }
 
         public IList<Post> GetPosts(PostQueryParameters queryParams)
@@ -31,8 +34,10 @@ namespace ForumSystem.Business
             return this.postRepo.GetPosts(queryParams).ToList();
         }
 
-        public Post CreatePost(Post post)
+        public Post CreatePost(Post post, string userName)
         {
+            var user = userRepo.GetUserByUserName(userName);
+            post.UserId = user.Id;
             postRepo.CreatePost(post);
             return post;
         }
@@ -66,10 +71,24 @@ namespace ForumSystem.Business
             return true;
         }
 
+        public bool TagPost(int postId, string userName, Tag tag)
+        {
+            //В момента взимам поста и юзъра само за да проверя дали съществуват.
+            var currPost = postRepo.GetPostById(postId);
+            var user = userRepo.GetUserByUserName(userName);
+            var existingTag = tagRepo.GetTagByName(tag.Name);
+            if (currPost.User.Username != userName)
+                throw new UnauthenticatedOperationException("Can't tag other user's posts!");
+            if (existingTag == null)
+                tag = tagRepo.CreateTag(tag);
+            postRepo.TagPost(currPost, tag);
+            return true;
+        }
+
         public Post UpdatePostContent(int postId, Post newPost, string userName)
         {
             var currPost = postRepo.GetPostById(postId);
-            //Проверката дали е админ трябва по-скоро да се прави от AuthManager - injection?
+            //Проверка за админ, как да се направи?
             if (currPost.User.Username != userName)
                 throw new UnauthenticatedOperationException("Can't update other user's posts!");
             else
@@ -79,6 +98,7 @@ namespace ForumSystem.Business
         public bool DeletePostById(int postId, string userName)
         {
             var post = postRepo.GetPostById(postId);
+            //Проверка за админ, как да се направи?
             if (post.User.Username != userName)
                 throw new UnauthenticatedOperationException("Can't delete other user's posts!");
             return postRepo.DeletePostById(postId);
