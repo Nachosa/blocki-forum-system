@@ -101,7 +101,7 @@ namespace ForumSystem.Api.Controllers
                 authManager.BlockedCheck(credentials);
                 string username = credentials.Split(':')[0];
 
-                return StatusCode(StatusCodes.Status200OK, commentService.UpdateCommentContent(commentId, commentContentDto, username));
+                return StatusCode(StatusCodes.Status200OK, commentService.UpdateCommentContent(commentId, username, commentContentDto));
             }
             catch (ArgumentNullException e)
             {
