@@ -8,5 +8,7 @@ namespace ForumSystem.Api.QueryParams
         public string Content { get; set; }
         public DateTime? MinDate { get; set; }
         public DateTime? MaxDate { get; set; }
+        //(Опционално) Може би ще е добре да се филтрира по множество тагове.
+        public string Tag { get; set; }
     }
 }

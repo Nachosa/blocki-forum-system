@@ -1,6 +1,7 @@
 ﻿using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
+using ForumSystem.DataAccess.TagRepo;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -103,13 +104,11 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public Post UpdatePostContent(Post newPost, Post currPost)
         {
-            //Проверка дали юзъра е админ ако не съвпада?
             currPost.Content = newPost.Content;
             forumDb.SaveChanges();
             return currPost;
         }
 
-        //(Опционално) Филтриране по дата на създаване.
         public List<Post> FilterBy(PostQueryParameters filterParameters, List<Post> posts)
         {
             if (!string.IsNullOrEmpty(filterParameters.Title))
@@ -130,6 +129,16 @@ namespace ForumSystem.DataAccess.PostRepo
             if (!(filterParameters.MaxDate == null))
             {
                 posts = posts.FindAll(post => post.CreatedOn <= filterParameters.MaxDate);
+            }
+
+            if (!(filterParameters.Tag == null))
+            {
+                var tag = GetTagWithName(filterParameters.Tag);
+                if (tag != null)
+                    posts = posts.FindAll(post => post.Tags.Any(pt => pt.Id == tag.Id));
+                //Тук не съм сигурен, че това е най-рентабилния вариант ако няма такъв таг.
+                else
+                    posts.Clear();
             }
 
             return posts;

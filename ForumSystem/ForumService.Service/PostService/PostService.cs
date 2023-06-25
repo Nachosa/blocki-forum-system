@@ -88,7 +88,6 @@ namespace ForumSystem.Business
         public Post UpdatePostContent(int postId, Post newPost, string userName)
         {
             var currPost = postRepo.GetPostById(postId);
-            //Проверка за админ, как да се направи?
             if (currPost.User.Username != userName)
                 throw new UnauthenticatedOperationException("Can't update other user's posts!");
             else
@@ -98,7 +97,6 @@ namespace ForumSystem.Business
         public bool DeletePostById(int postId, string userName)
         {
             var post = postRepo.GetPostById(postId);
-            //Проверка за админ, как да се направи?
             if (post.User.Username != userName)
                 throw new UnauthenticatedOperationException("Can't delete other user's posts!");
             return postRepo.DeletePostById(postId);
