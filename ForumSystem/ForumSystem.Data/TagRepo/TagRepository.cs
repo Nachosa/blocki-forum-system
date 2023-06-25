@@ -1,4 +1,5 @@
 ﻿using ForumSystem.Api.QueryParams;
+using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.QueryParams;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ namespace ForumSystem.DataAccess.TagRepo
             var tag = forumDb.Tags.FirstOrDefault(tag => tag.Id == tagId);
 
             if (tag == null || tag.IsDeleted)
-                throw new ArgumentNullException($"Tag with id={tagId} doesn't exist.");
+                throw new EntityNotFoundException($"Tag with id={tagId} doesn't exist.");
             else
                 tag.IsDeleted = true;
 
@@ -42,11 +43,10 @@ namespace ForumSystem.DataAccess.TagRepo
 
         public Tag GetTagById(int tagId)
         {
-            //Мисля че това .Include(t => t.Name) ще изкара грешка
             var tag = forumDb.Tags.FirstOrDefault(tag => tag.Id == tagId);
 
             if (tag == null || tag.IsDeleted)
-                throw new ArgumentNullException($"Tag with id={tagId} doesn't exist.");
+                throw new EntityNotFoundException($"Tag with id={tagId} doesn't exist.");
             else
                 return tag;
         }
@@ -70,7 +70,7 @@ namespace ForumSystem.DataAccess.TagRepo
             var t = forumDb.Tags.FirstOrDefault(t => t.Id == tagId);
 
             if (t == null || t.IsDeleted)
-                throw new ArgumentNullException($"Tag with id={tagId} doesn't exist.");
+                throw new EntityNotFoundException($"Tag with id={tagId} doesn't exist.");
             // should we allow regular users to create new tags or do we restrict it to admins only?
             else
                 t.Name = tag.Name;
