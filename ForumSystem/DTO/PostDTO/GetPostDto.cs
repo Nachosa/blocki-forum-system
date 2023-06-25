@@ -25,6 +25,6 @@ namespace ForumSystemDTO.PostDTO
 
         public DateTime CreatedOn { get; set; } = DateTime.Now;
 
-        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+        public ICollection<string> TagNames { get; set; } = new List<string>();
     }
 }

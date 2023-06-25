@@ -23,7 +23,8 @@ namespace ForumSystem.DataAccess.PostRepo
         {
             List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
                                                                     .Include(p => p.Likes.Where(l => l.IsDeleted == false))
-                                                                    .Include(p => p.User));
+                                                                    .Include(p => p.User) //Какво правим за изтрити юзъри?
+                                                                    .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
             postsToProcess = FilterBy(queryParameters, postsToProcess);
             postsToProcess = SortBy(queryParameters, postsToProcess);
             return postsToProcess;
@@ -90,7 +91,10 @@ namespace ForumSystem.DataAccess.PostRepo
         public Post GetPostById(int postId)
         {
             //Include преди FirstOrDefault ми се струва много бавно.
-            var post = forumDb.Posts.Include(p => p.Likes).Include(p => p.User).FirstOrDefault(post => post.Id == postId);
+            var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
+                                    .Include(p => p.User)
+                                    .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
+                                    .FirstOrDefault(post => post.Id == postId);
             if (post == null || post.IsDeleted)
                 throw new EntityNotFoundException($"Post with id={postId} doesn't exist.");
             else

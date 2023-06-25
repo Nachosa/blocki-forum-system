@@ -42,6 +42,7 @@ namespace ForumSystem.DataAccess.TagRepo
 
         public Tag GetTagById(int tagId)
         {
+            //Мисля че това .Include(t => t.Name) ще изкара грешка
             var tag = forumDb.Tags.Include(t => t.Name).FirstOrDefault(tag => tag.Id == tagId);
 
             if (tag == null || tag.IsDeleted)

@@ -24,7 +24,8 @@ namespace ForumSystem.Business.AutoMapperProfile
             CreateMap<CreatePostDto, Post>();
             CreateMap<Post, GetPostDto>()
                 .ForMember(pDto => pDto.UserName, opt => opt.MapFrom(p => p.User.Username))
-                .ForMember(pDto => pDto.LikesCount, opt => opt.MapFrom(p => p.Likes.Count));
+                .ForMember(pDto => pDto.LikesCount, opt => opt.MapFrom(p => p.Likes.Count))
+                .ForMember(pDto => pDto.TagNames, opt => opt.MapFrom(p => !(p.Tags.Count <= 0) ? p.Tags.Select(pt => pt.Tag.Name).ToList() : null));
             CreateMap<UpdatePostContentDto, Post>();
 
             CreateMap<CreateCommentDto, Comment>();
