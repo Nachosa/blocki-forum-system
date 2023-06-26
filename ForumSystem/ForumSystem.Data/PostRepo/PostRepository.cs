@@ -14,10 +14,12 @@ namespace ForumSystem.DataAccess.PostRepo
     public class PostRepository : IPostRepository
     {
         private readonly ForumSystemContext forumDb;
+        private readonly ITagRepository tagRepo;
 
-        public PostRepository(ForumSystemContext forumDb)
+        public PostRepository(ForumSystemContext forumDb, ITagRepository tagRepo)
         {
             this.forumDb = forumDb;
+            this.tagRepo = tagRepo;
         }
 
         public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
@@ -25,6 +27,7 @@ namespace ForumSystem.DataAccess.PostRepo
             List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
                                                                     .Include(p => p.Likes.Where(l => l.IsDeleted == false))
                                                                     .Include(p => p.User) //Какво правим за изтрити юзъри?
+                                                                    .Include(p => p.Comments.Where(c => c.IsDeleted == false))
                                                                     .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
             postsToProcess = FilterBy(queryParameters, postsToProcess);
             postsToProcess = SortBy(queryParameters, postsToProcess);
@@ -94,6 +97,7 @@ namespace ForumSystem.DataAccess.PostRepo
             //Include преди FirstOrDefault ми се струва много бавно.
             var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
                                     .Include(p => p.User)
+                                    .Include(p => p.Comments.Where(c => c.IsDeleted == false))
                                     .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
                                     .FirstOrDefault(post => post.Id == postId);
             if (post == null || post.IsDeleted)
@@ -121,19 +125,19 @@ namespace ForumSystem.DataAccess.PostRepo
                 posts = posts.FindAll(post => post.Content.Contains(filterParameters.Content, StringComparison.InvariantCultureIgnoreCase));
             }
 
-            if (!(filterParameters.MinDate == null))
+            if (filterParameters.MinDate is not null)
             {
                 posts = posts.FindAll(post => post.CreatedOn >= filterParameters.MinDate);
             }
 
-            if (!(filterParameters.MaxDate == null))
+            if (filterParameters.MaxDate is not null)
             {
                 posts = posts.FindAll(post => post.CreatedOn <= filterParameters.MaxDate);
             }
 
-            if (!(filterParameters.Tag == null))
+            if (filterParameters.Tag is not null)
             {
-                var tag = GetTagWithName(filterParameters.Tag);
+                var tag = tagRepo.GetTagByName(filterParameters.Tag);
                 if (tag != null)
                     posts = posts.FindAll(post => post.Tags.Any(pt => pt.Id == tag.Id));
                 //Тук не съм сигурен, че това е най-рентабилния вариант ако няма такъв таг.
@@ -171,15 +175,15 @@ namespace ForumSystem.DataAccess.PostRepo
             return posts;
         }
 
-        public ICollection<Post> GetPostsWithTag(string tag1)
-        {
-            var posts = forumDb.Posts.Include(p => p.Tags).Where(p => p.Tags.Any(t => t.Tag.Name == tag1));
-            return posts.ToList();
-        }
+        //public ICollection<Post> GetPostsWithTag(string tag1)
+        //{
+        //    var posts = forumDb.Posts.Include(p => p.Tags).Where(p => p.Tags.Any(t => t.Tag.Name == tag1));
+        //    return posts.ToList();
+        //}
 
-        public Tag GetTagWithName(string name)
-        {
-            return forumDb.Tags.FirstOrDefault(t => t.Name == name);
-        }
+        //public Tag GetTagWithName(string name)
+        //{
+        //    return forumDb.Tags.FirstOrDefault(t => t.Name == name);
+        //}
     }
 }

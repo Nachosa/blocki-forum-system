@@ -12,9 +12,9 @@ namespace ForumSystem.DataAccess.PostRepo
     {
         IEnumerable<Post> GetPosts(PostQueryParameters queryParameters);
 
-        Tag GetTagWithName(string name);
+        //Tag GetTagWithName(string name);
 
-        ICollection<Post> GetPostsWithTag(string tag1);
+        //ICollection<Post> GetPostsWithTag(string tag1);
 
         Post GetPostById(int postId);
 

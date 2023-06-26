@@ -4,6 +4,7 @@ using ForumSystem.Business;
 using ForumSystem.Business.AuthenticationManager;
 using ForumSystem.Business.TagService;
 using ForumSystem.Business.UserService;
+using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.QueryParams;
 using ForumSystemDTO.PostDTO;
@@ -27,6 +28,7 @@ namespace ForumSystem.Api.Controllers
             this.mapper = mapper;
         }
 
+        //Не е нужен логин, това окей ли е? Не знам.
         [HttpGet("")]
         public IActionResult GetTags([FromQuery] TagQueryParameters queryParams)
         {
@@ -38,40 +40,61 @@ namespace ForumSystem.Api.Controllers
         [HttpGet("{id}")]
         public IActionResult GetTagById(int id)
         {
-            var tag = tagService.GetTagById(id);
-            var mappedTag = mapper.Map<TagDto>(tag);
-            return StatusCode(StatusCodes.Status200OK, mappedTag);
-        }
-
-        [HttpPost("")]
-        public IActionResult CreateTag([FromHeader] string credentials, [FromBody] TagDto tagDto)
-        {
-            authManager.BlockedCheck(credentials);
-            var tag = mapper.Map<Tag>(tagDto);
-            tagService.CreateTag(tag);
-            return StatusCode(StatusCodes.Status200OK, tagDto);
-        }
-
-        [HttpPatch("{id}")]
-        public IActionResult UpdateTagName(int id, [FromBody] TagDto tagDto, [FromHeader] string credentials)
-        {
-            authManager.BlockedCheck(credentials);
-            string[] userInfo = credentials.Split(':');
-            string username = userInfo[0];
-
             try
             {
-                var mappedTag = mapper.Map<Tag>(tagDto);
-                var updatedTag = tagService.UpdateTagName(id, mappedTag, username);
-                var updatedTagDto = mapper.Map<TagDto>(updatedTag);
-                return StatusCode(StatusCodes.Status200OK, updatedTagDto);
+                var tag = tagService.GetTagById(id);
+                var mappedTag = mapper.Map<TagDto>(tag);
+                return StatusCode(StatusCodes.Status200OK, mappedTag);
             }
-            catch (ArgumentNullException e)
+            catch (EntityNotFoundException e)
             {
                 return StatusCode(StatusCodes.Status404NotFound, e.Message);
             }
         }
 
+        [HttpPost("")]
+        public IActionResult CreateTag([FromHeader] string credentials, [FromBody] TagDto tagDto)
+        {
+            try
+            {
+                authManager.BlockedCheck(credentials);
+
+                var tag = mapper.Map<Tag>(tagDto);
+                tagService.CreateTag(tag);
+                return StatusCode(StatusCodes.Status200OK, tagDto);
+            }
+            catch (UnauthenticatedOperationException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult UpdateTagName(int id, [FromBody] TagDto tagDto, [FromHeader] string credentials)
+        {
+            try
+            {
+                authManager.BlockedCheck(credentials);
+                string[] userInfo = credentials.Split(':');
+                string username = userInfo[0];
+
+                var mappedTag = mapper.Map<Tag>(tagDto);
+                var updatedTag = tagService.UpdateTagName(id, mappedTag, username);
+                var updatedTagDto = mapper.Map<TagDto>(updatedTag);
+                return StatusCode(StatusCodes.Status200OK, updatedTagDto);
+            }
+            catch (UnauthenticatedOperationException e)
+            {
+                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
+        }
+
+        //Всеки може да трие, който и да е таг?
+        //Трябва или да е само за админи или всеки таг да си има юзър.
         [HttpDelete("{id}")]
         public IActionResult DeleteTagById(int id)
         {
@@ -80,7 +103,7 @@ namespace ForumSystem.Api.Controllers
                 var isDeleted = tagService.DeleteTagById(id);
                 return StatusCode(StatusCodes.Status200OK, isDeleted);
             }
-            catch (ArgumentNullException e)
+            catch (EntityNotFoundException e)
             {
                 return StatusCode(StatusCodes.Status404NotFound, e.Message);
             }

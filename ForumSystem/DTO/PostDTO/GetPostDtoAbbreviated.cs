@@ -1,7 +1,4 @@
-﻿using ForumSystem.DataAccess.Models;
-using ForumSystemDTO.CommentDTO;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ForumSystemDTO.PostDTO
 {
-    public class GetPostDto
+    public class GetPostDtoAbbreviated
     {
         [MinLength(16, ErrorMessage = "The {0} must be at least {1} characters long.")]
         [MaxLength(64, ErrorMessage = "The {0} must be no more than {1} characters long.")]
@@ -28,6 +25,6 @@ namespace ForumSystemDTO.PostDTO
 
         public ICollection<string> Tags { get; set; } = new List<string>();
 
-        public ICollection<GetCommentDtoNew> Comments { get; set; } = new List<GetCommentDtoNew>();
+        public int CommentsCount { get; set; }
     }
 }

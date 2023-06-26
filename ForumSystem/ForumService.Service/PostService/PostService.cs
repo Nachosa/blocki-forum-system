@@ -49,9 +49,7 @@ namespace ForumSystem.Business
             var user = userRepo.GetUserByUserName(userName);
             var like = postRepo.GetLike(postId, user.Id);
             if (like != null)
-            {
                 throw new DuplicateEntityException("You can't like a post twice!");
-            }
             //Може би ще е по-добре да се подават само ИД-тата?
             postRepo.LikePost(post, user);
             return true;
@@ -64,9 +62,7 @@ namespace ForumSystem.Business
             var user = userRepo.GetUserByUserName(userName);
             var like = postRepo.GetLike(postId, user.Id);
             if (like == null)
-            {
                 throw new DuplicateEntityException("You haven't liked this post!");
-            }
             postRepo.UnikePost(like);
             return true;
         }
@@ -81,6 +77,8 @@ namespace ForumSystem.Business
                 throw new UnauthenticatedOperationException("Can't tag other user's posts!");
             if (existingTag == null)
                 tag = tagRepo.CreateTag(tag);
+            else if (existingTag.Posts.Any(p => p.PostId == postId))
+                throw new DuplicateEntityException("The post already has that tag!");
             postRepo.TagPost(currPost, tag);
             return true;
         }
@@ -107,13 +105,13 @@ namespace ForumSystem.Business
             return postRepo.GetPostById(postId);
         }
 
-        public ICollection<Post> GetPostsWithTag(string tag1)
-        {
-            var tag = postRepo.GetTagWithName(tag1);
-            if (tag is null) throw new EntityNotFoundException($"Tag with name:{tag1} was not found!");
-            var posts = postRepo.GetPostsWithTag(tag1);
-            if (posts is null || posts.Count == 0) throw new EntityNotFoundException($"Posts with tag:{tag1} were not found!");
-            return posts;
-        }
+        //public ICollection<Post> GetPostsWithTag(string tag1)
+        //{
+        //    var tag = postRepo.GetTagWithName(tag1);
+        //    if (tag is null) throw new EntityNotFoundException($"Tag with name:{tag1} was not found!");
+        //    var posts = postRepo.GetPostsWithTag(tag1);
+        //    if (posts is null || posts.Count == 0) throw new EntityNotFoundException($"Posts with tag:{tag1} were not found!");
+        //    return posts;
+        //}
     }
 }
