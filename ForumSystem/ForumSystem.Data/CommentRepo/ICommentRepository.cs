@@ -1,4 +1,5 @@
 ﻿using ForumSystem.DataAccess.Models;
+using ForumSystem.DataAccess.QueryParams;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,18 +10,16 @@ namespace ForumSystem.DataAccess.CommentRepo
 {
     public interface ICommentRepository
     {
-        public bool DeleteComment(Comment comment);
-
         public bool DeleteCommentById(int commentId);
 
         public Comment CreateComment(Comment comment);
 
-        public Comment FindCommentById(int commentId);
+        public Comment GetCommentById(int commentId);
 
-        public Comment UpdateComment(Comment comment, int commentId);
+        public Comment UpdateCommentContent(Comment comment, int commentId);
 
-        public IEnumerable<Comment> FindCommentsByPostId(int postId);
+        public IEnumerable<Comment> GetComments(CommentQueryParameters queryParameters);
 
-        public IEnumerable<Comment> GetAllComments();
+        public IEnumerable<Comment> GetCommentsByPostId(int postId);
     }
 }

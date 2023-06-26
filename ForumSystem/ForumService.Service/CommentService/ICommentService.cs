@@ -14,12 +14,12 @@ namespace ForumSystem.Business.CommentService
     {
         public bool DeleteCommentById(int commentId, string username);
 
-        public Comment CreateComment(CreateCommentDto commentDTO, int postId);
+        public Comment CreateComment(Comment comment, int postId);
 
-        public Comment UpdateCommentContent(int commentId, string username, UpdateCommentContentDto commentDTO);
+        public Comment GetCommentById(int commentId);
 
-        public GetCommentDto FindCommentById(int commentId);
+        public Comment UpdateCommentContent(Comment comment, int commentId, string username);
 
-        public IList<GetCommentDto> GetAllComments(CommentQueryParameters queryParams);
+        public ICollection<Comment> GetComments(CommentQueryParameters queryParameters);
     }
 }

@@ -22,24 +22,19 @@ namespace ForumSystem.DataAccess.CommentRepo
             this.forumDb = forumDb;
         }
 
-        public bool DeleteComment(Comment comment)
+        public bool DeleteCommentById(int commentId)
         {
+            var comment = forumDb.Comments.FirstOrDefault(c => c.Id == commentId);
+
+            if (comment == null)
+            {
+                return false;
+            }
+
             comment.DeletedOn = DateTime.Now;
             comment.IsDeleted = true;
             forumDb.SaveChanges();
             return true;
-        }
-
-        public bool DeleteCommentById(int commentId)
-        {
-            if (FindCommentById(commentId) == null)
-            {
-                throw new EntityNotFoundException($"Comment with ID = {commentId} was not found!");
-            }
-
-            var comment = forumDb.Comments.FirstOrDefault(c => c.Id == commentId);
-
-            return DeleteComment(comment);
         }
 
         public Comment CreateComment(Comment comment)
@@ -55,14 +50,14 @@ namespace ForumSystem.DataAccess.CommentRepo
             return comment;
         }
 
-        public Comment FindCommentById(int commentId)
+        public Comment GetCommentById(int commentId)
         {
-            var comment = forumDb.Comments.Include(c => c.Likes).FirstOrDefault(comment => comment.Id == commentId);
-
-            return comment ?? throw new ArgumentNullException($"Comment with id = {commentId} doesn't exist.");
+            return forumDb.Comments
+                .Include(c => c.Likes)
+                .FirstOrDefault(c => c.Id == commentId);
         }
 
-        public Comment UpdateComment(Comment comment, int commentId)
+        public Comment UpdateCommentContent(Comment comment, int commentId)
         {
             var commentToUpdate = forumDb.Comments.FirstOrDefault(c => c.Id == commentId);
 
@@ -71,43 +66,51 @@ namespace ForumSystem.DataAccess.CommentRepo
             return commentToUpdate;
         }
 
-        public IEnumerable<Comment> FindCommentsByPostId(int postId)
+        public IEnumerable<Comment> GetComments(CommentQueryParameters queryParameters)
+        {
+            var comments = new List<Comment>(forumDb.Comments
+                .Where(comment => comment.IsDeleted == false)
+                .Include(comment => comment.Likes.Where(like => like.IsDeleted == false))
+                .Include(comment => comment.User)
+                .Where(comment => comment.User.IsDeleted == false));
+
+            comments = FilterBy(queryParameters, comments);
+            comments = SortBy(queryParameters, comments);
+            return comments;
+        }
+
+        public IEnumerable<Comment> GetCommentsByPostId(int postId)
         {
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
 
-            return post.Comments ?? throw new ArgumentNullException($"Post with id = {postId} doesn't exist.");
+            return post.Comments;
         }
 
-        public IEnumerable<Comment> GetAllComments()
+        public List<Comment> FilterBy(CommentQueryParameters queryParameters, List<Comment> comments)
         {
-            return forumDb.Comments.Where(c => c.IsDeleted == false).ToList();
-        }
-
-        public List<Comment> FilterBy(CommentQueryParameters filterParameters, List<Comment> comments)
-        {
-            if (filterParameters.MinDate <= filterParameters.MaxDate)
+            if (queryParameters.MinDate <= queryParameters.MaxDate)
             {
-                comments = comments.FindAll(comment => comment.CreatedOn >= filterParameters.MinDate && comment.CreatedOn <= filterParameters.MaxDate);
+                comments = comments.FindAll(comment => comment.CreatedOn >= queryParameters.MinDate && comment.CreatedOn <= queryParameters.MaxDate);
             }
 
-            if (!string.IsNullOrEmpty(filterParameters.Content))
+            if (string.IsNullOrEmpty(queryParameters.Content) == false)
             {
-                comments = comments.FindAll(post => post.Content.Contains(filterParameters.Content, StringComparison.InvariantCultureIgnoreCase));
+                comments = comments.FindAll(post => post.Content.Contains(queryParameters.Content, StringComparison.InvariantCultureIgnoreCase));
             }
 
             return comments;
         }
 
-        public List<Comment> SortBy(CommentQueryParameters sortParameters, List<Comment> comments)
+        public List<Comment> SortBy(CommentQueryParameters queryParameters, List<Comment> comments)
         {
-            if (!string.IsNullOrEmpty(sortParameters.SortBy))
+            if (string.IsNullOrEmpty(queryParameters.SortBy) == false)
             {
-                if (sortParameters.SortBy.Equals("date", StringComparison.InvariantCultureIgnoreCase))
+                if (queryParameters.SortBy.Equals("date", StringComparison.InvariantCultureIgnoreCase))
                 {
                     comments = comments.OrderBy(comment => comment.CreatedOn).ToList();
                 }
 
-                if (!string.IsNullOrEmpty(sortParameters.SortOrder) && sortParameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
+                if (queryParameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase) && string.IsNullOrEmpty(queryParameters.SortOrder) == false)
                 {
                     comments.Reverse();
                 }
