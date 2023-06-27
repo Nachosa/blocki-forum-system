@@ -17,43 +17,35 @@ nav {
 .menuItems {
     list-style: none;
     display: flex;
-    li
-
-{
-    margin: 50px;
-    a
-
-{
-    text-decoration: none;
-    color: #f2f2f2;
-    font-size: 24px;
-    font-weight: 500;
-    transition: all 0.5s ease-in-out;
-    position: relative;
-    text-transform: uppercase;
-    &::before
-
-{
-    content: attr(data-item);
-    color: #99ccff;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 0;
-    overflow: hidden;
 }
 
-&:hover {
-    &::before
+    .menuItems li {
+        margin: 50px;
+    }
 
-{
-    width: 100%;
-    transition: all 0.5s ease-in-out;
-}
+        .menuItems li a {
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 24px;
+            font-weight: 500;
+            transition: all 0.5s ease-in-out;
+            position: relative;
+            text-transform: uppercase;
+        }
 
-}
-}
-}
-}
+            .menuItems li a::before {
+                content: attr(data-item);
+                color: #99ccff;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 0;
+                overflow: hidden;
+            }
+
+            .menuItems li a:hover::before {
+                width: 100%;
+                transition: all 0.5s ease-in-out;
+            }
