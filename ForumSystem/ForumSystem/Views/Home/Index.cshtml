@@ -27,18 +27,24 @@
         </nav>
     </section>
     <div>
-        <p>
-           @this.Model.UsersCount;
-        </p>
+        <h2>Users Count: @Model.UsersCount</h2>
+
+        <h2>Posts Count: @Model.PostsCount</h2>
     </div>
 
-    <h2>List Elements: Top 10 Most Commented Posts</h2>
+    <h2>Top 10 Most Commented Posts</h2>
     @if (Model.TopCommentedPosts != null && Model.TopCommentedPosts.Count > 0)
     {
         <ul>
             @foreach (var item in Model.TopCommentedPosts)
             {
-                <li>@item</li>
+                <li>
+                    <strong>Author:</strong> @item.User.Username <br>
+                    <strong>Comment Count:</strong> @item.Comments.Count <br>
+                    <strong>Content:</strong> @item.Content <br>
+                    <strong>Likes:</strong> @item.Likes.Count <br>
+                    <strong>Tags:</strong> @(item.Tags.Any() ? string.Join(", ", item.Tags) : "none")
+                </li>
             }
         </ul>
     }
@@ -47,13 +53,19 @@
         <p>No elements in the list.</p>
     }
 
-    <h2>List Elements: Top 10 Recently Created Posts</h2>
+    <h2>Top 10 Recently Created Posts</h2>
     @if (Model.RecentlyCreatedPosts != null && Model.RecentlyCreatedPosts.Count > 0)
     {
         <ul>
             @foreach (var item in Model.RecentlyCreatedPosts)
             {
-                <li>@item</li>
+                <li>
+                    <strong>Author:</strong> @item.User.Username <br>
+                    <strong>Content:</strong> @item.Content <br>
+                    <strong>Created On:</strong> @item.CreatedOn <br>
+                    <strong>Likes:</strong> @item.Likes.Count <br>
+                    <strong>Tags:</strong> @(item.Tags.Any() ? string.Join(", ", item.Tags) : "none")
+                </li>
             }
         </ul>
     }
