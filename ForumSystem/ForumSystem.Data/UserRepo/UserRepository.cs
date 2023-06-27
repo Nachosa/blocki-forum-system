@@ -56,6 +56,13 @@ namespace ForumSystem.DataAccess.UserRepo
             return usersWithThatName;
         }
 
+        public int GetUsersCount()
+        {
+            var activeUsersCount = forumDb.Users.Count(u=>u.IsDeleted==false);
+            return activeUsersCount;
+            
+        }
+
         public List<User> SearchBy(UserQueryParams queryParams)
         {
             var result = forumDb.Users.Where(u => u.IsDeleted == false).ToList();

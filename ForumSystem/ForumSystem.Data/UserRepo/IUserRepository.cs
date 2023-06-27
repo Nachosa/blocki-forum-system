@@ -17,6 +17,9 @@ namespace ForumSystem.DataAccess.UserRepo
 
         User GetUserByUserName(string userName);
         User GetUserByEmail(string email);
+
+        int GetUsersCount();
+
         public IEnumerable<User> GetUsersByFirstName(string firstName);
      
         List<User> SearchBy(UserQueryParams queryParams);

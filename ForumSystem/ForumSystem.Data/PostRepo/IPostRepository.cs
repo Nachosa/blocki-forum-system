@@ -18,6 +18,8 @@ namespace ForumSystem.DataAccess.PostRepo
 
         Post GetPostById(int postId);
 
+        int GetPostsCount();
+
         ICollection<Post> GetUserPosts(int userId, PostQueryParameters queryParameters);
 
         Post CreatePost(Post post);

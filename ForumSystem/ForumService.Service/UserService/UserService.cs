@@ -50,6 +50,13 @@ namespace ForumSystem.Business.UserService
 
             return allUsers;
         }
+
+        public int GetUsersCount()
+        {
+            var activeUsersCount = userRepo.GetUsersCount();
+            return activeUsersCount;
+        }
+
         public ICollection<Post> GetUserPosts(PostQueryParameters queryParams, int userId)
         {
             var User = userRepo.GetUserById(userId) ?? throw new EntityNotFoundException($"User with Id={userId} was not found!");

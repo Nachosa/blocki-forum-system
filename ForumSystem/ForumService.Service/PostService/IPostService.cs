@@ -11,15 +11,17 @@ namespace ForumSystem.Business
 {
     public interface IPostService
     {
-        public IList<Post> GetPosts(PostQueryParameters queryParams);
+        IList<Post> GetPosts(PostQueryParameters queryParams);
 
-        //public ICollection<Post> GetPostsWithTag(string tag1);
+        int GetPostsCount();
 
-        public Post CreatePost(Post post, string userName);
+        ICollection<Post> GetPostsWithTag(string tag1);
 
-        public bool LikePost(int postId, string userName);
+        Post CreatePost(Post post, string userName);
 
-        public bool UnlikePost(int postId, string userName);
+        bool LikePost(int postId, string userName);
+
+        bool UnlikePost(int postId, string userName);
 
         bool TagPost(int postId, string userName, Tag tag);
 

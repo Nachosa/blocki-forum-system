@@ -26,7 +26,7 @@ namespace ForumSystem.DataAccess.PostRepo
         {
             List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
                                                                     .Include(p => p.Likes.Where(l => l.IsDeleted == false))
-                                                                    .Include(p => p.User) //Какво правим за изтрити юзъри?
+                                                                    .Include(p => p.User) 
                                                                     .Include(p => p.Comments.Where(c => c.IsDeleted == false))
                                                                     .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
             postsToProcess = FilterBy(queryParameters, postsToProcess);
@@ -43,6 +43,12 @@ namespace ForumSystem.DataAccess.PostRepo
             userPosts = SortBy(queryParameters, userPosts);
             return userPosts;
 
+        }
+
+        public int GetPostsCount()
+        {
+            int activePostsCount = forumDb.Posts.Count(p => p.IsDeleted == false);
+            return activePostsCount;
         }
         public Post CreatePost(Post post)
         {
@@ -87,7 +93,7 @@ namespace ForumSystem.DataAccess.PostRepo
                 throw new EntityNotFoundException($"Post with id={postId} doesn't exist.");
             else
                 post.DeletedOn = DateTime.Now;
-                post.IsDeleted = true;
+            post.IsDeleted = true;
             forumDb.SaveChanges();
             return true;
         }

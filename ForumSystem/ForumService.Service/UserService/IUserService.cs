@@ -16,6 +16,7 @@ namespace ForumSystem.Business.UserService
         User CreateUser(User user);
         IEnumerable<User> GetAllUsers();
 
+        int GetUsersCount();
         ICollection<Post> GetUserPosts(PostQueryParameters queryParams, int id);
 
 

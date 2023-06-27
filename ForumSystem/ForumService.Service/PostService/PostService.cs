@@ -33,7 +33,11 @@ namespace ForumSystem.Business
         {
             return this.postRepo.GetPosts(queryParams).ToList();
         }
-
+        public int GetPostsCount()
+        {
+            return postRepo.GetPostsCount();
+             
+        }
         public Post CreatePost(Post post, string userName)
         {
             var user = userRepo.GetUserByUserName(userName);
