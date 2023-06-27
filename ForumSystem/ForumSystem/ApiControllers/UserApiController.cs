@@ -11,7 +11,7 @@ using ForumSystem.Api.QueryParams;
 using ForumSystemDTO.PostDTO;
 using ForumSystem.Business;
 
-namespace ForumSystem.Api.ApiControllers
+namespace ForumSystem.Web.ApiControllers
 {
     [ApiController]
     [Route("api/users")]

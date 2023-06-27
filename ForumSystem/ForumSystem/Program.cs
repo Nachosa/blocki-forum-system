@@ -1,5 +1,4 @@
 using ForumSystem.Business;
-using ForumSystem.Api.ApiControllers;
 using ForumSystem.DataAccess;
 using ForumSystem.Business.UserService;
 using ForumSystem.Business.AutoMapperProfile;
@@ -21,7 +20,7 @@ using ForumSystem.Business.AuthenticationManager;
 using ForumSystem.DataAccess.AdminRepo;
 using ForumSystem.Business.AdminService;
 
-namespace ForumSystem.Api
+namespace ForumSystem.Web
 {
     public class Program
     {

@@ -8,11 +8,12 @@ using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.QueryParams;
+using ForumSystemDTO.CommentDTO;
 using ForumSystemDTO.UserDTO;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.Design;
 
-namespace ForumSystem.Api.ApiControllers
+namespace ForumSystem.Web.ApiControllers
 {
     [ApiController]
     [Route("api/comments")]
@@ -20,20 +21,24 @@ namespace ForumSystem.Api.ApiControllers
     {
         private readonly IAuthManager authManager;
         private readonly ICommentService commentService;
+        private readonly IMapper mapper;
 
-        public CommentApiController(IAuthManager authManager, ICommentService commentService)
+        public CommentApiController(IAuthManager authManager, ICommentService commentService, IMapper mapper)
         {
             this.authManager = authManager;
             this.commentService = commentService;
+            this.mapper = mapper;
         }
 
         [HttpPost("{postId}")]
-        public IActionResult CreateComment([FromBody] CreateCommentDto commentDto, [FromHeader] string credentials, int postId)
+        public IActionResult CreateComment([FromBody] CreateCommentDto createCommentDto, [FromHeader] string credentials, int postId)
         {
             try
             {
                 authManager.BlockedCheck(credentials);
-                return StatusCode(StatusCodes.Status200OK, commentService.CreateComment(commentDto, postId));
+                var comment = mapper.Map<Comment>(createCommentDto);
+
+                return StatusCode(StatusCodes.Status200OK, commentService.CreateComment(comment, postId));
             }
             catch (EntityNotFoundException e)
             {
@@ -41,7 +46,7 @@ namespace ForumSystem.Api.ApiControllers
             }
             catch (UnauthenticatedOperationException e)
             {
-                return Unauthorized(e.Message);
+                return StatusCode(StatusCodes.Status401Unauthorized, e.Message);
             }
         }
 
@@ -55,9 +60,17 @@ namespace ForumSystem.Api.ApiControllers
 
                 return StatusCode(StatusCodes.Status200OK, commentService.DeleteCommentById(commentId, username));
             }
-            catch (ArgumentNullException e)
+            catch (EntityNotFoundException e)
             {
                 return StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
+            catch (UnauthenticatedOperationException e)
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, e.Message);
+            }
+            catch (UnauthorizedOperationException e)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, e.Message);
             }
         }
 
@@ -66,10 +79,11 @@ namespace ForumSystem.Api.ApiControllers
         {
             try
             {
-                GetCommentDto commentDTO = commentService.FindCommentById(commentId);
-                return StatusCode(StatusCodes.Status200OK, commentDTO);
+                var comment = commentService.GetCommentById(commentId);
+
+                return StatusCode(StatusCodes.Status200OK, mapper.Map<GetCommentDto>(comment));
             }
-            catch (ArgumentNullException e)
+            catch (EntityNotFoundException e)
             {
                 return StatusCode(StatusCodes.Status404NotFound, e.Message);
             }
@@ -82,14 +96,20 @@ namespace ForumSystem.Api.ApiControllers
             {
                 if (queryParameters.MaxDate < queryParameters.MinDate)
                 {
-                    throw new ArgumentException("Invalid date range!");
+                    throw new ArgumentException("Invalid date range.");
                 }
 
-                return StatusCode(StatusCodes.Status200OK, commentService.GetAllComments(queryParameters));
+                var comments = commentService.GetComments(queryParameters);
+
+                return StatusCode(StatusCodes.Status200OK, comments.Select(comment => mapper.Map<GetCommentDto>(comment)));
             }
             catch (ArgumentException e)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
             }
         }
 
@@ -100,12 +120,21 @@ namespace ForumSystem.Api.ApiControllers
             {
                 authManager.BlockedCheck(credentials);
                 string username = credentials.Split(':')[0];
+                var comment = mapper.Map<Comment>(commentContentDto);
 
-                return StatusCode(StatusCodes.Status200OK, commentService.UpdateCommentContent(commentId, username, commentContentDto));
+                return StatusCode(StatusCodes.Status200OK, commentService.UpdateCommentContent(comment, commentId, username));
             }
-            catch (ArgumentNullException e)
+            catch (EntityNotFoundException e)
             {
                 return StatusCode(StatusCodes.Status404NotFound, e.Message);
+            }
+            catch (UnauthenticatedOperationException e)
+            {
+                return StatusCode(StatusCodes.Status401Unauthorized, e.Message);
+            }
+            catch (UnauthorizedOperationException e)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, e.Message);
             }
         }
     }
