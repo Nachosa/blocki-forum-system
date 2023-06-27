@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model ForumSystem.Web.ViewModels.HomeViewModels.HomePageViewModel;
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -18,6 +19,11 @@
             </ul>
         </nav>
     </section>
+    <div>
+        <p>
+           @this.Model.UsersCount;
+        </p>
+    </div>
 
     <footer>
     </footer>

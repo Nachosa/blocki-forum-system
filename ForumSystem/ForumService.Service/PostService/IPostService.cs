@@ -11,11 +11,10 @@ namespace ForumSystem.Business
 {
     public interface IPostService
     {
-        IList<Post> GetPosts(PostQueryParameters queryParams);
+        List<Post> GetPosts(PostQueryParameters queryParams);
 
         int GetPostsCount();
 
-        ICollection<Post> GetPostsWithTag(string tag1);
 
         Post CreatePost(Post post, string userName);
 

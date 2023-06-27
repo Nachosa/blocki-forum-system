@@ -4,6 +4,7 @@ using ForumSystem.Business.CommentService;
 using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.UserRepo;
+using ForumSystem.Web.ViewModels.HomeViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumSystem.Web.ViewControllers
@@ -23,11 +24,21 @@ namespace ForumSystem.Web.ViewControllers
         {
             int activeUsersCount = userService.GetUsersCount();
             int activePostsCount = postService.GetPostsCount();
-            PostQueryParameters postQueryparams;
-            postQueryparams.SortBy
-            List<Post> mostCommentedPosts = postService.GetPostsCount( );
-            List<Post> recentlyCreatedPosts= new List<Post>();
-            return View();
+
+            PostQueryParameters postQueryparams= new PostQueryParameters();
+            postQueryparams.SortBy = "comments";
+            postQueryparams.SortOrder = "desc";
+            List<Post> topCommentedPosts = postService.GetPosts(postQueryparams).Take(10).ToList();
+            postQueryparams.SortBy = "date";
+            postQueryparams.SortOrder = "desc";
+            List<Post> recentlyCreatedPosts = postService.GetPosts(postQueryparams).Take(10).ToList();
+
+            HomePageViewModel homePage = new HomePageViewModel();
+            homePage.UsersCount= activeUsersCount;
+            homePage.PostsCount= activePostsCount;
+            homePage.TopCommentedPosts= topCommentedPosts;
+            homePage.RecentlyCreatedPosts= recentlyCreatedPosts;
+            return View(homePage);
         }
     }
 }
