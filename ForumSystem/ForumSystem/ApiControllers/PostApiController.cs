@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystemDTO.TagDTO;
 
-namespace ForumSystem.Api.ApiControllers
+namespace ForumSystem.Web.ApiControllers
 {
     [ApiController]
     [Route("api/posts")]

@@ -11,7 +11,7 @@ using ForumSystemDTO.PostDTO;
 using ForumSystemDTO.TagDTO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ForumSystem.Api.ApiControllers
+namespace ForumSystem.Web.ApiControllers
 {
     [ApiController]
     [Route("api/tags")]
