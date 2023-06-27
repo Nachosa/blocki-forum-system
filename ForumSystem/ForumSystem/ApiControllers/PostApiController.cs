@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystemDTO.TagDTO;
 
-namespace ForumSystem.Api.Controllers
+namespace ForumSystem.Api.ApiControllers
 {
     [ApiController]
     [Route("api/posts")]
@@ -41,16 +41,16 @@ namespace ForumSystem.Api.Controllers
 
                 var posts = postService.GetPosts(queryParams);
                 var mappedPosts = posts.Select(post => postMapper.Map<GetPostDtoAbbreviated>(post)).ToList();
-                return this.StatusCode(StatusCodes.Status200OK, mappedPosts);
+                return StatusCode(StatusCodes.Status200OK, mappedPosts);
             }
             //Трябва да си оправя exception-ите навсякъде, може би да са къстъм?
             catch (ArgumentException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message); ;
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message); ;
             }
             catch (UnauthenticatedOperationException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message); ;
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message); ;
             }
         }
 
@@ -61,17 +61,17 @@ namespace ForumSystem.Api.Controllers
             try
             {
                 authManager.AdminCheck(credentials);
-                var post = this.postService.GetPostById(id);
+                var post = postService.GetPostById(id);
                 var mappedPost = postMapper.Map<GetPostDto>(post);
-                return this.StatusCode(StatusCodes.Status200OK, mappedPost);
+                return StatusCode(StatusCodes.Status200OK, mappedPost);
             }
             catch (EntityNotFoundException e)
             {
-                return this.StatusCode(StatusCodes.Status404NotFound, e.Message);
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
             }
             catch (UnauthenticatedOperationException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message); ;
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message); ;
             }
         }
 
@@ -103,16 +103,16 @@ namespace ForumSystem.Api.Controllers
 
                 var post = postMapper.Map<Post>(postDto);
                 postService.CreatePost(post, userName);
-                return this.StatusCode(StatusCodes.Status200OK, postDto);
+                return StatusCode(StatusCodes.Status200OK, postDto);
             }
             catch (UnauthenticatedOperationException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
         }
 
         [HttpPost("{postId}/like")]
-        public IActionResult LikePost(int postId , [FromHeader] string credentials)
+        public IActionResult LikePost(int postId, [FromHeader] string credentials)
         {
             try
             {
@@ -121,19 +121,19 @@ namespace ForumSystem.Api.Controllers
                 string userName = usernameAndPassword[0];
 
                 postService.LikePost(postId, userName);
-                return this.StatusCode(StatusCodes.Status200OK, true);
+                return StatusCode(StatusCodes.Status200OK, true);
             }
             catch (UnauthenticatedOperationException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
             catch (DuplicateEntityException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
             catch (EntityNotFoundException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
         }
 
@@ -147,19 +147,19 @@ namespace ForumSystem.Api.Controllers
                 string userName = usernameAndPassword[0];
 
                 postService.UnlikePost(postId, userName);
-                return this.StatusCode(StatusCodes.Status200OK, true);
+                return StatusCode(StatusCodes.Status200OK, true);
             }
             catch (UnauthenticatedOperationException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
             catch (DuplicateEntityException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
             catch (EntityNotFoundException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
         }
 
@@ -175,19 +175,19 @@ namespace ForumSystem.Api.Controllers
                 //postMapper не е добро име
                 var tag = postMapper.Map<Tag>(tagDto);
                 postService.TagPost(postId, userName, tag);
-                return this.StatusCode(StatusCodes.Status200OK, true);
+                return StatusCode(StatusCodes.Status200OK, true);
             }
             catch (UnauthenticatedOperationException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
             catch (DuplicateEntityException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
             catch (EntityNotFoundException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
         }
 
@@ -203,15 +203,15 @@ namespace ForumSystem.Api.Controllers
                 var mappedPost = postMapper.Map<Post>(postContentDto);
                 var updatedPost = postService.UpdatePostContent(id, mappedPost, userName);
                 var updatedPostDto = postMapper.Map<GetPostDto>(updatedPost);
-                return this.StatusCode(StatusCodes.Status200OK, updatedPostDto);
+                return StatusCode(StatusCodes.Status200OK, updatedPostDto);
             }
             catch (EntityNotFoundException e)
             {
-                return this.StatusCode(StatusCodes.Status404NotFound, e.Message);
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
             }
             catch (UnauthenticatedOperationException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
         }
 
@@ -224,16 +224,16 @@ namespace ForumSystem.Api.Controllers
                 string[] usernameAndPassword = credentials.Split(':');
                 string userName = usernameAndPassword[0];
 
-                var isDeleted = this.postService.DeletePostById(id, userName);
-                return this.StatusCode(StatusCodes.Status200OK, isDeleted);
+                var isDeleted = postService.DeletePostById(id, userName);
+                return StatusCode(StatusCodes.Status200OK, isDeleted);
             }
             catch (EntityNotFoundException e)
             {
-                return this.StatusCode(StatusCodes.Status404NotFound, e.Message);
+                return StatusCode(StatusCodes.Status404NotFound, e.Message);
             }
             catch (UnauthenticatedOperationException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
         }
     }

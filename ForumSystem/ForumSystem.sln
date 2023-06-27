@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumSystem.Api", "ForumSystem\ForumSystem.Api.csproj", "{95C8178D-323A-4C49-BB07-37CD4FFC6B4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumSystem.Web", "ForumSystem\ForumSystem.Web.csproj", "{95C8178D-323A-4C49-BB07-37CD4FFC6B4F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumSystem.Business", "ForumService.Service\ForumSystem.Business.csproj", "{0D28572E-4D86-491F-B355-95DEC2FF9BDA}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumSystem.DataAccess", "F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumSystemDTO", "DTO\ForumSystemDTO.csproj", "{AA5EC452-9334-4475-B2CB-2A1EF951EC86}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumSystemTests", "ForumSystemTests\ForumSystemTests.csproj", "{C2C18D8D-A46E-4B6E-94E9-DCEE990EF46F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForumSystemTests", "ForumSystemTests\ForumSystemTests.csproj", "{C2C18D8D-A46E-4B6E-94E9-DCEE990EF46F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

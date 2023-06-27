@@ -5,7 +5,7 @@ using Microsoft.Win32;
 using System.Collections.Generic;
 using System.Runtime.Intrinsics.X86;
 
-namespace ForumSystem.Api.Controllers
+namespace ForumSystem.Api.ApiControllers
 {
     [ApiController]
     [Route("api/home")]

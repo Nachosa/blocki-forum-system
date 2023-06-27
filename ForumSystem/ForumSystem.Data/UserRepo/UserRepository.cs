@@ -34,7 +34,7 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public User GetUserById(int Id)
         {
-            var user = forumDb.Users.Include(p=>p.Posts).Include(c=>c.Comments).FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
+            var user = forumDb.Users.Include(p => p.Posts).Include(c => c.Comments).FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
             return user;
         }
 
@@ -58,7 +58,7 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public List<User> SearchBy(UserQueryParams queryParams)
         {
-            var result = forumDb.Users.ToList();
+            var result = forumDb.Users.Where(u => u.IsDeleted == false).ToList();
 
             if (queryParams.FirstName is not null)
             {
@@ -105,7 +105,7 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public bool DeleteUser(User user)
         {
-            foreach(var Comment in user.Comments)
+            foreach (var Comment in user.Comments)
             {
                 Comment.DeletedOn = DateTime.Now;
                 Comment.IsDeleted = true;
@@ -121,6 +121,6 @@ namespace ForumSystem.DataAccess.UserRepo
             return true;
         }
 
-        
+
     }
 }

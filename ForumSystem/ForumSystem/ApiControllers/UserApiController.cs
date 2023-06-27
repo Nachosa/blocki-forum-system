@@ -11,7 +11,7 @@ using ForumSystem.Api.QueryParams;
 using ForumSystemDTO.PostDTO;
 using ForumSystem.Business;
 
-namespace ForumSystem.Api.Controllers
+namespace ForumSystem.Api.ApiControllers
 {
     [ApiController]
     [Route("api/users")]
@@ -58,7 +58,7 @@ namespace ForumSystem.Api.Controllers
             }
             catch (UnauthorizedAccessException e)
             {
-                return (StatusCode(StatusCodes.Status401Unauthorized, e.Message));
+                return StatusCode(StatusCodes.Status401Unauthorized, e.Message);
             }
             catch (Exception e)
             {

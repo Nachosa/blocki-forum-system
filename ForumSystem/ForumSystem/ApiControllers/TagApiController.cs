@@ -11,7 +11,7 @@ using ForumSystemDTO.PostDTO;
 using ForumSystemDTO.TagDTO;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ForumSystem.Api.Controllers
+namespace ForumSystem.Api.ApiControllers
 {
     [ApiController]
     [Route("api/tags")]
@@ -65,7 +65,7 @@ namespace ForumSystem.Api.Controllers
             }
             catch (UnauthenticatedOperationException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
         }
 
@@ -85,7 +85,7 @@ namespace ForumSystem.Api.Controllers
             }
             catch (UnauthenticatedOperationException e)
             {
-                return this.StatusCode(StatusCodes.Status400BadRequest, e.Message);
+                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
             catch (EntityNotFoundException e)
             {
