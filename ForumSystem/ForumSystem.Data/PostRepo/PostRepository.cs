@@ -165,6 +165,10 @@ namespace ForumSystem.DataAccess.PostRepo
                 {
                     posts = posts.OrderBy(post => post.Likes.Count).ToList();
                 }
+                if (sortParameters.SortBy.Equals("comments", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    posts = posts.OrderBy(post => post.Comments.Count).ToList();
+                }
 
                 if (!string.IsNullOrEmpty(sortParameters.SortOrder) && sortParameters.SortOrder.Equals("desc", StringComparison.InvariantCultureIgnoreCase))
                 {
