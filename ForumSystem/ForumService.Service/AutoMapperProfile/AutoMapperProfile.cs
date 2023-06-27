@@ -38,11 +38,9 @@ namespace ForumSystem.Business.AutoMapperProfile
             CreateMap<UpdatePostContentDto, Post>();
 
             CreateMap<CreateCommentDto, Comment>();
-            CreateMap<Comment, GetCommentDtoNew>() //Така може да се направи GetCommentDto след преместване на мапването от сървиса в контролера.
+            CreateMap<Comment, GetCommentDto>() //Така може да се направи GetCommentDto след преместване на мапването от сървиса в контролера.
                 .ForMember(cDto => cDto.LikesCount, opt => opt.MapFrom(c => c.Likes.Count))
                 .ForMember(cDto => cDto.UserName, opt => opt.MapFrom(c => c.User.Username));
-            CreateMap<Comment, GetCommentDto>()
-                .ForMember(cDto => cDto.Likes, opt => opt.MapFrom(c => c.Likes.Count));
             CreateMap<UpdateCommentContentDto, Comment>();
 
             CreateMap<TagDto, Tag>();

@@ -28,6 +28,6 @@ namespace ForumSystemDTO.PostDTO
 
         public ICollection<string> Tags { get; set; } = new List<string>();
 
-        public ICollection<GetCommentDtoNew> Comments { get; set; } = new List<GetCommentDtoNew>();
+        public ICollection<GetCommentDto> Comments { get; set; } = new List<GetCommentDto>();
     }
 }
