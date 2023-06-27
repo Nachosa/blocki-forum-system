@@ -27,10 +27,10 @@
     </div>
 
     <h2>List Elements: Top 10 Most Commented Posts</h2>
-    @if (HomePageViewModel.TopCommentedPosts != null && HomePageViewModel.TopCommentedPosts.Count > 0)
+    @if (Model.TopCommentedPosts != null && Model.TopCommentedPosts.Count > 0)
     {
         <ul>
-            @foreach (var item in HomePageViewModel.TopCommentedPosts)
+            @foreach (var item in Model.TopCommentedPosts)
             {
                 <li>@item</li>
             }
@@ -42,10 +42,10 @@
     }
 
     <h2>List Elements: Top 10 Recently Created Posts</h2>
-    @if (HomePageViewModel.RecentlyCreatedPosts != null && HomePageViewModel.RecentlyCreatedPosts.Count > 0)
+    @if (Model.RecentlyCreatedPosts != null && Model.RecentlyCreatedPosts.Count > 0)
     {
         <ul>
-            @foreach (var item in HomePageViewModel.RecentlyCreatedPosts)
+            @foreach (var item in Model.RecentlyCreatedPosts)
             {
                 <li>@item</li>
             }
