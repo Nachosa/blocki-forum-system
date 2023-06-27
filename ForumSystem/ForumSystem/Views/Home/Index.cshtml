@@ -32,6 +32,36 @@
         </p>
     </div>
 
+    <h2>List Elements: Top 10 Most Commented Posts</h2>
+    @if (HomePageViewModel.TopCommentedPosts != null && HomePageViewModel.TopCommentedPosts.Count > 0)
+    {
+        <ul>
+            @foreach (var item in HomePageViewModel.TopCommentedPosts)
+            {
+                <li>@item</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No elements in the list.</p>
+    }
+
+    <h2>List Elements: Top 10 Recently Created Posts</h2>
+    @if (HomePageViewModel.RecentlyCreatedPosts != null && HomePageViewModel.RecentlyCreatedPosts.Count > 0)
+    {
+        <ul>
+            @foreach (var item in HomePageViewModel.RecentlyCreatedPosts)
+            {
+                <li>@item</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No elements in the list.</p>
+    }
+
     <footer>
     </footer>
 </body>
