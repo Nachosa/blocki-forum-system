@@ -6,36 +6,12 @@
     <link href="~/css/StyleSheet.css" rel="stylesheet" type="text/css" media="screen" runat="server" />
     <meta charset="utf-8">
     <title>BlockieTalkie</title>
-</head>
-
-<body>
-    <section>
-        <nav>
-			<ul class="menuItems">
-				<li><a href='#'> <div class="imageBox">
-  <div>
-    <img href='#' src="~/images/cubehome.png" class="cubeImage">
-  </div>
-  <div id="hoverImg">
-    <img href='#' src="~/images/cubepink.png" class="cubeImage">
-  </div>
-</div></a></li>
-                <li><a href='#' data-item='About'>About</a></li>
-                <li><a href='#' data-item='Register'>Register</a></li>
-                <li><a href='#' data-item='Login'>Login</a></li>
-            </ul>
-        </nav>
-    </section>
-    <div>
-        <h2>Users Count: @Model.UsersCount</h2>
-
-        <h2>Posts Count: @Model.PostsCount</h2>
-    </div>
-
     <style>
         table {
+            padding:10px;
             width: 100%;
-            border-collapse: collapse;
+            border-radius:10px;
+            box-shadow: 0px 0px 15px 2px chartreuse;
         }
 
         th, td {
@@ -48,6 +24,34 @@
             background-color: #f2f2f2;
         }
     </style>
+</head>
+
+<body>
+    <section>
+        <nav>
+			<ul class="menuItems">
+				<li>
+                    <a href='#'> 
+                        <div class="imageBox">
+                             <div>
+                                 <img href='#' src="~/images/cubehome.png" class="cubeImage">
+                             </div>
+                             <div id="hoverImg">
+                                  <img href='#' src="~/images/cubepink.png" class="cubeImage">
+                              </div>
+                         </div>
+                    </a>
+                </li>
+                    <li><a href='#' data-item='About'>About</a></li>
+                <li><a style="margin-right:10px;" href='#' data-item='Register'>Register</a></li>
+                    <li><a href='#' data-item='Login'>Login</a></li>
+            </ul>
+        </nav>
+    </section>
+    <div class="user-post-info">
+        <h2>Our forum is growing up already <span>@Model.UsersCount</span> users are registered and <span>@Model.PostsCount</span> posts are created! </h2>
+    </div>
+
 
     <h2>Top 10 Most Commented Posts</h2>
     @if (Model.TopCommentedPosts != null && Model.TopCommentedPosts.Count > 0)
@@ -85,7 +89,7 @@
         <p>No elements in the list.</p>
     }
 
-    <h2>Top 10 Recently Created Posts</h2>
+    <h2 style="margin-top:60px;">Top 10 Recently Created Posts</h2>
     @if (Model.RecentlyCreatedPosts != null && Model.RecentlyCreatedPosts.Count > 0)
     {
         <div class="text-center">
@@ -122,6 +126,10 @@
     }
 
     <footer>
+        <div>Created by: </div>
+        <div>Atanas Iliev </div>
+        <div>Nikolai Gigov </div>
+        <div>Katrin Lilova </div>
     </footer>
 </body>
 </html> 
