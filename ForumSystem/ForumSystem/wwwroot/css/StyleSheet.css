@@ -18,6 +18,23 @@ section {
     width: 100%;
 }
 
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+    nav ul li:first-child {
+        order: -1;
+    }
+
+    nav ul li:nth-child(3) {
+        order: 2;
+    }
+
+    nav ul li:last-child {
+        margin-left: auto;
+    }
 
 .menuItems {
     list-style: none;
