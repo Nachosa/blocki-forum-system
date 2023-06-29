@@ -66,7 +66,7 @@
         {
             <h2>@this.Model.Title</h2>
 
-            <p class="margin12">Created By: @this.Model.User.Username</p>
+            <p class="margin12">Created By: <a href="@Url.Action("Details", "Home", new { id = Model.Id, isAuthorDetail = "true" })">@Model.User.Username</a></p>
             <p class="margin12">Created On: @this.Model.CreatedOn</p>
             <p class="margin12">Likes: @this.Model.Likes.Count</p>
             <p class="margin12">Tags: @(Model.Tags.Any() ? string.Join(", ", Model.Tags) : "none")</p>
@@ -87,7 +87,8 @@
                     {
                         @if (comment.User != null)
                         {
-                            <li class="margin12">@comment.User.Username: @comment.Content</li>
+                            @*<li class="margin12">@comment.User.Username: @comment.Content</li>*@
+                            <li class="margin12"><a href="@Url.Action("Details", "Home", new { id = Model.Id, isAuthorDetail = "true" })">@Model.User.Username</a>: @comment.Content</li>
                         }
                     }
                 </ul>
