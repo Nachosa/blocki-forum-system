@@ -73,8 +73,8 @@
                     @foreach (var item in Model.TopCommentedPosts)
                     {
                         <tr>
-                            <td><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
-                            <td><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
+                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
+                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
                             <td>@item.Comments.Count</td>
                             <td>@item.CreatedOn</td>
                             <td>@item.Likes.Count</td>
@@ -109,8 +109,8 @@
                     @foreach (var item in Model.RecentlyCreatedPosts)
                     {
                         <tr>
-                            <td><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
-                            <td><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
+                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
+                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
                             <td>@item.Comments.Count</td>
                             <td>@item.CreatedOn</td>
                             <td>@item.Likes.Count</td>

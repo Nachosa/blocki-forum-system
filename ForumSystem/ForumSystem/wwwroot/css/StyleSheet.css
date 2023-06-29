@@ -1,5 +1,5 @@
 ﻿body {
-    background: #f0ffff;
+    background: #808080;
     display: flex;
     flex-direction: column;
     justify-content: top;
@@ -105,8 +105,8 @@ nav ul {
         }
 
 .cubeImage {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     vertical-align: central;
 }
 
@@ -137,19 +137,18 @@ nav ul {
         border: none;
     }
 
-    .custom-table td:first-child a {
+    .table-hyperlink a {
         display: inline-block;
         text-decoration: none;
         color: #f2f2f2;
         transition: all 0.5s ease-in-out;
         position: relative;
-        text-transform: uppercase;
     }
 
-        .custom-table td:first-child a:hover {
-            color: #ff62f9;
-            transition: all 0.5s ease-in-out;
-        }
+    .table-hyperlink a:hover {
+        color: #ff62f9;
+        transition: all 0.5s ease-in-out;
+    }
 
 footer {
     display: flex;
