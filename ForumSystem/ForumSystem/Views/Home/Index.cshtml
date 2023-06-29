@@ -75,7 +75,8 @@
                         <tr>
                             <td><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
                             @*<td><a href='#' data-item=@item.Title>@item.Title </a></td>*@
-                            <td><a href="@Url.Action("AuthorDetails", "Home", new { authorId = item.User.Id })">@item.User.Username</a></td>
+                            <td><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
+                            @*<td><a href="@Url.Action("AuthorDetails", "Home", new { authorId = item.User.Id })">@item.User.Username</a></td>*@
                             @*<td>@item.User.Username</td>*@
                             <td>@item.Comments.Count</td>
                             <td>@item.CreatedOn</td>

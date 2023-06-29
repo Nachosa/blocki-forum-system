@@ -57,9 +57,14 @@
             <h2>@this.Model.User.Username</h2>
             <!-- Display author-specific details here -->
 
-            <p class="margin12">First Name: @this.Model.User.FirstName</p>
-            <p class="margin12">Last Name: @this.Model.User.LastName</p>
-            <p class="margin12">Role: @this.Model.User.Role.Name</p>
+            @if (Model.User != null)
+            {
+                <p class="margin12">First Name: @this.Model.User.FirstName</p>
+                <p class="margin12">Last Name: @this.Model.User.LastName</p>
+                <p class="margin12">Phone Number: @this.Model.User.PhoneNumber</p>
+                <p class="margin12">Total Comments: @this.Model.User.Comments.Count</p>
+                <p class="margin12">Total Likes: @this.Model.User.Likes.Count</p>
+            }
         }
         else
         {
