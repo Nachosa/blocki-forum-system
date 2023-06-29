@@ -63,6 +63,17 @@ namespace ForumSystem.Web.ViewControllers
             }
         }
 
-        
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult About()
+        {
+            return View();
+        }
+
     }
 }

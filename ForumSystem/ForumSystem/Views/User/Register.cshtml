@@ -15,20 +15,20 @@
         <nav>
             <ul class="menuItems">
                 <li>
-                    <a href='#'>
+                    <a href="/Home/Index">
                         <div class="imageBox">
                             <div>
-                                <img href='#' src="~/images/cubehome.png" class="cubeImage">
+                                <img alt="/Home/Index" src="~/images/cubehome.png" class="cubeImage">
                             </div>
                             <div id="hoverImg">
-                                <img href='#' src="~/images/cubepink.png" class="cubeImage">
+                                <img alt="/Home/Index" src="~/images/cubepink.png" class="cubeImage">
                             </div>
                         </div>
                     </a>
                 </li>
-                <li><a href='#' data-item='About'>About</a></li>
-                <li><a style="margin-right:10px;" data-item='Register'>Register</a></li>
-                <li><a href='#' data-item='Login'>Login</a></li>
+                <li><a href="/Home/About" data-item='About'>About</a></li>
+                <li><a style="margin-right:10px;" asp-controller="User" asp-action="Register" data-item='Register'>Register</a></li>
+                <li><a href='/Home/Login' data-item='Login'>Login</a></li>
             </ul>
         </nav>
     </section>
@@ -37,22 +37,28 @@
     <form id="register-form" asp-controller="User" asp-action="Register" method="post">
 
         <label asp-for="FirstName">First name:</label><br>
-        <input asp-for="FirstName" type="text" ><br>
+        <input asp-for="FirstName" type="text" >
+        <span asp-validation-for="FirstName"></span><br>
 
         <label asp-for="LastName">Last name:</label><br>
-        <input asp-for="LastName" type="text"><br><br>
+        <input asp-for="LastName" type="text">
+        <span asp-validation-for="LastName"></span><br>
 
-        <label asp-for="Username">username:</label><br>
-        <input asp-for="Username" type="text"><br><br>
+        <label asp-for="Username">Username:</label><br>
+        <span asp-validation-for="Username"></span>
+        <input asp-for="Username" type="text"><br>
 
         <label asp-for="Email">Email:</label><br>
-        <input asp-for="Email" type="email"><br><br>
+        <span asp-validation-for="Email"></span>
+        <input asp-for="Email" type="email"><br>
 
         <label asp-for="Password">Password:</label><br>
-        <input asp-for="Password" type="text"><br><br>
+        <span asp-validation-for="Password"></span>
+        <input asp-for="Password" type="text"><br>
 
         <label asp-for="PhoneNumber">Phonenumber:</label><br>
-        <input asp-for="PhoneNumber" type="text"><br><br>
+        <input asp-for="PhoneNumber" type="text"><br>
+
 
         <input asp-controller="User" asp-action="Register" method="post" type="submit" value="Register">
     </form>
