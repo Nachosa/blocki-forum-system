@@ -1,9 +1,9 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model ForumSystem.DataAccess.Models.Post;
+@using ForumSystem.DataAccess.Models
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <link href="~/css/StyleSheet.css" rel="stylesheet" type="text/css" media="screen" runat="server" />
     <meta charset="utf-8">
@@ -51,55 +51,49 @@
         </nav>
     </section>
 
-    @*<header>
-        <div>
-            <h3>
-                <a asp-controller="Home" asp-action="Index" class="nav">Home</a>
-                | <a asp-controller="Beers" asp-action="Index" class="nav">Beers</a>
-                | <a asp-controller="Home" asp-action="About" class="nav">About</a>
-                | <a href="/api/swagger" class="nav">Developer API</a>
-            </h3>
-        </div>
-    </header>*@
-
     <div class="body-content">
-        <h2>@this.Model.Title</h2>
-
-        <p class="margin12">Created By: @this.Model.User.Username</p>
-        <p class="margin12">Created On: @this.Model.CreatedOn</p>
-        <p class="margin12">Likes: @this.Model.Likes.Count</p>
-        <p class="margin12">Tags: @(Model.Tags.Any() ? string.Join(", ", Model.Tags) : "none")</p>
-
-        <h3>Content: @this.Model.Content</h3>
-
-        <h4>Comments</h4>
-
-        @if (this.Model.Comments.Count == 0)
+        @if (ViewBag.IsAuthorDetail)
         {
-            <p>
-                <i>No comments</i>
-            </p>
+            <h2>@this.Model.User.Username</h2>
+
+            <p class="margin12">First Name: @this.Model.User.FirstName</p>
+            <p class="margin12">Last Name: @this.Model.User.LastName</p>
+            <p class="margin12">Phone Number: @this.Model.User.PhoneNumber</p>
+            <p class="margin12">Total Comments: @this.Model.User.Comments.Count</p>
+            <p class="margin12">Total Likes: @this.Model.User.Likes.Count</p>
         }
         else
         {
-            <ul>
+            <h2>@this.Model.Title</h2>
 
-                @*@foreach (var comment in this.Model.Comments)
-                {
-                    <li class="margin12">@comment.User.Username commented with @comment.Content</li>
-                }*@
+            <p class="margin12">Created By: <a href="@Url.Action("Details", "Home", new { id = Model.Id, isAuthorDetail = "true" })">@Model.User.Username</a></p>
+            <p class="margin12">Created On: @this.Model.CreatedOn</p>
+            <p class="margin12">Likes: @this.Model.Likes.Count</p>
+            <p class="margin12">Tags: @(Model.Tags.Any() ? string.Join(", ", Model.Tags) : "none")</p>
 
-                @*Currently throws exception when accessing user.username (object not set to reference)*@
+            <h3>Content: @this.Model.Content</h3>
 
-                @foreach (var comment in this.Model.Comments)
-                {
-                    <li class="margin12">@comment.Content</li>
-                }
-
-            </ul>
+            <h4>Comments</h4>
+            @if (this.Model.Comments.Count == 0)
+            {
+                <p>
+                    <i>No comments.</i>
+                </p>
+            }
+            else
+            {
+                <ul>
+                    @foreach (var comment in this.Model.Comments)
+                    {
+                        @if (comment.User != null)
+                        {
+                            @*<li class="margin12">@comment.User.Username: @comment.Content</li>*@
+                            <li class="margin12"><a href="@Url.Action("Details", "Home", new { id = Model.Id, isAuthorDetail = "true" })">@Model.User.Username</a>: @comment.Content</li>
+                        }
+                    }
+                </ul>
+            }
         }
-
-        @*<a asp-controller="Beers" asp-action="Index" class="nav">Back</a>*@
     </div>
 
     <footer>

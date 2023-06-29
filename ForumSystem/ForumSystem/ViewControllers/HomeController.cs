@@ -45,11 +45,13 @@ namespace ForumSystem.Web.ViewControllers
         }
 
         [HttpGet]
-        public IActionResult Details(int id)
+        public IActionResult Details(int id, bool isAuthorDetail)
         {
             try
             {
                 Post post = postService.GetPostById(id);
+                ViewBag.IsAuthorDetail = isAuthorDetail;
+
                 return View(post);
             }
             catch (EntityNotFoundException e)
