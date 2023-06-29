@@ -1,0 +1,46 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="~/css/StyleSheet.css" rel="stylesheet" type="text/css" media="screen" runat="server" />
+    <meta charset="utf-8">
+    <title>BlockieTalkie</title>
+</head>
+
+<body>
+    <section>
+        <nav>
+            <ul class="menuItems">
+                <li>
+                    <a href='#'>
+                        <div class="imageBox">
+                            <div>
+                                <img href='#' src="~/images/cubehome.png" class="cubeImage">
+                            </div>
+                            <div id="hoverImg">
+                                <img href='#' src="~/images/cubepink.png" class="cubeImage">
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li><a href='#' data-item='About'>About</a></li>
+                <li><a style="margin-right:10px;" data-item='Register'>Register</a></li>
+                <li><a href='#' data-item='Login'>Login</a></li>
+            </ul>
+        </nav>
+    </section>
+
+
+    <p>do tuk dobre!</p>
+
+
+
+    <footer>
+        <small>© Copyright @DateTime.Now.Year, BlockieTalkie</small>
+    </footer>
+
+</body>
+</html>
