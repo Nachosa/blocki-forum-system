@@ -61,10 +61,6 @@ namespace ForumSystem.Web.ViewControllers
             }
         }
 
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        
     }
 }

@@ -22,8 +22,7 @@ namespace ForumSystem.Business.AutoMapperProfile
             CreateMap<CreateUserDTO, User>();
             CreateMap<UpdateUserDTO, User>();
             CreateMap<User, GetUserDTO>();
-
-
+          
             CreateMap<CreatePostDto, Post>();
             CreateMap<Post, GetPostDto>()
                 .ForMember(pDto => pDto.UserName, opt => opt.MapFrom(p => p.User.Username))

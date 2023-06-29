@@ -1,5 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-
+@model ForumSystem.Web.ViewModels.UserViewModels.RegisterUser
 
 <!DOCTYPE html>
 <html lang="en">
@@ -34,7 +34,28 @@
     </section>
 
 
-    <p>do tuk dobre!</p>
+    <form id="register-form" asp-controller="User" asp-action="Register" method="post">
+
+        <label asp-for="FirstName">First name:</label><br>
+        <input asp-for="FirstName" type="text" ><br>
+
+        <label asp-for="LastName">Last name:</label><br>
+        <input asp-for="LastName" type="text"><br><br>
+
+        <label asp-for="Username">username:</label><br>
+        <input asp-for="Username" type="text"><br><br>
+
+        <label asp-for="Email">Email:</label><br>
+        <input asp-for="Email" type="email"><br><br>
+
+        <label asp-for="Password">Password:</label><br>
+        <input asp-for="Password" type="text"><br><br>
+
+        <label asp-for="PhoneNumber">Phonenumber:</label><br>
+        <input asp-for="PhoneNumber" type="text"><br><br>
+
+        <input asp-controller="User" asp-action="Register" method="post" type="submit" value="Register">
+    </form>
 
 
 

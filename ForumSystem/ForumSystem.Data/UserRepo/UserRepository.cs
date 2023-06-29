@@ -106,7 +106,7 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public bool EmailExist(string email)
         {
-            bool result = forumDb.Users.Any(u => string.Equals(u.Email, email, StringComparison.OrdinalIgnoreCase));
+            bool result = forumDb.Users.Any(u => u.Email.ToLower()==email.ToLower());
             return result;
         }
 
