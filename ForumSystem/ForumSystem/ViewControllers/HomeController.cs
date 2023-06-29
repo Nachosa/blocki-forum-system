@@ -2,6 +2,7 @@
 using ForumSystem.Business;
 using ForumSystem.Business.CommentService;
 using ForumSystem.Business.UserService;
+using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.UserRepo;
 using ForumSystem.Web.ViewModels.HomeViewModels;
@@ -14,12 +15,14 @@ namespace ForumSystem.Web.ViewControllers
         private readonly IUserService userService;
         private readonly IPostService postService;
         private readonly ICommentService commentService;
+
         public HomeController(IUserService userService,IPostService postService,ICommentService commentService)
         {
             this.userService = userService;
             this.postService = postService;
             this.commentService = commentService;
         }
+
         public IActionResult Index()
         {
             int activeUsersCount = userService.GetUsersCount();
@@ -39,6 +42,23 @@ namespace ForumSystem.Web.ViewControllers
             homePage.TopCommentedPosts= topCommentedPosts;
             homePage.RecentlyCreatedPosts= recentlyCreatedPosts;
             return View(homePage);
+        }
+
+        [HttpGet]
+        public IActionResult Details(int id)
+        {
+            try
+            {
+                Post post = postService.GetPostById(id);
+                return View(post);
+            }
+            catch (EntityNotFoundException e)
+            {
+                Response.StatusCode = StatusCodes.Status404NotFound;
+                ViewData["ErrorMessage"] = e.Message;
+
+                return View("Error");
+            }
         }
     }
 }

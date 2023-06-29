@@ -1,0 +1,110 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ForumSystem.DataAccess.Models.Post;
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="~/css/StyleSheet.css" rel="stylesheet" type="text/css" media="screen" runat="server" />
+    <meta charset="utf-8">
+    <title>BlockieTalkie</title>
+    <style>
+        table {
+            padding: 10px;
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px 2px chartreuse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <nav>
+            <ul class="menuItems">
+                <li>
+                    <a href='#'>
+                        <div class="imageBox">
+                            <div>
+                                <img href='#' src="~/images/cubehome.png" class="cubeImage">
+                            </div>
+                            <div id="hoverImg">
+                                <img href='#' src="~/images/cubepink.png" class="cubeImage">
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li><a href='#' data-item='About'>About</a></li>
+                <li><a style="margin-right:10px;" href='#' data-item='Register'>Register</a></li>
+                <li><a href='#' data-item='Login'>Login</a></li>
+            </ul>
+        </nav>
+    </section>
+
+    @*<header>
+        <div>
+            <h3>
+                <a asp-controller="Home" asp-action="Index" class="nav">Home</a>
+                | <a asp-controller="Beers" asp-action="Index" class="nav">Beers</a>
+                | <a asp-controller="Home" asp-action="About" class="nav">About</a>
+                | <a href="/api/swagger" class="nav">Developer API</a>
+            </h3>
+        </div>
+    </header>*@
+
+    <div class="body-content">
+        <h2>@this.Model.Title</h2>
+
+        <p class="margin12">Created By: @this.Model.User.Username</p>
+        <p class="margin12">Created On: @this.Model.CreatedOn</p>
+        <p class="margin12">Likes: @this.Model.Likes.Count</p>
+        <p class="margin12">Tags: @(Model.Tags.Any() ? string.Join(", ", Model.Tags) : "none")</p>
+
+        <h3>Content: @this.Model.Content</h3>
+
+        <h4>Comments</h4>
+
+        @if (this.Model.Comments.Count == 0)
+        {
+            <p>
+                <i>No comments</i>
+            </p>
+        }
+        else
+        {
+            <ul>
+
+                @*@foreach (var comment in this.Model.Comments)
+                {
+                    <li class="margin12">@comment.User.Username commented with @comment.Content</li>
+                }*@
+
+                @*Currently throws exception when accessing user.username (object not set to reference)*@
+
+                @foreach (var comment in this.Model.Comments)
+                {
+                    <li class="margin12">@comment.Content</li>
+                }
+
+            </ul>
+        }
+
+        @*<a asp-controller="Beers" asp-action="Index" class="nav">Back</a>*@
+    </div>
+
+    <footer>
+        <small>© Copyright @DateTime.Now.Year, BlockieTalkie</small>
+    </footer>
+
+</body>
+</html>
