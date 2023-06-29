@@ -78,7 +78,7 @@
                             <td>@item.Comments.Count</td>
                             <td>@item.CreatedOn</td>
                             <td>@item.Likes.Count</td>
-                            <td>@(item.Tags.Any() ? string.Join(", ", item.Tags) : "none")</td>
+                            <td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
                         </tr>
                     }
                 </tbody>
@@ -114,7 +114,7 @@
                             <td>@item.Comments.Count</td>
                             <td>@item.CreatedOn</td>
                             <td>@item.Likes.Count</td>
-                            <td>@(item.Tags.Any() ? string.Join(", ", item.Tags) : "none")</td>
+                            <td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
                         </tr>
                     }
                 </tbody>
