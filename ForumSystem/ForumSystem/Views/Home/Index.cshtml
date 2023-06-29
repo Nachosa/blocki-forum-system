@@ -1,4 +1,5 @@
-﻿@model ForumSystem.Web.ViewModels.HomeViewModels.HomePageViewModel;
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ForumSystem.Web.ViewModels.HomeViewModels.HomePageViewModel;
 <!DOCTYPE html>
 
 <html>
@@ -43,7 +44,7 @@
                     </a>
                 </li>
                     <li><a href='#' data-item='About'>About</a></li>
-                <li><a style="margin-right:10px;" href='#' data-item='Register'>Register</a></li>
+                <li><a style="margin-right:10px;" asp-controller="Home" asp-action="Register" data-item='Register'>Register</a></li>
                     <li><a href='#' data-item='Login'>Login</a></li>
             </ul>
         </nav>
