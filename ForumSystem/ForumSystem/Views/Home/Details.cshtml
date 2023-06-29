@@ -55,16 +55,12 @@
         @if (ViewBag.IsAuthorDetail)
         {
             <h2>@this.Model.User.Username</h2>
-            <!-- Display author-specific details here -->
 
-            @if (Model.User != null)
-            {
-                <p class="margin12">First Name: @this.Model.User.FirstName</p>
-                <p class="margin12">Last Name: @this.Model.User.LastName</p>
-                <p class="margin12">Phone Number: @this.Model.User.PhoneNumber</p>
-                <p class="margin12">Total Comments: @this.Model.User.Comments.Count</p>
-                <p class="margin12">Total Likes: @this.Model.User.Likes.Count</p>
-            }
+            <p class="margin12">First Name: @this.Model.User.FirstName</p>
+            <p class="margin12">Last Name: @this.Model.User.LastName</p>
+            <p class="margin12">Phone Number: @this.Model.User.PhoneNumber</p>
+            <p class="margin12">Total Comments: @this.Model.User.Comments.Count</p>
+            <p class="margin12">Total Likes: @this.Model.User.Likes.Count</p>
         }
         else
         {
@@ -78,11 +74,10 @@
             <h3>Content: @this.Model.Content</h3>
 
             <h4>Comments</h4>
-
             @if (this.Model.Comments.Count == 0)
             {
                 <p>
-                    <i>No comments</i>
+                    <i>No comments.</i>
                 </p>
             }
             else
