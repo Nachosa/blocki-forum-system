@@ -73,12 +73,12 @@
                     @foreach (var item in Model.TopCommentedPosts)
                     {
                         <tr>
-                            <td><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
-                            <td><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
+                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
+                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
                             <td>@item.Comments.Count</td>
                             <td>@item.CreatedOn</td>
                             <td>@item.Likes.Count</td>
-                            <td>@(item.Tags.Any() ? string.Join(", ", item.Tags) : "none")</td>
+                            <td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
                         </tr>
                     }
                 </tbody>
@@ -109,12 +109,12 @@
                     @foreach (var item in Model.RecentlyCreatedPosts)
                     {
                         <tr>
-                            <td><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
-                            <td><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
+                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
+                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
                             <td>@item.Comments.Count</td>
                             <td>@item.CreatedOn</td>
                             <td>@item.Likes.Count</td>
-                            <td>@(item.Tags.Any() ? string.Join(", ", item.Tags) : "none")</td>
+                            <td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
                         </tr>
                     }
                 </tbody>
