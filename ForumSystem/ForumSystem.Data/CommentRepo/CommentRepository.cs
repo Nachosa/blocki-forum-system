@@ -39,11 +39,11 @@ namespace ForumSystem.DataAccess.CommentRepo
 
         public Comment CreateComment(Comment comment)
         {
-            comment.Id = forumDb.Comments
-                .Where(c => c.IsDeleted == false)
-                .OrderByDescending(c => c.Id)
-                .Select(c => c.Id)
-                .FirstOrDefault() + 1;
+            //comment.Id = forumDb.Comments
+            //    .Where(c => c.IsDeleted == false)
+            //    .OrderByDescending(c => c.Id)
+            //    .Select(c => c.Id)
+            //    .FirstOrDefault() + 1;
 
             forumDb.Comments.Add(comment);
             forumDb.SaveChanges();

@@ -75,5 +75,39 @@ namespace ForumSystem.Web.ViewControllers
             return View();
         }
 
-    }
+		public IActionResult AddComment(int postId)
+		{
+			return RedirectToAction("CommentForm", new { postId });
+		}
+
+		public IActionResult CommentForm(int postId)
+		{
+			var model = new CommentFormViewModel
+			{
+				PostId = postId
+			};
+
+			return View(model);
+		}
+
+		[HttpPost]
+		public IActionResult SubmitComment(CommentFormViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var comment = new Comment
+				{
+					Content = model.CommentContent,
+					PostId = model.PostId,
+                    UserId = 0 // only temporary
+				};
+
+				commentService.CreateComment(comment, model.PostId);
+
+				return RedirectToAction("Details", "Home", new { id = model.PostId });
+			}
+
+			return View("CommentForm", model);
+		}
+	}
 }

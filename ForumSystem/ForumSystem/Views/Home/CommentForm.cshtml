@@ -1,0 +1,11 @@
+﻿@model ForumSystemDTO.ViewModels.HomeViewModels.CommentFormViewModel
+
+<h2>Add Comment</h2>
+
+<form method="post" action="@Url.Action("SubmitComment", "Home")">
+    <input type="hidden" name="postId" value="@Model.PostId" />
+    <!-- Add any necessary fields for the comment form -->
+    <textarea name="comment" rows="4" cols="50">@Model.CommentContent</textarea>
+    <br />
+    <input type="submit" value="Submit" />
+</form>
