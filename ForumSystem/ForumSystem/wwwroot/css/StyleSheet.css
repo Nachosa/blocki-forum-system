@@ -152,7 +152,7 @@ nav {
     color: #f2f2f2;
     padding: 10px;
     width: 100%;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: center;
     min-width: 1500px;
 }
@@ -199,6 +199,8 @@ nav {
     margin: auto;
     margin-top: 40px;
     width: fit-content;
+    overflow: hidden;
+    position: relative;
 }
 /*#endregion*/
 
@@ -221,22 +223,6 @@ nav {
     margin: auto;
 }
 
-.link_404 {
-    color: #f2f2f2;
-    padding: 10px 20px;
-    background: #404040;
-    margin: 20px 0;
-    display: inline-block;
-    text-decoration: none;
-    transition: all 0.5s ease-in-out;
-    position: relative;
-}
-
-    .link_404:hover {
-        color: #ff62f9;
-        transition: all 0.5s ease-in-out;
-    }
-
 .contant_box_404 {
     margin-top: -50px;
     text-align: center;
@@ -251,3 +237,27 @@ nav {
     font-size: 100px;
 }
 /*#endregion*/
+
+.button {
+    color: #f2f2f2;
+    padding: 10px 20px;
+    background: #404040;
+    margin: 20px 0;
+    display: inline-block;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+    border-radius: 5px;
+}
+
+    .button:hover {
+        color: #ff62f9;
+        transition: all 0.5s ease-in-out;
+    }
+
+#table-label {
+    margin: 0px;
+}
+
+#create-post-button {
+}

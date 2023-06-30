@@ -1,0 +1,14 @@
+﻿@model ForumSystemDTO.ViewModels.PostViewModels.CreatePostViewModel;
+
+<form id="create-post-form" asp-controller="Post" asp-action="Create" method="post">
+
+    <label asp-for="Title">Title:</label><br>
+    <input asp-for="Title" type="text" size="64"><br>
+    <span asp-validation-for="Title"></span><br>
+
+    <label asp-for="Content">Content:</label><br>
+    <input asp-for="Content" type="text" size="8192"><br>
+    <span asp-validation-for="Content"></span><br>
+
+    <input asp-controller="Post" asp-action="Create" method="post" type="submit" value="Submit">
+</form>

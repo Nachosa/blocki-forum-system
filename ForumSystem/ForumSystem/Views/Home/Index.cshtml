@@ -5,10 +5,14 @@
 </div>
 
 <div class="labeled-table">
-	<h2>Top 10 Most Commented Posts</h2>
+	<h2 class="table-label">Top 10 Most Commented Posts</h2>
+	@*TODO:Господи дай ми сили да подравня този бутон като хората.*@
+	<div id="create-post-button">
+		<a asp-controller="Post" asp-action="Create" class="button">Create Post</a>
+	</div>
 	@if (Model.TopCommentedPosts != null && Model.TopCommentedPosts.Count > 0)
 	{
-		<div class="border-shadow">
+		@*<div class="border-shadow">*@
 			<table class="custom-table">
 				<thead class="custom-table">
 					<tr class="custom-table">
@@ -34,7 +38,7 @@
 					}
 				</tbody>
 			</table>
-		</div>
+		@*</div>*@
 	}
 	else
 	{
@@ -43,10 +47,10 @@
 </div>
 
 <div class="labeled-table">
-	<h2>Top 10 Recently Created Posts</h2>
+	<h2 class="table-label">Top 10 Recently Created Posts</h2>
 	@if (Model.RecentlyCreatedPosts != null && Model.RecentlyCreatedPosts.Count > 0)
 	{
-		<div class="border-shadow">
+		@*<div class="border-shadow">*@
 			<table class="custom-table">
 				<thead class="custom-table">
 					<tr class="custom-table">
@@ -72,7 +76,7 @@
 					}
 				</tbody>
 			</table>
-		</div>
+		@*</div>*@
 	}
 	else
 	{
