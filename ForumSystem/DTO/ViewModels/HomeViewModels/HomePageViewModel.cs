@@ -1,6 +1,6 @@
 ﻿using ForumSystem.DataAccess.Models;
 
-namespace ForumSystem.Web.ViewModels.HomeViewModels
+namespace ForumSystemDTO.ViewModels.HomeViewModels
 {
     public class HomePageViewModel
     {

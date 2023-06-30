@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ForumSystem.Web.ViewModels.UserViewModels
+namespace ForumSystemDTO.ViewModels.UserViewModels
 {
     public class RegisterUser
     {

@@ -5,7 +5,7 @@ using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.UserRepo;
-using ForumSystem.Web.ViewModels.HomeViewModels;
+using ForumSystemDTO.ViewModels.HomeViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumSystem.Web.ViewControllers

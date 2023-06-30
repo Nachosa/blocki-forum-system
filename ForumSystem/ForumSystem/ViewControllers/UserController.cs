@@ -3,7 +3,7 @@ using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.UserRepo;
-using ForumSystem.Web.ViewModels.UserViewModels;
+using ForumSystemDTO.ViewModels.UserViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
