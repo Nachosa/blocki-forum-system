@@ -1,54 +1,13 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model ForumSystem.Web.ViewModels.UserViewModels.RegisterUser
+﻿@model ForumSystem.Web.ViewModels.UserViewModels.RegisterUser
 
-<!DOCTYPE html>
-<html lang="en">
+<div>
+	<p>Telerik Academy</p><br>
 
-<head>
-    <link href="~/css/StyleSheet.css" rel="stylesheet" type="text/css" media="screen" runat="server" />
-    <meta charset="utf-8">
-    <title>BlockieTalkie</title>
-</head>
+	<div id="Creators">
+		Creators:
+		<p>Atanas Iliev</p>
+		<p>Nikolai Gigov</p>
+		<p>Katrin Lilova</p>
 
-<body>
-    <section>
-        <nav>
-            <ul class="menuItems">
-                <li>
-                    <a href="/Home/Index">
-                        <div class="imageBox">
-                            <div>
-                                <img alt="/Home/Index" src="~/images/cubehome.png" class="cubeImage">
-                            </div>
-                            <div id="hoverImg">
-                                <img alt="/Home/Index" src="~/images/cubepink.png" class="cubeImage">
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li><a href="/Home/About" data-item='About'>About</a></li>
-                <li><a style="margin-right:10px;" asp-controller="User" asp-action="Register" data-item='Register'>Register</a></li>
-                <li><a href='/Home/Login' data-item='Login'>Login</a></li>
-            </ul>
-        </nav>
-    </section>
-
-
-        <div>
-            <p>Telerik Academy</p><br>
-
-            <div id="Creators">
-                Creators:
-                <p>Atanas Iliev</p>
-                <p>Nikolai Gigov</p>
-                <p>Katrin Lilova</p>
-
-            </div>
-        </div>
-
-    <footer>
-        <small>© Copyright @DateTime.Now.Year, BlockieTalkie</small>
-    </footer>
-
-</body>
-</html>
+	</div>
+</div>

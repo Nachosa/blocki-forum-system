@@ -1,136 +1,77 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model ForumSystem.Web.ViewModels.HomeViewModels.HomePageViewModel;
-<!DOCTYPE html>
+﻿@model ForumSystem.Web.ViewModels.HomeViewModels.HomePageViewModel;
 
-<html>
-<head>
-    <link href="~/css/StyleSheet.css" rel="stylesheet" type="text/css" media="screen" runat="server" />
-    <meta charset="utf-8">
-    <title>BlockieTalkie</title>
-    <style>
-        table {
-            padding:10px;
-            width: 100%;
-            border-radius:10px;
-            box-shadow: 0px 0px 15px 2px chartreuse;
-        }
+<div class="user-post-info">
+	<h2>Our forum is growing up already <span>@Model.UsersCount</span> users are registered and <span>@Model.PostsCount</span> posts are created! </h2>
+</div>
 
-        th, td {
-            padding: 8px;
-            text-align: center;
-            border: 1px solid #ccc;
-        }
+<h2>Top 10 Most Commented Posts</h2>
+@if (Model.TopCommentedPosts != null && Model.TopCommentedPosts.Count > 0)
+{
+	<div class="border-shadow">
+		<table class="custom-table">
+			<thead class="custom-table">
+				<tr class="custom-table">
+					<th>Title</th>
+					<th>Author</th>
+					<th>Comments</th>
+					<th>Created On</th>
+					<th>Likes</th>
+					<th>Tags</th>
+				</tr>
+			</thead>
+			<tbody class="custom-table">
+				@foreach (var item in Model.TopCommentedPosts)
+				{
+					<tr>
+						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
+						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
+						<td>@item.Comments.Count</td>
+						<td>@item.CreatedOn</td>
+						<td>@item.Likes.Count</td>
+						<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}
+else
+{
+	<p>No elements in the list.</p>
+}
 
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-
-<body>
-    <section>
-        <nav>
-			<ul class="menuItems">
-				<li>
-                    <a href="/Home/Index">
-                        <div class="imageBox">
-                             <div>
-                                 <img alt="/Home/Index" src="~/images/cubehome.png" class="cubeImage">
-                             </div>
-                             <div id="hoverImg">
-                                <img alt="/Home/Index" src="~/images/cubepink.png" class="cubeImage">
-                              </div>
-                         </div>
-                    </a>
-                </li>
-                <li><a href="/Home/About" data-item='About'>About</a></li>
-                <li><a style="margin-right:10px;" asp-controller="User" asp-action="Register" data-item='Register'>Register</a></li>
-                    <li><a href='/Home/Login' data-item='Login'>Login</a></li>
-            </ul>
-        </nav>
-    </section>
-    <div class="user-post-info">
-        <h2>Our forum is growing up already <span>@Model.UsersCount</span> users are registered and <span>@Model.PostsCount</span> posts are created! </h2>
-    </div>
-
-
-    <h2>Top 10 Most Commented Posts</h2>
-    @if (Model.TopCommentedPosts != null && Model.TopCommentedPosts.Count > 0)
-    {
-        <div class="text-center">
-            <table class="custom-table">
-                <thead class="custom-table">
-                    <tr class="custom-table">
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Comments</th>
-                        <th>Created On</th>
-                        <th>Likes</th>
-                        <th>Tags</th>
-                    </tr>
-                </thead>
-                <tbody class="custom-table">
-                    @foreach (var item in Model.TopCommentedPosts)
-                    {
-                        <tr>
-                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
-                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
-                            <td>@item.Comments.Count</td>
-                            <td>@item.CreatedOn</td>
-                            <td>@item.Likes.Count</td>
-                            <td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
-    else
-    {
-        <p>No elements in the list.</p>
-    }
-
-    <h2 style="margin-top:60px;">Top 10 Recently Created Posts</h2>
-    @if (Model.RecentlyCreatedPosts != null && Model.RecentlyCreatedPosts.Count > 0)
-    {
-        <div class="text-center">
-            <table class="custom-table">
-                <thead class="custom-table">
-                    <tr class="custom-table">
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Comments</th>
-                        <th>Created On</th>
-                        <th>Likes</th>
-                        <th>Tags</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.RecentlyCreatedPosts)
-                    {
-                        <tr>
-                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
-                            <td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
-                            <td>@item.Comments.Count</td>
-                            <td>@item.CreatedOn</td>
-                            <td>@item.Likes.Count</td>
-                            <td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
-    else
-    {
-        <p>No elements in the list.</p>
-    }
-
-    <footer>
-        <div>Created by: </div>
-        <div>Atanas Iliev </div>
-        <div>Nikolai Gigov </div>
-        <div>Katrin Lilova </div>
-    </footer>
-</body>
-</html> 
+<h2 style="margin-top:60px;">Top 10 Recently Created Posts</h2>
+@if (Model.RecentlyCreatedPosts != null && Model.RecentlyCreatedPosts.Count > 0)
+{
+	<div class="border-shadow">
+		<table class="custom-table">
+			<thead class="custom-table">
+				<tr class="custom-table">
+					<th>Title</th>
+					<th>Author</th>
+					<th>Comments</th>
+					<th>Created On</th>
+					<th>Likes</th>
+					<th>Tags</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.RecentlyCreatedPosts)
+				{
+					<tr>
+						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
+						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
+						<td>@item.Comments.Count</td>
+						<td>@item.CreatedOn</td>
+						<td>@item.Likes.Count</td>
+						<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
+}
+else
+{
+	<p>No elements in the list.</p>
+}
