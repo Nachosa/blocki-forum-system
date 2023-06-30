@@ -35,11 +35,7 @@
 			<ul>
 				@foreach (var comment in this.Model.Comments)
 				{
-					@if (comment.User != null)
-					{
-						@*<li class="margin12">@comment.User.Username: @comment.Content</li>*@
-						<li class="margin12"><a href="@Url.Action("Details", "Home", new { id = Model.Id, isAuthorDetail = "true" })">@Model.User.Username</a>: @comment.Content</li>
-					}
+					<li class="margin12">@comment.Content</li>
 				}
 			</ul>
 		}
