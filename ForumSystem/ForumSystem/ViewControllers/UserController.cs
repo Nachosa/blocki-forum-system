@@ -54,8 +54,10 @@ namespace ForumSystem.Web.ViewControllers
             }
             catch (EmailAlreadyExistException e)
             {
-
-                throw;
+                this.Response.StatusCode = StatusCodes.Status409Conflict;
+                this.ViewData["ErrorMessage"]=e.Message;
+                return View("Error");
+                
             }
         }
 
