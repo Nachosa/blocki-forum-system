@@ -30,7 +30,7 @@ namespace ForumSystem.Business.UserService
         {
             if (userRepo.EmailExist(mappedUser.Email))
             {
-                throw new EmailAlreadyExistException("Email already exist!");
+                throw new EmailAlreadyExistException("Email already exists!");
             }
 
             string decodePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(mappedUser.Password));

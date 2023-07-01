@@ -99,7 +99,7 @@ namespace ForumSystem.Web.ViewControllers
 				{
 					Content = model.CommentContent,
 					PostId = model.PostId,
-                    UserId = 0 // only temporary
+                    UserId = 2 // only temporary
 				};
 
 				commentService.CreateComment(comment, model.PostId);

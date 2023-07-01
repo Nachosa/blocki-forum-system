@@ -124,6 +124,8 @@ namespace ForumSystem.Web.ViewControllers
                 {
                     return View(registerUserFilled);
                 }
+
+                //Вече има автоматично мапване.
                 var user = new User();
                 user.FirstName = registerUserFilled.FirstName;
                 user.LastName = registerUserFilled.LastName;

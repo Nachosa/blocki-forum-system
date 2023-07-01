@@ -10,6 +10,7 @@ using DTO.CommentDTO;
 using ForumSystemDTO.UserDTO;
 using ForumSystemDTO.TagDTO;
 using ForumSystemDTO.CommentDTO;
+using ForumSystemDTO.ViewModels.PostViewModels;
 using ForumSystemDTO.ViewModels.UserViewModels;
 
 namespace ForumSystem.Business.AutoMapperProfile
@@ -39,6 +40,7 @@ namespace ForumSystem.Business.AutoMapperProfile
                 .ForMember(pDto => pDto.Tags, opt => opt.MapFrom(p => !(p.Tags.Count <= 0) ? p.Tags.Select(pt => pt.Tag.Name).ToList() : null)) //Тук има нещо по-адекватно от null.
                 .ForMember(pDto => pDto.CommentsCount, opt => opt.MapFrom(p => p.Comments.Count));
             CreateMap<UpdatePostContentDto, Post>();
+            CreateMap<CreatePostViewModel, Post>();
 
             CreateMap<CreateCommentDto, Comment>();
             CreateMap<Comment, GetCommentDto>() //Така може да се направи GetCommentDto след преместване на мапването от сървиса в контролера.
