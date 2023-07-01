@@ -2,12 +2,12 @@
 using ForumSystem.Business.CommentService;
 using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Models;
-using ForumSystemDTO.ViewModels.HomeViewModels;
+using ForumSystemDTO.ViewModels.CommentViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumSystem.Web.ViewControllers
 {
-	public class CommentController : Controller
+    public class CommentController : Controller
 	{
 		private readonly ICommentService commentService;
 

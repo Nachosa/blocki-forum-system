@@ -1,34 +1,31 @@
-﻿@model ForumSystem.DataAccess.Models.Post;
-@using ForumSystem.DataAccess.Models
+﻿@model ForumSystemDTO.ViewModels.PostViewModels.PostDetailsViewModel;
 
 <div class="body-content">
-	@if (ViewBag.IsAuthorDetail)
+	@if (Model.IsAuthorDetail)
 	{
-		<h2>@this.Model.User.Username</h2>
+		<h2>@Model.CreatedBy</h2>
+		<p class="margin12">First Name: @Model.User.FirstName</p>
+		<p class="margin12">Last Name: @Model.User.LastName</p>
+		<p class="margin12">Phone Number: @Model.User.PhoneNumber</p>
+		<p class="margin12">Total Comments: @Model.User.Comments.Count</p>
+		<p class="margin12">Total Likes: @Model.User.Likes.Count</p>
 
-		<p class="margin12">First Name: @this.Model.User.FirstName</p>
-		<p class="margin12">Last Name: @this.Model.User.LastName</p>
-		<p class="margin12">Phone Number: @this.Model.User.PhoneNumber</p>
-		<p class="margin12">Total Comments: @this.Model.User.Comments.Count</p>
-		<p class="margin12">Total Likes: @this.Model.User.Likes.Count</p>
 		//Ще е добре да се изкарват и постовете.
-
-		//Това отгоре вече е изкарано на този адрес: asp-controller="User" asp-action="UserDetails" 
+		//Това отгоре вече е изкарано на този адрес: asp-controller="User" asp-action="UserDetails"
 		//Ще е добре да се направи същото и за постовете
 	}
 	else
 	{
-		<h2>@this.Model.Title</h2>
-
-		<p class="margin12">Created By: <a asp-controller="User" asp-action="UserDetails" asp-route-id="@Model.UserId">@Model.User.Username</a></p>
-		<p class="margin12">Created On: @this.Model.CreatedOn</p>
-		<p class="margin12">Likes: @this.Model.Likes.Count</p>
+		<h2>@Model.Title</h2>
+		<p class="margin12">Created By: <a asp-controller="User" asp-action="UserDetails" asp-route-id="@Model.PostId">@Model.CreatedBy</a></p>
+		<p class="margin12">Created On: @Model.CreatedOn</p>
+		<p class="margin12">Likes: @Model.LikesCount</p>
 		<p class="margin12">Tags: @(Model.Tags.Any() ? string.Join(", ", Model.Tags) : "none")</p>
 
-		<h3>Content: @this.Model.Content</h3>
+		<h3>Content: @Model.Content</h3>
 
 		<h4>Comments</h4>
-		@if (this.Model.Comments.Count == 0)
+		@if (Model.Comments.Count == 0)
 		{
 			<p>
 				<i>No comments.</i>
@@ -37,14 +34,19 @@
 		else
 		{
 			<ul>
-				@foreach (var comment in this.Model.Comments)
+				@foreach (var comment in Model.Comments)
 				{
-					<li class="margin12">@comment.Content</li>
+					@*<li class="margin12">@comment</li>*@
+
+					// user property on some comments is currently null
+					// cannot access usernames, therefore will display "anonymous" for the time being
+					<li class="margin12">
+						<strong>@comment.UserName:</strong> @comment.CommentContent
+					</li>
 				}
 			</ul>
 		}
 
-		<!-- Add comment button -->
-		<a href="@Url.Action("AddComment", "Home", new { postId = Model.Id })" class="btn btn-primary">Add Comment</a>
+		<a href="@Url.Action("AddComment", "Home", new { postId = Model.PostId })" class="btn btn-primary">Add Comment</a>
 	}
 </div>

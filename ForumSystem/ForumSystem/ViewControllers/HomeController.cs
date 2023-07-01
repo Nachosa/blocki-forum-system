@@ -5,22 +5,22 @@ using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.UserRepo;
+using ForumSystemDTO.ViewModels.CommentViewModels;
 using ForumSystemDTO.ViewModels.HomeViewModels;
+using ForumSystemDTO.ViewModels.PostViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumSystem.Web.ViewControllers
 {
     public class HomeController : Controller
     {
-        private readonly IUserService userService;
-        private readonly IPostService postService;
-        private readonly ICommentService commentService;
+		private readonly IPostService postService;
+		private readonly IUserService userService;
 
-        public HomeController(IUserService userService,IPostService postService,ICommentService commentService)
+        public HomeController(IPostService postService, IUserService userService)
         {
-            this.userService = userService;
-            this.postService = postService;
-            this.commentService = commentService;
+			this.postService = postService;
+			this.userService = userService;
         }
 
         public IActionResult Index()
@@ -44,24 +44,44 @@ namespace ForumSystem.Web.ViewControllers
             return View(homePage);
         }
 
-        [HttpGet]
-        public IActionResult Details(int id, bool isAuthorDetail)
-        {
+		[HttpGet]
+		public IActionResult Details(int id, bool isAuthorDetail = false)
+		{
             try
             {
-                Post post = postService.GetPostById(id);
-                ViewBag.IsAuthorDetail = isAuthorDetail;
+				var post = postService.GetPostById(id);
+				var user = userService.GetUserById(post.UserId);
 
-                return View(post);
-            }
+				var comments = post.Comments.Select(c => new CommentViewModel
+				{
+					CommentContent = c.Content,
+					UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
+				}).ToList();
+
+				var model = new PostDetailsViewModel
+				{
+					PostId = post.Id,
+					Title = post.Title,
+					CreatedBy = post.User.Username,
+					CreatedOn = post.CreatedOn.ToString(),
+					LikesCount = post.Likes.Count,
+					Tags = post.Tags.Select(t => t.Tag.Name).ToList(),
+					Content = post.Content,
+					Comments = comments,
+					IsAuthorDetail = isAuthorDetail,
+					User = user
+				};
+
+				return View(model);
+			}
             catch (EntityNotFoundException e)
             {
-                Response.StatusCode = StatusCodes.Status404NotFound;
-                ViewData["ErrorMessage"] = e.Message;
+				Response.StatusCode = StatusCodes.Status404NotFound;
+				ViewData["ErrorMessage"] = e.Message;
 
-                return View("Error");
-            }
-        }
+				return View("Error");
+			}
+		}
 
         [HttpGet]
         public IActionResult Login()
