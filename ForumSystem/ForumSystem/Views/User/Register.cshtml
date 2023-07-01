@@ -1,5 +1,9 @@
 ﻿@model ForumSystemDTO.ViewModels.UserViewModels.RegisterUser
 
+@if (this.ViewData["ErrorMessage"] is not null)
+{
+    <p>@this.ViewData["ErrorMessage"]</p>
+}
     <form id="register-form" asp-controller="User" asp-action="Register" method="post">
 
         <label asp-for="FirstName">First name:</label><br>
@@ -25,5 +29,10 @@
         <label asp-for="PhoneNumber">Phonenumber:</label><br>
         <input asp-for="PhoneNumber" type="text"><br>
 
+        <button class="button">
         <input asp-controller="User" asp-action="Register" method="post" type="submit" value="Register">
+        </button>
+         @*<button class="button">
+        <a asp-controller="User" asp-action="Register" method="post">Register</a>
+         </button>*@
     </form>

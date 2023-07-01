@@ -29,6 +29,8 @@ namespace ForumSystem.Business.UserService
 
         User UpdateUser(string username, User user);
 
+        User UpdateUser(int id, User userNewValues);
+
         bool DeleteUser(string userName,int? userId);
 
 

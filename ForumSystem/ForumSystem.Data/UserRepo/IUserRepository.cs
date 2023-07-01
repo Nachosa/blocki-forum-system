@@ -26,6 +26,8 @@ namespace ForumSystem.DataAccess.UserRepo
 
         User UpdateUser(string userName,User user);
 
+        public User UpdateUser(int id, User user);
+
         bool MakeUserAdmin(User user);
 
         bool EmailExist(string email);

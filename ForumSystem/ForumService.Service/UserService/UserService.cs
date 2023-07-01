@@ -68,23 +68,26 @@ namespace ForumSystem.Business.UserService
         public User GetUserById(int userId)
         {
             var originalUser = userRepo.GetUserById(userId) ?? throw new EntityNotFoundException($"User with Id={userId} was not found!");
+            originalUser.Password = Encoding.UTF8.GetString(Convert.FromBase64String(originalUser.Password));
             return originalUser;
         }
 
         public User GetUserByEmail(string email)
         {
             var originalUser = userRepo.GetUserByEmail(email) ?? throw new EntityNotFoundException($"User with Email={email} was not found!");
+            originalUser.Password = Encoding.UTF8.GetString(Convert.FromBase64String(originalUser.Password));
             return originalUser;
         }
 
         public User GetUserByUserName(string userName)
         {
-            var user = userRepo.GetUserByUserName(userName);
-            if (user is null)
+            var originalUser = userRepo.GetUserByUserName(userName);
+            originalUser.Password = Encoding.UTF8.GetString(Convert.FromBase64String(originalUser.Password));
+            if (originalUser is null)
             {
                 throw new EntityNotFoundException($"User with username:{userName} was not found!");
             }
-            return user;
+            return originalUser;
         }
 
         public List<User> SearchBy(UserQueryParams queryParams)
@@ -124,8 +127,35 @@ namespace ForumSystem.Business.UserService
             {
                 throw new EntityNotFoundException($"User with username:{userName} was not found!");
             }
-            // var mappedUser = userMapper.Map<User>(userDTO);
+            if (userNewValues.Password is not null)
+            {
+                userNewValues.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(userNewValues.Password));
+            }
             var updatedUser = userRepo.UpdateUser(userName, userNewValues);
+            return updatedUser;
+
+
+        }
+        public User UpdateUser(int id, User userNewValues)
+        {
+            if (userNewValues.Email != null)
+            {
+                if (userRepo.EmailExist(userNewValues.Email))
+                {
+                    throw new EmailAlreadyExistException("Email already exist!");
+                }
+            }
+
+            var userToUpdate = userRepo.GetUserById(id);
+            if (userToUpdate is null)
+            {
+                throw new EntityNotFoundException($"User with username:{id} was not found!");
+            }
+            if (userNewValues.Password is not null)
+            {
+                userNewValues.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(userNewValues.Password));
+            }
+            var updatedUser = userRepo.UpdateUser(id, userNewValues);
             return updatedUser;
 
 

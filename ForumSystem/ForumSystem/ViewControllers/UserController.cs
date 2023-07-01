@@ -25,6 +25,90 @@ namespace ForumSystem.Web.ViewControllers
         }
 
         [HttpGet]
+        public IActionResult UserDetails(int id)
+        {
+            try
+            {
+                var user = userService.GetUserById(id);
+                return View(user);
+            }
+            catch (EntityNotFoundException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status404NotFound;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+            catch (Exception e)
+            {
+                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult EditUser([FromRoute] int id)
+        {
+            try
+            {
+                var user = userService.GetUserById(id);
+                EditUser userForm = new EditUser();
+                userForm.Id = user.Id;
+                return View(userForm);
+
+            }
+            catch (EntityNotFoundException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status404NotFound;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+            catch (Exception e)
+            {
+                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+        }
+        [HttpPost]
+        public IActionResult EditUser([FromRoute] int id, EditUser editedUser)
+        {
+            try
+            {
+                if (!this.ModelState.IsValid)
+                {
+                    return View(editedUser);
+                }
+                if (editedUser.FirstName is null &&
+                    editedUser.LastName is null &&
+                    editedUser.Password is null &&
+                    editedUser.Email is null &&
+                    editedUser.PhoneNumber is null)
+                {
+                    this.ViewData["ErrorMessage"] = "There's nothing filled!";
+                    return View(editedUser);
+                }
+                var mappedUser = mapper.Map<User>(editedUser);
+                userService.UpdateUser(id, mappedUser);
+                return RedirectToAction("EditSuccessful", "User");
+
+            }
+            catch (EmailAlreadyExistException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status409Conflict;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View(editedUser);
+
+            }
+            catch (Exception e)
+            {
+                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+
+        }
+        [HttpGet]
         public IActionResult Register()
         {
             var registerUser = new RegisterUser();
@@ -57,9 +141,15 @@ namespace ForumSystem.Web.ViewControllers
             catch (EmailAlreadyExistException e)
             {
                 this.Response.StatusCode = StatusCodes.Status409Conflict;
-                this.ViewData["ErrorMessage"]=e.Message;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View(registerUserFilled);
+
+            }
+            catch (Exception e)
+            {
+                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                this.ViewData["ErrorMessage"] = e.Message;
                 return View("Error");
-                
             }
         }
 
@@ -69,5 +159,10 @@ namespace ForumSystem.Web.ViewControllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult EditSuccessful()
+        {
+            return View();
+        }
     }
 }

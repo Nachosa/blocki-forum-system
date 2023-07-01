@@ -11,6 +11,7 @@ using ForumSystemDTO.UserDTO;
 using ForumSystemDTO.TagDTO;
 using ForumSystemDTO.CommentDTO;
 using ForumSystemDTO.ViewModels.PostViewModels;
+using ForumSystemDTO.ViewModels.UserViewModels;
 
 namespace ForumSystem.Business.AutoMapperProfile
 {
@@ -23,6 +24,9 @@ namespace ForumSystem.Business.AutoMapperProfile
             CreateMap<CreateUserDTO, User>();
             CreateMap<UpdateUserDTO, User>();
             CreateMap<User, GetUserDTO>();
+
+            CreateMap<User, EditUser>();
+            CreateMap<EditUser, User>();
           
             CreateMap<CreatePostDto, Post>();
             CreateMap<Post, GetPostDto>()
