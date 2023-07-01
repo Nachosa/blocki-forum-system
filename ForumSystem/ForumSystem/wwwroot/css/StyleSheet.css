@@ -255,9 +255,20 @@ nav {
         transition: all 0.5s ease-in-out;
     }
 
-#table-label {
-    margin: 0px;
+h2.table-label {
+    /*    width: fit-content;*/
+    text-align: left;
+    block-size: fit-content;
+    position:relative;
 }
 
 #create-post-button {
+    float: right;
+    margin-left: auto;
+    margin-right: 0px;
+}
+
+#row {
+    display: flex;
+    flex-direction: row;
 }
