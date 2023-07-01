@@ -1,0 +1,29 @@
+﻿@model ForumSystemDTO.ViewModels.UserViewModels.EditUser
+
+@if (this.ViewData["ErrorMessage"] is not null)
+{
+    <p>@this.ViewData["ErrorMessage"]</p>
+}
+<form id="register-form" asp-controller="User" asp-action="EditUser" method="post">
+    <p>Fill the values you want to be changed!</p>
+    <label asp-for="FirstName">First name:</label><br>
+    <input asp-for="FirstName" type="text">
+    <span asp-validation-for="FirstName"></span><br>
+
+    <label asp-for="LastName">Last name:</label><br>
+    <input asp-for="LastName" type="text">
+    <span asp-validation-for="LastName"></span><br>
+
+    <label asp-for="Email">Email:</label><br>
+    <input asp-for="Email" type="email">
+    <span asp-validation-for="Email"></span><br>
+
+    <label asp-for="Password">Password:</label><br>
+    <input asp-for="Password" type="text">
+    <br>
+
+    <label asp-for="PhoneNumber">Phonenumber:</label><br>
+    <input asp-for="PhoneNumber" type="text"><br>
+
+    <input asp-controller="User" asp-action="EditUser" method="post" type="submit" value="Save">
+</form>

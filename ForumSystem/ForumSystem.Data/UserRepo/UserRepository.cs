@@ -93,6 +93,17 @@ namespace ForumSystem.DataAccess.UserRepo
             forumDb.SaveChanges();
             return userToupdate;
         }
+        public User UpdateUser(int id, User user)
+        {
+            var userToUpdate = forumDb.Users.FirstOrDefault(u => u.Id == id);
+            userToUpdate.FirstName = user.FirstName ?? userToUpdate.FirstName;
+            userToUpdate.LastName = user.LastName ?? userToUpdate.LastName;
+            userToUpdate.Email = user.Email ?? userToUpdate.Email;
+            userToUpdate.Password = user.Password ?? userToUpdate.Password;
+            userToUpdate.PhoneNumber = user.PhoneNumber ?? userToUpdate.PhoneNumber;
+            forumDb.SaveChanges();
+            return userToUpdate;
+        }
 
 
 

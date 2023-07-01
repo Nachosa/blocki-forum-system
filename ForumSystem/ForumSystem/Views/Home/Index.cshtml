@@ -20,15 +20,16 @@
 				</tr>
 			</thead>
 			<tbody class="custom-table">
-				@foreach (var item in Model.TopCommentedPosts)
+				@foreach (var post in Model.TopCommentedPosts)
 				{
 					<tr>
-						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
-						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
-						<td>@item.Comments.Count</td>
-						<td>@item.CreatedOn</td>
-						<td>@item.Likes.Count</td>
-						<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
+						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = post.Id })">@post.Title</a></td>
+						@*<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.UserId, isAuthorDetail = "true" })">@item.User.Username</a></td>*@
+						<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@post.UserId">@post.User.Username</a></td>					
+						<td>@post.Comments.Count</td>
+						<td>@post.CreatedOn</td>
+						<td>@post.Likes.Count</td>
+						<td>@(post.Tags.Any() ? string.Join(", ", post.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
 					</tr>
 				}
 			</tbody>
