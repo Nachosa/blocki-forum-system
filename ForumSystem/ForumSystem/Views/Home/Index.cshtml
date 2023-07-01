@@ -5,40 +5,42 @@
 </div>
 
 <div class="labeled-table">
-	@*TODO:Господи дай ми сили да подравня този бутон като хората.*@
-	<div id="create-post-button">
-		<a asp-controller="Post" asp-action="Create" class="button">Create Post</a>
+	<div id="row">
+		<h2 class="table-label">Top 10 Most Commented Posts</h2>
+		@*TODO:Господи дай ми сили да подравня този бутон като хората.*@
+		<div id="create-post-button">
+			<a asp-controller="Post" asp-action="Create" class="button">Create Post</a>
+		</div>
 	</div>
-	<h2>Top 10 Most Commented Posts</h2>
 	@if (Model.TopCommentedPosts != null && Model.TopCommentedPosts.Count > 0)
 	{
 
 		@*<div class="border-shadow">*@
-			<table class="custom-table">
-				<thead class="custom-table">
-					<tr class="custom-table">
-						<th>Title</th>
-						<th>Author</th>
-						<th>Comments</th>
-						<th>Created On</th>
-						<th>Likes</th>
-						<th>Tags</th>
+		<table class="custom-table">
+			<thead class="custom-table">
+				<tr class="custom-table">
+					<th>Title</th>
+					<th>Author</th>
+					<th>Comments</th>
+					<th>Created On</th>
+					<th>Likes</th>
+					<th>Tags</th>
+				</tr>
+			</thead>
+			<tbody class="custom-table">
+				@foreach (var item in Model.TopCommentedPosts)
+				{
+					<tr>
+						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
+						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
+						<td>@item.Comments.Count</td>
+						<td>@item.CreatedOn</td>
+						<td>@item.Likes.Count</td>
+						<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
 					</tr>
-				</thead>
-				<tbody class="custom-table">
-					@foreach (var post in Model.TopCommentedPosts)
-					{
-						<tr>
-							<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = post.Id })">@post.Title</a></td>
-							<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@post.UserId">@post.User.Username</a></td>
-							<td>@post.Comments.Count</td>
-							<td>@post.CreatedOn</td>
-							<td>@post.Likes.Count</td>
-							<td>@(post.Tags.Any() ? string.Join(", ", post.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
-						</tr>
-					}
-				</tbody>
-			</table>
+				}
+			</tbody>
+		</table>
 		@*</div>*@
 	}
 	else
@@ -52,31 +54,31 @@
 	@if (Model.RecentlyCreatedPosts != null && Model.RecentlyCreatedPosts.Count > 0)
 	{
 		@*<div class="border-shadow">*@
-			<table class="custom-table">
-				<thead class="custom-table">
-					<tr class="custom-table">
-						<th>Title</th>
-						<th>Author</th>
-						<th>Comments</th>
-						<th>Created On</th>
-						<th>Likes</th>
-						<th>Tags</th>
+		<table class="custom-table">
+			<thead class="custom-table">
+				<tr class="custom-table">
+					<th>Title</th>
+					<th>Author</th>
+					<th>Comments</th>
+					<th>Created On</th>
+					<th>Likes</th>
+					<th>Tags</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var item in Model.RecentlyCreatedPosts)
+				{
+					<tr>
+						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
+						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id, isAuthorDetail = "true" })">@item.User.Username</a></td>
+						<td>@item.Comments.Count</td>
+						<td>@item.CreatedOn</td>
+						<td>@item.Likes.Count</td>
+						<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
 					</tr>
-				</thead>
-				<tbody>
-					@foreach (var post in Model.RecentlyCreatedPosts)
-					{
-						<tr>
-							<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = post.Id })">@post.Title</a></td>
-							<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@post.UserId">@post.User.Username</a></td>
-							<td>@post.Comments.Count</td>
-							<td>@post.CreatedOn</td>
-							<td>@post.Likes.Count</td>
-							<td>@(post.Tags.Any() ? string.Join(", ", post.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
-						</tr>
-					}
-				</tbody>
-			</table>
+				}
+			</tbody>
+		</table>
 		@*</div>*@
 	}
 	else
