@@ -77,37 +77,7 @@ namespace ForumSystem.Web.ViewControllers
 
 		public IActionResult AddComment(int postId)
 		{
-			return RedirectToAction("CommentForm", new { postId });
-		}
-
-		public IActionResult CommentForm(int postId)
-		{
-			var model = new CommentFormViewModel
-			{
-				PostId = postId
-			};
-
-			return View(model);
-		}
-
-		[HttpPost]
-		public IActionResult SubmitComment(CommentFormViewModel model)
-		{
-			if (ModelState.IsValid)
-			{
-				var comment = new Comment
-				{
-					Content = model.CommentContent,
-					PostId = model.PostId,
-                    UserId = 2 // only temporary
-				};
-
-				commentService.CreateComment(comment, model.PostId);
-
-				return RedirectToAction("Details", "Home", new { id = model.PostId });
-			}
-
-			return View("CommentForm", model);
+			return RedirectToAction("CommentForm", "Comment", new { postId });
 		}
 	}
 }

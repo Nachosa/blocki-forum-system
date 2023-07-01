@@ -2,7 +2,7 @@
 
 <h2>Add Comment</h2>
 
-<form asp-controller="Home" asp-action="SubmitComment" method="post">
+<form asp-controller="Comment" asp-action="SubmitComment" method="post">
     <input asp-for="PostId" type="text" name="postId"/>
     <textarea asp-for="CommentContent" rows="4" cols="50"></textarea>
     <br />
