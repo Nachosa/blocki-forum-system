@@ -103,10 +103,15 @@ namespace ForumSystem.DataAccess.PostRepo
             //Include преди FirstOrDefault ми се струва много бавно.
             var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
                                     .Include(p => p.User)
-                                    .Include(p => p.Comments.Where(c => c.IsDeleted == false))
+                                    .Include(p => p.Comments).ThenInclude(c => c.User).Where(c => c.IsDeleted == false)
                                     .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
                                     .FirstOrDefault(post => post.Id == postId);
-            if (post == null || post.IsDeleted)
+			//var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
+			//						.Include(p => p.User)
+			//						.Include(p => p.Comments.Where(c => c.IsDeleted == false))
+			//						.Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
+			//						.FirstOrDefault(post => post.Id == postId);
+			if (post == null || post.IsDeleted)
                 throw new EntityNotFoundException($"Post with id={postId} doesn't exist.");
             else
                 return post;
