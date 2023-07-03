@@ -37,7 +37,15 @@ namespace ForumSystem.Web.ApiControllers
                 GetUserDTO result = mapper.Map<GetUserDTO>(createdUser);
                 return Ok(result);
             }
-            catch (Exception e)
+			catch (EmailAlreadyExistException e)
+			{
+				return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+			}
+			catch (UsernameAlreadyExistException e)
+			{
+				return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+			}
+			catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
@@ -109,8 +117,16 @@ namespace ForumSystem.Web.ApiControllers
             {
                 return StatusCode(StatusCodes.Status403Forbidden, e.Message);
             }
+            catch (UsernameAlreadyExistException e)
+            {
+                return StatusCode(StatusCodes.Status403Forbidden, e.Message);
+            }
+			catch (Exception e)
+			{
+				return BadRequest(e.Message);
+			}
 
-        }
+		}
 
         [HttpDelete("")]
         public IActionResult DeleteUser([FromHeader] string credentials, [FromQuery] string userName, int? id)

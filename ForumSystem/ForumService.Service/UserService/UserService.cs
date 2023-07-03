@@ -32,8 +32,12 @@ namespace ForumSystem.Business.UserService
             {
                 throw new EmailAlreadyExistException("Email already exists!");
             }
+            if (userRepo.UsernameExist(mappedUser.Username))
+            {
+				throw new UsernameAlreadyExistException("Username already exists!");
+			}
 
-            string decodePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(mappedUser.Password));
+			string decodePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(mappedUser.Password));
             mappedUser.Password = decodePassword;
 
             return userRepo.CreateUser(mappedUser);

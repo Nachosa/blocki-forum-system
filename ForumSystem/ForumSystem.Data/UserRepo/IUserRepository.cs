@@ -32,6 +32,8 @@ namespace ForumSystem.DataAccess.UserRepo
 
         bool EmailExist(string email);
 
-        bool DeleteUser(User user);
+		bool UsernameExist(string username);
+
+		bool DeleteUser(User user);
     }
 }

@@ -145,7 +145,14 @@ namespace ForumSystem.Web.ViewControllers
                 return View(registerUserFilled);
 
             }
-            catch (Exception e)
+			catch (UsernameAlreadyExistException e)
+			{
+				this.Response.StatusCode = StatusCodes.Status409Conflict;
+				this.ViewData["ErrorMessage"] = e.Message;
+				return View(registerUserFilled);
+
+			}
+			catch (Exception e)
             {
                 this.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 this.ViewData["ErrorMessage"] = e.Message;
