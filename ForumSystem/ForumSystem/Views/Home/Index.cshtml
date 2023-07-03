@@ -4,8 +4,8 @@
 	<h2>Our forum is growing up already <span>@Model.UsersCount</span> users are registered and <span>@Model.PostsCount</span> posts are created! </h2>
 </div>
 
-<div class="labeled-table">
-	<div id="row">
+<div class="labeled-table-container">
+	<div id="button-label-row">
 		<h2 class="table-label">Top 10 Most Commented Posts</h2>
 		<div id="create-post-button"> @*Това мисля, че е ненужно вече*@
 			<a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
@@ -48,7 +48,7 @@
 	}
 </div>
 
-<div class="labeled-table">
+<div class="labeled-table-container">
 	<h2 class="table-label">Top 10 Recently Created Posts</h2>
 	@if (Model.RecentlyCreatedPosts != null && Model.RecentlyCreatedPosts.Count > 0)
 	{
