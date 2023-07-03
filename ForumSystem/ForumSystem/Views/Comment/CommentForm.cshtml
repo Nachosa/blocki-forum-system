@@ -1,9 +1,28 @@
-﻿@model ForumSystemDTO.ViewModels.CommentViewModels.CommentFormViewModel
+﻿@*@model ForumSystemDTO.ViewModels.CommentViewModels.CommentFormViewModel
 
 <h2>Add Comment</h2>
 
 <form asp-controller="Comment" asp-action="SubmitComment" method="post">
     <input asp-for="PostId" type="text" name="postId"/>
+    <textarea asp-for="CommentContent" rows="4" cols="50"></textarea>
+    <br />
+    <input type="submit" value="Submit" />
+</form>*@
+
+@model ForumSystemDTO.ViewModels.CommentViewModels.CommentFormViewModel
+
+<h2>Add Comment</h2>
+
+<form asp-controller="Comment" asp-action="SubmitComment" method="post">
+    @if (ViewContext.HttpContext.Request.Query.TryGetValue("postId", out var postId))
+    {
+        <input type="hidden" asp-for="PostId" value="@postId" />
+    }
+    else
+    {
+        <input type="hidden" asp-for="PostId" />
+    }
+
     <textarea asp-for="CommentContent" rows="4" cols="50"></textarea>
     <br />
     <input type="submit" value="Submit" />

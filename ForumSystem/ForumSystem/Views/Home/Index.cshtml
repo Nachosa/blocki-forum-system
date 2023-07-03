@@ -68,7 +68,9 @@
 				@foreach (var item in Model.RecentlyCreatedPosts)
 				{
 					<tr>
-						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
+						@*<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>*@
+						@*<td class="table-hyperlink"><a href="@Url.Action("PostDetails", "Post", new { id = item.Id })">@item.Title</a></td>*@
+						<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
 						<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@item.UserId">@item.User.Username</a></td>
 						<td>@item.Comments.Count</td>
 						<td>@item.CreatedOn</td>

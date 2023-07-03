@@ -16,13 +16,18 @@ namespace ForumSystem.Web.ViewControllers
 			this.commentService = commentService;
 		}
 
+		public IActionResult AddComment(int id)
+		{
+			return RedirectToAction("CommentForm", new { id });
+		}
+
 		// responsible for rendering the comment form view
 		[HttpGet]
-		public IActionResult CommentForm(int postId)
+		public IActionResult CommentForm(int id)
 		{
 			var model = new CommentFormViewModel
 			{
-				PostId = postId
+				PostId = id
 			};
 
 			return View(model);
@@ -41,7 +46,7 @@ namespace ForumSystem.Web.ViewControllers
 				};
 
 				commentService.CreateComment(comment, model.PostId);
-				return RedirectToAction("Details", "Home", new { id = model.PostId });
+				return RedirectToAction("PostDetails", "Post", new { id = model.PostId });
 			}
 
 			return View("CommentForm", model);
