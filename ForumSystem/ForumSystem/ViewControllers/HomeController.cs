@@ -44,44 +44,44 @@ namespace ForumSystem.Web.ViewControllers
             return View(homePage);
         }
 
-		[HttpGet]
-		public IActionResult Details(int id, bool isAuthorDetail = false)
-		{
-            try
-            {
-				var post = postService.GetPostById(id);
-				var user = userService.GetUserById(post.UserId);
+		//[HttpGet]
+		//public IActionResult Details(int id, bool isAuthorDetail = false)
+		//{
+  //          try
+  //          {
+		//		var post = postService.GetPostById(id);
+		//		var user = userService.GetUserById(post.UserId);
 
-				var comments = post.Comments.Select(c => new CommentViewModel
-				{
-					CommentContent = c.Content,
-					UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
-				}).ToList();
+		//		var comments = post.Comments.Select(c => new CommentViewModel
+		//		{
+		//			CommentContent = c.Content,
+		//			UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
+		//		}).ToList();
 
-				var model = new PostDetailsViewModel
-				{
-					PostId = post.Id,
-					Title = post.Title,
-					CreatedBy = post.User.Username,
-					CreatedOn = post.CreatedOn.ToString(),
-					LikesCount = post.Likes.Count,
-					Tags = post.Tags.Select(t => t.Tag.Name).ToList(),
-					Content = post.Content,
-					Comments = comments,
-					IsAuthorDetail = isAuthorDetail,
-					User = user
-				};
+		//		var model = new PostDetailsViewModel
+		//		{
+		//			PostId = post.Id,
+		//			Title = post.Title,
+		//			CreatedBy = post.User.Username,
+		//			CreatedOn = post.CreatedOn.ToString(),
+		//			LikesCount = post.Likes.Count,
+		//			Tags = post.Tags.Select(t => t.Tag.Name).ToList(),
+		//			Content = post.Content,
+		//			Comments = comments,
+		//			IsAuthorDetail = isAuthorDetail,
+		//			User = user
+		//		};
 
-				return View(model);
-			}
-            catch (EntityNotFoundException e)
-            {
-				Response.StatusCode = StatusCodes.Status404NotFound;
-				ViewData["ErrorMessage"] = e.Message;
+		//		return View(model);
+		//	}
+  //          catch (EntityNotFoundException e)
+  //          {
+		//		Response.StatusCode = StatusCodes.Status404NotFound;
+		//		ViewData["ErrorMessage"] = e.Message;
 
-				return View("Error");
-			}
-		}
+		//		return View("Error");
+		//	}
+		//}
 
         [HttpGet]
         public IActionResult Login()

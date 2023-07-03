@@ -29,10 +29,7 @@
         <label asp-for="PhoneNumber">Phonenumber:</label><br>
         <input asp-for="PhoneNumber" type="number"><br>
 
-        <button class="button">
-        <input asp-controller="User" asp-action="Register" method="post" type="submit" value="Register">
-        </button>
-         @*<button class="button">
-        <a asp-controller="User" asp-action="Register" method="post">Register</a>
-         </button>*@
+        @*<input asp-controller="User" asp-action="Register" class="button-normal" method="post" type="submit" value="Register">*@
+
+        <a asp-controller="User" asp-action="Register" method="post" type="submit" class="button-normal" value="Register">Register</a>
     </form>

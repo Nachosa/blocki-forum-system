@@ -7,8 +7,7 @@
 <div class="labeled-table">
 	<div id="row">
 		<h2 class="table-label">Top 10 Most Commented Posts</h2>
-		@*TODO:Господи дай ми сили да подравня този бутон като хората.*@
-		<div id="create-post-button">
+		<div id="create-post-button"> @*Това мисля, че е ненужно вече*@
 			<a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
 		</div>
 	</div>
@@ -31,7 +30,7 @@
 				@foreach (var item in Model.TopCommentedPosts)
 				{
 					<tr>
-						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
+						<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
 						<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@item.UserId">@item.User.Username</a></td>
 						<td>@item.Comments.Count</td>
 						<td>@item.CreatedOn</td>
