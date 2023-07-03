@@ -9,7 +9,7 @@
 		<h2 class="table-label">Top 10 Most Commented Posts</h2>
 		@*TODO:Господи дай ми сили да подравня този бутон като хората.*@
 		<div id="create-post-button">
-			<a asp-controller="Post" asp-action="Create" class="button">Create Post</a>
+			<a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
 		</div>
 	</div>
 	@if (Model.TopCommentedPosts != null && Model.TopCommentedPosts.Count > 0)
@@ -70,7 +70,7 @@
 				{
 					<tr>
 						<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>
-						<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@item.UserId">>@item.User.Username</a></td>
+						<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@item.UserId">@item.User.Username</a></td>
 						<td>@item.Comments.Count</td>
 						<td>@item.CreatedOn</td>
 						<td>@item.Likes.Count</td>

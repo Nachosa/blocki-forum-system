@@ -150,11 +150,10 @@ nav {
 .custom-table {
     background: #404040;
     color: #f2f2f2;
-    padding: 10px;
+    padding: 0px;
     width: 100%;
-    border-radius: 5px;
     text-align: center;
-    min-width: 1500px;
+    border-radius: 5px;
 }
 
     .custom-table thead tr, .custom-table thead th {
@@ -174,6 +173,10 @@ nav {
         font-weight: 300;
         padding: 8px;
         text-align: center;
+    }
+
+    .custom-table tbody tr:nth-child(odd) {
+        background-color: #4d4d4d;
     }
 
 .table-hyperlink a {
@@ -198,9 +201,12 @@ nav {
 .labeled-table {
     margin: auto;
     margin-top: 40px;
-    width: fit-content;
     overflow: hidden;
-    position: relative;
+    max-width: 1500px;
+
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
 }
 /*#endregion*/
 
@@ -238,28 +244,12 @@ nav {
 }
 /*#endregion*/
 
-.button-normal {
-    color: #f2f2f2;
-    padding: 10px 20px;
-    background: #404040;
-    margin: 20px 0;
-    display: inline-block;
-    text-decoration: none;
-    transition: all 0.5s ease-in-out;
-    position: relative;
-    border-radius: 5px;
-}
-
-    .button-normal:hover {
-        color: #ff62f9;
-        transition: all 0.5s ease-in-out;
-    }
-
 h2.table-label {
     /*    width: fit-content;*/
     text-align: left;
     block-size: fit-content;
-    position:relative;
+    position: relative;
+    margin-top: 0px;
 }
 
 #create-post-button {
@@ -268,10 +258,29 @@ h2.table-label {
     margin-right: 0px;
 }
 
+.button-normal {
+    color: #f2f2f2;
+    padding: 10px 10px;
+    background: #404040;
+    margin: inherit;
+    display: inline-block;
+    text-decoration: none;
+    transition: all 0.5s ease-in-out;
+    position: relative;
+    border-radius: 5px;
+    border: none;
+}
+
+    .button-normal:hover {
+        color: #ff62f9;
+        transition: all 0.5s ease-in-out;
+    }
+
 #row {
     display: flex;
     flex-direction: row;
 }
+
 .contant_box_404 {
     margin-top: -50px;
     text-align: center;
@@ -330,8 +339,3 @@ h2.table-label {
     .button:hover::before {
         transform: rotate(-180deg);
     }
-
-    .button:active::before {
-        scale: 0.7;
-    }
-
