@@ -54,20 +54,10 @@ nav {
         list-style-type: none;
         display: flex;
         justify-content: space-between;
+        flex-direction: column;
+
+        height: fit-content;
     }
-
-        nav ul li:first-child {
-            order: -1;
-        }
-
-        nav ul li:nth-child(3) {
-            order: 2;
-            margin-right: 10px;
-        }
-
-        nav ul li:last-child {
-            margin-left: auto;
-        }
 
 .menuItems {
     list-style: none;
@@ -92,6 +82,9 @@ nav {
             transition: all 0.5s ease-in-out;
             position: relative;
             text-transform: uppercase;
+            margin-right: 25px;
+
+            vertical-align: top;
         }
 
             .menuItems li a::before {
