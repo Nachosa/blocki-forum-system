@@ -26,20 +26,28 @@
 							</div>
 						</div>
 					</a>
-
-					<a href="/swagger" data-item='API'>API</a>
-					<a href="/Home/About" data-item='About'>About</a>
-					@if (isLogged is false)
-					{
-					<a asp-controller="User" asp-action="Register" data-item='Register'>Register</a>
-					<a asp-controller="User" asp-action="Login" data-item='Login'>Login</a>
-					}
-					else
-					{
-					<a asp-controller="User" asp-action="Logout" data-item='Logout'>Logout</a>
-					<a asp-controller="User" asp-action="UserDetails" asp-route-id="@ViewData["userId"]" data-item='@userName'>@userName</a>
-					}
 				</li>
+				<li><a href="/swagger" data-item='API'>API</a></li>
+				<li><a href="/Home/About" data-item='About'>About</a></li>
+
+				@if (isLogged is false)
+				{
+					<li>
+						<a asp-controller="User" asp-action="Register" data-item='Register'>Register</a>
+					</li>
+					<li>
+						<a asp-controller="User" asp-action="Login" data-item='Login'>Login</a>
+					</li>
+				}
+				else
+				{
+					<li>
+						<a asp-controller="User" asp-action="Logout" data-item='Logout'>Logout</a>
+					</li>
+					<li>
+						<a asp-controller="User" asp-action="UserDetails" asp-route-id="@ViewData["userId"]" data-item='@userName'>@userName</a>
+					</li>
+				}
 			</ul>
 		</nav>
 	</header>

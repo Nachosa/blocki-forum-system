@@ -55,7 +55,6 @@ nav {
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-
         height: fit-content;
     }
 
@@ -64,16 +63,17 @@ nav {
     display: flex;
     padding-left: 0;
     margin: 0;
+    display: inline-block;
 }
 
     .menuItems li {
         margin: 10px;
         max-height: 60px;
         height: 70px;
+        display: inline-block;
     }
 
         .menuItems li a {
-            display: inline-block;
             line-height: 60px;
             text-decoration: none;
             color: #f2f2f2;
@@ -82,9 +82,8 @@ nav {
             transition: all 0.5s ease-in-out;
             position: relative;
             text-transform: uppercase;
-            margin-right: 25px;
-
             vertical-align: top;
+            display: inline-block;
         }
 
             .menuItems li a::before {
