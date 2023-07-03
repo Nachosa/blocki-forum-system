@@ -1,7 +1,7 @@
 ﻿@{
-    bool isLogged = Context.Session.Keys.Contains("LoggedUser");
-    string userName = Context.Session.GetString("LoggedUser");
-    int? userId = Context.Session.GetInt32("userId");
+	bool isLogged = Context.Session.Keys.Contains("LoggedUser");
+	string userName = Context.Session.GetString("LoggedUser");
+	int? userId = Context.Session.GetInt32("userId");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -30,6 +30,22 @@
 				</li>
 				<li><a href="/swagger" data-item='API'>API</a></li>
 				<li><a href="/Home/About" data-item='About'>About</a></li>
+				<li>
+					<div class="search-bar-box">
+						<div class="imageBox">
+							<div>
+								<img alt="/Home/Index" src="~/images/searchicon.png" class="search-icon">
+							</div>
+							<div>
+								<img alt="/Home/Index" src="~/images/searchiconPink.png" class="search-icon" id="hoverImg2">
+							</div>
+						</div>
+
+						<form name="search">
+							<input type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
+						</form>
+					</div>
+				</li>
 
 				@if (isLogged is false)
 				{

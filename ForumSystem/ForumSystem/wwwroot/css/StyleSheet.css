@@ -85,7 +85,6 @@ nav {
         justify-content: space-between;
         flex-direction: column;
         height: fit-content;
-
         display: grid;
         grid-template-columns: repeat(40, auto);
     }
@@ -94,7 +93,6 @@ nav {
     list-style: none;
     padding-left: 0;
     margin: 0;
-
     display: grid;
 }
 
@@ -105,7 +103,6 @@ nav {
     .menu-items li {
         margin: 10px;
         max-height: 60px;
-        height: 70px;
     }
 
         .menu-items li a {
@@ -449,5 +446,72 @@ h2.table-label {
 
 .validation-error-message {
     color: #ff0000;
+}
+/*#endregion*/
+
+/*#region searchBar*/
+
+.search-bar-box {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input {
+    width: 35px;
+    height: 35px;
+    background: none;
+    border: 2px solid #404040;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 20px;
+    outline: none;
+    transition: .5s;
+}
+
+.search-bar-box:hover input {
+    width: 100px;
+    color: #f2f2f2;
+    border-radius: 10px;
+    border: 2px solid #ff62f9;
+}
+
+/*Това i си нямам представа какво е и защо трябва да го има*/
+.search-bar-box i {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translate(-50%,-50%);
+    font-size: 26px;
+    color: #ff62f9;
+    transition: .2s;
+}
+
+.search-bar-box:hover i {
+    opacity: 0;
+    z-index: -1;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.search-bar-box #hoverImg2{
+    position: absolute;
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+    .search-bar-box :hover #hoverImg2{
+        opacity: 1;
+        transition: all 0.5s ease-in-out;
+    }
+
+.menu-items li:nth-child(4) {
+    grid-column-start: 37;
 }
 /*#endregion*/
