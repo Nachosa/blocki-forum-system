@@ -25,19 +25,27 @@ namespace ForumSystem.Business.AuthenticationManager
             string userName = usernameAndPassword[0];
             string password = usernameAndPassword[1];
 
-            string encodedPassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
-
             var user = userService.GetUserByUserName(userName);
-            if (user.Password == encodedPassword)
+            if (user.Password == password)
             {
                 return user;
             }
 
             throw new UnauthenticatedOperationException("Invalid username or password!");
-
         }
 
-        public void AdminCheck(string credentials)
+		public User UserCheck(string userName ,string password)
+		{
+			var user = userService.GetUserByUserName(userName);
+			if (user.Password == password)
+			{
+				return user;
+			}
+
+			throw new UnauthenticatedOperationException("Invalid username or password!");
+		}
+
+		public void AdminCheck(string credentials)
         {
             var user = UserCheck(credentials);
             if (user.RoleId != 3)

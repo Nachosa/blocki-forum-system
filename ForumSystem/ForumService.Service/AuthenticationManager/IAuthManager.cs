@@ -11,9 +11,11 @@ namespace ForumSystem.Business.AuthenticationManager
     {
         User UserCheck(string credentials);
 
-        void AdminCheck(string credentials);
+        User UserCheck(string userName, string password);
 
-        public void BlockedCheck(string credentials);
+		void AdminCheck(string credentials);
+
+        void BlockedCheck(string credentials);
 
 
     }

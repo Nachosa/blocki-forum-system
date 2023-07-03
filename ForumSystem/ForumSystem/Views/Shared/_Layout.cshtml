@@ -1,41 +1,53 @@
-﻿<!DOCTYPE html>
+﻿@{
+    bool isLogged = Context.Session.Keys.Contains("LoggedUser");
+    string userName = Context.Session.GetString("LoggedUser");
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-	<link href="~/css/StyleSheet.css" rel="stylesheet" type="text/css" media="screen" runat="server" />
-	<meta charset="utf-8">
-	<title>BlockieTalkie</title>
+    <link href="~/css/StyleSheet.css" rel="stylesheet" type="text/css" media="screen" runat="server" />
+    <meta charset="utf-8">
+    <title>BlockieTalkie</title>
 </head>
 
 <body>
-	<header>
-		<nav>
-			<ul class="menuItems">
-				<li>
-					<a href="/Home/Index">
-						<div class="imageBox">
-							<div>
-								<img alt="/Home/Index" src="~/images/cubehome.png" class="cubeImage">
-							</div>
-							<div id="hoverImg">
-								<img alt="/Home/Index" src="~/images/cubepink.png" class="cubeImage">
-							</div>
-						</div>
-					</a>
-				</li>
-				<li><a href="/Home/About" data-item='About'>About</a></li>
-				<li><a style="margin-right:10px;" asp-controller="User" asp-action="Register" data-item='Register'>Register</a></li>
-				<li><a href='/Home/Login' data-item='Login'>Login</a></li>
-			</ul>
-		</nav>
-	</header>
+    <header>
+        <nav>
+            <ul class="menuItems">
+                <li>
+                    <a href="/Home/Index">
+                        <div class="imageBox">
+                            <div>
+                                <img alt="/Home/Index" src="~/images/cubehome.png" class="cubeImage">
+                            </div>
+                            <div id="hoverImg">
+                                <img alt="/Home/Index" src="~/images/cubepink.png" class="cubeImage">
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li><a href="/Home/About" data-item='About'>About</a></li>
+                @if (isLogged is false)
+                {
+                    <li><a asp-controller="User" asp-action="Register" data-item='Register'>Register</a></li>
+                    <li><a asp-controller="User" asp-action="Login" data-item='Login'>Login</a></li>
+                }
+                else
+                {
+                    <li><a asp-controller="User" asp-action="Logout" data-item='Logout'>Logout</a></li>
+                    <li><a asp-controller="User" asp-action="UserDetails" asp-route-id="@ViewData["userId"]" data-item='Logout'>@userName</a></li>
+                }
+            </ul>
+        </nav>
+    </header>
 
-	<main>
-		@RenderBody()
-	</main>
+    <main>
+        @RenderBody()
+    </main>
 
-	<footer>
-		<small>© Copyright @DateTime.Now.Year, BlockieTalkie</small>
-	</footer>
+    <footer>
+        <small>© Copyright @DateTime.Now.Year, BlockieTalkie</small>
+    </footer>
 </body>
 </html>
