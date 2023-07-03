@@ -46,9 +46,9 @@ namespace ForumSystem.Web.ViewControllers
 			try
 			{
 				var user = authManager.UserCheck(filledLoginForm.Username, filledLoginForm.Password);
-				this.ViewData["userId"]= user.Id;
 				this.HttpContext.Session.SetString("LoggedUser", filledLoginForm.Username);
-				return RedirectToAction("Index", "Home");	
+                this.HttpContext.Session.SetInt32("userId", user.Id);
+                return RedirectToAction("Index", "Home");	
 			}
 			catch (EntityNotFoundException e)
 			{
@@ -72,7 +72,7 @@ namespace ForumSystem.Web.ViewControllers
 		}
 
 		[HttpGet]
-		public IActionResult UserDetails([FromRoute] int id)
+		public IActionResult UserDetails(int id)
 		{
 			try
 			{

@@ -1,6 +1,7 @@
 ﻿@{
-	bool isLogged = Context.Session.Keys.Contains("LoggedUser");
-	string userName = Context.Session.GetString("LoggedUser");
+    bool isLogged = Context.Session.Keys.Contains("LoggedUser");
+    string userName = Context.Session.GetString("LoggedUser");
+    int? userId = Context.Session.GetInt32("userId");
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +46,7 @@
 						<a asp-controller="User" asp-action="Logout" data-item='Logout'>Logout</a>
 					</li>
 					<li>
-						<a asp-controller="User" asp-action="UserDetails" asp-route-id="@ViewData["userId"]" data-item='@userName'>@userName</a>
+						<a asp-controller="User" asp-action="UserDetails" asp-route-id="@userId" data-item='@userName'>@userName</a>
 					</li>
 				}
 			</ul>
