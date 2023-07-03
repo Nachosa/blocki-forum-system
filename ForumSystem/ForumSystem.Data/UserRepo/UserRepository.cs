@@ -120,6 +120,11 @@ namespace ForumSystem.DataAccess.UserRepo
             bool result = forumDb.Users.Any(u => u.Email.ToLower()==email.ToLower());
             return result;
         }
+		public bool UsernameExist(string username)
+		{
+			bool result = forumDb.Users.Any(u => u.Username.ToLower() == username.ToLower());
+			return result;
+		}
 
         public bool DeleteUser(User user)
         {
@@ -139,6 +144,5 @@ namespace ForumSystem.DataAccess.UserRepo
             return true;
         }
 
-
-    }
+	}
 }
