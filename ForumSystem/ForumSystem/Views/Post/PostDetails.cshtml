@@ -36,10 +36,6 @@
 			<ul>
 				@foreach (var comment in Model.Comments)
 				{
-					@*<li class="margin12">@comment</li>*@
-
-					// user property on some comments is currently null
-					// cannot access usernames, therefore will display "anonymous" for the time being
 					<li class="margin12">
 						<strong>@comment.UserName:</strong> @comment.CommentContent
 					</li>
@@ -47,6 +43,6 @@
 			</ul>
 		}
 
-		<a href="@Url.Action("AddComment", "Home", new { postId = Model.PostId })" class="btn btn-primary">Add Comment</a>
+		<a href="@Url.Action("AddComment", "Comment", new { postId = Model.PostId })" class="btn btn-primary">Add Comment</a>
 	}
 </div>

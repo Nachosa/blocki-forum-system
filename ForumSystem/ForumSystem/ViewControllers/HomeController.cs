@@ -94,10 +94,5 @@ namespace ForumSystem.Web.ViewControllers
         {
             return View();
         }
-
-		public IActionResult AddComment(int postId)
-		{
-			return RedirectToAction("CommentForm", "Comment", new { postId });
-		}
 	}
 }
