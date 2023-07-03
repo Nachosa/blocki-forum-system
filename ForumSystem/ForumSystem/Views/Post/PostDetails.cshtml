@@ -43,6 +43,10 @@
 			</ul>
 		}
 
-		<a href="@Url.Action("AddComment", "Comment", new { postId = Model.PostId })" class="btn btn-primary">Add Comment</a>
+		<a asp-controller="Comment" asp-action="CommentForm" asp-route-id="@Model.PostId" class="btn btn-primary">Add Comment</a>
+
+		@*<a asp-controller="Comment" asp-action="AddComment" asp-route-PostId="@Model.PostId" class="btn btn-primary">Add Comment</a>*@
+		@*<a asp-controller="Comment" asp-action="AddComment" asp-route-postId="@Model.PostId" class="btn btn-primary">Add Comment</a>*@
+		@*<a href="@Url.Action("AddComment", "Comment", new { postId = Model.PostId })" class="btn btn-primary">Add Comment</a>*@
 	}
 </div>
