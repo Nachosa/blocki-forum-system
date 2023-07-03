@@ -4,11 +4,11 @@
 	@if (Model.IsAuthorDetail)
 	{
 		<h2>@Model.CreatedBy</h2>
-		<p class="margin12">First Name: @Model.User.FirstName</p>
-		<p class="margin12">Last Name: @Model.User.LastName</p>
-		<p class="margin12">Phone Number: @Model.User.PhoneNumber</p>
-		<p class="margin12">Total Comments: @Model.User.Comments.Count</p>
-		<p class="margin12">Total Likes: @Model.User.Likes.Count</p>
+		<p>First Name: @Model.User.FirstName</p>
+		<p>Last Name: @Model.User.LastName</p>
+		<p>Phone Number: @Model.User.PhoneNumber</p>
+		<p>Total Comments: @Model.User.Comments.Count</p>
+		<p>Total Likes: @Model.User.Likes.Count</p>
 
 		//Ще е добре да се изкарват и постовете.
 		//Това отгоре вече е изкарано на този адрес: asp-controller="User" asp-action="UserDetails"
@@ -17,10 +17,10 @@
 	else
 	{
 		<h2>@Model.Title</h2>
-		<p class="margin12">Created By: <a asp-controller="User" asp-action="UserDetails" asp-route-id="@Model.PostId">@Model.CreatedBy</a></p>
-		<p class="margin12">Created On: @Model.CreatedOn</p>
-		<p class="margin12">Likes: @Model.LikesCount</p>
-		<p class="margin12">Tags: @(Model.Tags.Any() ? string.Join(", ", Model.Tags) : "none")</p>
+		<p>Created By: <a asp-controller="User" asp-action="UserDetails" asp-route-id="@Model.PostId">@Model.CreatedBy</a></p>
+		<p>Created On: @Model.CreatedOn</p>
+		<p>Likes: @Model.LikesCount</p>
+		<p>Tags: @(Model.Tags.Any() ? string.Join(", ", Model.Tags) : "none")</p>
 
 		<h3>Content: @Model.Content</h3>
 
