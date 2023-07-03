@@ -15,8 +15,11 @@ namespace ForumSystem.Business.AuthenticationManager
 
 		void AdminCheck(string credentials);
 
+        bool AdminCheck(User user);
+
         void BlockedCheck(string credentials);
 
+        bool BlockedCheck(User user);
 
     }
 }

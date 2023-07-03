@@ -54,6 +54,14 @@ namespace ForumSystem.Business.AuthenticationManager
             }
             
         }
+        public bool AdminCheck(User user)
+        {
+            if (user.RoleId == 3)
+            {
+                return true;
+            }
+            return false;
+        }
 
         public void BlockedCheck(string credentials)
         {
@@ -63,6 +71,14 @@ namespace ForumSystem.Business.AuthenticationManager
                 throw new UnauthorizedAccessException("You'rе blocked, can't perform this action");
             }
 
+        }
+        public bool BlockedCheck(User user)
+        {
+            if (user.RoleId == 1)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
