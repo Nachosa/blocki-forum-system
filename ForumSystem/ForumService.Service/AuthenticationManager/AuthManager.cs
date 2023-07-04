@@ -17,6 +17,7 @@ namespace ForumSystem.Business.AuthenticationManager
             this.userService = userService;
         }
 
+        //TODO: Преименуване например - isUser
         public User UserCheck(string credentials)
         {
             if(credentials is null) throw new UnauthenticatedOperationException("Please enter credentials!");

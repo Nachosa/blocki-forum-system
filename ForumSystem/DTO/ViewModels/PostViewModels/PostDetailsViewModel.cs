@@ -18,7 +18,6 @@ namespace ForumSystemDTO.ViewModels.PostViewModels
 		public string Content { get; set; }
 		public List<CommentViewModel> Comments { get; set; }
 		public int PostId { get; set; }
-		public bool IsAuthorDetail { get; set; }
 
 		public User User { get; set; }
 	}
