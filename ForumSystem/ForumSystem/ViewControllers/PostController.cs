@@ -67,7 +67,7 @@ namespace ForumSystem.Web.ViewControllers
 		[HttpGet]
 		public IActionResult Create()
 		{
-			if (!this.HttpContext.Session.Keys.Contains("LoggedUser"))
+			if (!isLogged("LoggedUser"))
 			{
 				return RedirectToAction("Login", "User");
 			}
@@ -112,9 +112,13 @@ namespace ForumSystem.Web.ViewControllers
 		{
 			try
 			{
-				//int userId = HttpContext.Session.GetInt32("userId") ?? 0;
-				//var user = userService.GetUserById(userId);
-				int roleId = (int)HttpContext.Session.GetInt32("roleId");
+                if (!isLogged("LoggedUser"))
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                //int userId = HttpContext.Session.GetInt32("userId") ?? 0;
+                //var user = userService.GetUserById(userId);
+                int roleId = (int)HttpContext.Session.GetInt32("roleId");
 				string loggedUser = HttpContext.Session.GetString("LoggedUser");
 				if (id == 0)
 				{
@@ -137,5 +141,13 @@ namespace ForumSystem.Web.ViewControllers
 				return View("Error");
 			}
 		}
-	}
+        private bool isLogged(string key)
+        {
+            if (!this.HttpContext.Session.Keys.Contains(key))
+            {
+                return false;
+            }
+            return true;
+        }
+    }
 }

@@ -78,12 +78,12 @@ namespace ForumSystem.Web.ViewControllers
         [HttpGet]
         public IActionResult UserDetails(int id)
         {
-            if (!this.HttpContext.Session.Keys.Contains("LoggedUser"))
-            {
-                return RedirectToAction("Login", "User");
-            }
             try
             {
+                if (!isLogged("LoggedUser"))
+                {
+                    return RedirectToAction("Login", "User");
+                }
                 var user = userService.GetUserById(id);
                 return View(user);
             }
@@ -106,6 +106,10 @@ namespace ForumSystem.Web.ViewControllers
         {
             try
             {
+                if (!isLogged("LoggedUser"))
+                {
+                    return RedirectToAction("Login", "User");
+                }
                 var user = userService.GetUserById(id);
                 EditUser userForm = new EditUser();
                 userForm.Id = user.Id;
@@ -216,6 +220,15 @@ namespace ForumSystem.Web.ViewControllers
         public IActionResult RegisteredSuccessful()
         {
             return View();
+        }
+
+        private bool isLogged(string key)
+        {
+            if (!this.HttpContext.Session.Keys.Contains(key))
+            {
+                return false;
+            }
+            return true;
         }
 
     }
