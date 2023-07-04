@@ -8,7 +8,10 @@ namespace ForumSystemDTO.ViewModels.CommentViewModels
 {
 	public class CommentViewModel
 	{
+		public int Id { get; set; }
+
 		public string CommentContent { get; set; }
+
 		public string UserName { get; set; }
 	}
 }

@@ -36,6 +36,7 @@ namespace ForumSystem.Web.ViewControllers
 				var comments = post.Comments.Select(c => new CommentViewModel
 				{
 					CommentContent = c.Content,
+					Id = c.Id,
 					UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
 				}).ToList();
 
