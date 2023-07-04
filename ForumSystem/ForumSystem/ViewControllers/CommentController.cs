@@ -41,6 +41,7 @@ namespace ForumSystem.Web.ViewControllers
 
                 throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
             }
+			//TODO:Тук липсва някакъв ексепшън, трябва да проверя по-късно.
 			catch (EntityNotFoundException ex)
 			{
                 Response.StatusCode = StatusCodes.Status404NotFound;
