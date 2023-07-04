@@ -5,21 +5,7 @@
 }
 
 <div class="body-content">
-	@if (Model.IsAuthorDetail)
-	{
-		<h2>@Model.CreatedBy</h2>
-		<p>First Name: @Model.User.FirstName</p>
-		<p>Last Name: @Model.User.LastName</p>
-		<p>Phone Number: @Model.User.PhoneNumber</p>
-		<p>Total Comments: @Model.User.Comments.Count</p>
-		<p>Total Likes: @Model.User.Likes.Count</p>
-
-		//Ще е добре да се изкарват и постовете.
-		//Това отгоре вече е изкарано на този адрес: asp-controller="User" asp-action="UserDetails"
-		//Ще е добре да се направи същото и за постовете
-	}
-	else
-	{
+	
 		<h2>@Model.Title</h2>
 		<p>Created By: <a asp-controller="User" asp-action="UserDetails" asp-route-id="@Model.PostId">@Model.CreatedBy</a></p>
 		<p>Created On: @Model.CreatedOn</p>
@@ -51,5 +37,5 @@
 		{
 			<a asp-controller="Comment" asp-action="CommentForm" asp-route-id="@Model.PostId" class="btn btn-primary">Add Comment</a>
 		}
-	}
+	
 </div>

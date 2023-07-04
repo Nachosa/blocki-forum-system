@@ -27,6 +27,7 @@ namespace ForumSystemDTO.ViewModels.UserViewModels
 
         public string Password { get; set; }
 
-        public int? PhoneNumber { get; set; }
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Please enter a valid phone number.")]
+        public string PhoneNumber { get; set; }
     }
 }
