@@ -17,6 +17,8 @@ namespace ForumSystem.Business.CommentService
 
         public Comment GetCommentById(int commentId);
 
+        public Comment UpdateComment(Comment comment, int commentId);
+
         public Comment UpdateCommentContent(Comment comment, int commentId, string username);
 
         public ICollection<Comment> GetComments(CommentQueryParameters queryParameters);

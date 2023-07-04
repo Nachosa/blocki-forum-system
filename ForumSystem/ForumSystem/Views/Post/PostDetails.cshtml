@@ -21,8 +21,9 @@
 		<form asp-controller="Post" asp-action="Delete" asp-route-id="@Model.PostId" method="post">
 			<input type="submit" value="Delete" />
 		</form>
-		//TODO: Not implemented.
-		<a asp-controller="Post" asp-action="Edit" asp-route-postId="@Model.PostId">Edit</a>
+		<form asp-controller="Post" asp-action="Edit" asp-route-id="@Model.PostId" method="post">
+			<input type="submit" value="Edit" />
+		</form>
 	}
 
 	<h4>Comments</h4>
@@ -38,8 +39,17 @@
 			@foreach (var comment in Model.Comments)
 			{
 				<li class="margin12">
+					@if (Context.Session.GetString("LoggedUser") == comment.UserName)
+					{
+						<a asp-controller="Comment" asp-action="EditComment" asp-route-id="@comment.Id" asp-route-content="@comment.CommentContent" class="btn btn-primary">Edit</a>
+					}
+
 					<strong>@comment.UserName:</strong> @comment.CommentContent
 				</li>
+
+				@*<li class="margin12">
+					<strong>@comment.UserName:</strong> @comment.CommentContent
+				</li>*@
 			}
 		</ul>
 	}

@@ -6,6 +6,7 @@ using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystemDTO.ViewModels.CommentViewModels;
 using ForumSystemDTO.ViewModels.PostViewModels;
+using ForumSystemDTO.ViewModels.UserViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumSystem.Web.ViewControllers
@@ -36,6 +37,7 @@ namespace ForumSystem.Web.ViewControllers
 				var comments = post.Comments.Select(c => new CommentViewModel
 				{
 					CommentContent = c.Content,
+					Id = c.Id,
 					UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
 				}).ToList();
 
@@ -80,17 +82,28 @@ namespace ForumSystem.Web.ViewControllers
 		{
 			try
 			{
+				//Има ли нужда от проверка тук?
+				if (!isLogged("LoggedUser"))
+				{
+					return RedirectToAction("Login", "User");
+				}
 				if (!this.ModelState.IsValid)
 				{
 					return View(createPostFormFilled);
 				}
-				var pendingPost = mapper.Map<Post>(createPostFormFilled);
 
-				//TODO: Refactor after Authentication.
-				string userName = HttpContext.Session.GetString("LoggedUser");
-				var newPost = postService.CreatePost(pendingPost, userName);
+				int roleId = (int)HttpContext.Session.GetInt32("roleId");
+				string loggedUser = HttpContext.Session.GetString("LoggedUser");
 
-				return RedirectToAction("Details", "Home", new { id = newPost.Id }); ;
+				if (authManager.AdminCheck(roleId) || !authManager.BlockedCheck(roleId))
+				{
+					var createPostFormMapped = mapper.Map<Post>(createPostFormFilled);
+					var createdPost = postService.CreatePost(createPostFormMapped, loggedUser);
+					return RedirectToAction("PostDetails", "Post", new { id = createdPost.Id });
+				}
+
+				throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+
 			}
 			catch (Exception e)
 			{
@@ -135,13 +148,64 @@ namespace ForumSystem.Web.ViewControllers
 			}
 			catch (Exception e)
 			{
-				//TODO: More precise exception handling.
+				//TODO: More precise exception handling and status code.
 				this.Response.StatusCode = StatusCodes.Status400BadRequest;
 				this.ViewData["ErrorMessage"] = e.Message;
 				return View("Error");
 			}
 		}
-        private bool isLogged(string key)
+
+		[HttpGet]
+		public IActionResult Edit()
+		{
+			if (!isLogged("LoggedUser"))
+			{
+				return RedirectToAction("Login", "User");
+			}
+			var editPostForm = new EditPostViewModel();
+			return View(editPostForm);
+		}
+
+		[HttpPost, ActionName("Edit")]
+		public IActionResult Edit([FromRoute] int id, EditPostViewModel postEdits)
+		{
+			try
+			{
+				if (!isLogged("LoggedUser"))
+				{
+					return RedirectToAction("Login", "User");
+				}
+				if (!this.ModelState.IsValid)
+				{
+					return View(postEdits);
+				}
+
+				int roleId = (int)HttpContext.Session.GetInt32("roleId");
+				string loggedUser = HttpContext.Session.GetString("LoggedUser");
+
+				if (id == 0)
+				{
+					throw new EntityNotFoundException("Entity not found.");
+				}
+				if (authManager.AdminCheck(roleId) || !authManager.BlockedCheck(roleId))
+				{
+					var postEditsMapped = mapper.Map<Post>(postEdits);
+					var createdPost = postService.UpdatePostContent(id, postEditsMapped, loggedUser);
+					return RedirectToAction("PostDetails", "Post", new { id });
+				}
+
+				throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+			}
+			catch (Exception e)
+			{
+				//TODO: More precise exception handling and status code.
+				this.Response.StatusCode = StatusCodes.Status400BadRequest;
+				this.ViewData["ErrorMessage"] = e.Message;
+				return View("Error");
+			}
+		}
+
+		private bool isLogged(string key)
         {
             if (!this.HttpContext.Session.Keys.Contains(key))
             {

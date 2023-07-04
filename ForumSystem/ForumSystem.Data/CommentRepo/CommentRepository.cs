@@ -54,6 +54,7 @@ namespace ForumSystem.DataAccess.CommentRepo
         {
             return forumDb.Comments
                 .Include(c => c.Likes)
+                .Include(c => c.User)
                 .FirstOrDefault(c => c.Id == commentId);
         }
 

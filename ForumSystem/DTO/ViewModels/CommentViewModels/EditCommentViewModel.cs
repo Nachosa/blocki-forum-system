@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace ForumSystemDTO.ViewModels.CommentViewModels
 {
-	public class CommentViewModel
+	public class EditCommentViewModel
 	{
-		public int Id { get; set; }
+		public int CommentId { get; set; }
 
-		public string CommentContent { get; set; }
-
-		public string UserName { get; set; }
+		public string EditedComment { get; set; }
 	}
 }

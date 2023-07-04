@@ -1,0 +1,11 @@
+﻿@model ForumSystemDTO.ViewModels.PostViewModels.EditPostViewModel;
+
+<form id="edit-post-form" asp-controller="Post" asp-action="Edit" method="post">
+
+	<label asp-for="Content">Content:</label><br>
+	<input asp-for="Content" type="text" size="8192"><br>
+	<span asp-validation-for="Content"></span><br>
+    @*TODO: Fix text field dimensions.*@
+
+	<input asp-controller="Post" asp-action="Edit" method="post" type="submit" value="Submit">
+</form>
