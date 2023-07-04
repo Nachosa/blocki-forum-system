@@ -75,6 +75,10 @@ footer {
         cursor: pointer;
     }
 
+#user-search-dropdown {
+    margin-top: 20px;
+}
+
 /*#region navbar*/
 nav {
     background: #404040;
@@ -429,7 +433,6 @@ h2.table-label {
     cursor: pointer;
     font-size: 18px;
     height: 50px;
-    margin-top: 38px;
     width: 100%;
     color: #f2f2f2;
     background: #404040;
@@ -471,7 +474,7 @@ h2.table-label {
 }
 
 .search-bar-box:hover input {
-    width: 150px;
+    width: 125px;
     color: #f2f2f2;
     border-radius: 10px;
     border: 2px solid #ff62f9;
