@@ -21,8 +21,9 @@
 		<form asp-controller="Post" asp-action="Delete" asp-route-id="@Model.PostId" method="post">
 			<input type="submit" value="Delete" />
 		</form>
-		//TODO: Not implemented.
-		<a asp-controller="Post" asp-action="Edit" asp-route-postId="@Model.PostId">Edit</a>
+		<form asp-controller="Post" asp-action="Edit" asp-route-id="@Model.PostId" method="post">
+			<input type="submit" value="Edit" />
+		</form>
 	}
 
 	<h4>Comments</h4>
