@@ -2,39 +2,56 @@
 
 @{
 	bool isAuthenticated = !string.IsNullOrEmpty(Context.Session.GetString("LoggedUser"));
-	bool isLoggedUserPost = Context.Session.GetInt32("userId") == Model.User.Id;
-	//TODO: Проверка за блокиран.
 }
 
 <div class="body-content">
-
-	<h2>@Model.Title</h2>
-	<p>Created By: <a asp-controller="User" asp-action="UserDetails" asp-route-id="@Model.User.Id">@Model.CreatedBy</a></p>
-	<p>Created On: @Model.CreatedOn</p>
-	<p>Likes: @Model.LikesCount</p>
-	<p>Tags: @(Model.Tags.Any() ? string.Join(", ", Model.Tags) : "none")</p>
-
-	<h3>Content: @Model.Content</h3>
-
-	@if (isLoggedUserPost)
+	@if (Model.IsAuthorDetail)
 	{
-		<form asp-controller="Post" asp-action="Delete" asp-route-id="@Model.PostId" method="post">
-			<input type="submit" value="Delete" />
-		</form>
-		//TODO: Not implemented.
-		<a asp-controller="Post" asp-action="Edit" asp-route-postId="@Model.PostId">Edit</a>
-	}
+		<h2>@Model.CreatedBy</h2>
+		<p>First Name: @Model.User.FirstName</p>
+		<p>Last Name: @Model.User.LastName</p>
+		<p>Phone Number: @Model.User.PhoneNumber</p>
+		<p>Total Comments: @Model.User.Comments.Count</p>
+		<p>Total Likes: @Model.User.Likes.Count</p>
 
-	<h4>Comments</h4>
-	@if (Model.Comments.Count == 0)
-	{
-		<p>
-			<i>No comments.</i>
-		</p>
+		//Ще е добре да се изкарват и постовете.
+		//Това отгоре вече е изкарано на този адрес: asp-controller="User" asp-action="UserDetails"
+		//Ще е добре да се направи същото и за постовете
 	}
 	else
 	{
-		<ul>
+		<h2>@Model.Title</h2>
+		<p>Created By: <a asp-controller="User" asp-action="UserDetails" asp-route-id="@Model.PostId">@Model.CreatedBy</a></p>
+		<p>Created On: @Model.CreatedOn</p>
+		<p>Likes: @Model.LikesCount</p>
+		<p>Tags: @(Model.Tags.Any() ? string.Join(", ", Model.Tags) : "none")</p>
+		<p>Total Comments: @Model.User.Comments.Count</p>
+		<h3>Content: @Model.Content</h3>
+
+		<h4>Comments</h4>
+		@if (Model.Comments.Count == 0)
+		{
+			<p>
+				<i>No comments.</i>
+			</p>
+		}
+		else
+		{
+			<ul>
+				@foreach (var comment in Model.Comments)
+				{
+					<li class="margin12">
+						<strong>@comment.UserName:</strong> @comment.CommentContent
+					</li>
+				}
+			</ul>
+		}
+			<i>No comments.</i>
+		@if (isAuthenticated)
+		{
+			<a asp-controller="Comment" asp-action="CommentForm" asp-route-id="@Model.PostId" class="btn btn-primary">Add Comment</a>
+		}
+	}
 			@foreach (var comment in Model.Comments)
 			{
 				<li class="margin12">
@@ -44,8 +61,9 @@
 		</ul>
 	}
 
-	@if (isAuthenticated)
-	{
-		<a asp-controller="Comment" asp-action="CommentForm" asp-route-id="@Model.PostId" class="btn btn-primary">Add Comment</a>
+		@if (isAuthenticated)
+		{
+			<a asp-controller="Comment" asp-action="CommentForm" asp-route-id="@Model.PostId" class="btn btn-primary">Add Comment</a>
+		}
 	}
 </div>

@@ -25,5 +25,8 @@ namespace ForumSystemDTO.UserDTO
 
         
         public string Password { get; set; }
+
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Please enter a valid phone number.")]
+        public string PhoneNumber { get; set; }
     }
 }
