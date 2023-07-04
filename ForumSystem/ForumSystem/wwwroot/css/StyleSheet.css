@@ -111,7 +111,7 @@ nav {
             color: #f2f2f2;
             font-size: 24px;
             font-weight: 500;
-            transition: all 0.5s ease-in-out;
+            transition: all 0.3s ease-in-out;
             position: relative;
             text-transform: uppercase;
             vertical-align: top;
@@ -128,12 +128,12 @@ nav {
                 right: 0;
                 width: 0;
                 overflow: hidden;
-                transition: all 0.5s ease-in-out;
+                transition: all 0.3s ease-in-out;
             }
 
             .menu-items li a:hover::before {
                 width: 100%;
-                transition: all 0.5s ease-in-out;
+                transition: all 0.3s ease-in-out;
             }
 
         .menu-items li:first-child a #hoverImg {
@@ -144,16 +144,16 @@ nav {
             right: 0;
             width: 0;
             overflow: hidden;
-            transition: all 0.5s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
 
         .menu-items li:first-child a:hover #hoverImg {
             width: 100%;
-            transition: all 0.5s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
 
 .cubeImage {
-    width: 60px;
+    width: 65px;
     height: 60px;
     vertical-align: central;
 }
@@ -458,6 +458,7 @@ h2.table-label {
 }
 
 .input {
+    padding-left: 27px;
     width: 35px;
     height: 35px;
     background: none;
@@ -470,7 +471,7 @@ h2.table-label {
 }
 
 .search-bar-box:hover input {
-    width: 100px;
+    width: 150px;
     color: #f2f2f2;
     border-radius: 10px;
     border: 2px solid #ff62f9;
@@ -497,7 +498,7 @@ h2.table-label {
     height: 20px;
     position: absolute;
     margin-top: 8px;
-    margin-left: 8px;
+    margin-left: 10px;
 }
 
 .search-bar-box #hoverImg2{

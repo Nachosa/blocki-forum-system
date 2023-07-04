@@ -36,6 +36,7 @@ namespace ForumSystem.Web.ViewControllers
 					UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
 				}).ToList();
 
+				//TODO: Да се направи с мапър.
 				var model = new PostDetailsViewModel
 				{
 					PostId = post.Id,
@@ -78,12 +79,10 @@ namespace ForumSystem.Web.ViewControllers
 					return View(createPostFormFilled);
 				}
 				var pendingPost = mapper.Map<Post>(createPostFormFilled);
-				//var pendingPost = new Post();
-				//pendingPost.Title = createPostFormFilled.Title;
-				//pendingPost.Content = createPostFormFilled.Content;
 
 				//TODO: Refactor after Authentication.
-				var newPost = postService.CreatePost(pendingPost, "Admin");
+			    string userName = HttpContext.Session.GetString("LoggedUser");
+				var newPost = postService.CreatePost(pendingPost, userName);
 
 				return RedirectToAction("Details", "Home", new { id = newPost.Id }); ;
 			}
