@@ -2,6 +2,7 @@
     bool isLogged = Context.Session.Keys.Contains("LoggedUser");
     string userName = Context.Session.GetString("LoggedUser");
     int? userId = Context.Session.GetInt32("userId");
+	int? roleId = Context.Session.GetInt32("roleId");
 }
 <!DOCTYPE html>
 <html lang="en">

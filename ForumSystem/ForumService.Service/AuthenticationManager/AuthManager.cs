@@ -12,7 +12,6 @@ namespace ForumSystem.Business.AuthenticationManager
     public class AuthManager : IAuthManager
     {
         private readonly IUserService userService;
-
         public AuthManager(IUserService userService)
         {
             this.userService = userService;
@@ -63,6 +62,14 @@ namespace ForumSystem.Business.AuthenticationManager
             return false;
         }
 
+		public bool AdminCheck(int roleId)
+		{
+			if (roleId == 3)
+			{
+				return true;
+			}
+			return false;
+		}
         public void BlockedCheck(string credentials)
         {
             var user = UserCheck(credentials);
@@ -80,5 +87,15 @@ namespace ForumSystem.Business.AuthenticationManager
             }
             return false;
         }
-    }
+
+
+		public bool BlockedCheck(int roleId)
+		{
+			if (roleId == 1)
+			{
+				return true;
+			}
+			return false;
+		}
+	}
 }

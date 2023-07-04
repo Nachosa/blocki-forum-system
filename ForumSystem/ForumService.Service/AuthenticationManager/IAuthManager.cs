@@ -17,9 +17,14 @@ namespace ForumSystem.Business.AuthenticationManager
 
         bool AdminCheck(User user);
 
-        void BlockedCheck(string credentials);
+        bool AdminCheck(int roleId);
+
+		void BlockedCheck(string credentials);
 
         bool BlockedCheck(User user);
 
-    }
+        bool BlockedCheck(int roleId);
+
+
+	}
 }

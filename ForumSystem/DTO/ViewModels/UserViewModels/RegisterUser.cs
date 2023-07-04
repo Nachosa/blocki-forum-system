@@ -23,7 +23,7 @@ namespace ForumSystemDTO.ViewModels.UserViewModels
         [Required(ErrorMessage = "Please enter {0}")]
         public string Password { get; set; }
 
-		[RegularExpression(@"^\d{10}$", ErrorMessage = "Please enter a valid 10-digit number.")]
+		[RegularExpression(@"^\+?[\d-]*$", ErrorMessage = "Please enter a valid 10-digit number.")]
 		public int? PhoneNumber { get; set; }
     }
 }
