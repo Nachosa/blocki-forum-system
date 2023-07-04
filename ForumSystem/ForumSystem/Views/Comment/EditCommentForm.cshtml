@@ -1,0 +1,11 @@
+﻿@model ForumSystemDTO.ViewModels.CommentViewModels.EditCommentViewModel
+
+<h2>Edit Comment</h2>
+
+<form asp-controller="Comment" asp-action="UpdateComment" method="post">
+    <input type="hidden" asp-for="CommentId" />
+
+    <textarea asp-for="EditedComment"></textarea>
+
+    <button type="submit">Save</button>
+</form>

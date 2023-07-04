@@ -61,6 +61,11 @@ namespace ForumSystem.Business.CommentService
             return comment;
         }
 
+        public Comment UpdateComment(Comment comment, int commentId)
+        {
+            return commentRepository.UpdateCommentContent(comment, commentId);
+        }
+
         public Comment UpdateCommentContent(Comment comment, int commentId, string username)
         {
             var user = userService.GetUserByUserName(username);

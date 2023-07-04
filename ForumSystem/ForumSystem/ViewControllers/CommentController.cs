@@ -6,6 +6,7 @@ using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Models;
 using ForumSystemDTO.ViewModels.CommentViewModels;
 using Microsoft.AspNetCore.Mvc;
+using ForumSystemDTO.ViewModels.PostViewModels;
 
 namespace ForumSystem.Web.ViewControllers
 {
@@ -87,5 +88,57 @@ namespace ForumSystem.Web.ViewControllers
             commentService.CreateComment(comment, model.PostId);
             return RedirectToAction("PostDetails", "Post", new { id = model.PostId });
         }
-	}
+
+		public IActionResult EditComment(int id, string content)
+		{
+			var model = new EditCommentViewModel
+			{
+				CommentId = id,
+				EditedComment = content
+			};
+
+			return View("EditCommentForm", model);
+		}
+
+        [HttpPost]
+        public IActionResult UpdateComment(EditCommentViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("EditCommentForm", model);
+            }
+
+            try
+            {
+                int roleId = (int) HttpContext.Session.GetInt32("roleId");
+
+                if (authManager.BlockedCheck(roleId))
+                {
+                    throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+                }
+
+                var comment = commentService.GetCommentById(model.CommentId);
+
+                comment.Content = model.EditedComment;
+                commentService.UpdateComment(comment, model.CommentId);
+
+                return RedirectToAction("PostDetails", "Post", new { id = comment.PostId });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                Response.StatusCode = StatusCodes.Status404NotFound;
+                ViewData["ErrorMessage"] = ex.Message;
+
+                return View("Error");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Response.StatusCode = StatusCodes.Status403Forbidden;
+                ViewData["ErrorMessage"] = ex.Message;
+
+                return View("Error");
+            }
+        }
+
+    }
 }
