@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DTO.CommentDTO;
 using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.CommentRepo;

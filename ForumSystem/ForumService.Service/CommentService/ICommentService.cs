@@ -1,5 +1,4 @@
-﻿using DTO.CommentDTO;
-using ForumSystem.Api.QueryParams;
+﻿using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.QueryParams;
 using System;

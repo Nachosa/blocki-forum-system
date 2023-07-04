@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 //Този неймспейс е малко аутдейтнат, струва ли си да се ъпдейтва?
-namespace DTO.CommentDTO
+namespace ForumSystemDTO.CommentDTO
 {
     public class CreateCommentDto
     {

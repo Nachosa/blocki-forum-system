@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using DTO.CommentDTO;
 using ForumSystem.Api.QueryParams;
 using ForumSystem.Business;
 using ForumSystem.Business.AuthenticationManager;

@@ -1,0 +1,37 @@
+﻿@model ForumSystemDTO.ViewModels.AdminModels.SearchUser
+
+<div class="credentials-form">
+    <div id="credentials-title">Hello Admin</div>
+    <div id="register-subtitle">Search user by <b>Username</b>,<b>Email</b> or <b>FirstName</b> then enter value.</div>
+    <div class="validation-error-message">
+        @if (this.ViewData["ErrorMessage"] is not null)
+        {
+            <p>@this.ViewData["ErrorMessage"]</p>
+        }
+    </div>
+<form id ="register-form" asp-controller="Admin" asp-action="SearchUser" method="post">
+
+    <div class="input-container">
+    <select asp-for="SearchOption">
+        <option value="FirstName">FirstName</option>
+        <option value="UserName">UserName</option>
+        <option value="Email">Email</option>
+    </select>
+    </div>
+
+    <div class="input-container">
+       @* <input asp-for="SearchOptionValue" class="credentials-input" type="text" placeholder=" " />
+        <label asp-for="SearchOptionValue" class="placeholder">SearchOptionValue</label>*@
+
+        <input asp-for="SearchOptionValue" id="username" class="credentials-input" type="text" placeholder=" " />
+        <span asp-validation-for="SearchOptionValue" class="validation-error-message"></span><br>
+        <div class="cut"></div>
+        <label asp-for="SearchOptionValue" class="placeholder">Value</label>
+    </div>
+    <div>
+        <button type="submit" class="submit">Search</button>
+    </div>
+</form>
+
+</div>
+
