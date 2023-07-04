@@ -39,7 +39,7 @@ namespace ForumSystem.Web.ViewControllers
                     return RedirectToAction("CommentForm", new { id });
                 }
 
-                throw new UnauthorizedAccessException("You'rе blocked, can't perform this action");
+                throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
             }
 			catch (EntityNotFoundException ex)
 			{
