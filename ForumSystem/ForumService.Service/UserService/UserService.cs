@@ -37,8 +37,7 @@ namespace ForumSystem.Business.UserService
 				throw new UsernameAlreadyExistException("Username already exists!");
 			}
 
-			string decodePassword = Convert.ToBase64String(Encoding.UTF8.GetBytes(mappedUser.Password));
-			mappedUser.Password = decodePassword;
+            mappedUser.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(mappedUser.Password));
 
 			return userRepo.CreateUser(mappedUser);
 		}
@@ -121,13 +120,6 @@ namespace ForumSystem.Business.UserService
 					throw new EmailAlreadyExistException("Email already exist!");
 				}
 			}
-            if (userNewValues.Username != null)
-            {
-                if (userRepo.UsernameExist(userNewValues.Username))
-                {
-                    throw new UsernameAlreadyExistException("Username already exists!");
-                }
-            }
             var userToUpdate = userRepo.GetUserByUserName(userName);
 			if (userToUpdate is null)
 			{
@@ -151,13 +143,6 @@ namespace ForumSystem.Business.UserService
 					throw new EmailAlreadyExistException("Email already exist!");
 				}
 			}
-			if (userNewValues.Username != null)
-			{
-                if (userRepo.UsernameExist(userNewValues.Username))
-                {
-                    throw new UsernameAlreadyExistException("Username already exists!");
-                }
-            }
 			var userToUpdate = userRepo.GetUserById(id);
 			if (userToUpdate is null)
 			{

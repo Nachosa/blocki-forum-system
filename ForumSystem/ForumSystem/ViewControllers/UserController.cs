@@ -41,6 +41,7 @@ namespace ForumSystem.Web.ViewControllers
         [HttpPost]
         public IActionResult Login(Login filledLoginForm)
         {
+            //Влизаме тук ако имаме Null Username or Password!
             if (!this.ModelState.IsValid)
             {
                 return View(filledLoginForm);
@@ -153,13 +154,6 @@ namespace ForumSystem.Web.ViewControllers
 
             }
             catch (EmailAlreadyExistException e)
-            {
-                this.Response.StatusCode = StatusCodes.Status409Conflict;
-                this.ViewData["ErrorMessage"] = e.Message;
-                return View(editedUser);
-
-            }
-            catch (UsernameAlreadyExistException e)
             {
                 this.Response.StatusCode = StatusCodes.Status409Conflict;
                 this.ViewData["ErrorMessage"] = e.Message;
