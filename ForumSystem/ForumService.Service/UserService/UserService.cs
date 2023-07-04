@@ -121,8 +121,14 @@ namespace ForumSystem.Business.UserService
 					throw new EmailAlreadyExistException("Email already exist!");
 				}
 			}
-
-			var userToUpdate = userRepo.GetUserByUserName(userName);
+            if (userNewValues.Username != null)
+            {
+                if (userRepo.UsernameExist(userNewValues.Username))
+                {
+                    throw new UsernameAlreadyExistException("Username already exists!");
+                }
+            }
+            var userToUpdate = userRepo.GetUserByUserName(userName);
 			if (userToUpdate is null)
 			{
 				throw new EntityNotFoundException($"User with username:{userName} was not found!");
@@ -145,7 +151,13 @@ namespace ForumSystem.Business.UserService
 					throw new EmailAlreadyExistException("Email already exist!");
 				}
 			}
-
+			if (userNewValues.Username != null)
+			{
+                if (userRepo.UsernameExist(userNewValues.Username))
+                {
+                    throw new UsernameAlreadyExistException("Username already exists!");
+                }
+            }
 			var userToUpdate = userRepo.GetUserById(id);
 			if (userToUpdate is null)
 			{

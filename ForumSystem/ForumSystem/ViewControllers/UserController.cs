@@ -57,7 +57,7 @@ namespace ForumSystem.Web.ViewControllers
             catch (EntityNotFoundException e)
             {
                 this.Response.StatusCode = StatusCodes.Status404NotFound;
-                this.ViewData["ErrorMessage"] = e.Message;
+                this.ViewData["ErrorMessage"] = "Invalid username or password!";
                 return View(filledLoginForm);
             }
             catch (UnauthenticatedOperationException e)
@@ -153,6 +153,13 @@ namespace ForumSystem.Web.ViewControllers
 
             }
             catch (EmailAlreadyExistException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status409Conflict;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View(editedUser);
+
+            }
+            catch (UsernameAlreadyExistException e)
             {
                 this.Response.StatusCode = StatusCodes.Status409Conflict;
                 this.ViewData["ErrorMessage"] = e.Message;
