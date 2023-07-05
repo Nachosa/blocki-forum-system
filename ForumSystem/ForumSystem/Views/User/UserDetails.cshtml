@@ -1,4 +1,5 @@
 ﻿@model ForumSystem.DataAccess.Models.User;
+
 @{
     int? loggedUserId = this.Context.Session.GetInt32("userId");
 }
@@ -8,27 +9,7 @@
 <p class="margin12">First Name: @this.Model.FirstName</p>
 <p class="margin12">Last Name: @this.Model.LastName</p>
 <p class="margin12">Phone Number: @(this.Model.PhoneNumber ?? "No phone number yet.")</p>
-@*<p class="margin12">Total Comments: @this.Model.Comments.Count</p>*@
 <p class="margin12">Total Likes: @this.Model.Likes.Count</p>
-
-@*<h4>Comments</h4>
-
-@if (Model.Comments.Count == 0)
-{
-	<p>
-		<i>No comments.</i>
-	</p>
-}
-else
-{
-	<ul>
-		@foreach (var comment in Model.Comments)
-		{
-			<strong>[@comment.CreatedOn]</strong>
-			<a asp-controller="Post" asp-action="PostDetails" asp-route-id="@comment.PostId">@comment.Content</a>
-		}
-	</ul>
-}*@
 
 <div class="labeled-table-container">
 	<div id="button-label-row">
@@ -71,7 +52,7 @@ else
 
 <div class="labeled-table-container">
 	<div id="button-label-row">
-		<h2 class="table-label">Authored Comments</h2>
+		<h2 class="table-label">Comments</h2>
 	</div>
 	@if (Model.Comments != null && Model.Comments.Count > 0)
 	{
@@ -104,5 +85,4 @@ else
 <button class="button">
     <a asp-controller="User" asp-action="EditUser" asp-route-Id="@Model.Id">Edit</a>
 </button>
-    
 }
