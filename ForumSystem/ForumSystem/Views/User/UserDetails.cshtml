@@ -8,8 +8,96 @@
 <p class="margin12">First Name: @this.Model.FirstName</p>
 <p class="margin12">Last Name: @this.Model.LastName</p>
 <p class="margin12">Phone Number: @(this.Model.PhoneNumber ?? "No phone number yet.")</p>
-<p class="margin12">Total Comments: @this.Model.Comments.Count</p>
+@*<p class="margin12">Total Comments: @this.Model.Comments.Count</p>*@
 <p class="margin12">Total Likes: @this.Model.Likes.Count</p>
+
+@*<h4>Comments</h4>
+
+@if (Model.Comments.Count == 0)
+{
+	<p>
+		<i>No comments.</i>
+	</p>
+}
+else
+{
+	<ul>
+		@foreach (var comment in Model.Comments)
+		{
+			<strong>[@comment.CreatedOn]</strong>
+			<a asp-controller="Post" asp-action="PostDetails" asp-route-id="@comment.PostId">@comment.Content</a>
+		}
+	</ul>
+}*@
+
+<div class="labeled-table-container">
+	<div id="button-label-row">
+		<h2 class="table-label">Authored Posts</h2>
+		<div id="create-post-button">
+			<a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
+		</div>
+	</div>
+	@if (Model.Posts != null && Model.Posts.Count > 0)
+	{
+		<table class="custom-table">
+			<thead class="custom-table">
+				<tr class="custom-table">
+					<th>Title</th>
+					<th>Comments</th>
+					<th>Created On</th>
+					<th>Likes</th>
+					<th>Tags</th>
+				</tr>
+			</thead>
+			<tbody class="custom-table">
+				@foreach (var item in Model.Posts)
+				{
+					<tr>
+						<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
+						<td>@item.Comments.Count</td>
+						<td>@item.CreatedOn</td>
+						<td>@item.Likes.Count</td>
+						<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<p>@Model.Username hasn't made any posts yet.</p>
+	}
+</div>
+
+<div class="labeled-table-container">
+	<div id="button-label-row">
+		<h2 class="table-label">Authored Comments</h2>
+	</div>
+	@if (Model.Comments != null && Model.Comments.Count > 0)
+	{
+		<table class="custom-table">
+			<thead class="custom-table">
+				<tr class="custom-table">
+					<th>Content</th>
+					<th>Created On</th>
+				</tr>
+			</thead>
+			<tbody class="custom-table">
+				@foreach (var item in Model.Comments)
+				{
+					<tr>
+						<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.PostId">@item.Content</a></td>
+						<td>@item.CreatedOn</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	}
+	else
+	{
+		<p>@Model.Username hasn't made any comments yet.</p>
+	}
+</div>
 
 @if (loggedUserId == this.Model.Id)
 {
