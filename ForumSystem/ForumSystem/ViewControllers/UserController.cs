@@ -55,7 +55,7 @@ namespace ForumSystem.Web.ViewControllers
                 this.HttpContext.Session.SetInt32("roleId", user.RoleId);
                 return RedirectToAction("Index", "Home");
             }
-            catch (EntityNotFoundException e)
+            catch (EntityNotFoundException)
             {
                 this.Response.StatusCode = StatusCodes.Status404NotFound;
                 this.ViewData["ErrorMessage"] = "Invalid username or password!";
@@ -110,6 +110,12 @@ namespace ForumSystem.Web.ViewControllers
                 if (!isLogged("LoggedUser"))
                 {
                     return RedirectToAction("Login", "User");
+                }
+                if (!isAdmin("roleId"))
+                {
+                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    this.ViewData["ErrorMessage"] = "You'r not admin!";
+                    return View("Error");
                 }
                 var user = userService.GetUserById(id);
                 EditUser userForm = new EditUser();
@@ -223,6 +229,73 @@ namespace ForumSystem.Web.ViewControllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult DeleteUser(int id)
+        {
+
+            try
+            {
+                if (!isLogged("LoggedUser"))
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                if (!isAdmin("roleId") && this.HttpContext.Session.GetInt32("userId") != id)
+                {
+                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    this.ViewData["ErrorMessage"] = "You'r not admin or owner of this account!";
+                    return View("Error");
+                }
+                _ = userService.GetUserById(id);
+                this.ViewBag.userIdToDelete = id;
+                return View();
+
+            }
+            catch (EntityNotFoundException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status404NotFound;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+            catch (Exception e)
+            {
+                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+        }
+        [HttpPost, ActionName("DeleteUser")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                userService.DeleteUser(null,id);
+
+                if (!isAdmin("roleId"))
+                {
+                    return RedirectToAction("Logout", "User");
+                }
+                else
+                {            
+                    return RedirectToAction("Index", "Home");
+                }
+
+            }
+            catch (EntityNotFoundException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status404NotFound;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+            catch (Exception e)
+            {
+                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+
+        }
+
+
         private bool isLogged(string key)
         {
             if (!this.HttpContext.Session.Keys.Contains(key))
@@ -230,6 +303,15 @@ namespace ForumSystem.Web.ViewControllers
                 return false;
             }
             return true;
+        }
+        private bool isAdmin(string key)
+        {
+            if (this.HttpContext.Session.GetInt32(key) != 3)
+            {
+                return false;
+            }
+            return true;
+
         }
 
     }

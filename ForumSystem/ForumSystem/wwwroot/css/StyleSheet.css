@@ -185,7 +185,7 @@ nav {
     }
 
     .custom-table tbody th, .custom-table tbody td {
-        color: #777;
+        color: #f2f2f2;
         font-weight: 400;
         font-weight: 300;
         padding: 8px;
@@ -280,7 +280,7 @@ h2.table-label {
 /*#endregion*/
 
 /*#region fancyButton*/
-.button {
+/*.button {
     position: relative;
     width: 120px;
     height: 40px;
@@ -332,7 +332,7 @@ h2.table-label {
 
     .button:hover::before {
         transform: rotate(-180deg);
-    }
+    }*/
 /*#endregion*/
 
 /*#region credentialsForm*/

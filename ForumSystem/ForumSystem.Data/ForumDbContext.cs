@@ -172,7 +172,7 @@ namespace ForumSystem.DataAccess
                 LastName = "Adminov",
                 Username = "Admin",
                 Email = "Admin@gmail.com",
-                Password = "MTIzNDU2Nzg5MA==",
+                Password = "MTIz",
                 RoleId = 3
 
                 //1234567890

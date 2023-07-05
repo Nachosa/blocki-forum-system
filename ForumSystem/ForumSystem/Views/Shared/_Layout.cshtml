@@ -31,6 +31,10 @@
 				</li>
 				<li><a href="/swagger" data-item='API'>API</a></li>
 				<li><a href="/Home/About" data-item='About'>About</a></li>
+				@if (roleId == 3)
+				{
+					<li><a href="/Admin/SearchUser" data-item='AdminPanel'>AdminPanel</a></li>
+				}
 				<li>
 					<div class="search-bar-box">
 

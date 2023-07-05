@@ -1,5 +1,6 @@
 ﻿using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
+using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.QueryParams;
 using ForumSystemDTO.ViewModels.AdminModels;
 
@@ -48,23 +49,24 @@ namespace ForumSystem.Web.ViewControllers
                     return View(filledForm);
                 }
                 var parameters = new UserQueryParams();
+                var result = new List<User>();
                 if (filledForm.SearchOption == "FirstName")
                 {
                     parameters.FirstName = filledForm.SearchOptionValue;
-                    var result = userService.SearchBy(parameters);
+                     result = userService.SearchBy(parameters);
                 }
                 else if (filledForm.SearchOption == "Email")
                 {
                     parameters.Email = filledForm.SearchOptionValue;
-                    var result = userService.SearchBy(parameters);
+                    result = userService.SearchBy(parameters);
                 }
                 else if (filledForm.SearchOption == "UserName")
                 {
                     parameters.UserName = filledForm.SearchOptionValue;
-                    var result = userService.SearchBy(parameters);
+                    result = userService.SearchBy(parameters);
                 }
-
-                return View();
+                filledForm.Users = result;
+                return View(filledForm);
             }
             catch (EntityNotFoundException e)
             {

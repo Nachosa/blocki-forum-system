@@ -1,29 +1,61 @@
 ﻿@model ForumSystemDTO.ViewModels.UserViewModels.EditUser
 
-@if (this.ViewData["ErrorMessage"] is not null)
-{
-    <p>@this.ViewData["ErrorMessage"]</p>
-}
-<form id="register-form" asp-controller="User" asp-action="EditUser" method="post">
-    <p>Fill the values you want to be changed!</p>
-    <label asp-for="FirstName">First name:</label><br>
-    <input asp-for="FirstName" type="text">
-    <span asp-validation-for="FirstName"></span><br>
 
-    <label asp-for="LastName">Last name:</label><br>
-    <input asp-for="LastName" type="text">
-    <span asp-validation-for="LastName"></span><br>
+<div class="credentials-form">
+	<div id="credentials-title">Hello</div>
+	<div id="register-subtitle">Fill the values you want to be changed!</div>
 
-    <label asp-for="Email">Email:</label><br>
-    <input asp-for="Email" type="email">
-    <span asp-validation-for="Email"></span><br>
+	<form id="register-form" asp-controller="User" asp-action="EditUser" method="post">
 
-    <label asp-for="Password">Password:</label><br>
-    <input asp-for="Password" type="text">
-    <br>
+		<div class="validation-error-message">
+			@if (this.ViewData["ErrorMessage"] is not null)
+			{
+				<p>@this.ViewData["ErrorMessage"]</p>
+			}
+		</div>
 
-    <label asp-for="PhoneNumber">Phonenumber:</label><br>
-    <input asp-for="PhoneNumber" type="text"><br>
+		<div class="input-container">
+			<input asp-for="FirstName" id="firstname" class="credentials-input" type="text" placeholder=" " />
+			<span asp-validation-for="FirstName" class="validation-error-message"></span><br>
+			<div class="cut"></div>
+			<label asp-for="FirstName" class="placeholder">First Name</label>
+		</div>
 
-    <input asp-controller="User" asp-action="EditUser" method="post" type="submit" value="Save">
-</form>
+
+		<div class="input-container">
+			<input asp-for="LastName" id="lastname" class="credentials-input" type="text" placeholder=" " />
+			<span asp-validation-for="LastName" class="validation-error-message"></span><br>
+			<div class="cut"></div>
+			<label asp-for="LastName" class="placeholder">Last Name</label>
+		</div>
+
+		<div class="input-container">
+			<input asp-for=Email id="email" class="credentials-input" type="text" placeholder=" " />
+			<span asp-validation-for="Email" class="validation-error-message"></span><br>
+			<div class="cut cut-short"></div>
+			<label asp-for="Email" class="placeholder">Email</label>
+		</div>
+
+		<div class="input-container">
+			<input asp-for="Password" id="password" class="credentials-input" type="password" placeholder=" " />
+			<span asp-validation-for="Password" class="validation-error-message"></span><br>
+			<div class="cut"></div>
+			<label asp-for="Password" class="placeholder">Password</label>
+		</div>
+
+		<div class="input-container">
+			<input asp-for=PhoneNumber id="phonenumber" class="credentials-input" type="text" placeholder=" " />
+			<span asp-validation-for="PhoneNumber" class="validation-error-message"></span><br>
+			<div class="cut cut-short"></div>
+			<label asp-for="PhoneNumber" class="placeholder">Phone</label>
+		</div>
+
+		@*<input asp-controller="User" asp-action="Register" class="button-normal" method="post" type="submit" value="Register">*@
+		@*<button class="submit" asp-controller="User" asp-action="Register" method="post">
+			<a asp-controller="User" asp-action="Register" method="post" type="submit" class="submit" value="Register">Register</a>
+		</button>*@
+		
+			<button type="submit" class="submit">Save</button>
+		
+	</form>
+</div>

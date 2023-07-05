@@ -1,6 +1,7 @@
 ﻿@model ForumSystem.DataAccess.Models.User;
 @{
     int? loggedUserId = this.Context.Session.GetInt32("userId");
+    bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
 }
 
 <h2>@this.Model.Username</h2>
@@ -11,10 +12,22 @@
 <p class="margin12">Total Comments: @this.Model.Comments.Count</p>
 <p class="margin12">Total Likes: @this.Model.Likes.Count</p>
 
-@if (loggedUserId == this.Model.Id)
+@if (loggedUserId == this.Model.Id || isAdmin == true)
 {
-<button class="button">
-    <a asp-controller="User" asp-action="EditUser" asp-route-Id="@Model.Id">Edit</a>
-</button>
-    
+    <button class="button">
+        <a asp-controller="User" asp-action="EditUser" asp-route-Id="@Model.Id">Edit</a>
+    </button>
+    <button class="button">
+        <a asp-controller="User" asp-action="DeleteUser" asp-route-Id="@Model.Id">Delete</a>
+    </button>
+
 }
+@*else if (isAdmin == true)
+{
+    <button class="button">
+        <a asp-controller="User" asp-action="EditUser" asp-route-Id="@Model.Id">Edit</a>
+    </button>
+    <button class="button">
+        <a asp-controller="User" asp-action="EditUser" asp-route-Id="@Model.Id">Delete</a>
+    </button>
+}*@

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForumSystem.DataAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,6 +14,8 @@ namespace ForumSystemDTO.ViewModels.AdminModels
 
         [Required(ErrorMessage = "Please enter Value!")]
         public string SearchOptionValue { get; set; }
+
+        public List<User> Users { get; set; }= new List<User>();
 
 
     }
