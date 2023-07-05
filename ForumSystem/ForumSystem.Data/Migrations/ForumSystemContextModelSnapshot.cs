@@ -61,7 +61,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 1,
                             Content = "Bitcon is the best!",
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1923),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4978),
                             IsDeleted = false,
                             PostId = 1,
                             UserId = 2
@@ -70,7 +70,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 2,
                             Content = "Bitcoin is trash",
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1927),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4984),
                             IsDeleted = false,
                             PostId = 2,
                             UserId = 3
@@ -79,7 +79,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 3,
                             Content = "Ethereum is better",
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1930),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4986),
                             IsDeleted = false,
                             PostId = 3,
                             UserId = 3
@@ -88,7 +88,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 4,
                             Content = "Ripple is the new best crypto",
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1932),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4988),
                             IsDeleted = false,
                             PostId = 4,
                             UserId = 4
@@ -137,7 +137,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1934),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4991),
                             IsDeleted = false,
                             PostId = 2,
                             UserId = 3
@@ -145,7 +145,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1938),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4993),
                             IsDeleted = false,
                             PostId = 2,
                             UserId = 2
@@ -153,7 +153,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1940),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4996),
                             IsDeleted = false,
                             PostId = 2,
                             UserId = 1
@@ -161,7 +161,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1942),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4997),
                             IsDeleted = false,
                             PostId = 4,
                             UserId = 1
@@ -207,7 +207,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 1,
                             Content = "A non-convertible currency is one that one cannot exchange that currency on the international foreign exchange market. Outside the country, this currency has no value — it may also be referred to as locked money. For example, the Indian rupee is a semi-non convertible currency outside of India while dollars can be exchanged in all countries around the world.",
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1905),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4908),
                             IsDeleted = false,
                             Title = "WILL BITCOIN BE USED BY THE ENTIRE WORLD?",
                             UserId = 2
@@ -216,7 +216,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 2,
                             Content = "If governments decide to opt for a non-convertible currency, it is mainly to prevent capital flight abroad. In effect, by preventing convertibility, residents are then \"forced\" to use the currency in the country. Although the currency cannot leave the territory, it is nevertheless possible via complex financial instruments such as non-deliverable forwards (NDFs).",
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1910),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4913),
                             IsDeleted = false,
                             Title = "WHY DO SOME COUNTRIES OPT FOR NON-CONVERTIBLE CURRENCIES?",
                             UserId = 3
@@ -225,7 +225,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 3,
                             Content = "Since then, the idea of ​​a single currency or a return to the gold standard has been put back on the table. It’s not a new idea, actually.\r\n\r\nDuring the Bretton Woods agreement, John Mayard Keynes proposed the creation of an international currency called the bancor, fixed by a basket of strong currencies of industrialized countries. His proposal was not accepted but his idea has continued across generations of economists.",
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1913),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4916),
                             IsDeleted = false,
                             Title = "THE IDEA OF ​​A SINGLE WORLD CURRENCY.",
                             UserId = 4
@@ -234,7 +234,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 4,
                             Content = "f there were no more national currencies, foreign exchange market-based problems and conversion fees would end immediately. Countries would no longer have a monetary barrier and could trade more freely. This would improve and increase international trade. All nations would benefit, especially countries with fragile currencies because there would be no more exchange risk.",
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1916),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4918),
                             IsDeleted = false,
                             Title = "WHAT WOULD BE THE BENEFITS OF A WORLD CURRENCY?",
                             UserId = 5
@@ -243,10 +243,55 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 5,
                             Content = "The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol.",
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1919),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4920),
                             IsDeleted = false,
                             Title = "No Central Authority ",
                             UserId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Content = "Monero was launched in 2014 as a privacy-focused coin and, according to many, still offers the greatest degree of transaction anonymity compared to other cryptocurrencies.\r\n\r\nAlthough the Monero blockchain is open-source and operates as a decentralized, public network, all transaction details, including sender and recipient addresses and amounts, are cloaked. Monero achieves this using a combination of ring signatures and stealth addresses.",
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4923),
+                            IsDeleted = false,
+                            Title = "Monero",
+                            UserId = 10
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Content = "Zcash was created in 2014 as a fork of the Bitcoin code named Zerocash, which was conceived with privacy in mind. The development was later taken over by the Electric Coin Company in 2016, which still maintains Zcash to this day.",
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4925),
+                            IsDeleted = false,
+                            Title = "Zcash",
+                            UserId = 11
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Content = "Dash allows users to implement private transactions via a feature called PrivateSend, which cloaks transaction details. The project was started in 2014 under the name Darkcoin, but rebranded to Dash with a focus on payments in 2015.",
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4928),
+                            IsDeleted = false,
+                            Title = "Dash",
+                            UserId = 12
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Content = "Privacy coins are often viewed as higher-risk assets by the international Financial Action Task Force (FATF) and by national AML authorities. Some jurisdictions, such as Dubai, outlaw the use of privacy coins entirely.",
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4930),
+                            IsDeleted = false,
+                            Title = "Privacy Coins and Regulation",
+                            UserId = 13
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Content = "Privacy coins like Monero have no transaction history associated with them, making them more fungible than currencies like Bitcoin. Although BTC is generally considered to be a fungible asset, Bitcoin’s UTXO model means that it’s possible to trace the history of all BTC back to the point it was mined.",
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4974),
+                            IsDeleted = false,
+                            Title = "Benefits and Risks of Using Privacy Coins",
+                            UserId = 14
                         });
                 });
 
@@ -382,7 +427,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1843),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4829),
                             Email = "gosho@gmail.com",
                             FirstName = "Gosho",
                             IsDeleted = false,
@@ -394,7 +439,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1879),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4867),
                             Email = "Nikolai@gmail.com",
                             FirstName = "Nikolai",
                             IsDeleted = false,
@@ -406,7 +451,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1883),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4870),
                             Email = "gosho@gmail.com",
                             FirstName = "Boiko",
                             IsDeleted = false,
@@ -418,7 +463,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1885),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4872),
                             Email = "Cvetan@gmail.com",
                             FirstName = "Cvetan",
                             IsDeleted = false,
@@ -430,7 +475,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1888),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4875),
                             Email = "Kopeikin@gmail.com",
                             FirstName = "Kosta",
                             IsDeleted = false,
@@ -442,7 +487,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1892),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4879),
                             Email = "Admin@gmail.com",
                             FirstName = "Admin",
                             IsDeleted = false,
@@ -454,7 +499,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1895),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4881),
                             Email = "Andrea@gmail.com",
                             FirstName = "Andrea",
                             IsDeleted = false,
@@ -466,7 +511,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedOn = new DateTime(2023, 7, 4, 14, 55, 34, 520, DateTimeKind.Local).AddTicks(1897),
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4884),
                             Email = "Emanuela@gmail.com",
                             FirstName = "Emanuela",
                             IsDeleted = false,
@@ -474,6 +519,90 @@ namespace ForumSystem.DataAccess.Migrations
                             Password = "MTIzNDU2Nzg5MA==",
                             RoleId = 2,
                             Username = "TopEmanuelka"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4886),
+                            Email = "Katrin@gmail.com",
+                            FirstName = "Katrin",
+                            IsDeleted = false,
+                            LastName = "lilova",
+                            Password = "MTIz",
+                            RoleId = 2,
+                            Username = "Katrin"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4890),
+                            Email = "Nachosa@gmail.com",
+                            FirstName = "Atanas",
+                            IsDeleted = false,
+                            LastName = "Iliev",
+                            Password = "MTIz",
+                            RoleId = 2,
+                            Username = "Nachosa"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4892),
+                            Email = "Gigov@gmail.com",
+                            FirstName = "Nikolai",
+                            IsDeleted = false,
+                            LastName = "Gigov",
+                            Password = "MTIz",
+                            RoleId = 2,
+                            Username = "Nikolai"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4895),
+                            Email = "Vlad@gmail.com",
+                            FirstName = "Vlado",
+                            IsDeleted = false,
+                            LastName = "Vladov",
+                            Password = "MTIz",
+                            RoleId = 2,
+                            Username = "BatVlad"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4897),
+                            Email = "Vanko@gmail.com",
+                            FirstName = "Ivan",
+                            IsDeleted = false,
+                            LastName = "Vanov",
+                            Password = "MTIz",
+                            RoleId = 2,
+                            Username = "BatVanko"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4900),
+                            Email = "Peshaka@gmail.com",
+                            FirstName = "Petar",
+                            IsDeleted = false,
+                            LastName = "Ivanov",
+                            Password = "MTIz",
+                            RoleId = 2,
+                            Username = "Peshaka"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreatedOn = new DateTime(2023, 7, 5, 11, 1, 35, 654, DateTimeKind.Local).AddTicks(4903),
+                            Email = "Gergi@gmail.com",
+                            FirstName = "Georgi",
+                            IsDeleted = false,
+                            LastName = "Goshev",
+                            Password = "MTIz",
+                            RoleId = 2,
+                            Username = "BatGergi"
                         });
                 });
 

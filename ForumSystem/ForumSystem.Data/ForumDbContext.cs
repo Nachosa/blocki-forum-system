@@ -200,6 +200,90 @@ namespace ForumSystem.DataAccess
                 RoleId = 2
 
                 //1234567890
+            },
+            new User()
+            {
+                Id = 9,
+                FirstName = "Katrin",
+                LastName = "lilova",
+                Username = "Katrin",
+                Email = "Katrin@gmail.com",
+                Password = "MTIz",
+                RoleId = 2
+
+                //123
+            },
+            new User()
+            {
+                Id = 10,
+                FirstName = "Atanas",
+                LastName = "Iliev",
+                Username = "Nachosa",
+                Email = "Nachosa@gmail.com",
+                Password = "MTIz",
+                RoleId = 2
+
+                //123
+            },
+            new User()
+            {
+                Id = 11,
+                FirstName = "Nikolai",
+                LastName = "Gigov",
+                Username = "Nikolai",
+                Email = "Gigov@gmail.com",
+                Password = "MTIz",
+                RoleId = 2
+
+                //123
+            },
+            new User()
+            {
+                Id = 12,
+                FirstName = "Vlado",
+                LastName = "Vladov",
+                Username = "BatVlad",
+                Email = "Vlad@gmail.com",
+                Password = "MTIz",
+                RoleId = 2
+
+                //123
+            },
+            new User()
+            {
+                Id = 13,
+                FirstName = "Ivan",
+                LastName = "Vanov",
+                Username = "BatVanko",
+                Email = "Vanko@gmail.com",
+                Password = "MTIz",
+                RoleId = 2
+
+                //123
+            },
+            new User()
+            {
+                Id = 14,
+                FirstName = "Petar",
+                LastName = "Ivanov",
+                Username = "Peshaka",
+                Email = "Peshaka@gmail.com",
+                Password = "MTIz",
+                RoleId = 2
+
+                //123
+            },
+            new User()
+            {
+                Id = 15,
+                FirstName = "Georgi",
+                LastName = "Goshev",
+                Username = "BatGergi",
+                Email = "Gergi@gmail.com",
+                Password = "MTIz",
+                RoleId = 2
+
+                //123
             }
             };
 
@@ -241,7 +325,44 @@ namespace ForumSystem.DataAccess
                     Title="No Central Authority ",
                     Content="The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol."
 
+                },
+                new Post
+                {
+                    Id=6,
+                    UserId=10,
+                    Title="Monero",
+                    Content="Monero was launched in 2014 as a privacy-focused coin and, according to many, still offers the greatest degree of transaction anonymity compared to other cryptocurrencies.\r\n\r\nAlthough the Monero blockchain is open-source and operates as a decentralized, public network, all transaction details, including sender and recipient addresses and amounts, are cloaked. Monero achieves this using a combination of ring signatures and stealth addresses."
+                },
+                new Post
+                {
+                    Id=7,
+                    UserId=11,
+                    Title="Zcash",
+                    Content="Zcash was created in 2014 as a fork of the Bitcoin code named Zerocash, which was conceived with privacy in mind. The development was later taken over by the Electric Coin Company in 2016, which still maintains Zcash to this day."
+
+                },
+                new Post
+                {
+                    Id=8,
+                    UserId=12,
+                    Title="Dash",
+                    Content="Dash allows users to implement private transactions via a feature called PrivateSend, which cloaks transaction details. The project was started in 2014 under the name Darkcoin, but rebranded to Dash with a focus on payments in 2015."
+                },
+                new Post
+                {
+                    Id=9,
+                    UserId=13,
+                    Title="Privacy Coins and Regulation",
+                    Content="Privacy coins are often viewed as higher-risk assets by the international Financial Action Task Force (FATF) and by national AML authorities. Some jurisdictions, such as Dubai, outlaw the use of privacy coins entirely."
+                },
+                new Post
+                {
+                    Id=10,
+                    UserId=14,
+                    Title="Benefits and Risks of Using Privacy Coins",
+                    Content="Privacy coins like Monero have no transaction history associated with them, making them more fungible than currencies like Bitcoin. Although BTC is generally considered to be a fungible asset, Bitcoin’s UTXO model means that it’s possible to trace the history of all BTC back to the point it was mined."
                 }
+
             };
 
             IList<Comment> comments = new List<Comment>
