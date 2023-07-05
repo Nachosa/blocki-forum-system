@@ -41,15 +41,11 @@
 				<li class="margin12">
 					@if (Context.Session.GetString("LoggedUser") == comment.UserName)
 					{
-						<a asp-controller="Comment" asp-action="EditComment" asp-route-id="@comment.Id" asp-route-content="@comment.CommentContent" class="btn btn-primary">Edit</a>
+						<a asp-controller="Comment" asp-action="EditComment" asp-route-id="@comment.Id" class="btn btn-primary">Edit</a>
 					}
 
 					<strong>@comment.UserName:</strong> @comment.CommentContent
 				</li>
-
-				@*<li class="margin12">
-					<strong>@comment.UserName:</strong> @comment.CommentContent
-				</li>*@
 			}
 		</ul>
 	}

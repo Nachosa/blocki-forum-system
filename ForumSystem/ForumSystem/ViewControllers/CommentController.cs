@@ -89,18 +89,20 @@ namespace ForumSystem.Web.ViewControllers
             return RedirectToAction("PostDetails", "Post", new { id = model.PostId });
         }
 
-		public IActionResult EditComment(int id, string content)
+		public IActionResult EditComment(int id)
 		{
+            var comment = commentService.GetCommentById(id);
+
 			var model = new EditCommentViewModel
 			{
 				CommentId = id,
-				EditedComment = content
+				EditedComment = comment.Content
 			};
 
 			return View("EditCommentForm", model);
 		}
 
-        [HttpPost]
+		[HttpPost]
         public IActionResult UpdateComment(EditCommentViewModel model)
         {
             if (!ModelState.IsValid)
