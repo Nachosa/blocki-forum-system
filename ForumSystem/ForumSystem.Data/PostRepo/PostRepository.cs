@@ -89,6 +89,11 @@ namespace ForumSystem.DataAccess.PostRepo
         public bool DeletePostById(int postId)
         {
             var post = forumDb.Posts.FirstOrDefault(post => post.Id == postId);
+            foreach (var Comment in post.Comments)
+            {
+                Comment.DeletedOn = DateTime.Now;
+                Comment.IsDeleted = true;
+            }
             if (post == null || post.IsDeleted)
                 throw new EntityNotFoundException($"Post with id={postId} doesn't exist.");
             else

@@ -34,13 +34,18 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public User GetUserById(int Id)
         {
-            var user = forumDb.Users.Include(p => p.Posts).Include(c => c.Comments).FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
+            //        var user = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+            //.Include(c => c.Comments).Where(c => c.IsDeleted == false)
+            //.FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
+            //TODO: Gonna need to add more includes here and in the other get methods probably.
+            //In order to display tags, likes and so forth, i have begun writing that above.
+            var user = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).Include(c => c.Comments.Where(c => c.IsDeleted == false)).FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
             return user;
         }
 
         public User GetUserByUserName(string UserName)
         {
-            var userWithThatUserName = forumDb.Users.Include(p => p.Posts).Include(c => c.Comments).AsNoTracking().FirstOrDefault(u => u.Username == UserName && u.IsDeleted == false);
+            var userWithThatUserName = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).Include(c => c.Comments.Where(c => c.IsDeleted == false)).AsNoTracking().FirstOrDefault(u => u.Username == UserName && u.IsDeleted == false);
             return userWithThatUserName;
         }
 
@@ -58,40 +63,40 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public int GetUsersCount()
         {
-            var activeUsersCount = forumDb.Users.Count(u=>u.IsDeleted==false);
+            var activeUsersCount = forumDb.Users.Count(u => u.IsDeleted == false);
             return activeUsersCount;
-            
+
         }
 
         public List<User> SearchBy(UserQueryParams queryParams)
         {
-			var query = forumDb.Users
+            var query = forumDb.Users
                 .Include(u => u.Posts)
                 .Include(u => u.Comments)
                 .Where(u => u.IsDeleted == false);
 
-			if (queryParams.FirstName is not null)
-			{
-				query = query.Where(u => u.FirstName.ToLower()==queryParams.FirstName.ToLower());
-			}
+            if (queryParams.FirstName is not null)
+            {
+                query = query.Where(u => u.FirstName.ToLower() == queryParams.FirstName.ToLower());
+            }
 
-			if (queryParams.UserName is not null)
-			{
-				query = query.Where(u => u.Username == queryParams.UserName);
-			}
+            if (queryParams.UserName is not null)
+            {
+                query = query.Where(u => u.Username == queryParams.UserName);
+            }
 
-			if (queryParams.Email is not null)
-			{
-				query = query.Where(u => u.Email == queryParams.Email);
-			}
+            if (queryParams.Email is not null)
+            {
+                query = query.Where(u => u.Email == queryParams.Email);
+            }
 
-			var result = query.ToList();
-			return result;
+            var result = query.ToList();
+            return result;
 
-		}
+        }
 
 
-		public User UpdateUser(string userName, User user)
+        public User UpdateUser(string userName, User user)
         {
             var userToupdate = forumDb.Users.FirstOrDefault(u => u.Username == userName);
             userToupdate.FirstName = user.FirstName ?? userToupdate.FirstName;
@@ -116,14 +121,14 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public bool EmailExist(string email)
         {
-            bool result = forumDb.Users.Any(u => u.Email.ToLower()==email.ToLower());
+            bool result = forumDb.Users.Any(u => u.Email.ToLower() == email.ToLower());
             return result;
         }
-		public bool UsernameExist(string username)
-		{
-			bool result = forumDb.Users.Any(u => u.Username.ToLower() == username.ToLower());
-			return result;
-		}
+        public bool UsernameExist(string username)
+        {
+            bool result = forumDb.Users.Any(u => u.Username.ToLower() == username.ToLower());
+            return result;
+        }
 
         public bool DeleteUser(User user)
         {
@@ -143,5 +148,5 @@ namespace ForumSystem.DataAccess.UserRepo
             return true;
         }
 
-	}
+    }
 }
