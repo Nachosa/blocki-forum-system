@@ -1,7 +1,7 @@
 ﻿@{
     int? loggedUserId = this.Context.Session.GetInt32("userId");
     bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
-    int? userIdToBlock = this.ViewBag.userIdToBlock;
+    int? userIdToUnBlock = this.ViewBag.userIdToUnBlock;
 }
 
 <div class="credentials-form">
@@ -19,13 +19,15 @@
             <p>@this.ViewData["ErrorMessage"]</p>
         }
     </div>
+
     @if (this.ViewData["ErrorMessage"] is null)
     {
-        <form asp-controller="Admin" asp-action="Block" asp-route-id="@userIdToBlock" method="post">
-            <button type="submit" class="submit">Block</button>
-        </form>
-        <br>
-    }
+    <form asp-controller="Admin" asp-action="UnBlock" asp-route-id="@userIdToUnBlock" method="post">
+        <button type="submit" class="submit">UnBlock</button>
+    </form>
+    <br>
+        
+    }     
     <form asp-controller="Home" asp-action="Index">
         <button type="submit" class="submit">Naaah</button>
     </form>
