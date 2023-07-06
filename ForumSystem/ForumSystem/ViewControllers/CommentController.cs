@@ -91,7 +91,20 @@ namespace ForumSystem.Web.ViewControllers
 
 		public IActionResult EditComment(int id)
 		{
-            var comment = commentService.GetCommentById(id);
+			if (!IsLogged("LoggedUser"))
+			{
+				return RedirectToAction("Login", "User");
+			}
+
+			var comment = commentService.GetCommentById(id);
+
+			if (!IsAdmin("roleId") && HttpContext.Session.GetInt32("userId") != comment.UserId)
+			{
+				HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+				ViewData["ErrorMessage"] = "You're not the author of this comment!";
+
+				return View("Error");
+			}
 
 			var model = new EditCommentViewModel
 			{
@@ -112,18 +125,17 @@ namespace ForumSystem.Web.ViewControllers
 
             try
             {
-                int roleId = (int) HttpContext.Session.GetInt32("roleId");
+				int roleId = (int) HttpContext.Session.GetInt32("roleId");
 
-                if (authManager.BlockedCheck(roleId))
-                {
-                    throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
-                }
+				if (authManager.BlockedCheck(roleId))
+				{
+					throw new UnauthorizedAccessException("You're blocked. You can't perform this action.");
+				}
 
-                var comment = commentService.GetCommentById(model.CommentId);
+				var comment = commentService.GetCommentById(model.CommentId);
 
-                comment.Content = model.EditedComment;
+				comment.Content = model.EditedComment;
                 commentService.UpdateComment(comment, model.CommentId);
-
                 return RedirectToAction("PostDetails", "Post", new { id = comment.PostId });
             }
             catch (EntityNotFoundException ex)
@@ -142,5 +154,24 @@ namespace ForumSystem.Web.ViewControllers
             }
         }
 
-    }
+		private bool IsAdmin(string key)
+		{
+			if (HttpContext.Session.GetInt32(key) != 3)
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		private bool IsLogged(string key)
+		{
+			if (!HttpContext.Session.Keys.Contains(key))
+			{
+				return false;
+			}
+
+			return true;
+		}
+	}
 }
