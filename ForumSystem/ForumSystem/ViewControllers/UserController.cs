@@ -14,7 +14,9 @@ namespace ForumSystem.Web.ViewControllers
 {
     public class UserController : Controller
     {
-        private readonly IMapper mapper;
+        const string notAthorized = "You are not Authorized to do this!";
+
+		private readonly IMapper mapper;
         private readonly IUserService userService;
         private readonly IAuthManager authManager;
         public UserController(IMapper mapper, IUserService userService, IAuthManager authManager)
@@ -111,10 +113,10 @@ namespace ForumSystem.Web.ViewControllers
                 {
                     return RedirectToAction("Login", "User");
                 }
-                if (!isAdmin("roleId"))
+                if (!isAdmin("roleId") && this.HttpContext.Session.GetInt32("userId") != id)
                 {
                     this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    this.ViewData["ErrorMessage"] = "You'r not admin!";
+                    this.ViewData["ErrorMessage"] = notAthorized;
                     return View("Error");
                 }
                 var user = userService.GetUserById(id);
@@ -242,8 +244,9 @@ namespace ForumSystem.Web.ViewControllers
                 if (!isAdmin("roleId") && this.HttpContext.Session.GetInt32("userId") != id)
                 {
                     this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    this.ViewData["ErrorMessage"] = "You'r not admin or owner of this account!";
-                    return View("Error");
+                    this.ViewData["ErrorMessage"] = notAthorized;
+
+					return View("Error");
                 }
                 _ = userService.GetUserById(id);
                 this.ViewBag.userIdToDelete = id;

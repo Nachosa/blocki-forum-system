@@ -24,6 +24,7 @@ namespace ForumSystem.Business.UserService
         public User GetUserByEmail(string email);
       
         User GetUserByUserName(string userName);
+        public User GetUserByUsernameForAuthentication(string userName);
 
         List<User> SearchBy(UserQueryParams queryParams);
 

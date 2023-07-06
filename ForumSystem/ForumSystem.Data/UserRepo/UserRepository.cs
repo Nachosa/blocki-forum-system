@@ -65,25 +65,33 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public List<User> SearchBy(UserQueryParams queryParams)
         {
-            var result = forumDb.Users.Where(u => u.IsDeleted == false).ToList();
+			var query = forumDb.Users
+                .Include(u => u.Posts)
+                .Include(u => u.Comments)
+                .Where(u => u.IsDeleted == false);
 
-            if (queryParams.FirstName is not null)
-            {
-                result = result.FindAll(u => u.FirstName.Contains(queryParams.FirstName, StringComparison.InvariantCultureIgnoreCase)).ToList();
-            }
-            if (queryParams.UserName is not null)
-            {
-                result = result.FindAll(u => u.Username == queryParams.UserName);
-            }
-            if (queryParams.Email is not null)
-            {
-                result = result.FindAll(u => u.Email == queryParams.Email);
-            }
-            return result;
-        }
+			if (queryParams.FirstName is not null)
+			{
+				query = query.Where(u => u.FirstName.ToLower()==queryParams.FirstName.ToLower());
+			}
+
+			if (queryParams.UserName is not null)
+			{
+				query = query.Where(u => u.Username == queryParams.UserName);
+			}
+
+			if (queryParams.Email is not null)
+			{
+				query = query.Where(u => u.Email == queryParams.Email);
+			}
+
+			var result = query.ToList();
+			return result;
+
+		}
 
 
-        public User UpdateUser(string userName, User user)
+		public User UpdateUser(string userName, User user)
         {
             var userToupdate = forumDb.Users.FirstOrDefault(u => u.Username == userName);
             userToupdate.FirstName = user.FirstName ?? userToupdate.FirstName;
@@ -103,15 +111,6 @@ namespace ForumSystem.DataAccess.UserRepo
             userToUpdate.PhoneNumber = user.PhoneNumber ?? userToUpdate.PhoneNumber;
             forumDb.SaveChanges();
             return userToUpdate;
-        }
-
-
-
-        public bool MakeUserAdmin(User user)
-        {
-            user.RoleId = 3;
-            forumDb.SaveChanges();
-            return true;
         }
 
 

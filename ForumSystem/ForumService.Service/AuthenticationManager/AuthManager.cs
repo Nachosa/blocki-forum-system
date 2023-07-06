@@ -36,8 +36,10 @@ namespace ForumSystem.Business.AuthenticationManager
 
 		public User UserCheck(string userName ,string password)
 		{
-			var user = userService.GetUserByUserName(userName);
-			if (user.Password == password)
+            //Обърната проверка за паролите по препоръка на Ясен,вече сравняваме хешираните пароли,дано стане.
+			var user = userService.GetUserByUsernameForAuthentication(userName);
+            string loginPasswordToBASE64 = Convert.ToBase64String(Encoding.UTF8.GetBytes(password));
+            if (user.Password == loginPasswordToBASE64)
 			{
 				return user;
 			}

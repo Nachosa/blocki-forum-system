@@ -88,6 +88,14 @@ namespace ForumSystem.Business.UserService
 			originalUser.Password = Encoding.UTF8.GetString(Convert.FromBase64String(originalUser.Password));
 			return originalUser;
 		}
+        /// <summary>
+        /// This method returns user with password hashed in BASE64.
+        /// </summary>
+        public User GetUserByUsernameForAuthentication(string userName)
+		{
+            var originalUser = userRepo.GetUserByUserName(userName) ?? throw new EntityNotFoundException($"User with username:{userName} was not found!");
+            return originalUser;
+        }
 
 		public List<User> SearchBy(UserQueryParams queryParams)
 		{
