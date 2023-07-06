@@ -19,6 +19,8 @@ using Microsoft.EntityFrameworkCore;
 using ForumSystem.Business.AuthenticationManager;
 using ForumSystem.DataAccess.AdminRepo;
 using ForumSystem.Business.AdminService;
+using ForumSystem.Web.Helpers;
+using ForumSystem.Web.Helpers.Contracts;
 
 namespace ForumSystem.Web
 {
@@ -40,6 +42,8 @@ namespace ForumSystem.Web
             builder.Services.AddScoped<ICommentService, CommentService>();
             builder.Services.AddScoped<ITagService, TagService>();
             builder.Services.AddScoped<IAuthManager, AuthManager>();
+            builder.Services.AddScoped<IAuthorizator, Authorizator>();
+
             //builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             builder.Services.AddDbContext<ForumSystemContext>(options =>

@@ -4,6 +4,8 @@ using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.UserRepo;
+using ForumSystem.Web.Helpers;
+using ForumSystem.Web.Helpers.Contracts;
 using ForumSystemDTO.ViewModels.UserViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,16 +16,17 @@ namespace ForumSystem.Web.ViewControllers
 {
     public class UserController : Controller
     {
-        const string notAthorized = "You are not Authorized to do this!";
 
 		private readonly IMapper mapper;
         private readonly IUserService userService;
         private readonly IAuthManager authManager;
-        public UserController(IMapper mapper, IUserService userService, IAuthManager authManager)
+        private readonly IAuthorizator authorizator;
+        public UserController(IMapper mapper, IUserService userService, IAuthManager authManager, IAuthorizator authenticator)
         {
             this.mapper = mapper;
             this.userService = userService;
             this.authManager = authManager;
+            this.authorizator = authenticator;
         }
 
         [HttpGet]
@@ -83,7 +86,7 @@ namespace ForumSystem.Web.ViewControllers
         {
             try
             {
-                if (!isLogged("LoggedUser"))
+                if (!authorizator.isLogged("LoggedUser"))
                 {
                     return RedirectToAction("Login", "User");
                 }
@@ -109,14 +112,14 @@ namespace ForumSystem.Web.ViewControllers
         {
             try
             {
-                if (!isLogged("LoggedUser"))
+                if (!authorizator.isLogged("LoggedUser"))
                 {
                     return RedirectToAction("Login", "User");
                 }
-                if (!isAdmin("roleId") && this.HttpContext.Session.GetInt32("userId") != id)
+                if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId",id))
                 {
                     this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    this.ViewData["ErrorMessage"] = notAthorized;
+                    this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
                     return View("Error");
                 }
                 var user = userService.GetUserById(id);
@@ -228,16 +231,15 @@ namespace ForumSystem.Web.ViewControllers
 
             try
             {
-                if (!isLogged("LoggedUser"))
+                if (!authorizator.isLogged("LoggedUser"))
                 {
                     return RedirectToAction("Login", "User");
                 }
-                if (!isAdmin("roleId") && this.HttpContext.Session.GetInt32("userId") != id)
+                if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", id))
                 {
                     this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    this.ViewData["ErrorMessage"] = notAthorized;
-
-					return View("Error");
+                    this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                    return View("Error");
                 }
                 _ = userService.GetUserById(id);
                 this.ViewBag.userIdToDelete = id;
@@ -264,7 +266,7 @@ namespace ForumSystem.Web.ViewControllers
             {
                 userService.DeleteUser(null,id);
 
-                if (!isAdmin("roleId"))
+                if (!authorizator.isAdmin("roleId"))
                 {
                     return RedirectToAction("Logout", "User");
                 }
@@ -286,25 +288,6 @@ namespace ForumSystem.Web.ViewControllers
                 this.ViewData["ErrorMessage"] = e.Message;
                 return View("Error");
             }
-
-        }
-
-
-        private bool isLogged(string key)
-        {
-            if (!this.HttpContext.Session.Keys.Contains(key))
-            {
-                return false;
-            }
-            return true;
-        }
-        private bool isAdmin(string key)
-        {
-            if (this.HttpContext.Session.GetInt32(key) != 3)
-            {
-                return false;
-            }
-            return true;
 
         }
 

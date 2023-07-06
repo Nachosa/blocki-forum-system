@@ -222,5 +222,15 @@ namespace ForumSystem.Web.ViewControllers
             }
             return true;
         }
+
+        private bool isAdmin(string key)
+        {
+            if (this.HttpContext.Session.GetInt32(key) != 3)
+            {
+                return false;
+            }
+            return true;
+
+        }
     }
 }
