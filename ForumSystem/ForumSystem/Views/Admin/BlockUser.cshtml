@@ -1,0 +1,31 @@
+﻿@{
+    int? loggedUserId = this.Context.Session.GetInt32("userId");
+    bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
+    int? userIdToBlock = this.ViewBag.userIdToBlock;
+}
+
+<div class="credentials-form">
+
+    <div id="credentials-title">Hello Admin.</div>
+    <div id="register-subtitle">Confirm to continue your action.</div>
+
+
+    <br>
+
+
+    <div class="validation-error-message">
+        @if (this.ViewData["ErrorMessage"] is not null)
+        {
+            <p>@this.ViewData["ErrorMessage"]</p>
+        }
+    </div>
+
+    <form asp-controller="Admin" asp-action="Block" asp-route-id="@userIdToBlock" method="post">
+        <button type="submit" class="submit">Block</button>
+    </form>
+    <br>
+    <form asp-controller="Home" asp-action="Index">
+        <button type="submit" class="submit">Naaah</button>
+    </form>
+
+</div>

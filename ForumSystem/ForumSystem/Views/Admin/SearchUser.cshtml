@@ -3,94 +3,103 @@
     int usersCount = this.Model.Users.Count;
 }
 
-@if (this.Model.SearchOptionValue is null)
-{
-    <div class="credentials-form">
-        <div id="credentials-title">Hello Admin</div>
-        <div id="register-subtitle">Search user by <b>Username</b>, <b>Email</b> or <b>FirstName</b> then enter value.</div>
-        <div class="validation-error-message">
-            @if (this.ViewData["ErrorMessage"] is not null)
-            {
-                <p>@this.ViewData["ErrorMessage"]</p>
-            }
+
+<div class="credentials-form">
+    <div id="credentials-title">Hello Admin</div>
+    <div id="register-subtitle">Search user by <b>Username</b>, <b>Email</b> or <b>FirstName</b> then enter value.</div>
+    <div class="validation-error-message">
+        @if (this.ViewData["ErrorMessage"] is not null)
+        {
+            <p>@this.ViewData["ErrorMessage"]</p>
+        }
+    </div>
+
+    <form id="register-form" asp-controller="Admin" asp-action="SearchUser" method="post">
+
+        <div id="user-search-dropdown">
+            <select asp-for="SearchOption">
+                <option value="FirstName">FirstName</option>
+                <option value="UserName">UserName</option>
+                <option value="Email">Email</option>
+            </select>
         </div>
 
-        <form id="register-form" asp-controller="Admin" asp-action="SearchUser" method="post">
-
-            <div id="user-search-dropdown">
-                <select asp-for="SearchOption">
-                    <option value="FirstName">FirstName</option>
-                    <option value="UserName">UserName</option>
-                    <option value="Email">Email</option>
-                </select>
-            </div>
-
-            <div class="input-container">
-                @* <input asp-for="SearchOptionValue" class="credentials-input" type="text" placeholder=" " />
+        <div class="input-container">
+            @* <input asp-for="SearchOptionValue" class="credentials-input" type="text" placeholder=" " />
             <label asp-for="SearchOptionValue" class="placeholder">SearchOptionValue</label>*@
-                <input asp-for="SearchOptionValue" id="username" class="credentials-input" type="text" placeholder=" " />
-                <span asp-validation-for="SearchOptionValue" class="validation-error-message"></span><br>
-                <div class="cut cut-short"></div>
-                <label asp-for="SearchOptionValue" class="placeholder">Value</label>
-            </div>
-            <div>
-                <button type="submit" class="submit">Search</button>
-            </div>
-        </form>
+            <input asp-for="SearchOptionValue" id="username" class="credentials-input" type="text" placeholder=" " />
+            <span asp-validation-for="SearchOptionValue" class="validation-error-message"></span><br>
+            <div class="cut cut-short"></div>
+            <label asp-for="SearchOptionValue" class="placeholder">Value</label>
+        </div>
+        <div>
+            <button type="submit" class="submit">Search</button>
+        </div>
+    </form>
 
-    </div>
+</div>
 
-}
-else if (usersCount > 0)
+@if (this.Model.SearchOptionValue is not null)
 {
 
-    <div class="labeled-table-container">
-        <div id="button-label-row">
-            <h2 class="table-label">Result of you'r search.</h2>
-        </div>
+    @if (usersCount > 0)
+    {
+
+        <div class="labeled-table-container">
+            <div id="button-label-row">
+                <h2 class="table-label">Result of you'r search.</h2>
+            </div>
 
 
-        <table class="custom-table">
-            <thead class="custom-table">
-                <tr class="custom-table">
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>PhoneNumber</th>
-                    <th>Posts</th>
-                    <th>Comments</th>
-                    <th>Created</th>
-                    <th>RoleId</th>
+            <table class="custom-table">
+                <thead class="custom-table">
+                    <tr class="custom-table">
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>PhoneNumber</th>
+                        <th>Posts</th>
+                        <th>Comments</th>
+                        <th>Created</th>
+                        <th>RoleId</th>
 
-                </tr>
-            </thead>
-            <tbody class="custom-table">
-                @foreach (var user in Model.Users)
-                {
-                    <tr>
-                        <td>@user.FirstName</td>
-                        <td>@user.LastName</td>
-                        <td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@user.Id">@user.Username</a></td>
-                        <td>@user.Email</td>
-                        <td>@(user.PhoneNumber is not null ? user.PhoneNumber : "No phone number yet.")</td>
-                        <td>@(user.Posts.Count > 0 ? user.Posts.Count.ToString() : "No posts yet.")</td>
-                        <td>@(user.Comments.Count > 0 ? user.Comments.Count.ToString() : "No comments yet.")</td>
-                        <td>@user.CreatedOn</td>
-                        <td>@user.RoleId</td>
-                        @*<td>@(user.Tags.Any() ? string.Join(", ", user.Tags.Select(pt => pt.Tag.Name)) : "none")</td>*@
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="custom-table">
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@user.Id">@user.Username</a></td>
+                            <td>@user.Email</td>
+                            <td>@(
+                        user.PhoneNumber is not null ? user.PhoneNumber : "No phone number yet."
+                        )</td>
+                            <td>@(
+                        user.Posts.Count > 0 ? user.Posts.Count.ToString() : "No posts yet."
+                        )</td>
+                            <td>@(
+                        user.Comments.Count > 0 ? user.Comments.Count.ToString() : "No comments yet."
+                        )</td>
+                            <td>@user.CreatedOn</td>
+                            <td>@user.RoleId</td>
+                            @*<td>@(user.Tags.Any() ? string.Join(", ", user.Tags.Select(pt => pt.Tag.Name)) : "none")</td>*@
+                        </tr>
+                    }
+                </tbody>
+            </table>
 
-    </div>
-}
-else
-{
-    <div class="labeled-table-container">
-        <div id="button-label-row">
-            <h2 class="table-label">No results.</h2>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="labeled-table-container">
+            <div id="button-label-row">
+                <h2 class="table-label">No results.</h2>
+            </div>
+        </div>
+    }
+
 }

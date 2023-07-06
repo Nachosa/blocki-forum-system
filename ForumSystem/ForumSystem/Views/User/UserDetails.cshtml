@@ -3,6 +3,8 @@
 @{
     int? loggedUserId = this.Context.Session.GetInt32("userId");
     bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
+    bool userIsBlocked = Model.RoleId == 1;
+    bool userIsNotBlocked = Model.RoleId == 2;
 }
 
 <h2>@this.Model.Username</h2>
@@ -109,11 +111,18 @@
 }
 @if (isAdmin == true)
 {
-    <button class="button">
-        <a asp-controller="Admin" asp-action="BlockUser" asp-route-Id="@Model.Id">Block</a>
-    </button>
-    <button class="button">
-        <a asp-controller="Admin" asp-action="UnBlockUser" asp-route-Id="@Model.Id">UnBlock</a>
-    </button>
+    if (userIsNotBlocked)
+    {
+        <button class="button">
+            <a asp-controller="Admin" asp-action="BlockUser" asp-route-Id="@Model.Id">Block</a>
+        </button>
+
+    }
+    else if (userIsBlocked)
+    {
+        <button class="button">
+            <a asp-controller="Admin" asp-action="UnBlockUser" asp-route-Id="@Model.Id">UnBlock</a>
+        </button>
+    }
 }
 
