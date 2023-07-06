@@ -1,4 +1,5 @@
-﻿using ForumSystem.Business.UserService;
+﻿using ForumSystem.Business.AdminService;
+using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.QueryParams;
@@ -11,10 +12,12 @@ namespace ForumSystem.Web.ViewControllers
     public class AdminController : Controller
     {
         private readonly IUserService userService;
+        private readonly IAdminService adminService;
 
-        public AdminController(IUserService userService)
+        public AdminController(IUserService userService,IAdminService adminService)
         {
             this.userService = userService;
+            this.adminService = adminService;
         }
 
         public IActionResult Index()
@@ -37,7 +40,6 @@ namespace ForumSystem.Web.ViewControllers
             }
             return View(new SearchUser());
         }
-
 
         [HttpPost]
         public IActionResult SearchUser(SearchUser filledForm)
@@ -73,6 +75,39 @@ namespace ForumSystem.Web.ViewControllers
                 this.Response.StatusCode = StatusCodes.Status404NotFound;
                 this.ViewData["ErrorMessage"] = e.Message;
                 return View(filledForm);
+            }
+            catch (Exception e)
+            {
+                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+        }
+
+        [HttpPost] 
+        public IActionResult BlockUser (int id)
+        {
+            try
+            {
+                if (!isLogged("LoggedUser"))
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                if (!isAdmin("roleId"))
+                {
+                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    this.ViewData["ErrorMessage"] = "You'r not admin!";
+                    return View("Error");
+                }
+
+                adminService.BlockUser(id, null);
+                return RedirectToAction("BlockedSuccessful", "Admin");
+            }
+            catch (EntityNotFoundException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status404NotFound;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View();
             }
             catch (Exception e)
             {

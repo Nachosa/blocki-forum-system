@@ -13,72 +13,72 @@
 <p class="margin12">Total Likes: @this.Model.Likes.Count</p>
 
 <div class="labeled-table-container">
-	<div id="button-label-row">
-		<h2 class="table-label">User Posts</h2>
-		<div id="create-post-button">
-			<a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
-		</div>
-	</div>
-	@if (Model.Posts != null && Model.Posts.Count > 0)
-	{
-		<table class="custom-table">
-			<thead class="custom-table">
-				<tr class="custom-table">
-					<th>Title</th>
-					<th>Comments</th>
-					<th>Created On</th>
-					<th>Likes</th>
-					<th>Tags</th>
-				</tr>
-			</thead>
-			<tbody class="custom-table">
-				@foreach (var item in Model.Posts)
-				{
-					<tr>
-						<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
-						<td>@item.Comments.Count</td>
-						<td>@item.CreatedOn</td>
-						<td>@item.Likes.Count</td>
-						<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	}
-	else
-	{
-		<p>@Model.Username hasn't made any posts yet.</p>
-	}
+    <div id="button-label-row">
+        <h2 class="table-label">User Posts</h2>
+        <div id="create-post-button">
+            <a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
+        </div>
+    </div>
+    @if (Model.Posts != null && Model.Posts.Count > 0)
+    {
+        <table class="custom-table">
+            <thead class="custom-table">
+                <tr class="custom-table">
+                    <th>Title</th>
+                    <th>Comments</th>
+                    <th>Created On</th>
+                    <th>Likes</th>
+                    <th>Tags</th>
+                </tr>
+            </thead>
+            <tbody class="custom-table">
+                @foreach (var item in Model.Posts)
+                {
+                    <tr>
+                        <td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
+                        <td>@item.Comments.Count</td>
+                        <td>@item.CreatedOn</td>
+                        <td>@item.Likes.Count</td>
+                        <td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>@Model.Username hasn't made any posts yet.</p>
+    }
 </div>
 
 <div class="labeled-table-container">
-	<div id="button-label-row">
-		<h2 class="table-label">Comments</h2>
-	</div>
-	@if (Model.Comments != null && Model.Comments.Count > 0)
-	{
-		<table class="custom-table">
-			<thead class="custom-table">
-				<tr class="custom-table">
-					<th>Content</th>
-					<th>Created On</th>
-				</tr>
-			</thead>
-			<tbody class="custom-table">
-				@foreach (var item in Model.Comments)
-				{
-					<tr>
-						<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.PostId">@item.Content</a></td>
-						<td>@item.CreatedOn</td>
-					</tr>
-				}
-			</tbody>
-		</table>
-	}
-	else
-	{
-		<p>@Model.Username hasn't made any comments yet.</p>
-	}
+    <div id="button-label-row">
+        <h2 class="table-label">Comments</h2>
+    </div>
+    @if (Model.Comments != null && Model.Comments.Count > 0)
+    {
+        <table class="custom-table">
+            <thead class="custom-table">
+                <tr class="custom-table">
+                    <th>Content</th>
+                    <th>Created On</th>
+                </tr>
+            </thead>
+            <tbody class="custom-table">
+                @foreach (var item in Model.Comments)
+                {
+                    <tr>
+                        <td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.PostId">@item.Content</a></td>
+                        <td>@item.CreatedOn</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>@Model.Username hasn't made any comments yet.</p>
+    }
 </div>
 
 @if (loggedUserId == this.Model.Id || isAdmin == true)
@@ -90,5 +90,14 @@
         <a asp-controller="User" asp-action="DeleteUser" asp-route-Id="@Model.Id">Delete</a>
     </button>
 
+}
+@if (isAdmin == true)
+{
+    <button class="button">
+        <a asp-controller="Admin" asp-action="BlockUser" method="post" asp-route-Id="@Model.Id">Block</a>
+    </button>
+    <button class="button">
+        <a asp-controller="Admin" asp-action="UnBlockUser" asp-route-Id="@Model.Id">UnBlock</a>
+    </button>
 }
 
