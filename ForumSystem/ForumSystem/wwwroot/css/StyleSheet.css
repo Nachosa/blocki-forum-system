@@ -56,11 +56,16 @@ footer {
         color: chartreuse;
     }
 
+#profile-page-body {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
 .button-normal {
     color: #f2f2f2;
     padding: 10px 10px;
     background: #404040;
-    margin: inherit;
     display: inline-block;
     text-decoration: none;
     transition: all 0.5s ease-in-out;
@@ -75,8 +80,47 @@ footer {
         cursor: pointer;
     }
 
+.button-container {
+    margin-right: 10px;
+    width: fit-content;
+}
+
+#button-row {
+    display: flex;
+    flex-flow: row;
+}
+
 #user-search-dropdown {
     margin-top: 20px;
+}
+
+#button-label-row {
+    display: flex;
+    flex-direction: row;
+}
+
+#create-post-button {
+    float: right;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.labeled-table-container {
+    margin: auto;
+    margin-top: 40px;
+    overflow: hidden;
+    max-width: 1500px;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+#profile-admin-label {
+    color: #ff62f9;
+}
+
+.no-content-labels {
+    margin: 0;
 }
 
 /*#region navbar*/
@@ -90,7 +134,7 @@ nav {
         flex-direction: column;
         height: fit-content;
         display: grid;
-        grid-template-columns: repeat(40, auto);
+        grid-template-columns: repeat(30, auto);
     }
 
 .menu-items {
@@ -101,7 +145,7 @@ nav {
 }
 
     .menu-items li:nth-child(4) {
-        grid-column-start: 39;
+        grid-column-start: 27;
     }
 
     .menu-items li {
@@ -221,27 +265,6 @@ h2.table-label {
     block-size: fit-content;
     position: relative;
     margin-top: 0px;
-}
-
-#create-post-button {
-    float: right;
-    margin-left: auto;
-    margin-right: 0px;
-}
-
-#button-label-row {
-    display: flex;
-    flex-direction: row;
-}
-
-.labeled-table-container {
-    margin: auto;
-    margin-top: 40px;
-    overflow: hidden;
-    max-width: 1500px;
-    overflow-x: auto;
-    display: flex;
-    flex-direction: column;
 }
 /*#endregion*/
 
@@ -504,18 +527,118 @@ h2.table-label {
     margin-left: 10px;
 }
 
-.search-bar-box #hoverImg2{
+.search-bar-box #hoverImg2 {
     position: absolute;
     opacity: 0;
     transition: all 0.5s ease-in-out;
 }
 
-    .search-bar-box :hover #hoverImg2{
-        opacity: 1;
-        transition: all 0.5s ease-in-out;
+.search-bar-box :hover #hoverImg2 {
+    opacity: 1;
+    transition: all 0.5s ease-in-out;
+}
+/*#endregion*/
+
+/*#region profile-card*/
+.profile-card {
+    max-width: 320px;
+    height: 320px;
+    background: #4d4d4d;
+    display: grid;
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: repeat(4, 80px);
+    border-radius: 5px;
+    width: 100%;
+    color: #f2f2f2;
+    margin-bottom: 10px;
+    margin-top: 40px;
+    margin-right: 40px;
+}
+
+.profile-info-box-1 {
+    grid-row: 1 / 4;
+    grid-column: 1 / 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+
+.profile-card .image {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+    /*    .profile-card .image .circle-1 {
+        position: absolute;
+        box-sizing: border-box;
+        width: 100px;
+        height: 100px;
+        border-width: 4px;
+        border-style: solid;
+        border-radius: 50%;
+        transition: all 1.5s ease-in-out;
+    }*/
+
+    .profile-card .image img {
+        display: block;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
     }
 
-.menu-items li:nth-child(4) {
-    grid-column-start: 37;
+.likes-box {
+    grid-row: 4;
+    grid-column: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 5px;
+}
+
+.profile-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.dislikes-box {
+    grid-row: 4;
+    grid-column: 2;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 5px;
+}
+
+.comments-box {
+    grid-row: 4;
+    grid-column: 3;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 5px;
+}
+
+.posts-box {
+    grid-row: 4;
+    grid-column: 4;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom-left-radius: 5px;
+}
+
+.profile-title {
+    font-size: 30px;
+}
+
+.profile-subtitle {
+    font-size: 15px;
 }
 /*#endregion*/

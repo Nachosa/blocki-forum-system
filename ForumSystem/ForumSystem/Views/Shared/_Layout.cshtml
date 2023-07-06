@@ -61,7 +61,7 @@
 						<a asp-controller="User" asp-action="Register" data-item='Register'>Register</a>
 					</li>
 					<li>
-						<a asp-controller="User" asp-action="Login" data-item='Login'>Login</a>
+						<a asp-controller="User" asp-action="Login" data-item='Login' class="nav-last">Login</a>
 					</li>
 				}
 				else
@@ -70,7 +70,7 @@
 						<a asp-controller="User" asp-action="Logout" data-item='Logout'>Logout</a>
 					</li>
 					<li>
-						<a asp-controller="User" asp-action="UserDetails" asp-route-id="@userId" data-item='@userName'>@userName</a>
+						<a asp-controller="User" asp-action="UserDetails" asp-route-id="@userId" data-item='@userName' class="nav-last">@userName</a>
 					</li>
 				}
 			</ul>
