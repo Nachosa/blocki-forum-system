@@ -19,12 +19,12 @@
 			<ul class="menu-items">
 				<li>
 					<a href="/Home/Index">
-						<div class="imageBox">
-							<div>
-								<img alt="/Home/Index" src="~/images/cubehome.png" class="cubeImage">
-							</div>
-							<div id="hoverImg">
-								<img alt="/Home/Index" src="~/images/cubepink.png" class="cubeImage">
+						<div class="image-box">
+
+								<img alt="/Home/Index" src="~/images/cubehome.png" class="cube-image">
+
+							<div id="hover-img">
+								<img alt="/Home/Index" src="~/images/cubepink.png" class="cube-image">
 							</div>
 						</div>
 					</a>
@@ -41,12 +41,12 @@
 						<form name="search">
 							@*TODO:Това е сравнително шано изпълнение, ако има време ще рефакторирам (или да го махна?).*@
 							<a href="" onclick="parentNode.submit();return false;">
-								<div class="imageBox">
+								<div class="image-box">
 									<div>
 										<img alt="/Home/Index" src="~/images/searchicon.png" class="search-icon">
 									</div>
 									<div>
-										<img alt="/Home/Index" src="~/images/searchiconPink.png" class="search-icon" id="hoverImg2">
+										<img alt="/Home/Index" src="~/images/searchiconPink.png" class="search-icon" id="hover-img-2">
 									</div>
 								</div>
 							</a>
@@ -82,7 +82,40 @@
 	</main>
 
 	<footer>
-		<small>© Copyright @DateTime.Now.Year, BlockieTalkie</small>
+		<div id="tech-logos">
+			<div class="image-box">
+				<div>
+					<img src="~/images/footer/csharplogomono.png" class="tech-logo-image" />
+				</div>
+				<div class="hover-image-footer">
+					<img src="~/images/footer/csharplogo.png" class="tech-logo-image"/>
+				</div>
+			</div>
+			<div class="image-box">
+				<div>
+					<img src="~/images/footer/mvclogomono.png" class="tech-logo-image" />
+				</div>
+				<div class="hover-image-footer">
+					<img src="~/images/footer/mvclogo.png" class="tech-logo-image" />
+				</div>
+			</div>
+			<div class="image-box">
+				<div>
+					<img src="~/images/footer/htmllogomono.png" class="tech-logo-image" />
+				</div>
+				<div class="hover-image-footer">
+					<img src="~/images/footer/htmllogo.png" class="tech-logo-image" />
+				</div>
+			</div>
+			<div class="image-box">
+				<div>
+					<img src="~/images/footer/csslogomono.png" class="tech-logo-image" />
+				</div>
+				<div class="hover-image-footer">
+					<img src="~/images/footer/csslogo.png" class="tech-logo-image" />
+				</div>
+			</div>
+		</div>
 	</footer>
 </body>
 </html>
