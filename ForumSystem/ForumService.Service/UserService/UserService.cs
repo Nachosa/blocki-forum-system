@@ -71,31 +71,24 @@ namespace ForumSystem.Business.UserService
 		public User GetUserById(int userId)
 		{
 			var originalUser = userRepo.GetUserById(userId) ?? throw new EntityNotFoundException($"User with Id={userId} was not found!");
-			originalUser.Password = Encoding.UTF8.GetString(Convert.FromBase64String(originalUser.Password));
 			return originalUser;
 		}
 
 		public User GetUserByEmail(string email)
 		{
 			var originalUser = userRepo.GetUserByEmail(email) ?? throw new EntityNotFoundException($"User with Email={email} was not found!");
-			originalUser.Password = Encoding.UTF8.GetString(Convert.FromBase64String(originalUser.Password));
 			return originalUser;
 		}
 
 		public User GetUserByUserName(string userName)
 		{
 			var originalUser = userRepo.GetUserByUserName(userName) ?? throw new EntityNotFoundException($"User with username:{userName} was not found!");
-			originalUser.Password = Encoding.UTF8.GetString(Convert.FromBase64String(originalUser.Password));
 			return originalUser;
 		}
         /// <summary>
         /// This method returns user with password hashed in BASE64.
         /// </summary>
-        public User GetUserByUsernameForAuthentication(string userName)
-		{
-            var originalUser = userRepo.GetUserByUserName(userName) ?? throw new EntityNotFoundException($"User with username:{userName} was not found!");
-            return originalUser;
-        }
+       
 
 		public List<User> SearchBy(UserQueryParams queryParams)
 		{

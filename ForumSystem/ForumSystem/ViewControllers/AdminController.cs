@@ -84,8 +84,8 @@ namespace ForumSystem.Web.ViewControllers
             }
         }
 
-        [HttpPost] 
-        public IActionResult BlockUser (int id)
+        [HttpGet] 
+        public IActionResult BlockUser ([FromRoute] int id)
         {
             try
             {

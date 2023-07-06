@@ -40,7 +40,7 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public User GetUserByUserName(string UserName)
         {
-            var userWithThatUserName = forumDb.Users.Include(p => p.Posts).Include(c => c.Comments).FirstOrDefault(u => u.Username == UserName && u.IsDeleted == false);
+            var userWithThatUserName = forumDb.Users.Include(p => p.Posts).Include(c => c.Comments).AsNoTracking().FirstOrDefault(u => u.Username == UserName && u.IsDeleted == false);
             return userWithThatUserName;
         }
 
