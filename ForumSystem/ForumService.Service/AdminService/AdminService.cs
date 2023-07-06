@@ -52,12 +52,14 @@ namespace ForumSystem.Business.AdminService
             {
                 var user = userRepo.GetUserById((int)id);
                 if (user is null) throw new EntityNotFoundException($"User with Id:{id} was not found!");
+                if (user.RoleId == 1) throw new EntityAlreadyBlockedException($"User with Id:{id} is already BLOCKED!");
                 return adminRepo.BlockUser(user);
             }
             else if (!email.IsNullOrEmpty())
             {
                 var user = userRepo.GetUserByEmail(email);
                 if (user is null) throw new EntityNotFoundException($"User with Email:{email} was not found!");
+                if (user.RoleId == 1) throw new EntityAlreadyBlockedException($"User with Email:{email} is already BLOCKED!");
                 return adminRepo.BlockUser(user);
             }
             else
@@ -72,14 +74,14 @@ namespace ForumSystem.Business.AdminService
             {
                 var user = userRepo.GetUserById((int)id);
                 if (user is null) throw new EntityNotFoundException($"User with Id:{id} was not found!");
-                if(user.RoleId==2) throw new EntityNotBlockedException("User wasn't blocked so you can't ublock!");
+                if(user.RoleId==2) throw new EntityAlreadyUnBlockedException($"User with Id:{id} is already UNBLOCKED!");
                 return adminRepo.UnBlockUser(user);
             }
             else if (!email.IsNullOrEmpty())
             {
                 var user = userRepo.GetUserByEmail(email);
                 if (user is null) throw new EntityNotFoundException($"User with Email:{email} was not found!");
-                if (user.RoleId == 2) throw new EntityNotBlockedException("User wasn't blocked so you can't ublock!");
+                if (user.RoleId == 2) throw new EntityAlreadyUnBlockedException($"User with Email:{email} is already UNBLOCKED!");
                 return adminRepo.UnBlockUser(user);
             }
             else
