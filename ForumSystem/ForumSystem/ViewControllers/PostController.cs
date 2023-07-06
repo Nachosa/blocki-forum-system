@@ -4,9 +4,12 @@ using ForumSystem.Business.AuthenticationManager;
 using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
+using ForumSystem.Web.Helpers;
+using ForumSystem.Web.Helpers.Contracts;
 using ForumSystemDTO.ViewModels.CommentViewModels;
 using ForumSystemDTO.ViewModels.PostViewModels;
 using ForumSystemDTO.ViewModels.UserViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumSystem.Web.ViewControllers
@@ -17,13 +20,15 @@ namespace ForumSystem.Web.ViewControllers
 		private readonly IUserService userService;
 		private readonly IMapper mapper;
 		private readonly IAuthManager authManager;
+		private readonly IAuthorizator authorizator;
 
-		public PostController(IPostService postService, IMapper mapper, IUserService userService, IAuthManager authManager)
+		public PostController(IPostService postService, IMapper mapper, IUserService userService, IAuthManager authManager,IAuthorizator authorizator)
 		{
 			this.postService = postService;
 			this.mapper = mapper;
 			this.userService = userService;
 			this.authManager = authManager;
+			this.authorizator = authorizator;
 		}
 
 		[HttpGet]
@@ -78,7 +83,7 @@ namespace ForumSystem.Web.ViewControllers
 		[HttpGet]
 		public IActionResult Create()
 		{
-			if (!isLogged("LoggedUser"))
+			if (!authorizator.isLogged("LoggedUser"))
 			{
 				return RedirectToAction("Login", "User");
 			}
@@ -92,7 +97,7 @@ namespace ForumSystem.Web.ViewControllers
 			try
 			{
 				//Има ли нужда от проверка тук?
-				if (!isLogged("LoggedUser"))
+				if (!authorizator.isLogged("LoggedUser"))
 				{
 					return RedirectToAction("Login", "User");
 				}
@@ -134,12 +139,18 @@ namespace ForumSystem.Web.ViewControllers
 		{
 			try
 			{
-                if (!isLogged("LoggedUser"))
+                if (!authorizator.isLogged("LoggedUser"))
                 {
                     return RedirectToAction("Login", "User");
                 }
-                //int userId = HttpContext.Session.GetInt32("userId") ?? 0;
-                //var user = userService.GetUserById(userId);
+				//Взимам post променливата за да мода да сверя нейният UserId с този на логнатият User.
+                var post = postService.GetPostById(id);
+                if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
+                {
+                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                    return View("Error");
+                }
                 int roleId = (int)HttpContext.Session.GetInt32("roleId");
 				string loggedUser = HttpContext.Session.GetString("LoggedUser");
 				if (id == 0)
@@ -149,7 +160,7 @@ namespace ForumSystem.Web.ViewControllers
 
 				if (authManager.AdminCheck(roleId) || !authManager.BlockedCheck(roleId))
 				{
-					var isDeleted = postService.DeletePostById(id, loggedUser);
+					 _ = postService.DeletePostById(id, loggedUser);
 					return RedirectToAction("DeleteSuccessful", "Post");
 				}
 
@@ -165,13 +176,20 @@ namespace ForumSystem.Web.ViewControllers
 		}
 
 		[HttpGet]
-		public IActionResult Edit()
+		public IActionResult Edit([FromRoute] int id)
 		{
-			if (!isLogged("LoggedUser"))
+			if (!authorizator.isLogged("LoggedUser"))
 			{
 				return RedirectToAction("Login", "User");
 			}
-			var editPostForm = new EditPostViewModel();
+			var post = postService.GetPostById(id);
+            if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
+            {
+                this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                return View("Error");
+            }
+            var editPostForm = new EditPostViewModel();
 			return View(editPostForm);
 		}
 
@@ -180,7 +198,7 @@ namespace ForumSystem.Web.ViewControllers
 		{
 			try
 			{
-				if (!isLogged("LoggedUser"))
+				if (!authorizator.isLogged("LoggedUser"))
 				{
 					return RedirectToAction("Login", "User");
 				}
@@ -214,13 +232,6 @@ namespace ForumSystem.Web.ViewControllers
 			}
 		}
 
-		private bool isLogged(string key)
-        {
-            if (!this.HttpContext.Session.Keys.Contains(key))
-            {
-                return false;
-            }
-            return true;
-        }
+
     }
 }
