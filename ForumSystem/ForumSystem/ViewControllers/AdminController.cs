@@ -99,9 +99,42 @@ namespace ForumSystem.Web.ViewControllers
                     this.ViewData["ErrorMessage"] = "You'r not admin!";
                     return View("Error");
                 }
+                _ = userService.GetUserById(id);
+                this.ViewBag.userIdToBlock=id;
+                return View();
+            }
+            catch (EntityNotFoundException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status404NotFound;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View();
+            }
+            catch (Exception e)
+            {
+                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Block([FromRoute] int id)
+        {
+            try
+            {
+                if (!isLogged("LoggedUser"))
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                if (!isAdmin("roleId"))
+                {
+                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    this.ViewData["ErrorMessage"] = "You'r not admin!";
+                    return View("Error");
+                }
 
                 adminService.BlockUser(id, null);
-                return RedirectToAction("BlockedSuccessful", "Admin");
+                return View("BlockedSuccessful");
             }
             catch (EntityNotFoundException e)
             {

@@ -158,7 +158,7 @@ namespace ForumSystem.Web.ViewControllers
                 }
                 var mappedUser = mapper.Map<User>(editedUser);
                 userService.UpdateUser(id, mappedUser);
-                return RedirectToAction("EditSuccessful", "User");
+                return View("EditSuccessful");
 
             }
             catch (EmailAlreadyExistException e)
@@ -176,11 +176,7 @@ namespace ForumSystem.Web.ViewControllers
             }
 
         }
-        [HttpGet]
-        public IActionResult EditSuccessful()
-        {
-            return View();
-        }
+        
         [HttpGet]
         public IActionResult Register()
         {
@@ -200,7 +196,7 @@ namespace ForumSystem.Web.ViewControllers
 
                 var user = mapper.Map<User>(registerUserFilled);
                 userService.CreateUser(user);
-                return RedirectToAction("RegisteredSuccessful", "User");
+                return View("RegisteredSuccessful");
 
             }
             catch (EmailAlreadyExistException e)
@@ -208,7 +204,7 @@ namespace ForumSystem.Web.ViewControllers
                 this.Response.StatusCode = StatusCodes.Status409Conflict;
                 this.ViewData["ErrorMessage"] = e.Message;
                 return View(registerUserFilled);
-
+                
             }
             catch (UsernameAlreadyExistException e)
             {
@@ -224,12 +220,7 @@ namespace ForumSystem.Web.ViewControllers
                 return View("Error");
             }
         }
-
-        [HttpGet]
-        public IActionResult RegisteredSuccessful()
-        {
-            return View();
-        }
+       
 
         [HttpGet]
         public IActionResult DeleteUser(int id)
@@ -279,7 +270,7 @@ namespace ForumSystem.Web.ViewControllers
                 }
                 else
                 {            
-                    return RedirectToAction("Index", "Home");
+                    return View("DeletedSuccessful");
                 }
 
             }
