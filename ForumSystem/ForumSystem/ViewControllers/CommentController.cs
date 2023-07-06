@@ -115,6 +115,70 @@ namespace ForumSystem.Web.ViewControllers
 			return View("EditCommentForm", model);
 		}
 
+		public IActionResult DeleteComment(int id)
+		{
+			if (!IsLogged("LoggedUser"))
+			{
+				return RedirectToAction("Login", "User");
+			}
+
+			var comment = commentService.GetCommentById(id);
+
+			if (!IsAdmin("roleId") && HttpContext.Session.GetInt32("userId") != comment.UserId)
+			{
+				HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+				ViewData["ErrorMessage"] = "You're not the author of this comment!";
+
+				return View("Error");
+			}
+
+			var model = new EditCommentViewModel
+			{
+				CommentId = id,
+				EditedComment = comment.Content
+			};
+
+			return View("DeleteCommentForm", model);
+		}
+
+		[HttpPost]
+		public IActionResult Delete(EditCommentViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View("DeleteCommentForm", model);
+			}
+
+			try
+			{
+				int roleId = (int) HttpContext.Session.GetInt32("roleId");
+
+				if (authManager.BlockedCheck(roleId))
+				{
+					throw new UnauthorizedAccessException("You're blocked. You can't perform this action.");
+				}
+
+				var comment = commentService.GetCommentById(model.CommentId);
+
+				commentService.DeleteCommentById(comment.Id, HttpContext.Session.GetString("LoggedUser"));
+				return RedirectToAction("PostDetails", "Post", new { id = comment.PostId });
+			}
+			catch (EntityNotFoundException ex)
+			{
+				Response.StatusCode = StatusCodes.Status404NotFound;
+				ViewData["ErrorMessage"] = ex.Message;
+
+				return View("Error");
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				Response.StatusCode = StatusCodes.Status403Forbidden;
+				ViewData["ErrorMessage"] = ex.Message;
+
+				return View("Error");
+			}
+		}
+
 		[HttpPost]
         public IActionResult UpdateComment(EditCommentViewModel model)
         {

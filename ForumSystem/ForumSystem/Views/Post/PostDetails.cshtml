@@ -3,6 +3,7 @@
 @{
 	bool isAuthenticated = !string.IsNullOrEmpty(Context.Session.GetString("LoggedUser"));
 	bool isLoggedUserPost = Context.Session.GetInt32("userId") == Model.User.Id;
+	bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
 	//TODO: Проверка за блокиран.
 }
 
@@ -39,12 +40,13 @@
 			@foreach (var comment in Model.Comments)
 			{
 				<li class="margin12">
-					@if (Context.Session.GetString("LoggedUser") == comment.UserName)
+					<strong>@comment.UserName:</strong> @comment.CommentContent
+
+					@if (Context.Session.GetString("LoggedUser") == comment.UserName || isAdmin)
 					{
+						<a asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@comment.Id" class="btn btn-primary">Delete</a>
 						<a asp-controller="Comment" asp-action="EditComment" asp-route-id="@comment.Id" class="btn btn-primary">Edit</a>
 					}
-
-					<strong>@comment.UserName:</strong> @comment.CommentContent
 				</li>
 			}
 		</ul>

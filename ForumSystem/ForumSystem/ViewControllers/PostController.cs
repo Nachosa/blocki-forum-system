@@ -34,12 +34,21 @@ namespace ForumSystem.Web.ViewControllers
 				var post = postService.GetPostById(id);
 				var user = userService.GetUserById(post.UserId);
 
-				var comments = post.Comments.Select(c => new CommentViewModel
+				var comments = post.Comments
+					.Where(c => !c.IsDeleted)
+					.Select(c => new CommentViewModel
 				{
 					CommentContent = c.Content,
 					Id = c.Id,
 					UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
 				}).ToList();
+
+				//var comments = post.Comments.Select(c => new CommentViewModel
+				//{
+				//	CommentContent = c.Content,
+				//	Id = c.Id,
+				//	UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
+				//}).ToList();
 
 				//TODO: Да се направи с мапър.
 				var model = new PostDetailsViewModel
