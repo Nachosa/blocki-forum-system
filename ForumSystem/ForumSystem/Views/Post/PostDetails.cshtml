@@ -19,12 +19,12 @@
 
 	@if (isLoggedUserPost)
 	{
-		<form asp-controller="Post" asp-action="Delete" asp-route-id="@Model.PostId" method="post">
-			<input type="submit" value="Delete" />
-		</form>
-		<form asp-controller="Post" asp-action="Edit" asp-route-id="@Model.PostId" method="post">
-			<input type="submit" value="Edit" />
-		</form>
+		<div class="button-container">
+			<a asp-controller="Post" asp-action="Edit" asp-route-Id="@Model.PostId" class="button-normal" method="get">Edit</a>
+		</div>
+		<div class="button-container">
+			<a asp-controller="Post" asp-action="DeleteUser" asp-route-Id="@Model.PostId" class="button-normal">Delete</a>
+		</div>
 	}
 
 	<h4>Comments</h4>

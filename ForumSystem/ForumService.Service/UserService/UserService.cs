@@ -135,6 +135,8 @@ namespace ForumSystem.Business.UserService
 
 
 		}
+
+		//Тук може би също трябва да има проверка дали този, който едитва е притежателя на акаунта.
 		public User UpdateUser(int id, User userNewValues)
 		{
 			if (userNewValues.Email != null)
