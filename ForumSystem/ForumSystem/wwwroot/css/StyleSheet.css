@@ -94,8 +94,17 @@ footer {
     color: #ff62f9;
 }
 
+#comments-posts-tables {
+    max-width: 1200px;
+    width: 100%;
+}
+
 .no-content-labels {
     margin: 0;
+}
+
+.profile-card {
+    padding:1px;
 }
 
 /*#region navbar*/
@@ -499,8 +508,8 @@ h2.table-label {
     height: 320px;
     background: #4d4d4d;
     display: grid;
-    grid-template-columns: repeat(4, 80px);
-    grid-template-rows: repeat(4, 80px);
+    grid-template-columns: repeat(4, minmax(auto, 80px));
+    grid-template-rows: repeat(4, minmax(auto, 80px));
     border-radius: 5px;
     width: 100%;
     color: #f2f2f2;
@@ -657,7 +666,7 @@ h2.table-label {
     min-height: 30px;
     display: flex;
     align-items: center;
-    background: #404040;
+    background: #333333;
     position: absolute;
     top: 0;
     width: 100%;
@@ -689,7 +698,7 @@ h2.table-label {
     .dropdown-selectopt:checked + .dropdown-opt-label {
         order: 1;
         z-index: 2;
-        background: #333333;
+        background: #666;
         border-top: none;
         position: relative;
     }
@@ -714,6 +723,6 @@ h2.table-label {
             height: 40px;
             width: 40px;
             content: '';
-            background: #333333;
+            background: #666;
         }
 /*#endregion*/

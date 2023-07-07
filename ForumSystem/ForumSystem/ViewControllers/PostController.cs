@@ -13,6 +13,7 @@ using ForumSystemDTO.ViewModels.PostViewModels;
 using ForumSystemDTO.ViewModels.UserViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 
 namespace ForumSystem.Web.ViewControllers
 {
@@ -252,11 +253,12 @@ namespace ForumSystem.Web.ViewControllers
                 this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
                 return View("Error");
             }
-            var editPostForm = new EditPostViewModel();
+			var currPost = postService.GetPostById(id);
+            var editPostForm = mapper.Map<EditPostViewModel>(currPost);
 			return View(editPostForm);
 		}
 
-		[HttpPost, ActionName("Edit")]
+		[HttpPost]
 		public IActionResult Edit([FromRoute] int id, EditPostViewModel postEdits)
 		{
 			try
@@ -265,7 +267,8 @@ namespace ForumSystem.Web.ViewControllers
 				{
 					return RedirectToAction("Login", "User");
 				}
-				if (!this.ModelState.IsValid)
+				//Най-вероятно и тук се нуждаем от проверка дали, заявката идва от автора/админ.
+                if (!this.ModelState.IsValid)
 				{
 					return View(postEdits);
 				}
@@ -280,7 +283,7 @@ namespace ForumSystem.Web.ViewControllers
 				if (authManager.AdminCheck(roleId) || !authManager.BlockedCheck(roleId))
 				{
 					var postEditsMapped = mapper.Map<Post>(postEdits);
-					var createdPost = postService.UpdatePostContent(id, postEditsMapped, loggedUser);
+					var updatedPost = postService.UpdatePostContent(id, postEditsMapped, loggedUser);
 					return RedirectToAction("PostDetails", "Post", new { id });
 				}
 

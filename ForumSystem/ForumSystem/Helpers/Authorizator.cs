@@ -37,7 +37,7 @@ namespace ForumSystem.Web.Helpers
         /// Check if logged user ID matches the content creator ID>
         /// <param key="userId">Key paraim is userId from session.</param>
         /// </summary>
-        public bool isContentCreator(string key,int contentCreatorId)
+        public bool isContentCreator(string key, int contentCreatorId)
         {
             if (this.contextAccessor.HttpContext.Session.GetInt32(key) != contentCreatorId)
             {
