@@ -11,47 +11,47 @@ using ForumSystemDTO.ViewModels.PostViewModels;
 namespace ForumSystem.Web.ViewControllers
 {
     public class CommentController : Controller
-	{
-		private readonly IAuthManager authManager;
-		private readonly ICommentService commentService;
-		private readonly IUserService userService;
+    {
+        private readonly IAuthManager authManager;
+        private readonly ICommentService commentService;
+        private readonly IUserService userService;
 
-		public CommentController(IAuthManager authManager, ICommentService commentService, IUserService userService)
-		{
-			this.authManager = authManager;
-			this.commentService = commentService;
-			this.userService = userService;
-		}
+        public CommentController(IAuthManager authManager, ICommentService commentService, IUserService userService)
+        {
+            this.authManager = authManager;
+            this.commentService = commentService;
+            this.userService = userService;
+        }
 
-		public IActionResult AddComment(int id)
-		{
-			try
-			{
+        public IActionResult AddComment(int id)
+        {
+            try
+            {
                 int userId = HttpContext.Session.GetInt32("userId") ?? 0;
                 var user = userService.GetUserById(userId);
 
-				if (user == null || userId == 0)
-				{
-					throw new EntityNotFoundException("Entity not found.");
-				}
+                if (user == null || userId == 0)
+                {
+                    throw new EntityNotFoundException("Entity not found.");
+                }
 
-				if (authManager.AdminCheck(user) == true || authManager.BlockedCheck(user) == false)
-				{
+                if (authManager.AdminCheck(user) == true || authManager.BlockedCheck(user) == false)
+                {
                     return RedirectToAction("CommentForm", new { id });
                 }
 
                 throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
             }
-			//TODO:Тук липсва някакъв ексепшън, трябва да проверя по-късно.
-			catch (EntityNotFoundException ex)
-			{
+            //TODO:Тук липсва някакъв ексепшън, трябва да проверя по-късно.
+            catch (EntityNotFoundException ex)
+            {
                 Response.StatusCode = StatusCodes.Status404NotFound;
                 ViewData["ErrorMessage"] = ex.Message;
 
                 return View("Error");
             }
-			catch (UnauthorizedAccessException ex)
-			{
+            catch (UnauthorizedAccessException ex)
+            {
                 Response.StatusCode = StatusCodes.Status403Forbidden;
                 ViewData["ErrorMessage"] = ex.Message;
 
@@ -59,24 +59,24 @@ namespace ForumSystem.Web.ViewControllers
             }
         }
 
-		[HttpGet]
-		public IActionResult CommentForm(int id)
-		{
-			//Оторизация/автентикация.
-			var model = new CommentFormViewModel
-			{
-				PostId = id
-			};
-
-			return View(model);
-		}
-
-		[HttpPost]
-		public IActionResult SubmitComment(CommentFormViewModel model)
+        [HttpGet]
+        public IActionResult CommentForm(int id)
         {
-			//Оторизация/автентикация.
-			if (!ModelState.IsValid)
-			{
+            //Оторизация/автентикация.
+            var model = new CommentFormViewModel
+            {
+                PostId = id
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult SubmitComment(CommentFormViewModel model)
+        {
+            //Оторизация/автентикация.
+            if (!ModelState.IsValid)
+            {
                 return View("CommentForm", model);
             }
 
@@ -91,97 +91,108 @@ namespace ForumSystem.Web.ViewControllers
             return RedirectToAction("PostDetails", "Post", new { id = model.PostId });
         }
 
-		public IActionResult EditComment(int id)
-		{
-			if (!IsLogged("LoggedUser"))
-			{
-				return RedirectToAction("Login", "User");
-			}
+        public IActionResult EditComment(int id)
+        {
+            if (!IsLogged("LoggedUser"))
+            {
+                return RedirectToAction("Login", "User");
+            }
 
-			var comment = commentService.GetCommentById(id);
+            var comment = commentService.GetCommentById(id);
 
-			if (!IsAdmin("roleId") && HttpContext.Session.GetInt32("userId") != comment.UserId)
-			{
-				HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-				ViewData["ErrorMessage"] = "You're not the author of this comment!";
+            if (!IsAdmin("roleId") && HttpContext.Session.GetInt32("userId") != comment.UserId)
+            {
+                HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                ViewData["ErrorMessage"] = "You're not the author of this comment!";
 
-				return View("Error");
-			}
+                return View("Error");
+            }
 
-			var model = new EditCommentViewModel
-			{
-				CommentId = id,
-				EditedComment = comment.Content
-			};
+            var model = new EditCommentViewModel
+            {
+                CommentId = id,
+                EditedComment = comment.Content
+            };
 
-			return View("EditCommentForm", model);
-		}
+            return View("EditCommentForm", model);
+        }
 
-		public IActionResult DeleteComment(int id)
-		{
-			if (!IsLogged("LoggedUser"))
-			{
-				return RedirectToAction("Login", "User");
-			}
+        public IActionResult DeleteComment(int id)
+        {
+            try
+            {
+                if (!IsLogged("LoggedUser"))
+                {
+                    return RedirectToAction("Login", "User");
+                }
 
-			var comment = commentService.GetCommentById(id);
+                var comment = commentService.GetCommentById(id);
 
-			if (!IsAdmin("roleId") && HttpContext.Session.GetInt32("userId") != comment.UserId)
-			{
-				HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-				ViewData["ErrorMessage"] = "You're not the author of this comment!";
+                if (!IsAdmin("roleId") && HttpContext.Session.GetInt32("userId") != comment.UserId)
+                {
+                    HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    ViewData["ErrorMessage"] = "You're not the author of this comment!";
 
-				return View("Error");
-			}
+                    return View("Error");
+                }
 
-			var model = new EditCommentViewModel
-			{
-				CommentId = id,
-				EditedComment = comment.Content
-			};
+                var model = new EditCommentViewModel
+                {
+                    CommentId = id,
+                    EditedComment = comment.Content
+                };
 
-			return View("DeleteCommentForm", model);
-		}
+                return View("DeleteCommentForm", model);
 
-		[HttpPost]
-		public IActionResult Delete(EditCommentViewModel model)
-		{
-			if (!ModelState.IsValid)
-			{
-				return View("DeleteCommentForm", model);
-			}
+            }
+            catch (EntityNotFoundException ex)
+            {
+                Response.StatusCode = StatusCodes.Status404NotFound;
+                ViewData["ErrorMessage"] = ex.Message;
 
-			try
-			{
-				int roleId = (int) HttpContext.Session.GetInt32("roleId");
+                return View("Error");
+            }
+        }
 
-				if (authManager.BlockedCheck(roleId))
-				{
-					throw new UnauthorizedAccessException("You're blocked. You can't perform this action.");
-				}
+        [HttpPost]
+        public IActionResult Delete(EditCommentViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("DeleteCommentForm", model);
+            }
 
-				var comment = commentService.GetCommentById(model.CommentId);
+            try
+            {
+                int roleId = (int)HttpContext.Session.GetInt32("roleId");
 
-				commentService.DeleteCommentById(comment.Id, HttpContext.Session.GetString("LoggedUser"));
-				return RedirectToAction("PostDetails", "Post", new { id = comment.PostId });
-			}
-			catch (EntityNotFoundException ex)
-			{
-				Response.StatusCode = StatusCodes.Status404NotFound;
-				ViewData["ErrorMessage"] = ex.Message;
+                if (authManager.BlockedCheck(roleId))
+                {
+                    throw new UnauthorizedAccessException("You're blocked. You can't perform this action.");
+                }
 
-				return View("Error");
-			}
-			catch (UnauthorizedAccessException ex)
-			{
-				Response.StatusCode = StatusCodes.Status403Forbidden;
-				ViewData["ErrorMessage"] = ex.Message;
+                var comment = commentService.GetCommentById(model.CommentId);
 
-				return View("Error");
-			}
-		}
+                commentService.DeleteCommentById(comment.Id, HttpContext.Session.GetString("LoggedUser"));
+                return RedirectToAction("PostDetails", "Post", new { id = comment.PostId });
+            }
+            catch (EntityNotFoundException ex)
+            {
+                Response.StatusCode = StatusCodes.Status404NotFound;
+                ViewData["ErrorMessage"] = ex.Message;
 
-		[HttpPost]
+                return View("Error");
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Response.StatusCode = StatusCodes.Status403Forbidden;
+                ViewData["ErrorMessage"] = ex.Message;
+
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
         public IActionResult UpdateComment(EditCommentViewModel model)
         {
             if (!ModelState.IsValid)
@@ -191,16 +202,16 @@ namespace ForumSystem.Web.ViewControllers
 
             try
             {
-				int roleId = (int) HttpContext.Session.GetInt32("roleId");
+                int roleId = (int)HttpContext.Session.GetInt32("roleId");
 
-				if (authManager.BlockedCheck(roleId))
-				{
-					throw new UnauthorizedAccessException("You're blocked. You can't perform this action.");
-				}
+                if (authManager.BlockedCheck(roleId))
+                {
+                    throw new UnauthorizedAccessException("You're blocked. You can't perform this action.");
+                }
 
-				var comment = commentService.GetCommentById(model.CommentId);
+                var comment = commentService.GetCommentById(model.CommentId);
 
-				comment.Content = model.EditedComment;
+                comment.Content = model.EditedComment;
                 commentService.UpdateComment(comment, model.CommentId);
                 return RedirectToAction("PostDetails", "Post", new { id = comment.PostId });
             }
@@ -220,24 +231,24 @@ namespace ForumSystem.Web.ViewControllers
             }
         }
 
-		private bool IsAdmin(string key)
-		{
-			if (HttpContext.Session.GetInt32(key) != 3)
-			{
-				return false;
-			}
+        private bool IsAdmin(string key)
+        {
+            if (HttpContext.Session.GetInt32(key) != 3)
+            {
+                return false;
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		private bool IsLogged(string key)
-		{
-			if (!HttpContext.Session.Keys.Contains(key))
-			{
-				return false;
-			}
+        private bool IsLogged(string key)
+        {
+            if (!HttpContext.Session.Keys.Contains(key))
+            {
+                return false;
+            }
 
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 }
