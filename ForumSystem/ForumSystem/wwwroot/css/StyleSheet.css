@@ -23,7 +23,7 @@ body {
     background: #f2f7ed;
     display: flex;
     flex-direction: column;
-    font-family: century gothic;
+    font-family: 'Century Gothic';
 }
 
 header {
@@ -104,7 +104,7 @@ footer {
 }
 
 .profile-card {
-    padding:1px;
+    padding: 1px;
 }
 
 /*#region navbar*/
@@ -321,39 +321,40 @@ h2.table-label {
 }
 /*#endregion*/
 
-/*#region credentialsForm*/
-.credentials-form {
+/*#region basicForm*/
+.basic-form {
     background-color: #4d4d4d;
     border-radius: 5px;
     box-sizing: border-box;
     height: fit-content;
     padding: 20px;
-    width: 320px;
+    max-width: 320px;
+    width: 100%;
     margin: auto;
     margin-top: 40px;
 }
 
-#credentials-title {
+#basic-form-title {
     color: #f2f2f2;
     font-size: 36px;
     font-weight: bold;
 }
 
-#register-subtitle {
+#basic-form-subtitle {
     color: #f2f2f2;
     font-size: 16px;
     margin-top: 10px;
 }
 
 .input-container {
-    height: 50px;
+    height: 100%;
     position: relative;
     width: 100%;
     margin-top: 30px;
     margin-bottom: 40px;
 }
 
-.credentials-input {
+.basic-form-input {
     background-color: #404040;
     border-radius: 5px;
     border: 0;
@@ -361,9 +362,11 @@ h2.table-label {
     color: #eee;
     font-size: 18px;
     height: 100%;
+    min-height: 50px;
     outline: 0;
     padding: 4px 20px 0;
     width: 100%;
+    font-family: 'Century Gothic';
 }
 
 .cut {
@@ -382,8 +385,8 @@ h2.table-label {
     width: 50px;
 }
 
-.credentials-input:focus ~ .cut,
-.credentials-input:not(:placeholder-shown) ~ .cut {
+.basic-form-input:focus ~ .cut,
+.basic-form-input:not(:placeholder-shown) ~ .cut {
     transform: translateY(8px);
 }
 
@@ -399,20 +402,20 @@ h2.table-label {
     margin-bottom: 20px;
 }
 
-.credentials-input:focus ~ .placeholder,
-.credentials-input:not(:placeholder-shown) ~ .placeholder {
+.basic-form-input:focus ~ .placeholder,
+.basic-form-input:not(:placeholder-shown) ~ .placeholder {
     transform: translateY(-30px) translateX(10px) scale(0.75);
 }
 
-.credentials-input:not(:placeholder-shown) ~ .placeholder {
+.basic-form-input:not(:placeholder-shown) ~ .placeholder {
     color: #808097;
 }
 
-.credentials-input:focus ~ .placeholder {
+.basic-form-input:focus ~ .placeholder {
     color: #ff62f9;
 }
 
-.submit {
+.basic-form-submit {
     border-radius: 5px;
     border: 0;
     box-sizing: border-box;
@@ -427,7 +430,7 @@ h2.table-label {
     font-family: 'Century Gothic';
 }
 
-    .submit:hover {
+    .basic-form-submit:hover {
         color: #ff62f9;
         transition: all 0.5s ease-in-out;
         cursor: pointer;
@@ -438,8 +441,26 @@ h2.table-label {
 }
 /*#endregion*/
 
-/*#region searchBar*/
+/*#region editPostForm*/
+#edit-post-form {
+    max-width: 800px;
+}
 
+#edit-post-content-input-container {
+    max-height: 300px;
+    display: inline-block;
+}
+    /*Тук се овъррайдват неща от обикновената форма, не знам дали това е най-добрия вариант.*/
+    /*Задавам конкретен height, защото не мога да оувъррайдна height-а на parent-а само с max-height.*/
+    /*Трябва да се помисли по този въпрос.*/
+    #edit-post-content-input-container textarea {
+        padding: 20px;
+        resize: none;
+        height: 300px;
+        /*TODO:Тук ще е готино да направя автоматичен ресайз на текстовата кутия, но е по-сложно.*/
+    }
+/*#endregion*/
+/*#region searchBar*/
 .search-bar-box {
     position: relative;
     top: 50%;

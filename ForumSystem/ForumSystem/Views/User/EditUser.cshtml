@@ -1,9 +1,9 @@
 ﻿@model ForumSystemDTO.ViewModels.UserViewModels.EditUser
 
 
-<div class="credentials-form">
-	<div id="credentials-title">Hello</div>
-	<div id="register-subtitle">Fill the values you want to be changed!</div>
+<div class="basic-form">
+	<div id="basic-form-title">Hello</div>
+	<div id="basic-form-subtitle">Fill the values you want to be changed!</div>
 
 	<form id="register-form" asp-controller="User" asp-action="EditUser" method="post">
 
@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="input-container">
-			<input asp-for="FirstName" id="firstname" class="credentials-input" type="text" placeholder=" " />
+			<input asp-for="FirstName" id="firstname" class="basic-form-input" type="text" placeholder=" " />
 			<span asp-validation-for="FirstName" class="validation-error-message"></span><br>
 			<div class="cut"></div>
 			<label asp-for="FirstName" class="placeholder">First Name</label>
@@ -23,28 +23,28 @@
 
 
 		<div class="input-container">
-			<input asp-for="LastName" id="lastname" class="credentials-input" type="text" placeholder=" " />
+			<input asp-for="LastName" id="lastname" class="basic-form-input" type="text" placeholder=" " />
 			<span asp-validation-for="LastName" class="validation-error-message"></span><br>
 			<div class="cut"></div>
 			<label asp-for="LastName" class="placeholder">Last Name</label>
 		</div>
 
 		<div class="input-container">
-			<input asp-for=Email id="email" class="credentials-input" type="text" placeholder=" " />
+			<input asp-for=Email id="email" class="basic-form-input" type="text" placeholder=" " />
 			<span asp-validation-for="Email" class="validation-error-message"></span><br>
 			<div class="cut cut-short"></div>
 			<label asp-for="Email" class="placeholder">Email</label>
 		</div>
 
 		<div class="input-container">
-			<input asp-for="Password" id="password" class="credentials-input" type="password" placeholder=" " />
+			<input asp-for="Password" id="password" class="basic-form-input" type="password" placeholder=" " />
 			<span asp-validation-for="Password" class="validation-error-message"></span><br>
 			<div class="cut"></div>
 			<label asp-for="Password" class="placeholder">Password</label>
 		</div>
 
 		<div class="input-container">
-			<input asp-for=PhoneNumber id="phonenumber" class="credentials-input" type="text" placeholder=" " />
+			<input asp-for=PhoneNumber id="phonenumber" class="basic-form-input" type="text" placeholder=" " />
 			<span asp-validation-for="PhoneNumber" class="validation-error-message"></span><br>
 			<div class="cut cut-short"></div>
 			<label asp-for="PhoneNumber" class="placeholder">Phone</label>
@@ -55,7 +55,7 @@
 			<a asp-controller="User" asp-action="Register" method="post" type="submit" class="submit" value="Register">Register</a>
 		</button>*@
 		
-			<button type="submit" class="submit">Save</button>
+			<button type="submit" class="basic-form-submit">Save</button>
 		
 	</form>
 </div>
