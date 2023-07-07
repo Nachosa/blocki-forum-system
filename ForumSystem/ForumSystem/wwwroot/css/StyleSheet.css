@@ -442,21 +442,20 @@ h2.table-label {
 /*#endregion*/
 
 /*#region editPostForm*/
-#edit-post-form {
+.basic-form.big-basic-form {
     max-width: 800px;
 }
 
-#edit-post-content-input-container {
-    max-height: 300px;
-    display: inline-block;
+.input-container.big-input-container {
+    max-height: 200px;
 }
     /*Тук се овъррайдват неща от обикновената форма, не знам дали това е най-добрия вариант.*/
     /*Задавам конкретен height, защото не мога да оувъррайдна height-а на parent-а само с max-height.*/
     /*Трябва да се помисли по този въпрос.*/
-    #edit-post-content-input-container textarea {
+    .big-input-container textarea {
         padding: 20px;
         resize: none;
-        height: 300px;
+        height: 200px;
         /*TODO:Тук ще е готино да направя автоматичен ресайз на текстовата кутия, но е по-сложно.*/
     }
 /*#endregion*/

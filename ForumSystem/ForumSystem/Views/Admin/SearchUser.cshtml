@@ -18,13 +18,13 @@
 
         <div id="user-search-dropdown">
             <div class="dropdown-select" tabindex="1">
-                <input asp-for="SearchOption" class="dropdown-selectopt" value="UserName" type="radio" id="opt1" name="SearchOption" checked>
+                <input asp-for="SearchOption" class="dropdown-selectopt" value="UserName" type="radio" name="SearchOption" checked>
                 <label for="opt1" class="dropdown-opt-label">Username</label>
 
-                <input asp-for="SearchOption" class="dropdown-selectopt" value="FirstName" type="radio" id="opt2" name="SearchOption">
+                <input asp-for="SearchOption" class="dropdown-selectopt" value="FirstName" type="radio" name="SearchOption">
                 <label for="opt2" class="dropdown-opt-label">First name</label>
 
-                <input asp-for="SearchOption" class="dropdown-selectopt" value="Email" type="radio" id="opt3" name="SearchOption">
+                <input asp-for="SearchOption" class="dropdown-selectopt" value="Email" type="radio" name="SearchOption">
                 <label for="opt3" class="dropdown-opt-label">Email</label>
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="input-container">
             @* <input asp-for="SearchOptionValue" class="basic-form-input" type="text" placeholder=" " />
             <label asp-for="SearchOptionValue" class="placeholder">SearchOptionValue</label>*@
-            <input asp-for="SearchOptionValue" id="username" class="basic-form-input" type="text" placeholder=" " />
+            <input asp-for="SearchOptionValue" class="basic-form-input" type="text" placeholder=" " />
             <span asp-validation-for="SearchOptionValue" class="validation-error-message"></span><br>
             <div class="cut cut-short"></div>
             <label asp-for="SearchOptionValue" class="placeholder">Value</label>

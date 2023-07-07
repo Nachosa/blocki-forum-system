@@ -62,6 +62,7 @@ namespace ForumSystem.Web.ViewControllers
 		[HttpGet]
 		public IActionResult CommentForm(int id)
 		{
+			//Оторизация/автентикация.
 			var model = new CommentFormViewModel
 			{
 				PostId = id
@@ -73,6 +74,7 @@ namespace ForumSystem.Web.ViewControllers
 		[HttpPost]
 		public IActionResult SubmitComment(CommentFormViewModel model)
         {
+			//Оторизация/автентикация.
 			if (!ModelState.IsValid)
 			{
                 return View("CommentForm", model);

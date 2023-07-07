@@ -1,18 +1,32 @@
 ﻿@model ForumSystemDTO.ViewModels.CommentViewModels.CommentFormViewModel
 
-<h2>Add Comment</h2>
+<div class="basic-form big-basic-form">
+	<div id="basic-form-title">Create comment</div>
+	<form asp-controller="Comment" asp-action="SubmitComment" method="post">
+		@if (ViewContext.HttpContext.Request.Query.TryGetValue("postId", out var postId))
+		{
+			<input type="hidden" asp-for="PostId" value="@postId" />
+		}
+		else
+		{
+			<input type="hidden" asp-for="PostId" />
+		}
+		<div class="validation-error-message">
+			@if (this.ViewData["ErrorMessage"] is not null)
+			{
+				<p>@this.ViewData["ErrorMessage"]</p>
+			}
+		</div>
 
-<form asp-controller="Comment" asp-action="SubmitComment" method="post">
-    @if (ViewContext.HttpContext.Request.Query.TryGetValue("postId", out var postId))
-    {
-        <input type="hidden" asp-for="PostId" value="@postId" />
-    }
-    else
-    {
-        <input type="hidden" asp-for="PostId" />
-    }
+		<div class="input-container big-input-container">
+			<textarea asp-for="CommentContent" class="basic-form-input" type="text" placeholder=" "> </textarea>
+			<span asp-validation-for="CommentContent" class="validation-error-message"></span><br>
+			<div class="cut"></div>
+			<label asp-for="CommentContent" class="placeholder">Content</label>
+		</div>
 
-    <textarea asp-for="CommentContent" rows="4" cols="50"></textarea>
-    <br />
-    <input type="submit" value="Submit" />
-</form>
+		<form asp-controller="Post" asp-action="SubmitComment" method="post">
+			<button type="submit" class="basic-form-submit">Submit</button>
+		</form>
+	</form>
+</div>
