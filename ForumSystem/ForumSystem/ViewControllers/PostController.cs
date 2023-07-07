@@ -32,7 +32,7 @@ namespace ForumSystem.Web.ViewControllers
 		}
 
 		[HttpGet]
-		public IActionResult Index(string filterBy, string sortBy)
+		public IActionResult Index(string filterBy, string sortBy, string sortOrder)
 		{
 			try
 			{
@@ -48,11 +48,17 @@ namespace ForumSystem.Web.ViewControllers
 					switch (sortBy)
 					{
 						case "title":
-							posts = posts.OrderBy(p => p.Title).ToList();
+							posts = (sortOrder == "desc") ? posts.OrderByDescending(p => p.Title).ToList() : posts.OrderBy(p => p.Title).ToList();
 							break;
+
+							//posts = posts.OrderBy(p => p.Title).ToList();
+							//break;
 						case "date":
-							posts = posts.OrderBy(p => p.CreatedOn).ToList();
+							posts = (sortOrder == "desc") ? posts.OrderByDescending(p => p.CreatedOn).ToList() : posts.OrderBy(p => p.CreatedOn).ToList();
 							break;
+
+							//posts = posts.OrderBy(p => p.CreatedOn).ToList();
+							//break;
 						// Add more sorting options as needed
 						default:
 							// Default sorting option

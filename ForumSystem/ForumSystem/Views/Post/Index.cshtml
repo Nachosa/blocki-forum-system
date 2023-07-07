@@ -7,12 +7,6 @@
 	<form asp-controller="Post" asp-action="Index" method="get">
 		<label for="filterBy">Filter By:</label>
 		<input type="text" name="filterBy" value="@ViewBag.FilterBy" />
-		<button type="submit">Filter</button>
-	</form>
-</div>
-
-<div>
-	<form asp-controller="Post" asp-action="Index" method="get">
 		<label for="sortBy">Sort By:</label>
 		<select name="sortBy">
 			<option value="">-- Select Sorting Option --</option>
@@ -20,7 +14,20 @@
 			<option value="date" selected="@(ViewBag.SortBy == "date")">Date</option>
 			<!-- Add more sorting options as needed -->
 		</select>
-		<button type="submit">Sort</button>
+		<label for="sortOrder">Sort Order:</label>
+		<select name="sortOrder">
+			<option value="asc" selected="@(ViewBag.SortOrder == "asc")">Ascending</option>
+			<option value="desc" selected="@(ViewBag.SortOrder == "desc")">Descending</option>
+		</select>
+		<button type="submit">Apply</button>
+		@*<label for="sortBy">Sort By:</label>
+		<select name="sortBy">
+			<option value="">-- Select Sorting Option --</option>
+			<option value="title" selected="@(ViewBag.SortBy == "title")">Title</option>
+			<option value="date" selected="@(ViewBag.SortBy == "date")">Date</option>
+			<!-- Add more sorting options as needed -->
+		</select>
+		<button type="submit">Apply</button>*@
 	</form>
 </div>
 
