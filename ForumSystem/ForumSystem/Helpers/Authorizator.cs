@@ -45,6 +45,18 @@ namespace ForumSystem.Web.Helpers
             }
             return true;
         }
+        /// <summary>
+        /// Check if logged user is blocked>
+        /// <param key="roleId">Key paraim is roleId from session.</param>
+        /// </summary>
+        public bool isBlocked(string key)
+        {
+            if (this.contextAccessor.HttpContext.Session.GetInt32(key) == 1)
+            {
+                return true;
+            }
+            return false;
+        }
 
     }
 }

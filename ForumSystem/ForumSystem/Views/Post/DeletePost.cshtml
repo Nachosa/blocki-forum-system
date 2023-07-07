@@ -1,0 +1,36 @@
+﻿@{
+    int? loggedUserId = this.Context.Session.GetInt32("userId");
+    bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
+    int? postIdToDelete = this.ViewBag.postIdToDelete;
+}
+
+<div class="credentials-form">
+    @if (!isAdmin)
+    {
+        <div id="credentials-title">Delete your post.</div>
+        <div id="register-subtitle">Choose your action.</div>
+    }
+    else
+    {
+        <div id="credentials-title">Hello Admin.</div>
+        <div id="register-subtitle">Confirm to continue your action.</div>
+    }
+    <br>
+
+
+    <div class="validation-error-message">
+        @if (this.ViewData["ErrorMessage"] is not null)
+        {
+            <p>@this.ViewData["ErrorMessage"]</p>
+        }
+    </div>
+
+    <form asp-controller="Post" asp-action="DeletePost" asp-route-id="@postIdToDelete" method="post">
+        <button type="submit" class="submit">Delete</button>
+    </form>
+    <br>
+    <form asp-controller="Home" asp-action="Index">
+        <button type="submit" class="submit">Home page</button>
+    </form>
+
+</div>

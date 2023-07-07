@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ForumSystem.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Init : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -197,21 +197,21 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "Email", "FirstName", "IsDeleted", "LastName", "Password", "PhoneNumber", "RoleId", "Username" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2390), null, "gosho@gmail.com", "Gosho", false, "Goshev", "MTIzNDU2Nzg5MA==", null, 2, "goshoXx123" },
-                    { 2, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2431), null, "Nikolai@gmail.com", "Nikolai", false, "Barekov", "MTIzNDU2Nzg5MA==", null, 2, "BarekaXx123" },
-                    { 3, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2435), null, "gosho@gmail.com", "Boiko", false, "Borisov", "MTIzNDU2Nzg5MA==", null, 2, "BokoMoko" },
-                    { 4, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2439), null, "Cvetan@gmail.com", "Cvetan", false, "Cvetanov", "MTIzNDU2Nzg5MA==", null, 2, "Cvete123" },
-                    { 5, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2442), null, "Kopeikin@gmail.com", "Kosta", false, "Kopeikin", "MTIzNDU2Nzg5MA==", null, 2, "BrainDamage123" },
-                    { 6, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2447), null, "Admin@gmail.com", "Admin", false, "Adminov", "MTIz", null, 3, "Admin" },
-                    { 7, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2451), null, "Andrea@gmail.com", "Andrea", false, "Paynera", "MTIzNDU2Nzg5MA==", null, 2, "TopAndreika" },
-                    { 8, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2454), null, "Emanuela@gmail.com", "Emanuela", false, "Paynera", "MTIzNDU2Nzg5MA==", null, 2, "TopEmanuelka" },
-                    { 9, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2457), null, "Katrin@gmail.com", "Katrin", false, "lilova", "MTIz", null, 2, "Katrin" },
-                    { 10, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2461), null, "Nachosa@gmail.com", "Atanas", false, "Iliev", "MTIz", null, 2, "Nachosa" },
-                    { 11, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2464), null, "Gigov@gmail.com", "Nikolai", false, "Gigov", "MTIz", null, 2, "Nikolai" },
-                    { 12, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2469), null, "Vlad@gmail.com", "Vlado", false, "Vladov", "MTIz", null, 2, "BatVlad" },
-                    { 13, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2473), null, "Vanko@gmail.com", "Ivan", false, "Vanov", "MTIz", null, 2, "BatVanko" },
-                    { 14, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2502), null, "Peshaka@gmail.com", "Petar", false, "Ivanov", "MTIz", null, 2, "Peshaka" },
-                    { 15, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2505), null, "Gergi@gmail.com", "Georgi", false, "Goshev", "MTIz", null, 2, "BatGergi" }
+                    { 1, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3690), null, "gosho@gmail.com", "Gosho", false, "Goshev", "MTIzNDU2Nzg5MA==", null, 2, "goshoXx123" },
+                    { 2, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3792), null, "Nikolai@gmail.com", "Nikolai", false, "Barekov", "MTIzNDU2Nzg5MA==", null, 2, "BarekaXx123" },
+                    { 3, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3799), null, "gosho@gmail.com", "Boiko", false, "Borisov", "MTIzNDU2Nzg5MA==", null, 2, "BokoMoko" },
+                    { 4, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3804), null, "Cvetan@gmail.com", "Cvetan", false, "Cvetanov", "MTIzNDU2Nzg5MA==", null, 2, "Cvete123" },
+                    { 5, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3809), null, "Kopeikin@gmail.com", "Kosta", false, "Kopeikin", "MTIzNDU2Nzg5MA==", null, 2, "BrainDamage123" },
+                    { 6, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3816), null, "Admin@gmail.com", "Admin", false, "Adminov", "MTIz", null, 3, "Admin" },
+                    { 7, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3820), null, "Andrea@gmail.com", "Andrea", false, "Paynera", "MTIzNDU2Nzg5MA==", null, 2, "TopAndreika" },
+                    { 8, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3825), null, "Emanuela@gmail.com", "Emanuela", false, "Paynera", "MTIzNDU2Nzg5MA==", null, 2, "TopEmanuelka" },
+                    { 9, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3830), null, "Katrin@gmail.com", "Katrin", false, "lilova", "MTIz", null, 2, "Katrin" },
+                    { 10, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3836), null, "Nachosa@gmail.com", "Atanas", false, "Iliev", "MTIz", null, 2, "Nachosa" },
+                    { 11, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3841), null, "Gigov@gmail.com", "Nikolai", false, "Gigov", "MTIz", null, 2, "Nikolai" },
+                    { 12, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3845), null, "Vlad@gmail.com", "Vlado", false, "Vladov", "MTIz", null, 2, "BatVlad" },
+                    { 13, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3850), null, "Vanko@gmail.com", "Ivan", false, "Vanov", "MTIz", null, 2, "BatVanko" },
+                    { 14, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3854), null, "Peshaka@gmail.com", "Petar", false, "Ivanov", "MTIz", null, 2, "Peshaka" },
+                    { 15, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3858), null, "Gergi@gmail.com", "Georgi", false, "Goshev", "MTIz", null, 2, "BatGergi" }
                 });
 
             migrationBuilder.InsertData(
@@ -219,16 +219,16 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "Content", "CreatedOn", "DeletedOn", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "A non-convertible currency is one that one cannot exchange that currency on the international foreign exchange market. Outside the country, this currency has no value — it may also be referred to as locked money. For example, the Indian rupee is a semi-non convertible currency outside of India while dollars can be exchanged in all countries around the world.", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2511), null, false, "WILL BITCOIN BE USED BY THE ENTIRE WORLD?", 2 },
-                    { 2, "If governments decide to opt for a non-convertible currency, it is mainly to prevent capital flight abroad. In effect, by preventing convertibility, residents are then \"forced\" to use the currency in the country. Although the currency cannot leave the territory, it is nevertheless possible via complex financial instruments such as non-deliverable forwards (NDFs).", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2517), null, false, "WHY DO SOME COUNTRIES OPT FOR NON-CONVERTIBLE CURRENCIES?", 3 },
-                    { 3, "Since then, the idea of ​​a single currency or a return to the gold standard has been put back on the table. It’s not a new idea, actually.\r\n\r\nDuring the Bretton Woods agreement, John Mayard Keynes proposed the creation of an international currency called the bancor, fixed by a basket of strong currencies of industrialized countries. His proposal was not accepted but his idea has continued across generations of economists.", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2520), null, false, "THE IDEA OF ​​A SINGLE WORLD CURRENCY.", 4 },
-                    { 4, "f there were no more national currencies, foreign exchange market-based problems and conversion fees would end immediately. Countries would no longer have a monetary barrier and could trade more freely. This would improve and increase international trade. All nations would benefit, especially countries with fragile currencies because there would be no more exchange risk.", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2523), null, false, "WHAT WOULD BE THE BENEFITS OF A WORLD CURRENCY?", 5 },
-                    { 5, "The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol.", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2610), null, false, "No Central Authority ", 3 },
-                    { 6, "Monero was launched in 2014 as a privacy-focused coin and, according to many, still offers the greatest degree of transaction anonymity compared to other cryptocurrencies.\r\n\r\nAlthough the Monero blockchain is open-source and operates as a decentralized, public network, all transaction details, including sender and recipient addresses and amounts, are cloaked. Monero achieves this using a combination of ring signatures and stealth addresses.", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2615), null, false, "Monero", 10 },
-                    { 7, "Zcash was created in 2014 as a fork of the Bitcoin code named Zerocash, which was conceived with privacy in mind. The development was later taken over by the Electric Coin Company in 2016, which still maintains Zcash to this day.", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2618), null, false, "Zcash", 11 },
-                    { 8, "Dash allows users to implement private transactions via a feature called PrivateSend, which cloaks transaction details. The project was started in 2014 under the name Darkcoin, but rebranded to Dash with a focus on payments in 2015.", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2621), null, false, "Dash", 12 },
-                    { 9, "Privacy coins are often viewed as higher-risk assets by the international Financial Action Task Force (FATF) and by national AML authorities. Some jurisdictions, such as Dubai, outlaw the use of privacy coins entirely.", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2625), null, false, "Privacy Coins and Regulation", 13 },
-                    { 10, "Privacy coins like Monero have no transaction history associated with them, making them more fungible than currencies like Bitcoin. Although BTC is generally considered to be a fungible asset, Bitcoin’s UTXO model means that it’s possible to trace the history of all BTC back to the point it was mined.", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2629), null, false, "Benefits and Risks of Using Privacy Coins", 14 }
+                    { 1, "A non-convertible currency is one that one cannot exchange that currency on the international foreign exchange market. Outside the country, this currency has no value — it may also be referred to as locked money. For example, the Indian rupee is a semi-non convertible currency outside of India while dollars can be exchanged in all countries around the world.", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3866), null, false, "WILL BITCOIN BE USED BY THE ENTIRE WORLD?", 2 },
+                    { 2, "If governments decide to opt for a non-convertible currency, it is mainly to prevent capital flight abroad. In effect, by preventing convertibility, residents are then \"forced\" to use the currency in the country. Although the currency cannot leave the territory, it is nevertheless possible via complex financial instruments such as non-deliverable forwards (NDFs).", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3873), null, false, "WHY DO SOME COUNTRIES OPT FOR NON-CONVERTIBLE CURRENCIES?", 3 },
+                    { 3, "Since then, the idea of ​​a single currency or a return to the gold standard has been put back on the table. It’s not a new idea, actually.\r\n\r\nDuring the Bretton Woods agreement, John Mayard Keynes proposed the creation of an international currency called the bancor, fixed by a basket of strong currencies of industrialized countries. His proposal was not accepted but his idea has continued across generations of economists.", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3877), null, false, "THE IDEA OF ​​A SINGLE WORLD CURRENCY.", 4 },
+                    { 4, "f there were no more national currencies, foreign exchange market-based problems and conversion fees would end immediately. Countries would no longer have a monetary barrier and could trade more freely. This would improve and increase international trade. All nations would benefit, especially countries with fragile currencies because there would be no more exchange risk.", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3881), null, false, "WHAT WOULD BE THE BENEFITS OF A WORLD CURRENCY?", 5 },
+                    { 5, "The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol.", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3885), null, false, "No Central Authority ", 3 },
+                    { 6, "Monero was launched in 2014 as a privacy-focused coin and, according to many, still offers the greatest degree of transaction anonymity compared to other cryptocurrencies.\r\n\r\nAlthough the Monero blockchain is open-source and operates as a decentralized, public network, all transaction details, including sender and recipient addresses and amounts, are cloaked. Monero achieves this using a combination of ring signatures and stealth addresses.", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3890), null, false, "Monero", 10 },
+                    { 7, "Zcash was created in 2014 as a fork of the Bitcoin code named Zerocash, which was conceived with privacy in mind. The development was later taken over by the Electric Coin Company in 2016, which still maintains Zcash to this day.", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3894), null, false, "Zcash", 11 },
+                    { 8, "Dash allows users to implement private transactions via a feature called PrivateSend, which cloaks transaction details. The project was started in 2014 under the name Darkcoin, but rebranded to Dash with a focus on payments in 2015.", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3898), null, false, "Dash", 12 },
+                    { 9, "Privacy coins are often viewed as higher-risk assets by the international Financial Action Task Force (FATF) and by national AML authorities. Some jurisdictions, such as Dubai, outlaw the use of privacy coins entirely.", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3902), null, false, "Privacy Coins and Regulation", 13 },
+                    { 10, "Privacy coins like Monero have no transaction history associated with them, making them more fungible than currencies like Bitcoin. Although BTC is generally considered to be a fungible asset, Bitcoin’s UTXO model means that it’s possible to trace the history of all BTC back to the point it was mined.", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3908), null, false, "Benefits and Risks of Using Privacy Coins", 14 }
                 });
 
             migrationBuilder.InsertData(
@@ -236,10 +236,10 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "Content", "CreatedOn", "DeletedOn", "IsDeleted", "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Bitcon is the best!", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2634), null, false, 1, 2 },
-                    { 2, "Bitcoin is trash", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2639), null, false, 2, 3 },
-                    { 3, "Ethereum is better", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2642), null, false, 3, 3 },
-                    { 4, "Ripple is the new best crypto", new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2645), null, false, 4, 4 }
+                    { 1, "Bitcon is the best!", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3912), null, false, 1, 2 },
+                    { 2, "Bitcoin is trash", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3918), null, false, 2, 3 },
+                    { 3, "Ethereum is better", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3923), null, false, 3, 3 },
+                    { 4, "Ripple is the new best crypto", new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3927), null, false, 4, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -247,10 +247,10 @@ namespace ForumSystem.DataAccess.Migrations
                 columns: new[] { "Id", "CommentId", "CreatedOn", "DeletedOn", "IsDeleted", "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2647), null, false, 2, 3 },
-                    { 2, null, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2651), null, false, 2, 2 },
-                    { 3, null, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2654), null, false, 2, 1 },
-                    { 4, null, new DateTime(2023, 7, 6, 15, 40, 4, 31, DateTimeKind.Local).AddTicks(2656), null, false, 4, 1 }
+                    { 1, null, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3931), null, false, 2, 3 },
+                    { 2, null, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3936), null, false, 2, 2 },
+                    { 3, null, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3939), null, false, 2, 1 },
+                    { 4, null, new DateTime(2023, 7, 7, 17, 31, 57, 21, DateTimeKind.Local).AddTicks(3942), null, false, 4, 1 }
                 });
 
             migrationBuilder.CreateIndex(

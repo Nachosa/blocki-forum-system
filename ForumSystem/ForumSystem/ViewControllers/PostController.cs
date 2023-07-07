@@ -25,7 +25,7 @@ namespace ForumSystem.Web.ViewControllers
 		private readonly IAuthManager authManager;
 		private readonly IAuthorizator authorizator;
 
-		public PostController(IPostService postService, IMapper mapper, IUserService userService, IAuthManager authManager,IAuthorizator authorizator)
+		public PostController(IPostService postService, IMapper mapper, IUserService userService, IAuthManager authManager, IAuthorizator authorizator)
 		{
 			this.postService = postService;
 			this.mapper = mapper;
@@ -106,11 +106,11 @@ namespace ForumSystem.Web.ViewControllers
 				var comments = post.Comments
 					.Where(c => !c.IsDeleted)
 					.Select(c => new CommentViewModel
-				{
-					CommentContent = c.Content,
-					Id = c.Id,
-					UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
-				}).ToList();
+					{
+						CommentContent = c.Content,
+						Id = c.Id,
+						UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
+					}).ToList();
 
 				//var comments = post.Comments.Select(c => new CommentViewModel
 				//{
@@ -198,24 +198,70 @@ namespace ForumSystem.Web.ViewControllers
 			return View();
 		}
 
-		[HttpPost, ActionName("Delete")]
+		[HttpGet]
+		public IActionResult DeletePost([FromRoute] int id)
+		{
+			try
+			{
+				if (!authorizator.isLogged("LoggedUser"))
+				{
+					return RedirectToAction("Login", "User");
+				}
+				//Взимам post променливата за да мода да сверя нейният UserId с този на логнатият User.
+				var post = postService.GetPostById(id);
+				if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
+				{
+					this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+					this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+					return View("Error");
+				}
+				if (authorizator.isBlocked("roleId"))
+				{
+					throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+				}
+				this.ViewBag.postIdToDelete = id;
+                return View();
+
+			}
+            catch (EntityNotFoundException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status404NotFound;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+            catch (UnauthorizedAccessException e)
+			{
+				this.Response.StatusCode = StatusCodes.Status403Forbidden;
+				this.ViewData["ErrorMessage"] = e.Message;
+				return View("Error");
+			}
+			catch (Exception e)
+			{
+				//TODO: More precise exception handling and status code.
+				this.Response.StatusCode = StatusCodes.Status400BadRequest;
+				this.ViewData["ErrorMessage"] = e.Message;
+				return View("Error");
+			}
+		}
+
+		[HttpPost,ActionName("DeletePost")]
 		public IActionResult Delete([FromRoute] int id)
 		{
 			try
 			{
-                if (!authorizator.isLogged("LoggedUser"))
-                {
-                    return RedirectToAction("Login", "User");
-                }
+				if (!authorizator.isLogged("LoggedUser"))
+				{
+					return RedirectToAction("Login", "User");
+				}
 				//Взимам post променливата за да мода да сверя нейният UserId с този на логнатият User.
-                var post = postService.GetPostById(id);
-                if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
-                {
-                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
-                    return View("Error");
-                }
-                int roleId = (int)HttpContext.Session.GetInt32("roleId");
+				var post = postService.GetPostById(id);
+				if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
+				{
+					this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+					this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+					return View("Error");
+				}
+				int roleId = (int)HttpContext.Session.GetInt32("roleId");
 				string loggedUser = HttpContext.Session.GetString("LoggedUser");
 				if (id == 0)
 				{
@@ -224,8 +270,8 @@ namespace ForumSystem.Web.ViewControllers
 
 				if (authManager.AdminCheck(roleId) || !authManager.BlockedCheck(roleId))
 				{
-					 _ = postService.DeletePostById(id, loggedUser);
-					return RedirectToAction("DeleteSuccessful", "Post");
+					_ = postService.DeletePostById(id, loggedUser);
+					return View("DeleteSuccessful");
 				}
 
 				throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
@@ -247,14 +293,14 @@ namespace ForumSystem.Web.ViewControllers
 				return RedirectToAction("Login", "User");
 			}
 			var post = postService.GetPostById(id);
-            if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
-            {
-                this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
-                return View("Error");
-            }
+			if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
+			{
+				this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+				this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+				return View("Error");
+			}
 			var currPost = postService.GetPostById(id);
-            var editPostForm = mapper.Map<EditPostViewModel>(currPost);
+			var editPostForm = mapper.Map<EditPostViewModel>(currPost);
 			return View(editPostForm);
 		}
 
@@ -268,7 +314,7 @@ namespace ForumSystem.Web.ViewControllers
 					return RedirectToAction("Login", "User");
 				}
 				//Най-вероятно и тук се нуждаем от проверка дали, заявката идва от автора/админ.
-                if (!this.ModelState.IsValid)
+				if (!this.ModelState.IsValid)
 				{
 					return View(postEdits);
 				}
@@ -299,5 +345,5 @@ namespace ForumSystem.Web.ViewControllers
 		}
 
 
-    }
+	}
 }

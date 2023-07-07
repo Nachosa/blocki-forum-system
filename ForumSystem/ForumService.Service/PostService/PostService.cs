@@ -21,12 +21,14 @@ namespace ForumSystem.Business
         private readonly IPostRepository postRepo;
         private readonly IUserRepository userRepo;
         private readonly ITagRepository tagRepo;
+        private readonly IAuthManager authManager;
 
-        public PostService(IPostRepository postRepo, IUserRepository userRepo, ITagRepository tagRepo)
+        public PostService(IPostRepository postRepo, IUserRepository userRepo, ITagRepository tagRepo, IAuthManager authManager)
         {
             this.postRepo = postRepo;
             this.userRepo = userRepo;
             this.tagRepo = tagRepo;
+            this.authManager = authManager;
         }
 
 		public List<Post> GetAllPosts()
@@ -95,7 +97,8 @@ namespace ForumSystem.Business
         public Post UpdatePostContent(int postId, Post newPost, string userName)
         {
             var currPost = postRepo.GetPostById(postId);
-            if (currPost.User.Username != userName)
+            var loggedUser = userRepo.GetUserByUserName(userName);
+            if (!authManager.AdminCheck(loggedUser) && currPost.User.Username != userName)
                 throw new UnauthenticatedOperationException("Can't update other user's posts!");
             else
                 return postRepo.UpdatePostContent(newPost, currPost);
@@ -104,7 +107,8 @@ namespace ForumSystem.Business
         public bool DeletePostById(int postId, string userName)
         {
             var post = postRepo.GetPostById(postId);
-            if (post.User.Username != userName)
+            var loggedUser = userRepo.GetUserByUserName(userName);
+            if (!authManager.AdminCheck(loggedUser) && post.User.Username != userName)
                 throw new UnauthenticatedOperationException("Can't delete other user's posts!");
             return postRepo.DeletePostById(postId);
         }
