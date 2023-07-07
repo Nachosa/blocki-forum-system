@@ -291,9 +291,11 @@ h2.table-label {
 /*#endregion*/
 
 /*#region button*/
-#create-post-button {
-    float: right;
+#view-posts-button {
     margin-left: auto;
+}
+
+#create-post-button {
     margin-right: 0;
 }
 
