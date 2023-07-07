@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ForumSystem.Business.AuthenticationManager;
 using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess;
 using ForumSystem.DataAccess.CommentRepo;
@@ -16,12 +17,14 @@ namespace ForumSystem.Business.CommentService
 {
     public class CommentService : ICommentService
     {
+        private readonly IAuthManager authManager;
         private readonly ICommentRepository commentRepository;
         private readonly IPostService postService;
         private readonly IUserService userService;
 
-        public CommentService(ICommentRepository commentRepository, IPostService postService, IUserService userService)
+        public CommentService(IAuthManager authManager, ICommentRepository commentRepository, IPostService postService, IUserService userService)
         {
+            this.authManager = authManager;
             this.commentRepository = commentRepository;
             this.postService = postService;
             this.userService = userService;
@@ -32,7 +35,7 @@ namespace ForumSystem.Business.CommentService
             var comment = GetCommentById(commentId);
             var user = userService.GetUserByUserName(username);
 
-            if (comment.UserId != user.Id)
+            if (!authManager.AdminCheck(user) || comment.UserId != user.Id)
             {
                 throw new UnauthorizedOperationException("Only the comment's author can delete the comment.");
             }

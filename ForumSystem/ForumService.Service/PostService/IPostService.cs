@@ -11,7 +11,9 @@ namespace ForumSystem.Business
 {
     public interface IPostService
     {
-        List<Post> GetPosts(PostQueryParameters queryParams);
+		List<Post> GetAllPosts();
+
+		List<Post> GetPosts(PostQueryParameters queryParams);
 
         int GetPostsCount();
 
