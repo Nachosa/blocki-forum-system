@@ -32,13 +32,36 @@ namespace ForumSystem.Web.ViewControllers
 		}
 
 		[HttpGet]
-		public IActionResult Index()
+		public IActionResult Index(string filterBy, string sortBy)
 		{
 			try
 			{
 				var posts = postService.GetAllPosts();
 
-				var models = posts.Select(p => new PostDetailsViewModel
+				if (!string.IsNullOrEmpty(filterBy))
+				{
+					posts = posts.Where(p => p.Title.ToLower().Contains(filterBy.ToLower())).ToList();
+				}
+
+				if (!string.IsNullOrEmpty(sortBy))
+				{
+					switch (sortBy)
+					{
+						case "title":
+							posts = posts.OrderBy(p => p.Title).ToList();
+							break;
+						case "date":
+							posts = posts.OrderBy(p => p.CreatedOn).ToList();
+							break;
+						// Add more sorting options as needed
+						default:
+							// Default sorting option
+							posts = posts.OrderBy(p => p.CreatedOn).ToList();
+							break;
+					}
+				}
+
+				var postViewModels = posts.Select(p => new PostDetailsViewModel
 				{
 					PostId = p.Id,
 					Title = p.Title,
@@ -48,24 +71,27 @@ namespace ForumSystem.Web.ViewControllers
 					Tags = p.Tags.Select(t => t.Tag.Name).ToList(),
 					Content = p.Content,
 					Comments = p.Comments
-					.Where(c => !c.IsDeleted)
-					.Select(c => new CommentViewModel
-					{
-						CommentContent = c.Content,
-						Id = c.Id,
-						UserName = c.User?.Username ?? "Anonymous"
-					}).ToList(),
+						.Where(c => !c.IsDeleted)
+						.Select(c => new CommentViewModel
+						{
+							CommentContent = c.Content,
+							Id = c.Id,
+							UserName = c.User?.Username ?? "Anonymous"
+						}).ToList(),
 					User = p.User
 				}).ToList();
 
-				return View(models);
+				// Pass filterBy and sortBy values to the view
+				ViewBag.FilterBy = filterBy;
+				ViewBag.SortBy = sortBy;
+
+				return View(postViewModels);
 			}
 			catch (Exception e)
 			{
 				// TODO: More precise exception handling and status code.
 				Response.StatusCode = StatusCodes.Status400BadRequest;
 				ViewData["ErrorMessage"] = e.Message;
-
 				return View("Error");
 			}
 		}
