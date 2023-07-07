@@ -20,10 +20,10 @@
 	@if (isLoggedUserPost||isAdmin)
 	{
 		<div class="button-container">
-			<a asp-controller="Post" asp-action="Edit" asp-route-Id="@Model.PostId" class="button-normal" method="get">Edit</a>
+			<a asp-controller="Post" asp-action="Edit" asp-route-Id="@Model.PostId" class="button-normal" method="get">Edit Post</a>
 		</div>
 		<div class="button-container">
-			<a asp-controller="Post" asp-action="DeletePost" asp-route-Id="@Model.PostId" class="button-normal" method="post">Delete</a>
+			<a asp-controller="Post" asp-action="DeletePost" asp-route-Id="@Model.PostId" class="button-normal" method="post">Delete Post</a>
 		</div>
 	}
 
