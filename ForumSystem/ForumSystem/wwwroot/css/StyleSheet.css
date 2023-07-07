@@ -24,6 +24,7 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Century Gothic';
+    overflow: overlay;
 }
 
 header {
@@ -106,6 +107,32 @@ footer {
 .profile-card {
     padding: 1px;
 }
+
+/*#region scrollbar*/
+.container {
+    display: flex;
+    margin: 50px;
+    column-gap: 20px;
+}
+
+:root {
+    scrollbar-color: #737373 #404040 !important;
+    scrollbar-width: thin !important;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    display: none;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #404040;
+}
+/*#endregion*/
 
 /*#region navbar*/
 nav {
@@ -443,7 +470,7 @@ h2.table-label {
 }
 /*#endregion*/
 
-/*#region editPostForm*/
+/*#region postCommentForm*/
 .basic-form.big-basic-form {
     max-width: 800px;
 }
@@ -451,15 +478,15 @@ h2.table-label {
 .input-container.big-input-container {
     max-height: 200px;
 }
-    /*Тук се овъррайдват неща от обикновената форма, не знам дали това е най-добрия вариант.*/
-    /*Задавам конкретен height, защото не мога да оувъррайдна height-а на parent-а само с max-height.*/
-    /*Трябва да се помисли по този въпрос.*/
-    .big-input-container textarea {
-        padding: 20px;
-        resize: none;
-        height: 200px;
-        /*TODO:Тук ще е готино да направя автоматичен ресайз на текстовата кутия, но е по-сложно.*/
-    }
+/*Тук се овъррайдват неща от обикновената форма, не знам дали това е най-добрия вариант.*/
+/*Задавам конкретен height, защото не мога да оувъррайдна height-а на parent-а само с max-height.*/
+/*Трябва да се помисли по този въпрос.*/
+.big-input-container textarea {
+    padding: 20px;
+    resize: none;
+    height: 200px;
+    /*TODO:Тук ще е готино да направя автоматичен ресайз на текстовата кутия, но е по-сложно.*/
+}
 /*#endregion*/
 /*#region searchBar*/
 .search-bar-box {
