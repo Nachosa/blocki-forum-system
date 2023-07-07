@@ -1,4 +1,5 @@
-﻿using ForumSystem.Business.AdminService;
+﻿using AutoMapper;
+using ForumSystem.Business.AdminService;
 using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
@@ -17,12 +18,14 @@ namespace ForumSystem.Web.ViewControllers
         private readonly IUserService userService;
         private readonly IAdminService adminService;
         private readonly IAuthorizator authorizator;
+        private readonly IMapper mapper;
 
-        public AdminController(IUserService userService,IAdminService adminService,IAuthorizator authorizator)
+        public AdminController(IUserService userService,IAdminService adminService,IAuthorizator authorizator,IMapper mapper)
         {
             this.userService = userService;
             this.adminService = adminService;
             this.authorizator = authorizator;
+            this.mapper = mapper;
         }
 
         public IActionResult Index()
@@ -67,21 +70,8 @@ namespace ForumSystem.Web.ViewControllers
                 }
                 var parameters = new UserQueryParams();
                 var result = new List<User>();
-                if (filledForm.SearchOption == "FirstName")
-                {
-                    parameters.FirstName = filledForm.SearchOptionValue;
-                     result = userService.SearchBy(parameters);
-                }
-                else if (filledForm.SearchOption == "Email")
-                {
-                    parameters.Email = filledForm.SearchOptionValue;
-                    result = userService.SearchBy(parameters);
-                }
-                else if (filledForm.SearchOption == "UserName")
-                {
-                    parameters.UserName = filledForm.SearchOptionValue;
-                    result = userService.SearchBy(parameters);
-                }
+                mapper.Map(filledForm, parameters);
+                result = userService.SearchBy(parameters);
                 filledForm.Users = result;
                 return View(filledForm);
             }

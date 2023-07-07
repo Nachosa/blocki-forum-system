@@ -35,7 +35,7 @@ namespace ForumSystem.Business.CommentService
             var comment = GetCommentById(commentId);
             var user = userService.GetUserByUserName(username);
 
-            if (!authManager.AdminCheck(user) || comment.UserId != user.Id)
+            if (!authManager.AdminCheck(user) && comment.UserId != user.Id)
             {
                 throw new UnauthorizedOperationException("Only the comment's author can delete the comment.");
             }

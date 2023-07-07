@@ -11,6 +11,8 @@ using ForumSystemDTO.TagDTO;
 using ForumSystemDTO.CommentDTO;
 using ForumSystemDTO.ViewModels.PostViewModels;
 using ForumSystemDTO.ViewModels.UserViewModels;
+using ForumSystem.DataAccess.QueryParams;
+using ForumSystemDTO.ViewModels.AdminModels;
 
 namespace ForumSystem.Business.AutoMapperProfile
 {
@@ -27,7 +29,12 @@ namespace ForumSystem.Business.AutoMapperProfile
             CreateMap<User, EditUser>();
             CreateMap<EditUser, User>();
             CreateMap<RegisterUser, User>();
-          
+
+            CreateMap<SearchUser, UserQueryParams>()
+        .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.SearchOption == "FirstName" ? src.SearchOptionValue : null))
+        .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.SearchOption == "Email" ? src.SearchOptionValue : null))
+        .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.SearchOption == "UserName" ? src.SearchOptionValue : null));
+
             CreateMap<CreatePostDto, Post>();
             CreateMap<Post, GetPostDto>()
                 .ForMember(pDto => pDto.UserName, opt => opt.MapFrom(p => p.User.Username))
@@ -41,7 +48,7 @@ namespace ForumSystem.Business.AutoMapperProfile
                 .ForMember(pDto => pDto.CommentsCount, opt => opt.MapFrom(p => p.Comments.Count));
             CreateMap<UpdatePostContentDto, Post>();
             CreateMap<CreatePostViewModel, Post>();
-			CreateMap<EditPostViewModel, Post>();
+            CreateMap<EditPostViewModel, Post>();
             CreateMap<Post, EditPostViewModel>();
 
             CreateMap<CreateCommentDto, Comment>();

@@ -17,13 +17,13 @@
 
 	<h3>Content: @Model.Content</h3>
 
-	@if (isLoggedUserPost)
+	@if (isLoggedUserPost||isAdmin)
 	{
 		<div class="button-container">
 			<a asp-controller="Post" asp-action="Edit" asp-route-Id="@Model.PostId" class="button-normal" method="get">Edit</a>
 		</div>
 		<div class="button-container">
-			<a asp-controller="Post" asp-action="DeleteUser" asp-route-Id="@Model.PostId" class="button-normal">Delete</a>
+			<a asp-controller="Post" asp-action="Delete" asp-route-Id="@Model.PostId" class="button-normal">Delete</a>
 		</div>
 	}
 
