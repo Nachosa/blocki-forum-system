@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using ForumSystem.Api.QueryParams;
 using ForumSystem.Business;
 using ForumSystem.Business.AuthenticationManager;
 using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
+using ForumSystem.DataAccess.QueryParams;
 using ForumSystem.Web.Helpers;
 using ForumSystem.Web.Helpers.Contracts;
 using ForumSystemDTO.ViewModels.CommentViewModels;
@@ -36,38 +38,29 @@ namespace ForumSystem.Web.ViewControllers
 		{
 			try
 			{
-				var posts = postService.GetAllPosts();
+				var parameters = new PostQueryParameters();
+				var result = new List<Post>();
 
 				if (!string.IsNullOrEmpty(filterBy))
 				{
-					posts = posts.Where(p => p.Title.ToLower().Contains(filterBy.ToLower())).ToList();
+					parameters.Content = filterBy;
+					// parameters.Tag = filterBy;
+					parameters.Title = filterBy;
 				}
 
 				if (!string.IsNullOrEmpty(sortBy))
 				{
-					switch (sortBy)
-					{
-						case "title":
-							posts = (sortOrder == "desc") ? posts.OrderByDescending(p => p.Title).ToList() : posts.OrderBy(p => p.Title).ToList();
-							break;
-
-							//posts = posts.OrderBy(p => p.Title).ToList();
-							//break;
-						case "date":
-							posts = (sortOrder == "desc") ? posts.OrderByDescending(p => p.CreatedOn).ToList() : posts.OrderBy(p => p.CreatedOn).ToList();
-							break;
-
-							//posts = posts.OrderBy(p => p.CreatedOn).ToList();
-							//break;
-						// Add more sorting options as needed
-						default:
-							// Default sorting option
-							posts = posts.OrderBy(p => p.CreatedOn).ToList();
-							break;
-					}
+					parameters.SortBy = sortBy;
 				}
 
-				var postViewModels = posts.Select(p => new PostDetailsViewModel
+				if (!string.IsNullOrEmpty(sortOrder))
+				{
+					parameters.SortOrder = sortOrder;
+				}
+
+				result = postService.GetPosts(parameters);
+
+				var postViewModels = result.Select(p => new PostDetailsViewModel
 				{
 					PostId = p.Id,
 					Title = p.Title,
@@ -87,7 +80,6 @@ namespace ForumSystem.Web.ViewControllers
 					User = p.User
 				}).ToList();
 
-				// Pass filterBy and sortBy values to the view
 				ViewBag.FilterBy = filterBy;
 				ViewBag.SortBy = sortBy;
 
@@ -101,6 +93,71 @@ namespace ForumSystem.Web.ViewControllers
 				return View("Error");
 			}
 		}
+
+		//[HttpGet]
+		//public IActionResult Index(string filterBy, string sortBy, string sortOrder)
+		//{
+		//	try
+		//	{
+		//		var posts = postService.GetAllPosts();
+
+		//		if (!string.IsNullOrEmpty(filterBy))
+		//		{
+		//			posts = posts.Where(p => p.Title.ToLower().Contains(filterBy.ToLower())).ToList();
+		//		}
+
+		//		if (!string.IsNullOrEmpty(sortBy))
+		//		{
+		//			switch (sortBy)
+		//			{
+		//				case "title":
+		//					posts = (sortOrder == "desc") ? posts.OrderByDescending(p => p.Title).ToList() : posts.OrderBy(p => p.Title).ToList();
+		//					break;
+		//				case "date":
+		//					posts = (sortOrder == "desc") ? posts.OrderByDescending(p => p.CreatedOn).ToList() : posts.OrderBy(p => p.CreatedOn).ToList();
+		//					break;
+		//				// Add more sorting options as needed
+		//				default:
+		//					// Default sorting option
+		//					posts = posts.OrderBy(p => p.CreatedOn).ToList();
+		//					break;
+		//			}
+		//		}
+
+		//		var postViewModels = posts.Select(p => new PostDetailsViewModel
+		//		{
+		//			PostId = p.Id,
+		//			Title = p.Title,
+		//			CreatedBy = p.User.Username,
+		//			CreatedOn = p.CreatedOn.ToString(),
+		//			LikesCount = p.Likes.Count,
+		//			Tags = p.Tags.Select(t => t.Tag.Name).ToList(),
+		//			Content = p.Content,
+		//			Comments = p.Comments
+		//				.Where(c => !c.IsDeleted)
+		//				.Select(c => new CommentViewModel
+		//				{
+		//					CommentContent = c.Content,
+		//					Id = c.Id,
+		//					UserName = c.User?.Username ?? "Anonymous"
+		//				}).ToList(),
+		//			User = p.User
+		//		}).ToList();
+
+		//		// Pass filterBy and sortBy values to the view
+		//		ViewBag.FilterBy = filterBy;
+		//		ViewBag.SortBy = sortBy;
+
+		//		return View(postViewModels);
+		//	}
+		//	catch (Exception e)
+		//	{
+		//		// TODO: More precise exception handling and status code.
+		//		Response.StatusCode = StatusCodes.Status400BadRequest;
+		//		ViewData["ErrorMessage"] = e.Message;
+		//		return View("Error");
+		//	}
+		//}
 
 		[HttpGet]
 		public IActionResult PostDetails(int id)
