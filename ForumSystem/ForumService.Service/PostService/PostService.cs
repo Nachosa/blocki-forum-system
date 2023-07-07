@@ -29,7 +29,12 @@ namespace ForumSystem.Business
             this.tagRepo = tagRepo;
         }
 
-        public List<Post> GetPosts(PostQueryParameters queryParams)
+		public List<Post> GetAllPosts()
+        {
+			return this.postRepo.GetAllPosts().ToList();
+		}
+
+		public List<Post> GetPosts(PostQueryParameters queryParams)
         {
             return this.postRepo.GetPosts(queryParams).ToList();
         }

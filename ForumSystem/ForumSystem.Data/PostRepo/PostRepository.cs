@@ -1,6 +1,7 @@
 ﻿using ForumSystem.Api.QueryParams;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
+using ForumSystem.DataAccess.QueryParams;
 using ForumSystem.DataAccess.TagRepo;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,7 +23,18 @@ namespace ForumSystem.DataAccess.PostRepo
             this.tagRepo = tagRepo;
         }
 
-        public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
+		public IEnumerable<Post> GetAllPosts()
+        {
+			List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
+																	.Include(p => p.Likes.Where(l => l.IsDeleted == false))
+																	.Include(p => p.User)
+																	.Include(p => p.Comments.Where(c => c.IsDeleted == false))
+																	.Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
+
+			return postsToProcess;
+		}
+
+		public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
         {
             List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
                                                                     .Include(p => p.Likes.Where(l => l.IsDeleted == false))

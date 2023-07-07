@@ -32,6 +32,45 @@ namespace ForumSystem.Web.ViewControllers
 		}
 
 		[HttpGet]
+		public IActionResult Index()
+		{
+			try
+			{
+				var posts = postService.GetAllPosts();
+
+				var models = posts.Select(p => new PostDetailsViewModel
+				{
+					PostId = p.Id,
+					Title = p.Title,
+					CreatedBy = p.User.Username,
+					CreatedOn = p.CreatedOn.ToString(),
+					LikesCount = p.Likes.Count,
+					Tags = p.Tags.Select(t => t.Tag.Name).ToList(),
+					Content = p.Content,
+					Comments = p.Comments
+					.Where(c => !c.IsDeleted)
+					.Select(c => new CommentViewModel
+					{
+						CommentContent = c.Content,
+						Id = c.Id,
+						UserName = c.User?.Username ?? "Anonymous"
+					}).ToList(),
+					User = p.User
+				}).ToList();
+
+				return View(models);
+			}
+			catch (Exception e)
+			{
+				// TODO: More precise exception handling and status code.
+				Response.StatusCode = StatusCodes.Status400BadRequest;
+				ViewData["ErrorMessage"] = e.Message;
+
+				return View("Error");
+			}
+		}
+
+		[HttpGet]
 		public IActionResult PostDetails(int id)
 		{
 			try
