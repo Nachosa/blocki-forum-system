@@ -13,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using ForumSystem.Business.AuthenticationManager;
 
 namespace ForumSystemTests.PostServiceTest
 {
@@ -42,7 +43,8 @@ namespace ForumSystemTests.PostServiceTest
             var userRepoMock = new Mock<IUserRepository>();
             var postRepoMock = new Mock<IPostRepository>();
             var tagRepoMock = new Mock<ITagRepository>();
-            var spt = new PostService(postRepoMock.Object, userRepoMock.Object, tagRepoMock.Object);
+            var authManagerMock = new Mock<IAuthManager>();
+            var spt = new PostService(postRepoMock.Object, userRepoMock.Object, tagRepoMock.Object, authManagerMock.Object);
 
             userRepoMock
                 .Setup(repo => repo.GetUserByUserName(user.Username))

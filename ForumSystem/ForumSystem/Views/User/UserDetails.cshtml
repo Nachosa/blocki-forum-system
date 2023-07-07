@@ -17,16 +17,20 @@
 				</div>
 				<div class="profile-title">@this.Model.Username</div>
 				<div class="profile-subtitle">@this.Model.FirstName @this.Model.LastName</div>
-				@if (this.Model.RoleId == 3)
-				{
-					<div class="profile-subtitle" id="profile-admin-label">Admin</div>
-				}
-				@if (isAdmin == true)
+				@if (isAdmin == true || loggedUserId == this.Model.Id)
 				{
 					if (this.Model.RoleId == 1)
 					{
-						<div class="profile-subtitle">Blocked</div>
+						<div class="profile-subtitle">Status:Blocked</div>
 
+					}
+					else if (this.Model.RoleId == 2)
+					{
+						<div class="profile-subtitle">Status:Not Blocked</div>
+					}
+					else if (this.Model.RoleId == 3)
+					{
+						<div class="profile-subtitle" id="profile-admin-label">Status:Admin</div>
 					}
 				}
 				@if (this.Model.PhoneNumber is not null)
@@ -58,6 +62,7 @@
 			@if (loggedUserId == this.Model.Id || isAdmin == true)
 			{
 				//Окей ли е да се ползва линк в див за бутон?
+				//Отговор на въпроса ти - нямам никаква идея
 				<div class="button-container">
 					<a asp-controller="User" asp-action="EditUser" asp-route-Id="@Model.Id" class="button-normal">Edit</a>
 				</div>

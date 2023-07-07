@@ -18,5 +18,11 @@
         /// </summary>
         public bool isContentCreator(string key, int contentCreatorId);
 
+        /// <summary>
+        /// Check if logged user is blocked>
+        /// <param key="roleId">Key paraim is roleId from session.</param>
+        /// </summary>
+        public bool isBlocked(string key);
+
     }
 }

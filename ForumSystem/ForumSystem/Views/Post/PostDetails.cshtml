@@ -23,7 +23,7 @@
 			<a asp-controller="Post" asp-action="Edit" asp-route-Id="@Model.PostId" class="button-normal" method="get">Edit</a>
 		</div>
 		<div class="button-container">
-			<a asp-controller="Post" asp-action="Delete" asp-route-Id="@Model.PostId" class="button-normal">Delete</a>
+			<a asp-controller="Post" asp-action="DeletePost" asp-route-Id="@Model.PostId" class="button-normal" method="post">Delete</a>
 		</div>
 	}
 
