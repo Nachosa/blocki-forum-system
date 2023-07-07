@@ -4,16 +4,16 @@
     int? userIdToDelete = this.ViewBag.userIdToDelete;
 }
 
-<div class="credentials-form">
+<div class="basic-form">
     @if (!isAdmin)
     {
-        <div id="credentials-title">It's sad to see you here.</div>
-        <div id="register-subtitle">Are you sure about this?</div>
+        <div id="basic-form-title">It's sad to see you here.</div>
+        <div id="basic-form-subtitle">Are you sure about this?</div>
     }
     else
     {
-        <div id="credentials-title">Hello Admin.</div>
-        <div id="register-subtitle">Confirm to continue your action.</div>
+        <div id="basic-form-title">Hello Admin.</div>
+        <div id="basic-form-subtitle">Confirm to continue your action.</div>
     }
     <br>
 

@@ -1,10 +1,10 @@
 ﻿@model ForumSystemDTO.ViewModels.UserViewModels.Login
 
-<div class="credentials-form">
-	<div id="credentials-title">Welcome back</div>
-	<div id="register-subtitle">Please enter your Username and password.</div>
+<div class="basic-form">
+	<div id="basic-form-title">Welcome back</div>
+	<div id="basic-form-subtitle">Please enter your Username and password.</div>
 
-	<form id="register-form" asp-controller="User" asp-action="Login" method="post">
+	<form id="login-form" asp-controller="User" asp-action="Login" method="post">
 
 		<div class="validation-error-message">
 			@if (this.ViewData["ErrorMessage"] is not null)
@@ -14,21 +14,21 @@
 		</div>
 
 		<div class="input-container">
-			<input asp-for="Username" id="username" class="credentials-input" type="text" placeholder=" " />
+			<input asp-for="Username" class="basic-form-input" type="text" placeholder=" " />
 			<span asp-validation-for="Username" class="validation-error-message"></span><br>
 			<div class="cut"></div>
 			<label asp-for="Username" class="placeholder">UserName</label>
 		</div>
 
 		<div class="input-container">
-			<input asp-for="Password" id="password" class="credentials-input" type="password" placeholder=" " />
+			<input asp-for="Password" class="basic-form-input" type="password" placeholder=" " />
 			<span asp-validation-for="Password" class="validation-error-message"></span><br>
 			<div class="cut"></div>
 			<label asp-for="Password" class="placeholder">Password</label>
 		</div>
 
 		<form asp-controller="User" asp-action="Login" method="post">
-			<button type="submit" class="submit">Login</button>
+			<button type="submit" class="basic-form-submit">Login</button>
 		</form>
 	</form>
 </div>

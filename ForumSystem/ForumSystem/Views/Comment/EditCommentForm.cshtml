@@ -1,11 +1,25 @@
 ﻿@model ForumSystemDTO.ViewModels.CommentViewModels.EditCommentViewModel
 
-<h2>Edit Comment</h2>
+<div class="basic-form big-basic-form">
+	<div id="basic-form-title">Edit comment</div>
+	<form asp-controller="Comment" asp-action="UpdateComment" method="post">
+		<input type="hidden" asp-for="CommentId" />
+		<div class="validation-error-message">
+			@if (this.ViewData["ErrorMessage"] is not null)
+			{
+				<p>@this.ViewData["ErrorMessage"]</p>
+			}
+		</div>
 
-<form asp-controller="Comment" asp-action="UpdateComment" method="post">
-    <input type="hidden" asp-for="CommentId" />
+		<div class="input-container big-input-container">
+			<textarea asp-for="EditedComment" class="basic-form-input" type="text" placeholder=" "> </textarea>
+			<span asp-validation-for="EditedComment" class="validation-error-message"></span><br>
+			<div class="cut"></div>
+			<label asp-for="EditedComment" class="placeholder">Content</label>
+		</div>
 
-    <textarea asp-for="EditedComment"></textarea>
-
-    <button type="submit">Save</button>
-</form>
+		<form asp-controller="Comment" asp-action="UpdateComment" method="post">
+			<button type="submit" class="basic-form-submit">Submit</button>
+		</form>
+	</form>
+</div>

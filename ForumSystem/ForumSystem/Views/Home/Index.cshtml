@@ -7,14 +7,16 @@
 <div class="labeled-table-container">
 	<div id="button-label-row">
 		<h2 class="table-label">Top 10 Most Commented Posts</h2>
-		<div id="create-post-button"> @*Това мисля, че е ненужно вече*@
+		<div class="button-container" id="view-posts-button">
+			<a asp-controller="Post" asp-action="Index" class="button-normal">View All Posts</a>
+		</div>
+		<div class="button-container" id="create-post-button">
 			<a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
 		</div>
 	</div>
 	@if (Model.TopCommentedPosts != null && Model.TopCommentedPosts.Count > 0)
 	{
 
-		@*<div class="border-shadow">*@
 		<table class="custom-table">
 			<thead class="custom-table">
 				<tr class="custom-table">
@@ -40,7 +42,6 @@
 				}
 			</tbody>
 		</table>
-		@*</div>*@
 	}
 	else
 	{
@@ -52,7 +53,6 @@
 	<h2 class="table-label">Top 10 Recently Created Posts</h2>
 	@if (Model.RecentlyCreatedPosts != null && Model.RecentlyCreatedPosts.Count > 0)
 	{
-		@*<div class="border-shadow">*@
 		<table class="custom-table">
 			<thead class="custom-table">
 				<tr class="custom-table">
@@ -68,7 +68,6 @@
 				@foreach (var item in Model.RecentlyCreatedPosts)
 				{
 					<tr>
-						@*<td class="table-hyperlink"><a href="@Url.Action("Details", "Home", new { id = item.Id })">@item.Title</a></td>*@
 						<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
 						<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@item.UserId">@item.User.Username</a></td>
 						<td>@item.Comments.Count</td>
@@ -79,14 +78,9 @@
 				}
 			</tbody>
 		</table>
-		@*</div>*@
 	}
 	else
 	{
 		<p>No elements in the list.</p>
 	}
-</div>
-
-<div class="button-container">
-	<a asp-controller="Post" asp-action="Index" class="button-normal">View All Posts</a>
 </div>

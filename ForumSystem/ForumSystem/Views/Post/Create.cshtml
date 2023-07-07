@@ -1,14 +1,31 @@
 ﻿@model ForumSystemDTO.ViewModels.PostViewModels.CreatePostViewModel;
 
-<form id="create-post-form" asp-controller="Post" asp-action="Create" method="post">
+<div class="basic-form big-basic-form">
+	<div id="basic-form-title">Create post</div>
+	<form class="edit-post-form" asp-controller="Post" asp-action="Create" method="post">
+		<div class="validation-error-message">
+			@if (this.ViewData["ErrorMessage"] is not null)
+			{
+				<p>@this.ViewData["ErrorMessage"]</p>
+			}
+		</div>
 
-    <label asp-for="Title">Title:</label><br>
-    <input asp-for="Title" type="text" size="64"><br>
-    <span asp-validation-for="Title"></span><br>
+		<div class="input-container">
+			<input asp-for="Title" class="basic-form-input" type="text" placeholder=" " />
+			<span asp-validation-for="Title" class="validation-error-message"></span><br>
+			<div class="cut"></div>
+			<label asp-for="Title" class="placeholder">Title</label>
+		</div>
 
-    <label asp-for="Content">Content:</label><br>
-    <input asp-for="Content" type="text" size="8192"><br>
-    <span asp-validation-for="Content"></span><br>
+		<div class="input-container big-input-container">
+			<textarea asp-for="Content" class="basic-form-input" type="text" placeholder=" "> </textarea>
+			<span asp-validation-for="Content" class="validation-error-message"></span><br>
+			<div class="cut"></div>
+			<label asp-for="Content" class="placeholder">Content</label>
+		</div>
 
-    <input asp-controller="Post" asp-action="Create" method="post" type="submit" value="Submit">
-</form>
+		<form asp-controller="Post" asp-action="Create" method="post">
+			<button type="submit" class="basic-form-submit">Submit</button>
+		</form>
+	</form>
+</div>
