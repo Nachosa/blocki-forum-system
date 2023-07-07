@@ -14,17 +14,17 @@
         }
     </div>
 
-    <form id="register-form" asp-controller="Admin" asp-action="SearchUser" method="post">
+    <form asp-controller="Admin" asp-action="SearchUser" method="post">
 
         <div id="user-search-dropdown">
             <div class="dropdown-select" tabindex="1">
-                <input asp-for="SearchOption" class="dropdown-selectopt" value="Username" type="radio" id="opt1" name="user-search-opt" checked>
+                <input asp-for="SearchOption" class="dropdown-selectopt" value="UserName" type="radio" id="opt1" name="SearchOption" checked>
                 <label for="opt1" class="dropdown-opt-label">Username</label>
 
-                <input asp-for="SearchOption" class="dropdown-selectopt" value="FirstName" type="radio" id="opt2" name="user-search-opt">
+                <input asp-for="SearchOption" class="dropdown-selectopt" value="FirstName" type="radio" id="opt2" name="SearchOption">
                 <label for="opt2" class="dropdown-opt-label">First name</label>
 
-                <input asp-for="SearchOption" class="dropdown-selectopt" value="Email" type="radio" id="opt3" name="user-search-opt">
+                <input asp-for="SearchOption" class="dropdown-selectopt" value="Email" type="radio" id="opt3" name="SearchOption">
                 <label for="opt3" class="dropdown-opt-label">Email</label>
             </div>
         </div>

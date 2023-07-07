@@ -49,6 +49,16 @@ namespace ForumSystem.Web.ViewControllers
         [HttpPost]
         public IActionResult SearchUser(SearchUser filledForm)
         {
+            if (!authorizator.isLogged("LoggedUser"))
+            {
+                return RedirectToAction("Login", "User");
+            }
+            if (!authorizator.isAdmin("roleId"))
+            {
+                this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                return View("Error");
+            }
             try
             {
                 if (!this.ModelState.IsValid)
