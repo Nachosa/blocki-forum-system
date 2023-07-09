@@ -79,7 +79,7 @@ namespace ForumSystem.DataAccess.PostRepo
 
 		public Like GetLike(int postId, int userId)
 		{
-			var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId/* && l.IsDeleted == false*/);
+			var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId /* && l.IsDeleted == false*/);
 			return like;
 		}
 
