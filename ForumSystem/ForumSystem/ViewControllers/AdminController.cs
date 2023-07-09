@@ -30,7 +30,17 @@ namespace ForumSystem.Web.ViewControllers
 
         public IActionResult Index()
         {
-            return View();
+            if (!authorizator.isLogged("LoggedUser"))
+            {
+                return RedirectToAction("Login", "User");
+            }
+            if (!authorizator.isAdmin("roleId"))
+            {
+                this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                return View("Error");
+            }
+            return View("SearchUser",new SearchUser());
         }
 
         [HttpGet]
