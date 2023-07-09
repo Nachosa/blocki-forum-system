@@ -753,7 +753,6 @@ h2.table-label {
 .dropdown-selectopt {
     opacity: 0;
     position: absolute;
-    left: -99999px;
 }
 
     .dropdown-selectopt:checked + .dropdown-opt-label {

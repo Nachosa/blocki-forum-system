@@ -17,6 +17,10 @@
 				</div>
 				<div class="profile-title">@this.Model.Username</div>
 				<div class="profile-subtitle">@this.Model.FirstName @this.Model.LastName</div>
+				@if (this.Model.RoleId == 3)
+				{
+				<div class="profile-subtitle" id="profile-admin-label">Status: Admin</div>
+				}
 				@if (isAdmin == true || loggedUserId == this.Model.Id)
 				{
 					if (this.Model.RoleId == 1)
@@ -27,10 +31,6 @@
 					else if (this.Model.RoleId == 2)
 					{
 						<div class="profile-subtitle">Status: Not Blocked</div>
-					}
-					else if (this.Model.RoleId == 3)
-					{
-						<div class="profile-subtitle" id="profile-admin-label">Status: Admin</div>
 					}
 				}
 				@if (this.Model.PhoneNumber is not null)

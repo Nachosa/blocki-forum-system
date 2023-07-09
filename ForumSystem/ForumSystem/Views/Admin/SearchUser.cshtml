@@ -18,26 +18,18 @@
 
         <div id="user-search-dropdown">
             <div class="dropdown-select" tabindex="1">
-                <input asp-for="SearchOption" class="dropdown-selectopt" value="Username" type="radio" name="SearchOption" checked>
+                <input asp-for="SearchOption" class="dropdown-selectopt" id="opt1" value="Username" type="radio" name="SearchOption" checked>
                 <label for="opt1" class="dropdown-opt-label">Username</label>
 
-                <input asp-for="SearchOption" class="dropdown-selectopt" value="FirstName" type="radio" name="SearchOption">
+                <input asp-for="SearchOption" class="dropdown-selectopt" id="opt2" value="FirstName" type="radio" name="SearchOption">
                 <label for="opt2" class="dropdown-opt-label">First name</label>
 
-                <input asp-for="SearchOption" class="dropdown-selectopt" value="Email" type="radio" name="SearchOption">
+                <input asp-for="SearchOption" class="dropdown-selectopt" id="opt3" value="Email" type="radio" name="SearchOption">
                 <label for="opt3" class="dropdown-opt-label">Email</label>
             </div>
         </div>
 
-@*        <select asp-for="SearchOption">
-            <option value="FirstName">FirstName</option>
-            <option value="Username">Username</option>
-            <option value="Email">Email</option>
-        </select>*@
-
         <div class="input-container">
-            @* <input asp-for="SearchOptionValue" class="basic-form-input" type="text" placeholder=" " />
-            <label asp-for="SearchOptionValue" class="placeholder">SearchOptionValue</label>*@
             <input asp-for="SearchOptionValue" class="basic-form-input" type="text" placeholder=" " />
             <span asp-validation-for="SearchOptionValue" class="validation-error-message"></span><br>
             <div class="cut cut-short"></div>
@@ -57,7 +49,7 @@
 
         <div class="labeled-table-container">
             <div id="button-label-row">
-                <h2 class="table-label">Result of you'r search.</h2>
+                <h2 class="table-label">Results of your search.</h2>
             </div>
 
 
