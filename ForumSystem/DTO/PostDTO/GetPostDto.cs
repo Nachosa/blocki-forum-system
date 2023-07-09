@@ -24,7 +24,9 @@ namespace ForumSystemDTO.PostDTO
 
         public int LikesCount { get; set; }
 
-        public DateTime CreatedOn { get; set; } = DateTime.Now;
+		public int DislikesCount { get; set; }
+
+		public DateTime CreatedOn { get; set; }
 
         public ICollection<string> Tags { get; set; } = new List<string>();
 

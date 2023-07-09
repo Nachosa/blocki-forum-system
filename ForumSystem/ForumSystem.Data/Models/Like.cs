@@ -22,5 +22,7 @@ namespace ForumSystem.DataAccess.Models
         public int? CommentId { get; set; }
         [JsonIgnore]
         public Comment? Comment { get; set; }
+
+        public bool IsDislike { get; set; }
     }
 }

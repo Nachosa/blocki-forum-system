@@ -59,24 +59,57 @@ namespace ForumSystem.Business
             var post = postRepo.GetPostById(postId);
             var user = userRepo.GetUserByUserName(userName);
             var like = postRepo.GetLike(postId, user.Id);
-            if (like != null)
-                throw new DuplicateEntityException("You can't like a post twice!");
-            //Може би ще е по-добре да се подават само ИД-тата?
-            postRepo.LikePost(post, user);
+            if (like is null)
+            {
+				postRepo.CreateLike(post, user);
+			}
+            else if (like is not null & (like.IsDeleted || like.IsDislike))
+            {
+				postRepo.LikePost(like);
+			}
+			else //Може би да е else if?
+			{
+                postRepo.DeleteLike(like);
+			}
+			//throw new DuplicateEntityException("You can't like a post twice!");
+			//Може би ще е по-добре да се подават само ИД-тата?
             return true;
         }
 
-        public bool UnlikePost(int postId, string userName)
-        {
-            //В момента взимам поста и юзъра само за да проверя дали съществуват.
-            var post = postRepo.GetPostById(postId);
-            var user = userRepo.GetUserByUserName(userName);
-            var like = postRepo.GetLike(postId, user.Id);
-            if (like == null)
-                throw new DuplicateEntityException("You haven't liked this post!");
-            postRepo.UnikePost(like);
-            return true;
-        }
+		public bool DislikePost(int postId, string userName)
+		{
+			//В момента взимам поста и юзъра само за да проверя дали съществуват.
+			var post = postRepo.GetPostById(postId);
+			var user = userRepo.GetUserByUserName(userName);
+			var like = postRepo.GetLike(postId, user.Id);
+			if (like is null)
+			{
+				postRepo.CreateLike(post, user);
+			}
+			else if (like is not null & (like.IsDeleted || !like.IsDislike))
+			{
+				postRepo.DislikePost(like);
+			}
+			else //Може би да е else if?
+			{
+				postRepo.DeleteLike(like);
+			}
+			//throw new DuplicateEntityException("You can't like a post twice!");
+			//Може би ще е по-добре да се подават само ИД-тата?
+			return true;
+		}
+
+		//public bool UnlikePost(int postId, string userName)
+  //      {
+  //          //В момента взимам поста и юзъра само за да проверя дали съществуват.
+  //          var post = postRepo.GetPostById(postId);
+  //          var user = userRepo.GetUserByUserName(userName);
+  //          var like = postRepo.GetLike(postId, user.Id);
+  //          if (like == null)
+  //              throw new DuplicateEntityException("You haven't liked this post!");
+  //          postRepo.UnikePost(like);
+  //          return true;
+  //      }
 
         public bool TagPost(int postId, string userName, Tag tag)
         {
@@ -117,14 +150,5 @@ namespace ForumSystem.Business
         {
             return postRepo.GetPostById(postId);
         }
-
-        //public ICollection<Post> GetPostsWithTag(string tag1)
-        //{
-        //    var tag = postRepo.GetTagWithName(tag1);
-        //    if (tag is null) throw new EntityNotFoundException($"Tag with name:{tag1} was not found!");
-        //    var posts = postRepo.GetPostsWithTag(tag1);
-        //    if (posts is null || posts.Count == 0) throw new EntityNotFoundException($"Posts with tag:{tag1} were not found!");
-        //    return posts;
-        //}
     }
 }

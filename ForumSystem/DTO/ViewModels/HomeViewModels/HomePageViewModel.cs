@@ -13,6 +13,5 @@ namespace ForumSystemDTO.ViewModels.HomeViewModels
 
         //list of the 10 most recently created posts
         public List<Post> RecentlyCreatedPosts { get; set; } = new List<Post>();
-
     }
 }
