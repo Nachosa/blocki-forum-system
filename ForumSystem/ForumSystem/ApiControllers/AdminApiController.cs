@@ -67,13 +67,13 @@ namespace ForumSystem.Web.ApiControllers
 
         }
 
-        [HttpDelete("{userId}")]
-        public IActionResult DeletePost([FromHeader] string credentials, int id)
+        [HttpDelete("{postId}")]
+        public IActionResult DeletePost([FromHeader] string credentials, int postId)
         {
             try
             {
                 authManager.AdminCheck(credentials);
-                adminService.DeletePost(id);
+                adminService.DeletePost(postId);
                 return Ok("Post Deleted!");
             }
             catch (Exception e)

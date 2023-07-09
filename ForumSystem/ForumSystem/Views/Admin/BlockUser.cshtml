@@ -22,12 +22,12 @@
     @if (this.ViewData["ErrorMessage"] is null)
     {
         <form asp-controller="Admin" asp-action="Block" asp-route-id="@userIdToBlock" method="post">
-            <button type="submit" class="submit">Block</button>
+            <button type="submit" class="basic-form-submit">Block</button>
         </form>
         <br>
     }
     <form asp-controller="Home" asp-action="Index">
-        <button type="submit" class="submit">Home page</button>
+        <button type="submit" class="basic-form-submit">Home page</button>
     </form>
 
 </div>

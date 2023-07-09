@@ -348,6 +348,18 @@ h2.table-label {
     margin-right: 10px;
     width: fit-content;
 }
+.basic-form-submit.button-edit {
+    color: black;
+    background-color: #fffd00;
+}
+.basic-form-submit.button-blockorunblock {
+    color: black;
+    background-color: #be0d0d;
+}
+.basic-form-submit.button-delete {
+    color:black;
+    background-color:#be0d0d;
+}
 /*#endregion*/
 
 /*#region basicForm*/
