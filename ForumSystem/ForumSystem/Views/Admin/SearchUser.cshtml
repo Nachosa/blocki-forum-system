@@ -66,6 +66,7 @@
                         <th>Created</th>
                         <th>Rolе</th>
                         <th>Edit</th>
+                        <th><div>Make</div><div>Admin</div></th>
                         <th><div>Block</div><div>UnBlock</div></th>
                         <th>Delete</th>
 
@@ -96,7 +97,7 @@
                             </td>
                             <td>@user.CreatedOn</td>
                             <td>
-                                @if (user.RoleId==2)
+                                @if (user.RoleId == 2)
                                 {
                                     <span>Active</span>
                                 }
@@ -115,13 +116,25 @@
                                 </div>
                             </td>
                             <td>
-                                @if (user.RoleId==2)
+                                @if (user.RoleId != 3)
+                                {
+                                    <div class="button-container">
+                                        <a asp-controller="Admin" asp-action="MakeAdmin" asp-route-Id="@user.Id" class="button-normal">Promote</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <span>Admin</span>
+                                }
+                            </td>
+                            <td>
+                                @if (user.RoleId == 2)
                                 {
                                     <div class="button-container">
                                         <a asp-controller="Admin" asp-action="BlockUser" asp-route-Id="@user.Id" class="button-normal">Block</a>
                                     </div>
                                 }
-                                else if (user.RoleId==1)
+                                else if (user.RoleId == 1)
                                 {
                                     <div class="button-container">
                                         <a asp-controller="Admin" asp-action="UnBlockUser" asp-route-Id="@user.Id" class="button-normal">UnBlock</a>
@@ -129,7 +142,7 @@
                                 }
                                 else
                                 {
-                                        <span>Admin</span>
+                                    <span>Admin</span>
                                 }
 
                             </td>

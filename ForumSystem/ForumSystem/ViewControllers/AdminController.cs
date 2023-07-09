@@ -241,6 +241,77 @@ namespace ForumSystem.Web.ViewControllers
                 return View("Error");
             }
         }
-        
+
+        [HttpGet]
+        public IActionResult MakeAdmin([FromRoute] int id)
+        {
+            try
+            {
+                if (!authorizator.isLogged("LoggedUser"))
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                if (!authorizator.isAdmin("roleId"))
+                {
+                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                    return View("Error");
+                }
+                _ = userService.GetUserById(id);
+                this.ViewBag.userIdMakeAdmin = id;
+                return View();
+            }
+            catch (EntityNotFoundException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status404NotFound;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View();
+            }
+            catch (Exception e)
+            {
+                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult MakeUserAdmin([FromRoute] int id)
+        {
+            try
+            {
+                if (!authorizator.isLogged("LoggedUser"))
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                if (!authorizator.isAdmin("roleId"))
+                {
+                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                    return View("Error");
+                }
+
+                adminService.MakeUserAdmin(id, null);
+                return View("MadeAdminSuccessful");
+            }
+            catch (EntityNotFoundException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status404NotFound;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View();
+            }
+            catch (EntityAlreadyAdminException e)
+            {
+                this.Response.StatusCode = StatusCodes.Status405MethodNotAllowed;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("MakeAdmin");
+            }
+            catch (Exception e)
+            {
+                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+                this.ViewData["ErrorMessage"] = e.Message;
+                return View("Error");
+            }
+        }
     }
 }

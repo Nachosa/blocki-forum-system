@@ -33,11 +33,13 @@ namespace ForumSystem.Business.AdminService
             {
                 var user = userRepo.GetUserById((int)id);
                 if (user is null) throw new EntityNotFoundException($"User with Id:{id} was not found!");
+                if (user.RoleId == 3) throw new EntityAlreadyAdminException($"User with Id:{id} is already ADMIN!");
                 return adminRepo.MakeUserAdmin(user);
             }
             else if (!email.IsNullOrEmpty())
             {
                 var user = userRepo.GetUserByEmail(email);
+                if (user.RoleId == 3) throw new EntityAlreadyAdminException($"User with Id:{id} is already ADMIN!");
                 if (user is null) throw new EntityNotFoundException($"User with Email:{email} was not found!");
                 return adminRepo.MakeUserAdmin(user);
             }
