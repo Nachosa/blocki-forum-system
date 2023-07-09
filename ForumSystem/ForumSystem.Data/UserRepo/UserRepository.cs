@@ -33,7 +33,7 @@ namespace ForumSystem.DataAccess.UserRepo
 									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
 									.AsNoTracking()
                                     .Where(u => u.IsDeleted == false).ToList();
-            return result;
+            return result;//Навсякъде ли трябва да има AsNoTracking?
         }
 
         public User GetUserById(int Id)
