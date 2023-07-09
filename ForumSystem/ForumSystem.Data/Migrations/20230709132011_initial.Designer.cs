@@ -4,6 +4,7 @@ using ForumSystem.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumSystem.DataAccess.Migrations
 {
     [DbContext(typeof(ForumSystemContext))]
-    partial class ForumSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20230709132011_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -61,7 +64,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 1,
                             Content = "Bitcon is the best!",
-                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 28, 9, DateTimeKind.Local).AddTicks(8142),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7622),
                             IsDeleted = false,
                             PostId = 1,
                             UserId = 2
@@ -70,7 +73,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 2,
                             Content = "Bitcoin is trash",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1127),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7626),
                             IsDeleted = false,
                             PostId = 2,
                             UserId = 3
@@ -79,7 +82,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 3,
                             Content = "Ethereum is better",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1130),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7629),
                             IsDeleted = false,
                             PostId = 3,
                             UserId = 3
@@ -88,7 +91,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 4,
                             Content = "Ripple is the new best crypto",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1132),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7631),
                             IsDeleted = false,
                             PostId = 4,
                             UserId = 4
@@ -140,7 +143,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1135),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7634),
                             IsDeleted = false,
                             IsDislike = false,
                             PostId = 2,
@@ -149,7 +152,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1139),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7637),
                             IsDeleted = false,
                             IsDislike = false,
                             PostId = 2,
@@ -158,7 +161,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1142),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7640),
                             IsDeleted = false,
                             IsDislike = false,
                             PostId = 2,
@@ -167,7 +170,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1144),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7642),
                             IsDeleted = false,
                             IsDislike = false,
                             PostId = 4,
@@ -214,7 +217,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 1,
                             Content = "A non-convertible currency is one that one cannot exchange that currency on the international foreign exchange market. Outside the country, this currency has no value — it may also be referred to as locked money. For example, the Indian rupee is a semi-non convertible currency outside of India while dollars can be exchanged in all countries around the world.",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1085),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7552),
                             IsDeleted = false,
                             Title = "WILL BITCOIN BE USED BY THE ENTIRE WORLD?",
                             UserId = 2
@@ -223,7 +226,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 2,
                             Content = "If governments decide to opt for a non-convertible currency, it is mainly to prevent capital flight abroad. In effect, by preventing convertibility, residents are then \"forced\" to use the currency in the country. Although the currency cannot leave the territory, it is nevertheless possible via complex financial instruments such as non-deliverable forwards (NDFs).",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1091),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7596),
                             IsDeleted = false,
                             Title = "WHY DO SOME COUNTRIES OPT FOR NON-CONVERTIBLE CURRENCIES?",
                             UserId = 3
@@ -232,7 +235,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 3,
                             Content = "Since then, the idea of ​​a single currency or a return to the gold standard has been put back on the table. It’s not a new idea, actually.\r\n\r\nDuring the Bretton Woods agreement, John Mayard Keynes proposed the creation of an international currency called the bancor, fixed by a basket of strong currencies of industrialized countries. His proposal was not accepted but his idea has continued across generations of economists.",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1094),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7599),
                             IsDeleted = false,
                             Title = "THE IDEA OF ​​A SINGLE WORLD CURRENCY.",
                             UserId = 4
@@ -241,7 +244,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 4,
                             Content = "f there were no more national currencies, foreign exchange market-based problems and conversion fees would end immediately. Countries would no longer have a monetary barrier and could trade more freely. This would improve and increase international trade. All nations would benefit, especially countries with fragile currencies because there would be no more exchange risk.",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1097),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7602),
                             IsDeleted = false,
                             Title = "WHAT WOULD BE THE BENEFITS OF A WORLD CURRENCY?",
                             UserId = 5
@@ -250,7 +253,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 5,
                             Content = "The world’s reserve currency must have a central authority, like the US Federal Reserve, regulating the USD’s supply and usage in global economies. However, Bitcoin is a decentralized currency without any central entity. Instead, it runs on a decentralized blockchain network that validates transactions and mints new coins based on the Bitcoin protocol.",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1100),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7604),
                             IsDeleted = false,
                             Title = "No Central Authority ",
                             UserId = 3
@@ -259,7 +262,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 6,
                             Content = "Monero was launched in 2014 as a privacy-focused coin and, according to many, still offers the greatest degree of transaction anonymity compared to other cryptocurrencies.\r\n\r\nAlthough the Monero blockchain is open-source and operates as a decentralized, public network, all transaction details, including sender and recipient addresses and amounts, are cloaked. Monero achieves this using a combination of ring signatures and stealth addresses.",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1104),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7608),
                             IsDeleted = false,
                             Title = "Monero",
                             UserId = 10
@@ -268,7 +271,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 7,
                             Content = "Zcash was created in 2014 as a fork of the Bitcoin code named Zerocash, which was conceived with privacy in mind. The development was later taken over by the Electric Coin Company in 2016, which still maintains Zcash to this day.",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1107),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7610),
                             IsDeleted = false,
                             Title = "Zcash",
                             UserId = 11
@@ -277,7 +280,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 8,
                             Content = "Dash allows users to implement private transactions via a feature called PrivateSend, which cloaks transaction details. The project was started in 2014 under the name Darkcoin, but rebranded to Dash with a focus on payments in 2015.",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1110),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7613),
                             IsDeleted = false,
                             Title = "Dash",
                             UserId = 12
@@ -286,7 +289,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 9,
                             Content = "Privacy coins are often viewed as higher-risk assets by the international Financial Action Task Force (FATF) and by national AML authorities. Some jurisdictions, such as Dubai, outlaw the use of privacy coins entirely.",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1113),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7615),
                             IsDeleted = false,
                             Title = "Privacy Coins and Regulation",
                             UserId = 13
@@ -295,7 +298,7 @@ namespace ForumSystem.DataAccess.Migrations
                         {
                             Id = 10,
                             Content = "Privacy coins like Monero have no transaction history associated with them, making them more fungible than currencies like Bitcoin. Although BTC is generally considered to be a fungible asset, Bitcoin’s UTXO model means that it’s possible to trace the history of all BTC back to the point it was mined.",
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1117),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7619),
                             IsDeleted = false,
                             Title = "Benefits and Risks of Using Privacy Coins",
                             UserId = 14
@@ -434,7 +437,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(989),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7468),
                             Email = "gosho@gmail.com",
                             FirstName = "Gosho",
                             IsDeleted = false,
@@ -446,7 +449,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1027),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7508),
                             Email = "Nikolai@gmail.com",
                             FirstName = "Nikolai",
                             IsDeleted = false,
@@ -458,7 +461,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1032),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7511),
                             Email = "gosho@gmail.com",
                             FirstName = "Boiko",
                             IsDeleted = false,
@@ -470,7 +473,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1035),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7514),
                             Email = "Cvetan@gmail.com",
                             FirstName = "Cvetan",
                             IsDeleted = false,
@@ -482,7 +485,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1038),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7516),
                             Email = "Kopeikin@gmail.com",
                             FirstName = "Kosta",
                             IsDeleted = false,
@@ -494,7 +497,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1042),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7521),
                             Email = "Admin@gmail.com",
                             FirstName = "Admin",
                             IsDeleted = false,
@@ -506,7 +509,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1045),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7523),
                             Email = "Andrea@gmail.com",
                             FirstName = "Andrea",
                             IsDeleted = false,
@@ -518,7 +521,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1049),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7526),
                             Email = "Emanuela@gmail.com",
                             FirstName = "Emanuela",
                             IsDeleted = false,
@@ -530,7 +533,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1052),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7529),
                             Email = "Katrin@gmail.com",
                             FirstName = "Katrin",
                             IsDeleted = false,
@@ -542,7 +545,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1057),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7533),
                             Email = "Nachosa@gmail.com",
                             FirstName = "Atanas",
                             IsDeleted = false,
@@ -554,7 +557,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1060),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7535),
                             Email = "Gigov@gmail.com",
                             FirstName = "Nikolai",
                             IsDeleted = false,
@@ -566,7 +569,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1063),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7538),
                             Email = "Vlad@gmail.com",
                             FirstName = "Vlado",
                             IsDeleted = false,
@@ -578,7 +581,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1066),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7541),
                             Email = "Vanko@gmail.com",
                             FirstName = "Ivan",
                             IsDeleted = false,
@@ -590,7 +593,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1069),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7543),
                             Email = "Peshaka@gmail.com",
                             FirstName = "Petar",
                             IsDeleted = false,
@@ -602,7 +605,7 @@ namespace ForumSystem.DataAccess.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedOn = new DateTime(2023, 7, 9, 12, 2, 54, 905, DateTimeKind.Local).AddTicks(1080),
+                            CreatedOn = new DateTime(2023, 7, 9, 16, 20, 11, 708, DateTimeKind.Local).AddTicks(7546),
                             Email = "Gergi@gmail.com",
                             FirstName = "Georgi",
                             IsDeleted = false,
