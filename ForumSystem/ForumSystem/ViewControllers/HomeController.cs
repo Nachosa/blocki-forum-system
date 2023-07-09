@@ -50,7 +50,7 @@ namespace ForumSystem.Web.ViewControllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View();
+            return RedirectToAction("Login","User");
         }
 
         [HttpGet]

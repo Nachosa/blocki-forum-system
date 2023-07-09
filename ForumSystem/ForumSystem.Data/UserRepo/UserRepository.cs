@@ -28,18 +28,22 @@ namespace ForumSystem.DataAccess.UserRepo
         //Retrun all NOT DELETED USERS!
         public IEnumerable<User> GetAllUsers()
         {
-            var result = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-									.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
-						
-                                    .Where(u => u.IsDeleted == false).ToList();
+            var result = forumDb.Users
+                .Include(p => p.Posts.Where(p => p.IsDeleted == false))
+                    .ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+				.Include(p => p.Posts.Where(p => p.IsDeleted == false))
+                    .ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+				.Include(c => c.Comments).Where(c => c.IsDeleted == false).Where(u => u.IsDeleted == false).ToList();
+
             return result;//Навсякъде ли трябва да има AsNoTracking?
         }
 
         public User GetUserById(int Id)
         {
-            var user = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-				                    .Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+            var user = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false))
+                                        .ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+				                    .Include(p => p.Posts.Where(p => p.IsDeleted == false))
+                                        .ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
 									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
 						
 									.FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
@@ -85,7 +89,14 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public List<User> SearchBy(UserQueryParams queryParams)
         {
-            var query = GetAllUsers();
+            var query = forumDb.Users
+                .Include(p => p.Posts.Where(p => p.IsDeleted == false))
+                    .ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+                .Include(p => p.Posts.Where(p => p.IsDeleted == false))
+                    .ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+                .Include(c => c.Comments)
+                .Where(c => c.IsDeleted == false)
+                .Where(u => u.IsDeleted == false);
 
             if (queryParams.FirstName is not null)
             {
