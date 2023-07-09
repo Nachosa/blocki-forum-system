@@ -8,6 +8,7 @@ using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.QueryParams;
 using ForumSystem.Web.Helpers;
 using ForumSystem.Web.Helpers.Contracts;
+using ForumSystemDTO.PostDTO;
 using ForumSystemDTO.ViewModels.CommentViewModels;
 using ForumSystemDTO.ViewModels.PostViewModels;
 using ForumSystemDTO.ViewModels.UserViewModels;
@@ -61,25 +62,7 @@ namespace ForumSystem.Web.ViewControllers
 
 				result = postService.GetPosts(parameters);
 
-				var postViewModels = result.Select(p => new PostDetailsViewModel
-				{
-					PostId = p.Id,
-					Title = p.Title,
-					CreatedBy = p.User.Username,
-					CreatedOn = p.CreatedOn.ToString(),
-					LikesCount = p.Likes.Count,
-					Tags = p.Tags.Select(t => t.Tag.Name).ToList(),
-					Content = p.Content,
-					Comments = p.Comments
-						.Where(c => !c.IsDeleted)
-						.Select(c => new CommentViewModel
-						{
-							CommentContent = c.Content,
-							Id = c.Id,
-							UserName = c.User?.Username ?? "Anonymous"
-						}).ToList(),
-					User = p.User
-				}).ToList();
+				var postViewModels = result.Select(p => mapper.Map<PostViewModelAbbreviated>(p)).ToList();
 
 				ViewBag.FilterBy = filterBy;
 				ViewBag.SortBy = sortBy;
@@ -102,36 +85,7 @@ namespace ForumSystem.Web.ViewControllers
 			{
 				var post = postService.GetPostById(id);
 				var user = userService.GetUserById(post.UserId);
-
-				var comments = post.Comments
-					.Where(c => !c.IsDeleted)
-					.Select(c => new CommentViewModel
-					{
-						CommentContent = c.Content,
-						Id = c.Id,
-						UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
-					}).ToList();
-
-				//var comments = post.Comments.Select(c => new CommentViewModel
-				//{
-				//	CommentContent = c.Content,
-				//	Id = c.Id,
-				//	UserName = c.User?.Username ?? "Anonymous" // provide a fallback value if the User is null
-				//}).ToList();
-
-				//TODO: Да се направи с мапър.
-				var model = new PostDetailsViewModel
-				{
-					PostId = post.Id,
-					Title = post.Title,
-					CreatedBy = post.User.Username,
-					CreatedOn = post.CreatedOn.ToString(),
-					LikesCount = post.Likes.Count,
-					Tags = post.Tags.Select(t => t.Tag.Name).ToList(),
-					Content = post.Content,
-					Comments = comments,
-					User = user
-				};
+				var model = mapper.Map<PostDetailsViewModel>(post);
 
 				return View(model);
 			}

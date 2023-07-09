@@ -28,36 +28,51 @@ namespace ForumSystem.DataAccess.UserRepo
         //Retrun all NOT DELETED USERS!
         public IEnumerable<User> GetAllUsers()
         {
-            var result = forumDb.Users.Where(u => u.IsDeleted == false).ToList();
+            var result = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+									.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
+									.AsNoTracking()
+                                    .Where(u => u.IsDeleted == false).ToList();
             return result;
         }
 
         public User GetUserById(int Id)
         {
-            //        var user = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-            //.Include(c => c.Comments).Where(c => c.IsDeleted == false)
-            //.FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
-            //TODO: Gonna need to add more includes here and in the other get methods probably.
-            //In order to display tags, likes and so forth, i have begun writing that above.
-            var user = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).Include(c => c.Comments.Where(c => c.IsDeleted == false)).FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
+            var user = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+				                    .Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
+									.AsNoTracking()
+									.FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
             return user;
         }
 
-        public User GetUserByUserName(string UserName)
+        public User GetUserByUserName(string Username)
         {
-            var userWithThatUserName = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).Include(c => c.Comments.Where(c => c.IsDeleted == false)).AsNoTracking().FirstOrDefault(u => u.Username == UserName && u.IsDeleted == false);
+            var userWithThatUserName = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+									.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
+									.AsNoTracking()
+									.FirstOrDefault(u => u.Username == Username && u.IsDeleted == false);
             return userWithThatUserName;
         }
 
         public User GetUserByEmail(string email)
         {
-            var userWithThatEmail = forumDb.Users.FirstOrDefault(u => u.Email == email);
+            var userWithThatEmail = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+									.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
+									.AsNoTracking()
+									.FirstOrDefault(u => u.Email == email && u.IsDeleted == false);
             return userWithThatEmail;
         }
 
         public IEnumerable<User> GetUsersByFirstName(string firstName)
         {
-            var usersWithThatName = forumDb.Users.Where(u => u.FirstName == firstName);
+            var usersWithThatName = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+									.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
+									.AsNoTracking()
+                                    .Where(u => u.FirstName == firstName && u.IsDeleted == false);
             return usersWithThatName;
         }
 
@@ -70,19 +85,16 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public List<User> SearchBy(UserQueryParams queryParams)
         {
-            var query = forumDb.Users
-                .Include(u => u.Posts)
-                .Include(u => u.Comments)
-                .Where(u => u.IsDeleted == false);
+            var query = GetAllUsers();
 
             if (queryParams.FirstName is not null)
             {
                 query = query.Where(u => u.FirstName.ToLower() == queryParams.FirstName.ToLower());
             }
 
-            if (queryParams.UserName is not null)
+            if (queryParams.Username is not null)
             {
-                query = query.Where(u => u.Username == queryParams.UserName);
+                query = query.Where(u => u.Username == queryParams.Username);
             }
 
             if (queryParams.Email is not null)

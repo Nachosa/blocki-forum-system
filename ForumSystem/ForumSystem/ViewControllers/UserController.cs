@@ -91,7 +91,8 @@ namespace ForumSystem.Web.ViewControllers
                     return RedirectToAction("Login", "User");
                 }
                 var user = userService.GetUserById(id);
-                return View(user);
+                var userViewModel = mapper.Map<UserDetailsViewModel>(user);
+                return View(userViewModel);
             }
             catch (EntityNotFoundException e)
             {

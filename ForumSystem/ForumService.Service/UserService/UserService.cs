@@ -93,7 +93,7 @@ namespace ForumSystem.Business.UserService
 		public List<User> SearchBy(UserQueryParams queryParams)
 		{
 			List<User> users;
-			if (queryParams.UserName is null &
+			if (queryParams.Username is null &
 				   queryParams.FirstName is null &
 				   queryParams.Email is null)
 			{

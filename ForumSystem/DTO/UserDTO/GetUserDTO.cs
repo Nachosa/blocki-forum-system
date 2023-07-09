@@ -12,6 +12,6 @@ namespace ForumSystemDTO.UserDTO
 
         public string LastName { get; set; }
 
-        public string UserName { get; set; }
+        public string Username { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ForumSystem.Api.QueryParams;
+﻿using AutoMapper;
+using ForumSystem.Api.QueryParams;
 using ForumSystem.Business;
 using ForumSystem.Business.CommentService;
 using ForumSystem.Business.UserService;
@@ -16,11 +17,13 @@ namespace ForumSystem.Web.ViewControllers
     {
 		private readonly IPostService postService;
 		private readonly IUserService userService;
+        private readonly IMapper mapper;
 
-        public HomeController(IPostService postService, IUserService userService)
+        public HomeController(IPostService postService, IUserService userService, IMapper mapper)
         {
 			this.postService = postService;
 			this.userService = userService;
+            this.mapper = mapper;
         }
 
         public IActionResult Index()
@@ -31,10 +34,10 @@ namespace ForumSystem.Web.ViewControllers
             PostQueryParameters postQueryparams= new PostQueryParameters();
             postQueryparams.SortBy = "comments";
             postQueryparams.SortOrder = "desc";
-            List<Post> topCommentedPosts = postService.GetPosts(postQueryparams).Take(10).ToList();
+            List<PostViewModelAbbreviated> topCommentedPosts = postService.GetPosts(postQueryparams).Take(10).Select(p => mapper.Map<PostViewModelAbbreviated>(p)).ToList();
             postQueryparams.SortBy = "date";
             postQueryparams.SortOrder = "desc";
-            List<Post> recentlyCreatedPosts = postService.GetPosts(postQueryparams).Take(10).ToList();
+            List<PostViewModelAbbreviated> recentlyCreatedPosts = postService.GetPosts(postQueryparams).Take(10).Select(p => mapper.Map<PostViewModelAbbreviated>(p)).ToList();
 
             HomePageViewModel homePage = new HomePageViewModel();
             homePage.UsersCount= activeUsersCount;

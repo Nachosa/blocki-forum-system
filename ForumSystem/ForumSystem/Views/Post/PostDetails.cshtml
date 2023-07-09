@@ -13,6 +13,7 @@
 	<p>Created By: <a asp-controller="User" asp-action="UserDetails" asp-route-id="@Model.User.Id">@Model.CreatedBy</a></p>
 	<p>Created On: @Model.CreatedOn</p>
 	<p>Likes: @Model.LikesCount</p>
+	<p>Dislikes: @Model.DislikesCount</p>
 	<p>Tags: @(Model.Tags.Any() ? string.Join(", ", Model.Tags) : "none")</p>
 
 	<h3>Content: @Model.Content</h3>
@@ -20,10 +21,10 @@
 	@if (isLoggedUserPost||isAdmin)
 	{
 		<div class="button-container">
-			<a asp-controller="Post" asp-action="Edit" asp-route-Id="@Model.PostId" class="button-normal" method="get">Edit Post</a>
+			<a asp-controller="Post" asp-action="Edit" asp-route-Id="@Model.Id" class="button-normal" method="get">Edit Post</a>
 		</div>
 		<div class="button-container">
-			<a asp-controller="Post" asp-action="DeletePost" asp-route-Id="@Model.PostId" class="button-normal" method="post">Delete Post</a>
+			<a asp-controller="Post" asp-action="DeletePost" asp-route-Id="@Model.Id" class="button-normal" method="post">Delete Post</a>
 		</div>
 	}
 
@@ -40,9 +41,9 @@
 			@foreach (var comment in Model.Comments)
 			{
 				<li class="margin12">
-					<strong>@comment.UserName:</strong> @comment.CommentContent
+					<strong>@comment.Username:</strong> @comment.Content
 
-					@if (Context.Session.GetString("LoggedUser") == comment.UserName || isAdmin)
+					@if (Context.Session.GetString("LoggedUser") == comment.Username || isAdmin)
 					{
 						<a asp-controller="Comment" asp-action="DeleteComment" asp-route-id="@comment.Id" class="btn btn-primary">Delete</a>
 						<a asp-controller="Comment" asp-action="EditComment" asp-route-id="@comment.Id" class="btn btn-primary">Edit</a>
@@ -54,6 +55,6 @@
 
 	@if (isAuthenticated)
 	{
-		<a asp-controller="Comment" asp-action="CommentForm" asp-route-id="@Model.PostId" class="btn btn-primary">Add Comment</a>
+		<a asp-controller="Comment" asp-action="CommentForm" asp-route-id="@Model.Id" class="btn btn-primary">Add Comment</a>
 	}
 </div>
