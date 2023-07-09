@@ -64,7 +64,10 @@
                         <th>Posts</th>
                         <th>Comments</th>
                         <th>Created</th>
-                        <th>RoleId</th>
+                        <th>Rolе</th>
+                        <th>Edit</th>
+                        <th><div>Block</div><div>UnBlock</div></th>
+                        <th>Delete</th>
 
                     </tr>
                 </thead>
@@ -76,18 +79,65 @@
                             <td>@user.LastName</td>
                             <td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@user.Id">@user.Username</a></td>
                             <td>@user.Email</td>
-                            <td>@(
-                        user.PhoneNumber is not null ? user.PhoneNumber : "No phone number yet."
-                        )</td>
-                            <td>@(
-                        user.Posts.Count > 0 ? user.Posts.Count.ToString() : "No posts yet."
-                        )</td>
-                            <td>@(
-                        user.Comments.Count > 0 ? user.Comments.Count.ToString() : "No comments yet."
-                        )</td>
+                            <td>
+                                @(
+                                    user.PhoneNumber is not null ? user.PhoneNumber : "No phone number yet."
+                                    )
+                            </td>
+                            <td>
+                                @(
+                                    user.Posts.Count > 0 ? user.Posts.Count.ToString() : "No posts yet."
+                                    )
+                            </td>
+                            <td>
+                                @(
+                                    user.Comments.Count > 0 ? user.Comments.Count.ToString() : "No comments yet."
+                                    )
+                            </td>
                             <td>@user.CreatedOn</td>
-                            <td>@user.RoleId</td>
-                            @*<td>@(user.Tags.Any() ? string.Join(", ", user.Tags.Select(pt => pt.Tag.Name)) : "none")</td>*@
+                            <td>
+                                @if (user.RoleId==2)
+                                {
+                                    <span>Active</span>
+                                }
+                                else if (user.RoleId == 1)
+                                {
+                                    <span>Blocked</span>
+                                }
+                                else
+                                {
+                                    <span>Admin</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="button-container">
+                                    <a asp-controller="User" asp-action="EditUser" asp-route-Id="@user.Id" class="button-normal">Edit</a>
+                                </div>
+                            </td>
+                            <td>
+                                @if (user.RoleId==2)
+                                {
+                                    <div class="button-container">
+                                        <a asp-controller="Admin" asp-action="BlockUser" asp-route-Id="@user.Id" class="button-normal">Block</a>
+                                    </div>
+                                }
+                                else if (user.RoleId==1)
+                                {
+                                    <div class="button-container">
+                                        <a asp-controller="Admin" asp-action="UnBlockUser" asp-route-Id="@user.Id" class="button-normal">UnBlock</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                        <span>Admin</span>
+                                }
+
+                            </td>
+                            <td>
+                                <div class="button-container">
+                                    <a asp-controller="User" asp-action="DeleteUser" asp-route-Id="@user.Id" class="button-normal">Delete</a>
+                                </div>
+                            </td>
                         </tr>
                     }
                 </tbody>

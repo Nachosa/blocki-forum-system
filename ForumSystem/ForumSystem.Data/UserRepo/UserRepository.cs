@@ -31,7 +31,7 @@ namespace ForumSystem.DataAccess.UserRepo
             var result = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
 									.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
 									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
-									.AsNoTracking()
+						
                                     .Where(u => u.IsDeleted == false).ToList();
             return result;//Навсякъде ли трябва да има AsNoTracking?
         }
@@ -41,7 +41,7 @@ namespace ForumSystem.DataAccess.UserRepo
             var user = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
 				                    .Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
 									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
-									.AsNoTracking()
+						
 									.FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
             return user;
         }
@@ -51,7 +51,7 @@ namespace ForumSystem.DataAccess.UserRepo
             var userWithThatUserName = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
 									.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
 									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
-									.AsNoTracking()
+					
 									.FirstOrDefault(u => u.Username == Username && u.IsDeleted == false);
             return userWithThatUserName;
         }
@@ -61,7 +61,7 @@ namespace ForumSystem.DataAccess.UserRepo
             var userWithThatEmail = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
 									.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
 									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
-									.AsNoTracking()
+							
 									.FirstOrDefault(u => u.Email == email && u.IsDeleted == false);
             return userWithThatEmail;
         }
