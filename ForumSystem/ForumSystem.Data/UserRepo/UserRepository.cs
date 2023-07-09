@@ -35,7 +35,7 @@ namespace ForumSystem.DataAccess.UserRepo
                     .ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
 				.Include(c => c.Comments).Where(c => c.IsDeleted == false).Where(u => u.IsDeleted == false).ToList();
 
-            return result;//Навсякъде ли трябва да има AsNoTracking?
+            return result;
         }
 
         public User GetUserById(int Id)

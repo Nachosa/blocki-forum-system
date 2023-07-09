@@ -1,5 +1,8 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model List<ForumSystemDTO.ViewModels.PostViewModels.PostViewModelAbbreviated>
+@{
+	bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
+}
 
 <div class="labeled-table-container">
 	<h2 class="table-label">All Matching Posts</h2>
@@ -36,6 +39,10 @@
 					<th>Likes</th>
 					<th>Dislikes</th>
 					<th>Tags</th>
+					@if (isAdmin)
+					{
+						<th>Delete</th>
+					}
 				</tr>
 			</thead>
 			<tbody class="custom-table">
@@ -49,6 +56,14 @@
 						<td>@post.LikesCount</td>
 						<td>@post.DislikesCount</td>
 						<td>@(post.Tags.Any() ? string.Join(", ", post.Tags) : "none")</td>
+						@if (isAdmin)
+						{
+							<th>
+								<div class="button-container">
+									<a asp-controller="Post" asp-action="DeletePost" asp-route-Id="@post.Id" class="button-normal">Delete</a>
+								</div>
+							</th>
+						}
 					</tr>
 				}
 			</tbody>
