@@ -82,7 +82,7 @@ namespace ForumSystem.Web.ViewControllers
 
             var comment = new Comment
             {
-                Content = model.CommentContent,
+                Content = model.Content,
                 PostId = model.PostId,
                 UserId = HttpContext.Session.GetInt32("userId") ?? 0
             };

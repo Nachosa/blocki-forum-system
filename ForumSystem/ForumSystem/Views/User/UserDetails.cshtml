@@ -1,4 +1,4 @@
-﻿@model ForumSystem.DataAccess.Models.User;
+﻿@model ForumSystemDTO.ViewModels.UserViewModels.UserDetailsViewModel;
 
 @{
 	int? loggedUserId = this.Context.Session.GetInt32("userId");
@@ -21,16 +21,16 @@
 				{
 					if (this.Model.RoleId == 1)
 					{
-						<div class="profile-subtitle">Status:Blocked</div>
+						<div class="profile-subtitle">Status: Blocked</div>
 
 					}
 					else if (this.Model.RoleId == 2)
 					{
-						<div class="profile-subtitle">Status:Not Blocked</div>
+						<div class="profile-subtitle">Status: Not Blocked</div>
 					}
 					else if (this.Model.RoleId == 3)
 					{
-						<div class="profile-subtitle" id="profile-admin-label">Status:Admin</div>
+						<div class="profile-subtitle" id="profile-admin-label">Status: Admin</div>
 					}
 				}
 				@if (this.Model.PhoneNumber is not null)
@@ -40,12 +40,12 @@
 			</div>
 			<div class="likes-box">
 				<img class="profile-icon" src="~/images/upvoteicon.png">
-				<span>5</span>
+				<span>@this.Model.LikesCount</span>
 				@*TODO:Likes*@
 			</div>
 			<div class="dislikes-box">
 				<img class="profile-icon" src="~/images/downvoteIcon.png">
-				<span>67</span>
+				<span>@this.Model.DislikesCount</span>
 				@*TODO:Dislikes*@
 			</div>
 			<div class="posts-box">
@@ -92,6 +92,7 @@
 
 	<div id="comments-posts-tables">
 		<div class="labeled-table-container">
+			<h2 class="table-label">Posts</h2>
 			@*<div id="button-label-row">
 				<h2 class="table-label">User Posts</h2>
 				<div id="create-post-button">
@@ -107,6 +108,7 @@
 							<th>Comments</th>
 							<th>Created On</th>
 							<th>Likes</th>
+							<th>Dislikes</th>
 							<th>Tags</th>
 						</tr>
 					</thead>
@@ -114,10 +116,12 @@
 						@foreach (var item in Model.Posts)
 						{
 							<tr>
+								@*TODO: Да се оправи таблицата, да се имплементира вю модела*@
 								<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
-								<td>@item.Comments.Count</td>
+								<td>@item.CommentsCount</td>
 								<td>@item.CreatedOn</td>
-								<td>@item.Likes.Count</td>
+								<td>@item.LikesCount</td>
+								<td>@item.DislikesCount</td>
 								<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
 							</tr>
 						}
@@ -139,6 +143,7 @@
 				<table class="custom-table">
 					<thead class="custom-table">
 						<tr class="custom-table">
+							@*Може би да излиза тайтъла на поста, или пак да си излиза контент, но ако е твърде дълъг с точки?*@
 							<th>Content</th>
 							<th>Created On</th>
 						</tr>

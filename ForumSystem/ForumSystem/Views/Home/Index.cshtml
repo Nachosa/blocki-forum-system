@@ -25,6 +25,7 @@
 					<th>Comments</th>
 					<th>Created On</th>
 					<th>Likes</th>
+					<th>Dislikes</th>
 					<th>Tags</th>
 				</tr>
 			</thead>
@@ -33,10 +34,11 @@
 				{
 					<tr>
 						<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
-						<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@item.UserId">@item.User.Username</a></td>
-						<td>@item.Comments.Count</td>
+						<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@item.User.Id">@item.User.Username</a></td>
+						<td>@item.CommentsCount</td>
 						<td>@item.CreatedOn</td>
-						<td>@item.Likes.Count</td>
+						<td>@item.LikesCount</td>
+						<td>@item.DislikesCount</td>
 						<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
 					</tr>
 				}
@@ -61,6 +63,7 @@
 					<th>Comments</th>
 					<th>Created On</th>
 					<th>Likes</th>
+					<th>Dislikes</th>
 					<th>Tags</th>
 				</tr>
 			</thead>
@@ -69,10 +72,11 @@
 				{
 					<tr>
 						<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
-						<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@item.UserId">@item.User.Username</a></td>
-						<td>@item.Comments.Count</td>
+						<td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@item.User.Id">@item.User.Username</a></td>
+						<td>@item.CommentsCount</td>
 						<td>@item.CreatedOn</td>
-						<td>@item.Likes.Count</td>
+						<td>@item.LikesCount</td>
+						<td>@item.DislikesCount</td>
 						<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
 					</tr>
 				}

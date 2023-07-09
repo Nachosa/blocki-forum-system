@@ -1,4 +1,5 @@
 ﻿using ForumSystem.DataAccess.Models;
+using ForumSystemDTO.ViewModels.PostViewModels;
 
 namespace ForumSystemDTO.ViewModels.HomeViewModels
 {
@@ -9,10 +10,9 @@ namespace ForumSystemDTO.ViewModels.HomeViewModels
         public int PostsCount { get; set; }
 
         //list of the top 10 most commented posts
-        public List<Post> TopCommentedPosts { get; set; }= new List<Post>();
+        public List<PostViewModelAbbreviated> TopCommentedPosts { get; set; }= new List<PostViewModelAbbreviated>();
 
         //list of the 10 most recently created posts
-        public List<Post> RecentlyCreatedPosts { get; set; } = new List<Post>();
-
+        public List<PostViewModelAbbreviated> RecentlyCreatedPosts { get; set; } = new List<PostViewModelAbbreviated>();
     }
 }

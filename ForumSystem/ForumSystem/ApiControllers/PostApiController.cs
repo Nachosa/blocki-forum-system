@@ -75,23 +75,6 @@ namespace ForumSystem.Web.ApiControllers
             }
         }
 
-        //[HttpGet("tag")]
-        //public IActionResult AllPostsWithTag([FromHeader] string credentials, [FromQuery] string tag)
-        //{
-        //    try
-        //    {
-        //        authManager.UserCheck(credentials);
-
-        //        var posts = postService.GetPostsWithTag(tag);
-        //        return Ok(posts);
-        //    }
-        //    catch (Exception e)
-        //    {
-
-        //        return BadRequest(e.Message);
-        //    }
-        //}
-
         [HttpPost("")]
         public IActionResult CreatePost([FromHeader] string credentials, [FromBody] CreatePostDto postDto)
         {
@@ -127,43 +110,43 @@ namespace ForumSystem.Web.ApiControllers
             {
                 return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
-            catch (DuplicateEntityException e)
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
-            }
+            //catch (DuplicateEntityException e)
+            //{
+            //    return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+            //}
             catch (EntityNotFoundException e)
             {
                 return StatusCode(StatusCodes.Status400BadRequest, e.Message);
             }
         }
 
-        [HttpPost("{postId}/unlike")]
-        public IActionResult UnikePost(int postId, [FromHeader] string credentials)
-        {
-            try
-            {
-                authManager.BlockedCheck(credentials);
-                string[] usernameAndPassword = credentials.Split(':');
-                string userName = usernameAndPassword[0];
+		[HttpPost("{postId}/dislike")]
+		public IActionResult DislikePost(int postId, [FromHeader] string credentials)
+		{
+			try
+			{
+				authManager.BlockedCheck(credentials);
+				string[] usernameAndPassword = credentials.Split(':');
+				string userName = usernameAndPassword[0];
 
-                postService.UnlikePost(postId, userName);
-                return StatusCode(StatusCodes.Status200OK, true);
-            }
-            catch (UnauthenticatedOperationException e)
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
-            }
-            catch (DuplicateEntityException e)
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
-            }
-            catch (EntityNotFoundException e)
-            {
-                return StatusCode(StatusCodes.Status400BadRequest, e.Message);
-            }
-        }
+				postService.DislikePost(postId, userName);
+				return StatusCode(StatusCodes.Status200OK, true);
+			}
+			catch (UnauthenticatedOperationException e)
+			{
+				return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+			}
+			//catch (DuplicateEntityException e)
+			//{
+			//    return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+			//}
+			catch (EntityNotFoundException e)
+			{
+				return StatusCode(StatusCodes.Status400BadRequest, e.Message);
+			}
+		}
 
-        [HttpPatch("{postId}/tag")]
+		[HttpPatch("{postId}/tag")]
         public IActionResult TagPost(int postId, [FromHeader] string credentials, [FromBody] TagDto tagDto)
         {
             try

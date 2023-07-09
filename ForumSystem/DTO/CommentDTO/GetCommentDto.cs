@@ -15,7 +15,7 @@ namespace ForumSystemDTO.CommentDTO
         [MaxLength(8192, ErrorMessage = "The {0} must be no more than {1} characters long.")]
         public string Content { get; set; }
 
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         public int LikesCount { get; set; }
 

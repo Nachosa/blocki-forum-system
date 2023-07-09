@@ -22,9 +22,9 @@ namespace ForumSystem.Business
 
         bool LikePost(int postId, string userName);
 
-        bool UnlikePost(int postId, string userName);
+        bool DislikePost(int postId, string userName);
 
-        bool TagPost(int postId, string userName, Tag tag);
+		bool TagPost(int postId, string userName, Tag tag);
 
         public Post UpdatePostContent(int postId, Post post, string userName);
 

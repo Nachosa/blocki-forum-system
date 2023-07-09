@@ -28,9 +28,13 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public Like GetLike(int postId, int userId);
 
-        bool LikePost(Post post, User user);
+		bool CreateLike(Post post, User user);
 
-        public bool UnikePost(Like like);
+		bool LikePost(Like like);
+
+		bool DislikePost(Like like);
+
+        public bool DeleteLike(Like like);
 
         bool TagPost(Post post, Tag tag);
 

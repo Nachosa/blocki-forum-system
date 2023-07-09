@@ -69,22 +69,44 @@ namespace ForumSystem.DataAccess.PostRepo
             return post;
         }
 
-        public bool LikePost(Post post, User user)
+        public bool CreateLike(Post post, User user)
         {
             forumDb.Likes.Add(new Like { PostId = post.Id, UserId = user.Id });
+            //Може би тук също да се сетва дата на създаване?
             forumDb.SaveChanges();
             return true;
         }
 
-        public Like GetLike(int postId, int userId)
-        {
-            var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId && l.IsDeleted == false);
-            return like;
-        }
+		public Like GetLike(int postId, int userId)
+		{
+			var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId/* && l.IsDeleted == false*/);
+			return like;
+		}
 
-        public bool UnikePost(Like like)
+		public bool LikePost(Like like)
+		{
+            like.IsDeleted = false;
+            like.DeletedOn = null;
+            like.CreatedOn = DateTime.Now;
+            like.IsDislike = false;
+			forumDb.SaveChanges();
+			return true;
+		}
+
+		public bool DislikePost(Like like)
+		{
+			like.IsDeleted = false;
+			like.DeletedOn = null;
+			like.CreatedOn = DateTime.Now;
+			like.IsDislike = true;
+			forumDb.SaveChanges();
+			return true;
+		}
+
+        public bool DeleteLike(Like like)
         {
             like.IsDeleted = true;
+            like.DeletedOn = DateTime.Now;
             forumDb.SaveChanges();
             return true;
         }

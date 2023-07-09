@@ -19,10 +19,10 @@
 		</div>
 
 		<div class="input-container big-input-container">
-			<textarea asp-for="CommentContent" class="basic-form-input" type="text" placeholder=" "> </textarea>
-			<span asp-validation-for="CommentContent" class="validation-error-message"></span><br>
+			<textarea asp-for="Content" class="basic-form-input" type="text" placeholder=" "> </textarea>
+			<span asp-validation-for="Content" class="validation-error-message"></span><br>
 			<div class="cut"></div>
-			<label asp-for="CommentContent" class="placeholder">Content</label>
+			<label asp-for="Content" class="placeholder">Content</label>
 		</div>
 
 		<form asp-controller="Post" asp-action="SubmitComment" method="post">
