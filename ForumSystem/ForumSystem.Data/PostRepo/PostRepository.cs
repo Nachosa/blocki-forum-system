@@ -23,22 +23,22 @@ namespace ForumSystem.DataAccess.PostRepo
             this.tagRepo = tagRepo;
         }
 
-		public IEnumerable<Post> GetAllPosts()
-        {
-			List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
-																	.Include(p => p.Likes.Where(l => l.IsDeleted == false))
-																	.Include(p => p.User)
-																	.Include(p => p.Comments.Where(c => c.IsDeleted == false))
-																	.Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
-
-			return postsToProcess;
-		}
-
-		public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
+        public IEnumerable<Post> GetAllPosts()
         {
             List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
                                                                     .Include(p => p.Likes.Where(l => l.IsDeleted == false))
-                                                                    .Include(p => p.User) 
+                                                                    .Include(p => p.User)
+                                                                    .Include(p => p.Comments.Where(c => c.IsDeleted == false))
+                                                                    .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
+
+            return postsToProcess;
+        }
+
+        public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
+        {
+            List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
+                                                                    .Include(p => p.Likes.Where(l => l.IsDeleted == false))
+                                                                    .Include(p => p.User)
                                                                     .Include(p => p.Comments.Where(c => c.IsDeleted == false))
                                                                     .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
             postsToProcess = FilterBy(queryParameters, postsToProcess);
@@ -77,31 +77,31 @@ namespace ForumSystem.DataAccess.PostRepo
             return true;
         }
 
-		public Like GetLike(int postId, int userId)
-		{
-			var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId /* && l.IsDeleted == false*/);
-			return like;
-		}
+        public Like GetLike(int postId, int userId)
+        {
+            var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId /* && l.IsDeleted == false*/);
+            return like;
+        }
 
-		public bool LikePost(Like like)
-		{
+        public bool LikePost(Like like)
+        {
             like.IsDeleted = false;
             like.DeletedOn = null;
             like.CreatedOn = DateTime.Now;
             like.IsDislike = false;
-			forumDb.SaveChanges();
-			return true;
-		}
+            forumDb.SaveChanges();
+            return true;
+        }
 
-		public bool DislikePost(Like like)
-		{
-			like.IsDeleted = false;
-			like.DeletedOn = null;
-			like.CreatedOn = DateTime.Now;
-			like.IsDislike = true;
-			forumDb.SaveChanges();
-			return true;
-		}
+        public bool DislikePost(Like like)
+        {
+            like.IsDeleted = false;
+            like.DeletedOn = null;
+            like.CreatedOn = DateTime.Now;
+            like.IsDislike = true;
+            forumDb.SaveChanges();
+            return true;
+        }
 
         public bool DeleteLike(Like like)
         {
@@ -142,15 +142,16 @@ namespace ForumSystem.DataAccess.PostRepo
             //Include преди FirstOrDefault ми се струва много бавно.
             var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
                                     .Include(p => p.User)
-                                    .Include(p => p.Comments).ThenInclude(c => c.User).Where(c => c.IsDeleted == false)
+                                    .Include(p => p.Comments.Where(c => c.IsDeleted == false)).ThenInclude(c => c.User)
                                     .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
                                     .FirstOrDefault(post => post.Id == postId);
-			//var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
-			//						.Include(p => p.User)
-			//						.Include(p => p.Comments.Where(c => c.IsDeleted == false))
-			//						.Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
-			//						.FirstOrDefault(post => post.Id == postId);
-			if (post == null || post.IsDeleted)
+
+            //var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
+            //						.Include(p => p.User)
+            //						.Include(p => p.Comments.Where(c => c.IsDeleted == false))
+            //						.Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
+            //						.FirstOrDefault(post => post.Id == postId);
+            if (post == null || post.IsDeleted)
                 throw new EntityNotFoundException($"Post with id={postId} doesn't exist.");
             else
                 return post;
@@ -165,38 +166,66 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public List<Post> FilterBy(PostQueryParameters filterParameters, List<Post> posts)
         {
-            if (!string.IsNullOrEmpty(filterParameters.Title))
-            {
-                posts = posts.FindAll(post => post.Title.Contains(filterParameters.Title, StringComparison.InvariantCultureIgnoreCase));
-            }
+			var filteredPosts = posts;
 
-            if (!string.IsNullOrEmpty(filterParameters.Content))
-            {
-                posts = posts.FindAll(post => post.Content.Contains(filterParameters.Content, StringComparison.InvariantCultureIgnoreCase));
-            }
+			if (!string.IsNullOrEmpty(filterParameters.CreatedBy))
+			{
+				filteredPosts = filteredPosts.Where(post => post.User.Username.Contains(filterParameters.CreatedBy, StringComparison.InvariantCultureIgnoreCase)).ToList();
+			}
 
-            if (filterParameters.MinDate is not null)
-            {
-                posts = posts.FindAll(post => post.CreatedOn >= filterParameters.MinDate);
-            }
+			if (!string.IsNullOrEmpty(filterParameters.Title))
+			{
+				var titleFilteredPosts = posts.Where(post => post.Title.Contains(filterParameters.Title, StringComparison.InvariantCultureIgnoreCase)).ToList();
 
-            if (filterParameters.MaxDate is not null)
-            {
-                posts = posts.FindAll(post => post.CreatedOn <= filterParameters.MaxDate);
-            }
-
-            if (filterParameters.Tag is not null)
-            {
-                var tag = tagRepo.GetTagByName(filterParameters.Tag);
-                if (tag != null)
-                    posts = posts.FindAll(post => post.Tags.Any(pt => pt.Id == tag.Id));
-                //Тук не съм сигурен, че това е най-рентабилния вариант ако няма такъв таг.
+                if (filteredPosts.Count > 0)
+                {
+					filteredPosts = filteredPosts.Concat(titleFilteredPosts).ToList();
+				}
                 else
-                    posts.Clear();
-            }
+                {
+					filteredPosts = titleFilteredPosts;
+				}
+			}
 
-            return posts;
-        }
+			return filteredPosts;
+
+			//if (!string.IsNullOrEmpty(filterParameters.CreatedBy))
+			//{
+			//	posts = posts.FindAll(post => post.User.Username.Contains(filterParameters.CreatedBy, StringComparison.InvariantCultureIgnoreCase));
+			//}
+
+			//if (!string.IsNullOrEmpty(filterParameters.Title))
+			//         {
+			//             posts = posts.FindAll(post => post.Title.Contains(filterParameters.Title, StringComparison.InvariantCultureIgnoreCase));
+			//         }
+
+			//         if (!string.IsNullOrEmpty(filterParameters.Content))
+			//         {
+			//             posts = posts.FindAll(post => post.Content.Contains(filterParameters.Content, StringComparison.InvariantCultureIgnoreCase));
+			//         }
+
+			//         if (filterParameters.MinDate is not null)
+			//         {
+			//             posts = posts.FindAll(post => post.CreatedOn >= filterParameters.MinDate);
+			//         }
+
+			//         if (filterParameters.MaxDate is not null)
+			//         {
+			//             posts = posts.FindAll(post => post.CreatedOn <= filterParameters.MaxDate);
+			//         }
+
+			//         if (filterParameters.Tag is not null)
+			//         {
+			//             var tag = tagRepo.GetTagByName(filterParameters.Tag);
+			//             if (tag != null)
+			//                 posts = posts.FindAll(post => post.Tags.Any(pt => pt.Id == tag.Id));
+			//             //Тук не съм сигурен, че това е най-рентабилния вариант ако няма такъв таг.
+			//             else
+			//                 posts.Clear();
+			//         }
+
+			//         return posts;
+		}
 
         //(Опционално) Може би ще е добре да направим параметрите за сортиране да са повече от един и да се сплитват, за да се сортира по няколко неща.
         public List<Post> SortBy(PostQueryParameters sortParameters, List<Post> posts)
