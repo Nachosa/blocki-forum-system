@@ -68,6 +68,36 @@
 				}
 			</tbody>
 		</table>
+
+		<div class="pagination-container">
+			@if (ViewBag.TotalPages > 1)
+			{
+				<nav aria-label="Page navigation">
+					<ul class="pagination">
+						@if (ViewBag.CurrentPage > 1)
+						{
+							<li class="page-item">
+								<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage - 1)&filterBy=@ViewBag.FilterBy&sortBy=@ViewBag.SortBy&sortOrder=@ViewBag.SortOrder">Previous</a>
+							</li>
+						}
+
+						@for (int i = 1; i <= ViewBag.TotalPages; i++)
+						{
+							<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+								<a class="page-link" href="/Post/Index?page=@i&filterBy=@ViewBag.FilterBy&sortBy=@ViewBag.SortBy&sortOrder=@ViewBag.SortOrder">@i</a>
+							</li>
+						}
+
+						@if (ViewBag.CurrentPage < ViewBag.TotalPages)
+						{
+							<li class="page-item">
+								<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage + 1)&filterBy=@ViewBag.FilterBy&sortBy=@ViewBag.SortBy&sortOrder=@ViewBag.SortOrder">Next</a>
+							</li>
+						}
+					</ul>
+				</nav>
+			}
+		</div>
 	}
 	else
 	{
