@@ -45,8 +45,7 @@ namespace ForumSystem.Web.ViewControllers
 
 				if (!string.IsNullOrEmpty(filterBy))
 				{
-					// parameters.Content = filterBy;
-					// parameters.Tag = filterBy;
+                    parameters.CreatedBy = filterBy;
 					parameters.Title = filterBy;
 				}
 
