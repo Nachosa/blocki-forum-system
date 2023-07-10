@@ -38,8 +38,7 @@
 				<li>
 					<div class="search-bar-box">
 
-						<form name="search">
-							@*TODO:Това е сравнително шано изпълнение, ако има време ще рефакторирам (или да го махна?).*@
+						<form asp-controller="Home" asp-action="Search" method="get">
 							<a href="" onclick="parentNode.submit();return false;">
 								<div class="image-box">
 									<div>
@@ -50,7 +49,7 @@
 									</div>
 								</div>
 							</a>
-							<input type="text" class="input" name="txt">
+							<input type="text" class="input" name="input">
 						</form>
 					</div>
 				</li>
