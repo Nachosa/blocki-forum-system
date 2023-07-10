@@ -140,20 +140,11 @@ namespace ForumSystem.DataAccess.PostRepo
         public Post GetPostById(int postId)
         {
             //Include преди FirstOrDefault ми се струва много бавно.
-            //var ppost = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
-            //                        .Include(p => p.User)
-            //                        .Include(p => p.Comments.Where(c => c.IsDeleted == false).ThenInclude(c => c.User))
-            //                        .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
-            //                        .FirstOrDefault(post => post.Id == postId);
-
-            var post = forumDb.Posts
-                     .Include(p => p.Likes.Where(l => !l.IsDeleted))
-                     .Include(p => p.User)
-                     .Include(p => p.Comments.Where(c => !c.IsDeleted))
-                          .ThenInclude(c => c.User)
-                     .Include(p => p.Tags)
-                          .ThenInclude(pt => pt.Tag)
-                     .FirstOrDefault(p => p.Id == postId && !p.IsDeleted);
+            var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
+                                    .Include(p => p.User)
+                                    .Include(p => p.Comments.Where(c => c.IsDeleted == false)).ThenInclude(c => c.User)
+                                    .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
+                                    .FirstOrDefault(post => post.Id == postId);
 
             //var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
             //						.Include(p => p.User)
