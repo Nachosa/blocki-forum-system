@@ -35,46 +35,65 @@ namespace ForumSystem.Web.ViewControllers
             this.authorizator = authorizator;
         }
 
-		[HttpGet]
-		public IActionResult Index(string filterBy, string sortBy, string sortOrder, int? page)
+		public IActionResult Index(DateTime? endDate, DateTime? startDate, string filterBy, string filterValue, string sortBy, string sortOrder, int? page)
 		{
 			try
 			{
 				var parameters = new PostQueryParameters();
 				var result = new List<Post>();
 
-				if (!string.IsNullOrEmpty(filterBy))
+				if (!string.IsNullOrEmpty(filterValue))
 				{
-                    parameters.CreatedBy = filterBy;
-					parameters.Title = filterBy;
+					switch (filterBy)
+					{
+						case "author":
+							parameters.CreatedBy = filterValue;
+
+							break;
+						case "tags":
+							parameters.Tag = filterValue;
+
+							break;
+						case "title":
+							parameters.Title = filterValue;
+
+							break;
+						default:
+							break;
+					}
 				}
 
-				if (!string.IsNullOrEmpty(sortBy))
-				{
-					parameters.SortBy = sortBy;
+                if (endDate.HasValue && startDate.HasValue)
+                {
+					parameters.MaxDate = endDate;
+					parameters.MinDate = startDate;
 				}
+                else if (startDate.HasValue)
+                {
+                    parameters.MinDate = startDate;
+                }
 
-				if (!string.IsNullOrEmpty(sortOrder))
-				{
-					parameters.SortOrder = sortOrder;
-				}
+                parameters.SortBy = sortBy;
+				parameters.SortOrder = sortOrder;
 
 				result = postService.GetPosts(parameters);
-
 				var postViewModels = result.Select(p => mapper.Map<PostViewModelAbbreviated>(p)).ToList();
 
+				ViewBag.EndDate = endDate;
 				ViewBag.FilterBy = filterBy;
 				ViewBag.SortBy = sortBy;
+				ViewBag.StartDate = startDate;
 
 				// Pagination logic
-				var totalPosts = postViewModels.Count;
-				var pageSize = 5; // Number of posts per page
-				var totalPages = (int)Math.Ceiling(totalPosts / (double)pageSize);
 				var currentPage = page ?? 1;
+				var pageSize = 5;
+				var totalPosts = postViewModels.Count;
 
-				ViewBag.TotalPosts = totalPosts;
-				ViewBag.TotalPages = totalPages;
+				var totalPages = (int) Math.Ceiling(totalPosts / (double) pageSize);
+
 				ViewBag.CurrentPage = currentPage;
+				ViewBag.TotalPages = totalPages;
+				ViewBag.TotalPosts = totalPosts;
 
 				// Apply pagination
 				postViewModels = postViewModels.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
@@ -83,54 +102,66 @@ namespace ForumSystem.Web.ViewControllers
 			}
 			catch (Exception e)
 			{
-				// TODO: More precise exception handling and status code.
 				Response.StatusCode = StatusCodes.Status400BadRequest;
 				ViewData["ErrorMessage"] = e.Message;
+
 				return View("Error");
 			}
 		}
 
 		//[HttpGet]
-		//public IActionResult Index(string filterBy, string sortBy, string sortOrder)
+		//public IActionResult Index(string filterBy, string sortBy, string sortOrder, int? page)
 		//{
-		//    try
-		//    {
-		//        var parameters = new PostQueryParameters();
-		//        var result = new List<Post>();
+		//	try
+		//	{
+		//		var parameters = new PostQueryParameters();
+		//		var result = new List<Post>();
 
-		//        if (!string.IsNullOrEmpty(filterBy))
-		//        {
-		//            //parameters.Content = filterBy;
-		//            // parameters.Tag = filterBy;
-		//            parameters.Title = filterBy;
-		//        }
+		//		if (!string.IsNullOrEmpty(filterBy))
+		//		{
+  //                  parameters.CreatedBy = filterBy;
+		//			parameters.Title = filterBy;
+		//		}
 
-		//        if (!string.IsNullOrEmpty(sortBy))
-		//        {
-		//            parameters.SortBy = sortBy;
-		//        }
+		//		if (!string.IsNullOrEmpty(sortBy))
+		//		{
+		//			parameters.SortBy = sortBy;
+		//		}
 
-		//        if (!string.IsNullOrEmpty(sortOrder))
-		//        {
-		//            parameters.SortOrder = sortOrder;
-		//        }
+		//		if (!string.IsNullOrEmpty(sortOrder))
+		//		{
+		//			parameters.SortOrder = sortOrder;
+		//		}
 
-		//        result = postService.GetPosts(parameters);
+		//		result = postService.GetPosts(parameters);
 
-		//        var postViewModels = result.Select(p => mapper.Map<PostViewModelAbbreviated>(p)).ToList();
+		//		var postViewModels = result.Select(p => mapper.Map<PostViewModelAbbreviated>(p)).ToList();
 
-		//        ViewBag.FilterBy = filterBy;
-		//        ViewBag.SortBy = sortBy;
+		//		ViewBag.FilterBy = filterBy;
+		//		ViewBag.SortBy = sortBy;
 
-		//        return View(postViewModels);
-		//    }
-		//    catch (Exception e)
-		//    {
-		//        // TODO: More precise exception handling and status code.
-		//        Response.StatusCode = StatusCodes.Status400BadRequest;
-		//        ViewData["ErrorMessage"] = e.Message;
-		//        return View("Error");
-		//    }
+		//		// Pagination logic
+		//		var totalPosts = postViewModels.Count;
+		//		var pageSize = 5; // Number of posts per page
+		//		var totalPages = (int)Math.Ceiling(totalPosts / (double)pageSize);
+		//		var currentPage = page ?? 1;
+
+		//		ViewBag.TotalPosts = totalPosts;
+		//		ViewBag.TotalPages = totalPages;
+		//		ViewBag.CurrentPage = currentPage;
+
+		//		// Apply pagination
+		//		postViewModels = postViewModels.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+		//		return View(postViewModels);
+		//	}
+		//	catch (Exception e)
+		//	{
+		//		// TODO: More precise exception handling and status code.
+		//		Response.StatusCode = StatusCodes.Status400BadRequest;
+		//		ViewData["ErrorMessage"] = e.Message;
+		//		return View("Error");
+		//	}
 		//}
 
 		[HttpGet]

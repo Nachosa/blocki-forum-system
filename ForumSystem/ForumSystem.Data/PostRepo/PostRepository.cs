@@ -168,66 +168,46 @@ namespace ForumSystem.DataAccess.PostRepo
 
         public List<Post> FilterBy(PostQueryParameters filterParameters, List<Post> posts)
         {
-			var filteredPosts = posts;
+            if (!string.IsNullOrEmpty(filterParameters.CreatedBy))
+            {
+                posts = posts.FindAll(post => post.User.Username.Contains(filterParameters.CreatedBy, StringComparison.InvariantCultureIgnoreCase));
+            }
 
-			if (!string.IsNullOrEmpty(filterParameters.CreatedBy))
+			if (filterParameters.Tag is not null)
 			{
-				filteredPosts = filteredPosts.Where(post => post.User.Username.Contains(filterParameters.CreatedBy, StringComparison.InvariantCultureIgnoreCase)).ToList();
-			}
+				var tag = tagRepo.GetTagByName(filterParameters.Tag);
 
-			if (!string.IsNullOrEmpty(filterParameters.Title))
-			{
-				var titleFilteredPosts = posts.Where(post => post.Title.Contains(filterParameters.Title, StringComparison.InvariantCultureIgnoreCase)).ToList();
-
-                if (filteredPosts.Count > 0)
+                if (tag != null)
                 {
-					filteredPosts = filteredPosts.Concat(titleFilteredPosts).ToList();
+					// Тук не съм сигурен, че това е най-рентабилния вариант ако няма такъв таг.
+					posts = posts.FindAll(post => post.Tags.Any(pt => pt.Id == tag.Id));
 				}
                 else
                 {
-					filteredPosts = titleFilteredPosts;
+					posts.Clear();
 				}
 			}
 
-			return filteredPosts;
+			if (!string.IsNullOrEmpty(filterParameters.Title))
+            {
+                posts = posts.FindAll(post => post.Title.Contains(filterParameters.Title, StringComparison.InvariantCultureIgnoreCase));
+            }
 
-			//if (!string.IsNullOrEmpty(filterParameters.CreatedBy))
-			//{
-			//	posts = posts.FindAll(post => post.User.Username.Contains(filterParameters.CreatedBy, StringComparison.InvariantCultureIgnoreCase));
-			//}
+			if (filterParameters.MaxDate.HasValue && filterParameters.MinDate.HasValue)
+            {
+				DateTime maxDate = filterParameters.MaxDate.Value.Date;
+				DateTime minDate = filterParameters.MinDate.Value.Date;
+				posts = posts.FindAll(post => post.CreatedOn.Date <= maxDate && post.CreatedOn.Date >= minDate);
+            }
 
-			//if (!string.IsNullOrEmpty(filterParameters.Title))
-			//         {
-			//             posts = posts.FindAll(post => post.Title.Contains(filterParameters.Title, StringComparison.InvariantCultureIgnoreCase));
-			//         }
+			if (!filterParameters.MaxDate.HasValue && filterParameters.MinDate.HasValue)
+			{
+				DateTime minDate = filterParameters.MinDate.Value.Date;
+				posts = posts.FindAll(post => post.CreatedOn.Date == minDate);
+			}
 
-			//         if (!string.IsNullOrEmpty(filterParameters.Content))
-			//         {
-			//             posts = posts.FindAll(post => post.Content.Contains(filterParameters.Content, StringComparison.InvariantCultureIgnoreCase));
-			//         }
-
-			//         if (filterParameters.MinDate is not null)
-			//         {
-			//             posts = posts.FindAll(post => post.CreatedOn >= filterParameters.MinDate);
-			//         }
-
-			//         if (filterParameters.MaxDate is not null)
-			//         {
-			//             posts = posts.FindAll(post => post.CreatedOn <= filterParameters.MaxDate);
-			//         }
-
-			//         if (filterParameters.Tag is not null)
-			//         {
-			//             var tag = tagRepo.GetTagByName(filterParameters.Tag);
-			//             if (tag != null)
-			//                 posts = posts.FindAll(post => post.Tags.Any(pt => pt.Id == tag.Id));
-			//             //Тук не съм сигурен, че това е най-рентабилния вариант ако няма такъв таг.
-			//             else
-			//                 posts.Clear();
-			//         }
-
-			//         return posts;
-		}
+			return posts;
+        }
 
         //(Опционално) Може би ще е добре да направим параметрите за сортиране да са повече от един и да се сплитват, за да се сортира по няколко неща.
         public List<Post> SortBy(PostQueryParameters sortParameters, List<Post> posts)
