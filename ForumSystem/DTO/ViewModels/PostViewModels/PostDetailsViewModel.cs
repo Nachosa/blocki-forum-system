@@ -16,7 +16,7 @@ namespace ForumSystemDTO.ViewModels.PostViewModels
 		public DateTime CreatedOn { get; set; }
 		public int LikesCount { get; set; }
 		public int DislikesCount { get; set; }
-		public List<PostTag> Tags { get; set; }
+		public List<string> Tags { get; set; }
 		public string Content { get; set; }
 		public List<CommentViewModel> Comments { get; set; }
 		public List<Like> Likes { get; set; }

@@ -122,7 +122,7 @@
 								<td>@item.CreatedOn</td>
 								<td>@item.LikesCount</td>
 								<td>@item.DislikesCount</td>
-								<td>@(item.Tags.Any() ? string.Join(", ", item.Tags.Select(pt => pt.Tag.Name)) : "none")</td>
+								<td>@(item.Tags.Any() ? string.Join(", ", item.Tags) : "none")</td>
 							</tr>
 						}
 					</tbody>
