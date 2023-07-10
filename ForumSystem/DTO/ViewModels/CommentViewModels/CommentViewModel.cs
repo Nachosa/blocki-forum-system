@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ForumSystemDTO.ViewModels.UserViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,6 @@ namespace ForumSystemDTO.ViewModels.CommentViewModels
 
 		public DateTime CreatedOn { get; set; }
 
-		public string Username { get; set; }
-		//Трябва да има и дата.
+		public UserDetailsViewModel User { get; set; }
 	}
 }
