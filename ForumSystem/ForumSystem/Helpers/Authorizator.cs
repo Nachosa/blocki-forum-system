@@ -14,7 +14,7 @@ namespace ForumSystem.Web.Helpers
             this.contextAccessor = contextAccessor;
         }
         /// <summary>
-        /// Check if there is logged user.>
+        /// Check if there is logged user.
         /// </summary>
         public bool isLogged(string key)
         {
@@ -34,7 +34,7 @@ namespace ForumSystem.Web.Helpers
             return true;
         }
         /// <summary>
-        /// Check if logged user ID matches the content creator ID>
+        /// Check if logged user ID matches the content creator ID.
         /// <param key="userId">Key paraim is userId from session.</param>
         /// </summary>
         public bool isContentCreator(string key, int contentCreatorId)
@@ -46,7 +46,7 @@ namespace ForumSystem.Web.Helpers
             return true;
         }
         /// <summary>
-        /// Check if logged user is blocked>
+        /// Check if logged user is blocked.
         /// <param key="roleId">Key paraim is roleId from session.</param>
         /// </summary>
         public bool isBlocked(string key)

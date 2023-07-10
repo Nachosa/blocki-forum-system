@@ -23,22 +23,22 @@ namespace ForumSystem.DataAccess.PostRepo
             this.tagRepo = tagRepo;
         }
 
-		public IEnumerable<Post> GetAllPosts()
-        {
-			List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
-																	.Include(p => p.Likes.Where(l => l.IsDeleted == false))
-																	.Include(p => p.User)
-																	.Include(p => p.Comments.Where(c => c.IsDeleted == false))
-																	.Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
-
-			return postsToProcess;
-		}
-
-		public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
+        public IEnumerable<Post> GetAllPosts()
         {
             List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
                                                                     .Include(p => p.Likes.Where(l => l.IsDeleted == false))
-                                                                    .Include(p => p.User) 
+                                                                    .Include(p => p.User)
+                                                                    .Include(p => p.Comments.Where(c => c.IsDeleted == false))
+                                                                    .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
+
+            return postsToProcess;
+        }
+
+        public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
+        {
+            List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
+                                                                    .Include(p => p.Likes.Where(l => l.IsDeleted == false))
+                                                                    .Include(p => p.User)
                                                                     .Include(p => p.Comments.Where(c => c.IsDeleted == false))
                                                                     .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
             postsToProcess = FilterBy(queryParameters, postsToProcess);
@@ -77,31 +77,31 @@ namespace ForumSystem.DataAccess.PostRepo
             return true;
         }
 
-		public Like GetLike(int postId, int userId)
-		{
-			var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId /* && l.IsDeleted == false*/);
-			return like;
-		}
+        public Like GetLike(int postId, int userId)
+        {
+            var like = forumDb.Likes.FirstOrDefault(l => l.PostId == postId && l.UserId == userId /* && l.IsDeleted == false*/);
+            return like;
+        }
 
-		public bool LikePost(Like like)
-		{
+        public bool LikePost(Like like)
+        {
             like.IsDeleted = false;
             like.DeletedOn = null;
             like.CreatedOn = DateTime.Now;
             like.IsDislike = false;
-			forumDb.SaveChanges();
-			return true;
-		}
+            forumDb.SaveChanges();
+            return true;
+        }
 
-		public bool DislikePost(Like like)
-		{
-			like.IsDeleted = false;
-			like.DeletedOn = null;
-			like.CreatedOn = DateTime.Now;
-			like.IsDislike = true;
-			forumDb.SaveChanges();
-			return true;
-		}
+        public bool DislikePost(Like like)
+        {
+            like.IsDeleted = false;
+            like.DeletedOn = null;
+            like.CreatedOn = DateTime.Now;
+            like.IsDislike = true;
+            forumDb.SaveChanges();
+            return true;
+        }
 
         public bool DeleteLike(Like like)
         {
@@ -140,17 +140,27 @@ namespace ForumSystem.DataAccess.PostRepo
         public Post GetPostById(int postId)
         {
             //Include преди FirstOrDefault ми се струва много бавно.
-            var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
-                                    .Include(p => p.User)
-                                    .Include(p => p.Comments).ThenInclude(c => c.User).Where(c => c.IsDeleted == false)
-                                    .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
-                                    .FirstOrDefault(post => post.Id == postId);
-			//var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
-			//						.Include(p => p.User)
-			//						.Include(p => p.Comments.Where(c => c.IsDeleted == false))
-			//						.Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
-			//						.FirstOrDefault(post => post.Id == postId);
-			if (post == null || post.IsDeleted)
+            //var ppost = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
+            //                        .Include(p => p.User)
+            //                        .Include(p => p.Comments.Where(c => c.IsDeleted == false).ThenInclude(c => c.User))
+            //                        .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
+            //                        .FirstOrDefault(post => post.Id == postId);
+
+            var post = forumDb.Posts
+                     .Include(p => p.Likes.Where(l => !l.IsDeleted))
+                     .Include(p => p.User)
+                     .Include(p => p.Comments.Where(c => !c.IsDeleted))
+                          .ThenInclude(c => c.User)
+                     .Include(p => p.Tags)
+                          .ThenInclude(pt => pt.Tag)
+                     .FirstOrDefault(p => p.Id == postId && !p.IsDeleted);
+
+            //var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
+            //						.Include(p => p.User)
+            //						.Include(p => p.Comments.Where(c => c.IsDeleted == false))
+            //						.Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
+            //						.FirstOrDefault(post => post.Id == postId);
+            if (post == null || post.IsDeleted)
                 throw new EntityNotFoundException($"Post with id={postId} doesn't exist.");
             else
                 return post;
