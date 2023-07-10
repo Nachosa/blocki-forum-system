@@ -165,7 +165,7 @@ nav {
     margin-right: 20px;
 }
 
-.menu-items li:nth-child(4) {
+.menu-items li:nth-child(5) {
     grid-column-start: 27;
 }
 
@@ -225,6 +225,12 @@ nav {
     width: 40px;
     height: 45px;
     margin-top: 8px;
+}
+
+.site-logo {
+    margin-top: 10px;
+    width:120px;
+    height:40px;
 }
 /*#endregion*/
 
