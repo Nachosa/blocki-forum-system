@@ -8,10 +8,10 @@
 }
 
 <div id="profile-page-body">
-	<div id="profile-card-buttons">
+	<div id="profile-card-container">
 		<div class="profile-card">
 			<div class="profile-info-box-1">
-				<div class="image">
+				<div class="profile-card-pfp">
 					<div class="circle-1"></div>
 					<img src="~/images/pfp.jpg">
 				</div>
@@ -19,7 +19,7 @@
 				<div class="profile-subtitle">@this.Model.FirstName @this.Model.LastName</div>
 				@if (this.Model.RoleId == 3)
 				{
-				<div class="profile-subtitle" id="profile-admin-label">Status: Admin</div>
+					<div class="profile-subtitle" id="profile-admin-label">Status: Admin</div>
 				}
 				@if (isAdmin == true || loggedUserId == this.Model.Id)
 				{
@@ -39,12 +39,12 @@
 				}
 			</div>
 			<div class="likes-box">
-				<img class="profile-icon" src="~/images/upvoteicon.png">
+				<img class="profile-icon" src="~/images/ratingicons/likeicon.png" />
 				<span>@this.Model.LikesCount</span>
 				@*TODO:Likes*@
 			</div>
 			<div class="dislikes-box">
-				<img class="profile-icon" src="~/images/downvoteIcon.png">
+				<img class="profile-icon" src="~/images/ratingicons/dislikeicon.png" />
 				<span>@this.Model.DislikesCount</span>
 				@*TODO:Dislikes*@
 			</div>
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 
-		<div id="button-row">
+		<div id="profile-button-row">
 			@if (loggedUserId == this.Model.Id || isAdmin == true)
 			{
 				//Окей ли е да се ползва линк в див за бутон?
@@ -94,10 +94,10 @@
 		<div class="labeled-table-container">
 			<h2 class="table-label">Posts</h2>
 			@*<div id="button-label-row">
-				<h2 class="table-label">User Posts</h2>
-				<div id="create-post-button">
-					<a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
-				</div>
+			<h2 class="table-label">User Posts</h2>
+			<div id="create-post-button">
+			<a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
+			</div>
 			</div>*@
 			@if (Model.Posts != null && Model.Posts.Count > 0)
 			{

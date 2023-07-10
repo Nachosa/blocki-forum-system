@@ -19,7 +19,6 @@ namespace ForumSystemDTO.ViewModels.PostViewModels
 		public List<PostTag> Tags { get; set; }
 		public string Content { get; set; }
 		public List<CommentViewModel> Comments { get; set; }
-
 		public List<Like> Likes { get; set; }
 		public User User { get; set; }
 	}

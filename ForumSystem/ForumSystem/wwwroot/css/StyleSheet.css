@@ -58,7 +58,7 @@ footer {
 }
 
     .user-post-info span {
-        color: chartreuse;
+        color: #73e600;
     }
 
 #profile-page-body {
@@ -67,7 +67,7 @@ footer {
     justify-content: center;
 }
 
-#button-row {
+#profile-button-row {
     display: flex;
     flex-flow: row;
 }
@@ -92,7 +92,7 @@ footer {
 }
 
 #profile-admin-label {
-    color: #ff62f9;
+    color: #73e600;
 }
 
 #comments-posts-tables {
@@ -106,6 +106,12 @@ footer {
 
 .profile-card {
     padding: 1px;
+}
+
+#post-comments-container {
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
 }
 
 /*#region scrollbar*/
@@ -183,7 +189,7 @@ nav {
 
         .menu-items li a::before {
             content: attr(data-item);
-            color: #ff62f9;
+            color: #73e600;
             position: absolute;
             top: 0;
             bottom: 0;
@@ -199,7 +205,7 @@ nav {
             transition: all 0.3s ease-in-out;
         }
 
-    .menu-items li:first-child a #hover-img {
+    .menu-items li:first-child a .hover-img {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -210,7 +216,7 @@ nav {
         transition: all 0.3s ease-in-out;
     }
 
-    .menu-items li:first-child a:hover #hover-img {
+    .menu-items li:first-child a:hover .hover-img {
         width: 100%;
         transition: all 0.3s ease-in-out;
     }
@@ -264,7 +270,7 @@ nav {
 }
 
     .table-hyperlink a:hover {
-        color: #ff62f9;
+        color: #73e600;
         transition: all 0.5s ease-in-out;
     }
 
@@ -339,7 +345,7 @@ h2.table-label {
 }
 
     .button-normal:hover {
-        color: #ff62f9;
+        background: #73e600;
         transition: all 0.5s ease-in-out;
         cursor: pointer;
     }
@@ -348,17 +354,20 @@ h2.table-label {
     margin-right: 10px;
     width: fit-content;
 }
+
 .basic-form-submit.button-edit {
     color: black;
     background-color: #fffd00;
 }
+
 .basic-form-submit.button-blockorunblock {
     color: black;
     background-color: #be0d0d;
 }
+
 .basic-form-submit.button-delete {
-    color:black;
-    background-color:#be0d0d;
+    color: black;
+    background-color: #be0d0d;
 }
 /*#endregion*/
 
@@ -453,7 +462,7 @@ h2.table-label {
 }
 
 .basic-form-input:focus ~ .placeholder {
-    color: #ff62f9;
+    color: #73e600;
 }
 
 .basic-form-submit {
@@ -472,7 +481,7 @@ h2.table-label {
 }
 
     .basic-form-submit:hover {
-        color: #ff62f9;
+        background: #73e600;
         transition: all 0.5s ease-in-out;
         cursor: pointer;
     }
@@ -500,6 +509,7 @@ h2.table-label {
     /*TODO:Тук ще е готино да направя автоматичен ресайз на текстовата кутия, но е по-сложно.*/
 }
 /*#endregion*/
+
 /*#region searchBar*/
 .search-bar-box {
     position: relative;
@@ -524,7 +534,7 @@ h2.table-label {
     width: 125px;
     color: #f2f2f2;
     border-radius: 10px;
-    border: 2px solid #ff62f9;
+    border: 2px solid #73e600;
 }
 
 /*Това i си нямам представа какво е и защо трябва да го има*/
@@ -534,7 +544,7 @@ h2.table-label {
     right: 15px;
     transform: translate(-50%,-50%);
     font-size: 26px;
-    color: #ff62f9;
+    color: #73e600;
     transition: .2s;
 }
 
@@ -588,7 +598,7 @@ h2.table-label {
     flex-flow: column;
 }
 
-.profile-card .image {
+.profile-card .profile-card-pfp {
     position: relative;
     margin-bottom: 20px;
 }
@@ -604,7 +614,7 @@ h2.table-label {
         transition: all 1.5s ease-in-out;
     }*/
 
-    .profile-card .image img {
+    .profile-card .profile-card-pfp img {
         display: block;
         border-radius: 50%;
         width: 100px;
@@ -785,4 +795,268 @@ h2.table-label {
             content: '';
             background: #666;
         }
+/*#endregion*/
+
+/*#region postDetails*/
+.post-card {
+    background: #4d4d4d;
+    max-width: 600px;
+    max-height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(auto, 120px));
+    grid-template-rows: repeat(4, minmax(auto, auto));
+    border-radius: 5px;
+    height: 100%;
+    width: 100%;
+    margin: 40px 40px 0px 40px;
+}
+
+.post-ratings {
+    grid-row: 1 / 4;
+    grid-column: 1 / 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    border-bottom-left-radius: 5px;
+    color: #f2f2f2;
+    margin-top: 10px;
+}
+
+    .post-ratings img {
+        margin-top: 20px;
+        width: 20px;
+        height: 20px;
+    }
+
+.post-card-title-content {
+    grid-row: 1 / 4;
+    grid-column: 2 / 6;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
+.post-additional-info {
+    grid-row: 4 / 5;
+    grid-column: 1 / 6;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row;
+    min-height: 70px;
+}
+
+.post-card-title {
+    margin-top: 25px;
+    font-size: 22px;
+    margin-right: 50px;
+    font-weight: 600;
+    color: #f2f2f2;
+}
+
+.post-card-content {
+    margin-top: 10px;
+    font-size: 15px;
+    margin-right: 50px;
+    font-weight: lighter;
+    color: #f2f2f2;
+}
+
+.post-card .post-card-pfp {
+    position: relative;
+}
+
+/*    .post-card .post-card-pfp .circle-2 {
+        position: absolute;
+        box-sizing: border-box;
+        width: 30px;
+        height: 30px;
+        border-width: 4px;
+        border-style: solid;
+        border-radius: 50%;
+        transition: all 1.5s ease-in-out;
+    }*/
+
+    .post-card .post-card-pfp img {
+        display: block;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        margin-left: 45px;
+    }
+
+.post-additional-info {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.post-card-light-text {
+    font-size: 13px;
+    margin-left: 25px;
+    color: #f2f2f2;
+}
+
+.post-card-hyperlink-text {
+    font-size: 13px;
+    color: #f2f2f2;
+}
+
+.post-comments img {
+    top: 4px;
+    position: relative;
+    width: 15px;
+    height: 15px;
+}
+
+#post-card-button-row {
+    display: flex;
+    flex-flow: row;
+    margin-left: 40px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.post-ratings a .hover-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.post-ratings a:hover .hover-img {
+    width: 100%;
+    transition: all 0.3s ease-in-out;
+}
+
+.post-card-hyperlink-text a {
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    color: #f2f2f2;
+}
+
+    .post-card-hyperlink-text a:hover {
+        color: #73e600;
+        transition: all 0.3s ease-in-out;
+    }
+/*#endregion*/
+/*#region commentCard*/
+.comment-card {
+    background: #4d4d4d;
+    max-width: 600px;
+    max-height: 280px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(auto, 150px));
+    grid-template-rows: repeat(4, minmax(auto, auto));
+    border-radius: 5px;
+    margin-left: 80px;
+}
+
+.comment-card-content-box {
+    grid-row: 1 / 4;
+    grid-column: 1 / 5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+}
+
+.comment-additional-info {
+    grid-row: 4 / 5;
+    grid-column: 1 / 5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: row;
+    min-height: 70px;
+    justify-content: left;
+}
+
+.comment-card-content {
+    margin-top: 20px;
+    font-size: 15px;
+    margin-right: 40px;
+    margin-left: 40px;
+    font-weight: lighter;
+    color: #f2f2f2;
+}
+
+.comment-card .comment-card-pfp {
+    position: relative;
+}
+
+    /*    .profile-card .image .circle-1 {
+        position: absolute;
+        box-sizing: border-box;
+        width: 100px;
+        height: 100px;
+        border-width: 4px;
+        border-style: solid;
+        border-radius: 50%;
+        transition: all 1.5s ease-in-out;
+    }*/
+
+    .comment-card .comment-card-pfp img {
+        display: block;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        margin-left: 40px;
+    }
+
+.comment-additional-info {
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+}
+
+.post-card-light-text {
+    font-size: 13px;
+    margin-left: 25px;
+}
+
+.post-card-hyperlink-text {
+    font-size: 13px;
+}
+
+.comments-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: fit-content;
+    height: fit-content;
+}
+
+.comment-card-box {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    flex-flow: column;
+}
+
+.comment-cards-label {
+    margin-left: 80px;
+}
+
+#comments-cards-label-heading {
+    margin-bottom: 10px;
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.comment-card-button-row {
+    display: flex;
+    flex-flow: row;
+    margin-left: 80px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
 /*#endregion*/
