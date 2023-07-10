@@ -429,20 +429,69 @@ namespace ForumSystem.DataAccess
                 },
             };
 
-            //IList<Tag> tags = new List<Tag>
-            //{
-            //    new Tag
-            //    {
-            //        Id = 1,
-            //        Name = "investments"
-            //    }
-            //};
+            IList<Tag> tags = new List<Tag>
+            {
+                new Tag
+                {
+                    Id = 1,
+                    Name = "investments"
+                },
+
+				new Tag
+				{
+					Id = 2,
+					Name = "boolish"
+				},
+
+				new Tag
+				{
+					Id = 3,
+					Name = "future"
+				},
+
+				new Tag
+				{
+					Id = 4,
+					Name = "safe"
+				},
+			};
+
+            IList<PostTag> postTags = new List<PostTag>
+            {
+                new PostTag
+                {
+                    Id=1,
+                    PostId=1,
+                    TagId=3
+                },
+                new PostTag
+                {
+                    Id=2,
+                    PostId=1,
+                    TagId=1
+                },
+				new PostTag
+				{
+					Id=3,
+					PostId=2,
+					TagId=3
+				},
+				new PostTag
+				{
+					Id=4,
+					PostId=1,
+					TagId=1
+				},
+			};
 
             builder.Entity<Role>().HasData(roles);
             builder.Entity<User>().HasData(users);
             builder.Entity<Post>().HasData(posts);
             builder.Entity<Comment>().HasData(comments);
             builder.Entity<Like>().HasData(likes);
-        }
-    }
+			builder.Entity<Tag>().HasData(tags);
+            builder.Entity<PostTag>().HasData(postTags);  
+
+		}
+	}
 }
