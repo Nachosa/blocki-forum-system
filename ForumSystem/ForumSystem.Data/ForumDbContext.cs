@@ -480,7 +480,7 @@ namespace ForumSystem.DataAccess
 				{
 					Id=4,
 					PostId=1,
-					TagId=1
+					TagId=3
 				},
 			};
 

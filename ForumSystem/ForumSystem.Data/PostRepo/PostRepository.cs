@@ -164,6 +164,8 @@ namespace ForumSystem.DataAccess.PostRepo
             return currPost;
         }
 
+
+
         public List<Post> FilterBy(PostQueryParameters filterParameters, List<Post> posts)
         {
 			var filteredPosts = posts;

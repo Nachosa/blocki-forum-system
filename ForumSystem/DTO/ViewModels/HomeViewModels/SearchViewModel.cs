@@ -13,6 +13,6 @@ namespace ForumSystemDTO.ViewModels.HomeViewModels
 
 		public User UserWithUsername { get; set; }
 
-		public List<Post> PostsContaingThatInput { get; set; }
+		public List<Post> PostsWithTitle { get; set; }
 	}
 }

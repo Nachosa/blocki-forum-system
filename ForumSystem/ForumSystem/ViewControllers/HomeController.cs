@@ -73,7 +73,7 @@ namespace ForumSystem.Web.ViewControllers
 			try
 			{//Searching for posts which contain that input in their title
 				postParams.Title = input;
-				results.PostsContaingThatInput = postService.GetPosts(postParams);
+				results.PostsWithTitle = postService.GetPosts(postParams);
 			}
 			catch (Exception e)
 			{
