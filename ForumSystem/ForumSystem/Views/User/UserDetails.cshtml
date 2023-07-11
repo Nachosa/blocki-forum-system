@@ -146,6 +146,8 @@
 							@*Може би да излиза тайтъла на поста, или пак да си излиза контент, но ако е твърде дълъг с точки?*@
 							<th>Content</th>
 							<th>Created On</th>
+							<th>Likes</th>
+							<th>Dislikes</th>
 						</tr>
 					</thead>
 					<tbody class="custom-table">
@@ -154,6 +156,8 @@
 							<tr>
 								<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.PostId">@item.Content</a></td>
 								<td>@item.CreatedOn</td>
+								<td>@item.LikesCount</td>
+								<td>@item.DislikesCount</td>
 							</tr>
 						}
 					</tbody>

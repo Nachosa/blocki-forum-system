@@ -5,8 +5,13 @@
 	bool isLoggedUserPost = Context.Session.GetInt32("userId") == Model.User.Id;
 	int? loggedUserId = Context.Session.GetInt32("userId");
 	bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
-	bool loggedUserLiked = this.Model.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == false && l.IsDeleted == false);
-	bool loggedUserDisliked = this.Model.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == true && l.IsDeleted == false);
+	bool loggedUserLikedPost = this.Model.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == false && l.IsDeleted == false);
+	bool loggedUserDislikedPost = this.Model.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == true && l.IsDeleted == false);
+
+	bool loggedUserLikedComment = this.Model.Comments.Any(c => c.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == false && l.IsDeleted == false));
+	bool loggedUserDislikedComment = this.Model.Comments.Any(c => c.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == true && l.IsDeleted == false));
+
+	//bool loggedUserDislikedComment = this.Model.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == true && l.IsDeleted == false);
 	//TODO: Проверка за блокиран.
 }
 
@@ -15,7 +20,7 @@
 		<div class="post-card">
 			<div class="post-ratings">
 				<!-- #region Likes and Dislikes -->
-				@if (loggedUserLiked == false && loggedUserDisliked == false)
+				@if (loggedUserLikedPost == false && loggedUserDislikedPost == false)
 				{
 					<a asp-controller="Post" asp-action="LikePost" asp-route-id="@Model.Id">
 						<div class="image-box">
@@ -39,7 +44,7 @@
 					</a>
 					<span>@Model.DislikesCount</span>
 				}
-				else if (loggedUserLiked == true)
+				else if (loggedUserLikedPost == true)
 				{
 					<a asp-controller="Post" asp-action="LikePost" asp-route-id="@Model.Id">
 						<div class="image-box">
@@ -61,7 +66,7 @@
 					@*                <p><a style="color:lawngreen" asp-controller="Post" asp-action="LikePost" asp-route-id="@Model.Id">Likes: @Model.LikesCount</a></p>
 				<p><a asp-controller="Post" asp-action="DislikePost" asp-route-id="@Model.Id">Dislikes: @Model.DislikesCount</a></p>*@
 				}
-				else if (loggedUserDisliked == true)
+				else if (loggedUserDislikedPost == true)
 				{
 					<a asp-controller="Post" asp-action="LikePost" asp-route-id="@Model.Id">
 						<div class="image-box">
@@ -147,14 +152,80 @@
 				@foreach (var comment in Model.Comments)
 				{
 					<li class="comment-card-box">
-						<div class="comment-card">
-							<div class="comment-card-content-box">
+						<div class="post-card comment-card">
+							<div class="post-ratings">
+								<!-- #region Likes and Dislikes -->
+								@if (loggedUserLikedComment == false && loggedUserDislikedComment == false)
+								{
+									<a asp-controller="Comment" asp-action="LikeComment" asp-route-id="@comment.Id">
+										<div class="image-box">
+											<img class="post-rating-icon" src="~/images/ratingicons/likeicon.png" />
+
+											<div class="hover-img">
+												<img class="post-rating-icon" src="~/images/ratingicons/likeicongreen.png" class="hover-img-3" />
+											</div>
+										</div>
+									</a>
+									<span>@comment.LikesCount</span>
+
+									<a asp-controller="Comment" asp-action="DislikeComment" asp-route-id="@comment.Id">
+										<div class="image-box">
+											<img class="post-rating-icon" src="~/images/ratingicons/dislikeicon.png" />
+
+											<div class="hover-img">
+												<img class="post-rating-icon" src="~/images/ratingicons/dislikeicongreen.png" class="hover-img-3" />
+											</div>
+										</div>
+									</a>
+									<span>@comment.DislikesCount</span>
+								}
+								else if (loggedUserLikedComment == true)
+								{
+									<a asp-controller="Comment" asp-action="LikeComment" asp-route-id="@comment.Id">
+										<div class="image-box">
+											<img class="post-rating-icon" src="~/images/ratingicons/likeicongreen.png" />
+										</div>
+									</a>
+									<span>@comment.LikesCount</span>
+
+									<a asp-controller="Comment" asp-action="DislikeComment" asp-route-id="@comment.Id">
+										<div class="image-box">
+											<img class="post-rating-icon" src="~/images/ratingicons/dislikeicon.png" />
+
+											<div class="hover-img">
+												<img class="post-rating-icon" src="~/images/ratingicons/dislikeicongreen.png" class="hover-img-3" />
+											</div>
+										</div>
+									</a>
+									<span>@comment.DislikesCount</span>
+								}
+								else if (loggedUserDislikedComment == true)
+								{
+									<a asp-controller="Comment" asp-action="LikeComment" asp-route-id="@comment.Id">
+										<div class="image-box">
+											<img class="post-rating-icon" src="~/images/ratingicons/likeicon.png" />
+
+											<div class="hover-img">
+												<img class="post-rating-icon" src="~/images/ratingicons/likeicongreen.png" class="hover-img-3" />
+											</div>
+										</div>
+									</a>
+									<span>@comment.LikesCount</span>
+
+									<a asp-controller="Comment" asp-action="DislikeComment" asp-route-id="@comment.Id">
+										<img class="post-rating-icon" src="~/images/ratingicons/dislikeicongreen.png" />
+									</a>
+									<span>@comment.DislikesCount</span>
+								}
+								<!-- #endregion -->
+							</div>
+							<div class="post-card-title-content">
 								<div class="comment-card-content">
 									@comment.Content
 								</div>
 							</div>
-							<div class="comment-additional-info ">
-								<div class="comment-card-pfp">
+							<div class="post-additional-info ">
+								<div class="post-card-pfp">
 									<div class="circle-2"></div>
 									<img src="~/images/pfp.jpg">
 								</div>
@@ -167,7 +238,7 @@
 									</a>
 								</div>
 								<div class="post-card-light-text">
-									Created: @comment.CreatedOn
+									Created On: @comment.CreatedOn
 								</div>
 							</div>
 						</div>
