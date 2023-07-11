@@ -8,8 +8,8 @@
 	bool loggedUserLikedPost = this.Model.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == false && l.IsDeleted == false);
 	bool loggedUserDislikedPost = this.Model.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == true && l.IsDeleted == false);
 
-	bool loggedUserLikedComment = this.Model.Comments.Any(c => c.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == false && l.IsDeleted == false));
-	bool loggedUserDislikedComment = this.Model.Comments.Any(c => c.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == true && l.IsDeleted == false));
+	//bool loggedUserLikedComment = this.Model.Comments.Any(c => c.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == false && l.IsDeleted == false));
+	//bool loggedUserDislikedComment = this.Model.Comments.Any(c => c.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == true && l.IsDeleted == false));
 
 	//bool loggedUserDislikedComment = this.Model.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == true && l.IsDeleted == false);
 	//TODO: Проверка за блокиран.
@@ -151,6 +151,8 @@
 			<ul class="comments-list">
 				@foreach (var comment in Model.Comments)
 				{
+					bool loggedUserLikedComment = comment.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == false && l.IsDeleted == false); 
+					bool loggedUserDislikedComment = comment.Likes.Any(l => l.UserId == loggedUserId && l.IsDislike == true && l.IsDeleted == false);
 					<li class="comment-card-box">
 						<div class="post-card comment-card">
 							<div class="post-ratings">

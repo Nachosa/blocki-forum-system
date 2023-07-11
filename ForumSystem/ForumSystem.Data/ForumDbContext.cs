@@ -479,7 +479,7 @@ namespace ForumSystem.DataAccess
 				new PostTag
 				{
 					Id=4,
-					PostId=1,
+					PostId=3,
 					TagId=3
 				},
 			};
