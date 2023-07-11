@@ -69,17 +69,6 @@ namespace ForumSystem.DataAccess.UserRepo
 
         }
 
-        private IQueryable<User> GetUsers()
-        {
-			var users = forumDb.Users
-                                    .Include(p => p.Posts.Where(p => p.IsDeleted == false))
-										.ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-									.Include(p => p.Posts.Where(p => p.IsDeleted == false))
-										.ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-									.Include(u => u.Comments.Where(c => c.IsDeleted == false))
-										.ThenInclude(c => c.Likes.Where(l => l.IsDeleted == false));
-            return users;
-		}
         public List<User> SearchBy(UserQueryParams queryParams)
         {
             var query = GetUsers();
@@ -158,5 +147,16 @@ namespace ForumSystem.DataAccess.UserRepo
             return true;
         }
 
+        private IQueryable<User> GetUsers()
+        {
+			var users = forumDb.Users
+                                    .Include(p => p.Posts.Where(p => p.IsDeleted == false))
+										.ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+									.Include(p => p.Posts.Where(p => p.IsDeleted == false))
+										.ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+									.Include(u => u.Comments.Where(c => c.IsDeleted == false))
+										.ThenInclude(c => c.Likes.Where(l => l.IsDeleted == false));
+            return users;
+		}
 	}
 }

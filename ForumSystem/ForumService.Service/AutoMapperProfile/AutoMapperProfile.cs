@@ -50,7 +50,8 @@ namespace ForumSystem.Business.AutoMapperProfile
 				//.ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags));
 				.ForMember(dest => dest.Tags, opt => opt.Ignore());
 
-			CreateMap<Post, EditPostViewModel>();
+			CreateMap<Post, EditPostViewModel>()
+				.ForMember(pVM => pVM.Tags, opt => opt.MapFrom(p => string.Join(",", p.Tags.Select(pt => pt.Tag.Name))));
 			CreateMap<Post, PostDetailsViewModel>()
 				.ForMember(pVM => pVM.CreatedBy, opt => opt.MapFrom(p => p.User.Username))
 				.ForMember(pVM => pVM.LikesCount, opt => opt.MapFrom(p => p.Likes.Where(l => l.IsDislike == false).Count()))

@@ -404,8 +404,7 @@ namespace ForumSystem.Web.ViewControllers
                 this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
                 return View("Error");
             }
-            var currPost = postService.GetPostById(id);
-            var editPostForm = mapper.Map<EditPostViewModel>(currPost);
+            var editPostForm = mapper.Map<EditPostViewModel>(post);
             return View(editPostForm);
         }
 

@@ -171,7 +171,7 @@ namespace ForumSystem.DataAccess.PostRepo
                 if (tag != null)
                 {
 					// Тук не съм сигурен, че това е най-рентабилния вариант ако няма такъв таг.
-					posts = posts.FindAll(post => post.Tags.Any(pt => pt.Id == tag.Id));
+					posts = posts.FindAll(post => post.Tags.Any(pt => pt.Tag.Id == tag.Id));
 				}
                 else
                 {
