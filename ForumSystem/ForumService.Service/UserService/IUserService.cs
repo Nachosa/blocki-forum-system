@@ -25,7 +25,9 @@ namespace ForumSystem.Business.UserService
       
         User GetUserByUserName(string userName);
 
-        List<User> SearchBy(UserQueryParams queryParams);
+        List<User> GetUsersByUsernameContains(string input);
+
+		List<User> SearchBy(UserQueryParams queryParams);
 
         User UpdateUser(string username, User user);
 

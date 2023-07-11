@@ -3,6 +3,7 @@
 	string userName = Context.Session.GetString("LoggedUser");
 	int? userId = Context.Session.GetInt32("userId");
 	int? roleId = Context.Session.GetInt32("roleId");
+	string SearchErrorMessage = this.ViewBag.SearchErrorMessage;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +40,15 @@
 				@if (roleId == 3)
 				{
 					<li><a href="/Admin/SearchUser" data-item='AdminPanel'>AdminPanel</a></li>
+				}
+				@if (SearchErrorMessage is not null)
+				{
+					<li>
+						<div class="validation-error-message">
+							<p>@SearchErrorMessage</p>
+						</div>
+
+					</li>
 				}
 				<li>
 					<div class="search-bar-box">

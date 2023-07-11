@@ -1,4 +1,6 @@
 ﻿using ForumSystem.DataAccess.Models;
+using ForumSystemDTO.ViewModels.PostViewModels;
+using ForumSystemDTO.ViewModels.UserViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,11 @@ namespace ForumSystemDTO.ViewModels.HomeViewModels
 {
 	public class SearchViewModel
 	{
-		public List<Post> PostsWithTag { get; set; }
+		public string input { get; set; }
+		public List<PostViewModelAbbreviated> PostsWithTag { get; set; } = new List<PostViewModelAbbreviated>();
 
-		public User UserWithUsername { get; set; }
+		public List<UserDetailsViewModel> UsersWhichContainInput { get; set; } = new List<UserDetailsViewModel>();
 
-		public List<Post> PostsWithTitle { get; set; }
+		public List<PostViewModelAbbreviated> PostsWithTitle { get; set; } = new List<PostViewModelAbbreviated>();
 	}
 }

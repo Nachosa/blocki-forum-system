@@ -37,7 +37,7 @@ namespace ForumSystem.Business.UserService
 				throw new UsernameAlreadyExistException("Username already exists!");
 			}
 
-            mappedUser.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(mappedUser.Password));
+			mappedUser.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(mappedUser.Password));
 
 			return userRepo.CreateUser(mappedUser);
 		}
@@ -85,10 +85,12 @@ namespace ForumSystem.Business.UserService
 			var originalUser = userRepo.GetUserByUserName(userName) ?? throw new EntityNotFoundException($"User with username:{userName} was not found!");
 			return originalUser;
 		}
-        /// <summary>
-        /// This method returns user with password hashed in BASE64.
-        /// </summary>
-       
+		public List<User> GetUsersByUsernameContains(string input)
+		{
+			var users = userRepo.GetUsersByUsernameContains(input);
+			if (users.Count == 0) throw new EntityNotFoundException($"None users's username contains '{input}'.");
+			return users;
+		}
 
 		public List<User> SearchBy(UserQueryParams queryParams)
 		{
@@ -121,7 +123,7 @@ namespace ForumSystem.Business.UserService
 					throw new EmailAlreadyExistException("Email already exist!");
 				}
 			}
-            var userToUpdate = userRepo.GetUserByUserName(userName);
+			var userToUpdate = userRepo.GetUserByUserName(userName);
 			if (userToUpdate is null)
 			{
 				throw new EntityNotFoundException($"User with username:{userName} was not found!");
@@ -178,7 +180,6 @@ namespace ForumSystem.Business.UserService
 			}
 			throw new EntityNotFoundException("Please provide Id or Username for the user to be deleted!");
 		}
-
 
 	}
 }
