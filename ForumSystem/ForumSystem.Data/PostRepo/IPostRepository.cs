@@ -10,8 +10,6 @@ namespace ForumSystem.DataAccess.PostRepo
 {
     public interface IPostRepository
     {
-		IEnumerable<Post> GetAllPosts();
-
 		IEnumerable<Post> GetPosts(PostQueryParameters queryParameters);
 
         //Tag GetTagWithName(string name);

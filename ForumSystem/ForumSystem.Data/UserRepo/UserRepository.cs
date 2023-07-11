@@ -44,28 +44,35 @@ namespace ForumSystem.DataAccess.UserRepo
                                         .ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
 				                    .Include(p => p.Posts.Where(p => p.IsDeleted == false))
                                         .ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
-						
+									.Include(u => u.Comments.Where(c => c.IsDeleted == false))
+                                        .ThenInclude(c => c.Likes.Where(l => l.IsDeleted == false))
+
 									.FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
             return user;
         }
 
         public User GetUserByUserName(string Username)
         {
-            var userWithThatUserName = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-									.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
-					
+            var userWithThatUserName = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false))
+										.ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+									.Include(p => p.Posts.Where(p => p.IsDeleted == false))
+										.ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+									.Include(u => u.Comments.Where(c => c.IsDeleted == false))
+										.ThenInclude(c => c.Likes.Where(l => l.IsDeleted == false))
+
 									.FirstOrDefault(u => u.Username == Username && u.IsDeleted == false);
             return userWithThatUserName;
         }
 
         public User GetUserByEmail(string email)
         {
-            var userWithThatEmail = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-									.Include(p => p.Posts.Where(p => p.IsDeleted == false)).ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
-							
+            var userWithThatEmail = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false))
+										.ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+									.Include(p => p.Posts.Where(p => p.IsDeleted == false))
+										.ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
+									.Include(u => u.Comments.Where(c => c.IsDeleted == false))
+										.ThenInclude(c => c.Likes.Where(l => l.IsDeleted == false))
+
 									.FirstOrDefault(u => u.Email == email && u.IsDeleted == false);
             return userWithThatEmail;
         }

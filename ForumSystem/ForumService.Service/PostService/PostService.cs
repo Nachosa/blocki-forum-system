@@ -31,11 +31,6 @@ namespace ForumSystem.Business
             this.authManager = authManager;
         }
 
-		public List<Post> GetAllPosts()
-        {
-			return this.postRepo.GetAllPosts().ToList();
-		}
-
 		public List<Post> GetPosts(PostQueryParameters queryParams)
         {
             return this.postRepo.GetPosts(queryParams).ToList();

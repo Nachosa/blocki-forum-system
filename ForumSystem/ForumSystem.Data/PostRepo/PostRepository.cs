@@ -23,17 +23,6 @@ namespace ForumSystem.DataAccess.PostRepo
             this.tagRepo = tagRepo;
         }
 
-        public IEnumerable<Post> GetAllPosts()
-        {
-            List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
-                                                                    .Include(p => p.Likes.Where(l => l.IsDeleted == false))
-                                                                    .Include(p => p.User)
-                                                                    .Include(p => p.Comments.Where(c => c.IsDeleted == false))
-                                                                    .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false));
-
-            return postsToProcess;
-        }
-
         public IEnumerable<Post> GetPosts(PostQueryParameters queryParameters)
         {
             List<Post> postsToProcess = new List<Post>(forumDb.Posts.Where(p => p.IsDeleted == false)
@@ -46,6 +35,7 @@ namespace ForumSystem.DataAccess.PostRepo
             return postsToProcess;
         }
 
+        //Това трябва да се махне.
         public ICollection<Post> GetUserPosts(int userId, PostQueryParameters queryParameters)
         {
             List<Post> userPosts = forumDb.Posts.Where(p => p.UserId == userId && p.IsDeleted == false)
@@ -143,7 +133,8 @@ namespace ForumSystem.DataAccess.PostRepo
             var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
                                     .Include(p => p.User)
                                     .Include(p => p.Comments.Where(c => c.IsDeleted == false)).ThenInclude(c => c.User)
-                                    .Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
+									.Include(p => p.Comments.Where(c => c.IsDeleted == false)).ThenInclude(c => c.Likes.Where(l => l.IsDeleted == false))
+									.Include(p => p.Tags).ThenInclude(pt => pt.Tag).Where(t => t.IsDeleted == false)
                                     .FirstOrDefault(post => post.Id == postId);
 
             //var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))

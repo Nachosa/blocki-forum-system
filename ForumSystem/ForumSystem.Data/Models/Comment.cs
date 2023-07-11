@@ -22,7 +22,7 @@ namespace ForumSystem.DataAccess.Models
         //[JsonIgnore]
         public Post Post { get; set; }
 
-        //[JsonIgnore]
+        [JsonIgnore]
         public ICollection<Like> Likes { get; set; } = new List<Like>();
 
     }
