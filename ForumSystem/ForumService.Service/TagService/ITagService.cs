@@ -20,5 +20,7 @@ namespace ForumSystem.Business.TagService
         bool DeleteTagById(int tagId);
 
         Tag GetTagById(int tagId);
-    }
+
+        public void AddTagsToPost(int postId, string tags);
+	}
 }

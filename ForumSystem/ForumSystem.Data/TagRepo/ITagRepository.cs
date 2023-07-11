@@ -22,5 +22,7 @@ namespace ForumSystem.DataAccess.TagRepo
         Tag UpdateTagName(int tagId, Tag tag, string userName);
 
         bool DeleteTagById(int tagId);
-    }
+
+		public void AddTagToPost(int postId, int tagId);
+	}
 }

@@ -45,7 +45,11 @@ namespace ForumSystem.Business.AutoMapperProfile
 				.ForMember(pDto => pDto.CommentsCount, opt => opt.MapFrom(p => p.Comments.Count));
 			CreateMap<UpdatePostContentDto, Post>();
 			CreateMap<CreatePostViewModel, Post>();
-			CreateMap<EditPostViewModel, Post>();
+
+			CreateMap<EditPostViewModel, Post>()
+				//.ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags));
+				.ForMember(dest => dest.Tags, opt => opt.Ignore());
+
 			CreateMap<Post, EditPostViewModel>();
 			CreateMap<Post, PostDetailsViewModel>()
 				.ForMember(pVM => pVM.CreatedBy, opt => opt.MapFrom(p => p.User.Username))

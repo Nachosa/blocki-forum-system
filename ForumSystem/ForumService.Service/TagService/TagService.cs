@@ -46,5 +46,34 @@ namespace ForumSystem.Business.TagService
         {
             return repo.UpdateTagName(tagId, tag, userName);
         }
-    }
+
+		public void AddTagsToPost(int postId, string tags)
+		{
+			string[] tagArray = tags.Split(',');
+
+			foreach (string tag in tagArray)
+			{
+				string normalizedTag = tag.Trim().ToLower();
+
+				// Check if the tag already exists in the database
+				var existingTag = repo.GetTagByName(normalizedTag);
+
+				if (existingTag == null)
+				{
+					// Create a new tag if it doesn't exist
+					var newTag = new Tag() { Name = normalizedTag };
+
+					repo.CreateTag(newTag);
+
+					// Associate the new tag with the post
+					repo.AddTagToPost(postId, newTag.Id);
+				}
+				else
+				{
+					// Associate the existing tag with the post
+					repo.AddTagToPost(postId, existingTag.Id);
+				}
+			}
+		}
+	}
 }
