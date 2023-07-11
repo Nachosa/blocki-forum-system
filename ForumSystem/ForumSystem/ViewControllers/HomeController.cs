@@ -10,6 +10,7 @@ using ForumSystem.DataAccess.UserRepo;
 using ForumSystemDTO.ViewModels.CommentViewModels;
 using ForumSystemDTO.ViewModels.HomeViewModels;
 using ForumSystemDTO.ViewModels.PostViewModels;
+using ForumSystemDTO.ViewModels.UserViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ForumSystem.Web.ViewControllers
@@ -27,8 +28,12 @@ namespace ForumSystem.Web.ViewControllers
 			this.mapper = mapper;
 		}
 
-		public IActionResult Index()
+		public IActionResult Index(string SearchErrorMessage)
 		{
+			if (SearchErrorMessage is not null)
+			{
+				ViewBag.SearchErrorMessage=SearchErrorMessage;
+			}
 			int activeUsersCount = userService.GetUsersCount();
 			int activePostsCount = postService.GetPostsCount();
 
@@ -51,15 +56,20 @@ namespace ForumSystem.Web.ViewControllers
 		[HttpGet]
 		public IActionResult Search(string input)
 		{
+			if (string.IsNullOrEmpty(input))
+			{
+				return RedirectToAction("Index", new { SearchErrorMessage = "Please provide input!" });
+			}
 			var results = new SearchViewModel();
 
 			try
-			{//Searching for user with that username 
-				results.UserWithUsername = userService.GetUserByUserName(input);
+			{//Searching for users which username contains that input.
+				var users = userService.GetUsersByUsernameContains(input);
+				results.UsersWhichContainInput = users.Select(u=>mapper.Map<UserDetailsViewModel>(u)).ToList();
 			}
 			catch (EntityNotFoundException)
 			{
-				results.UserWithUsername = null;
+				// catchning exception only to hande it.
 			}
 			catch (Exception e)
 			{
@@ -71,9 +81,9 @@ namespace ForumSystem.Web.ViewControllers
 			var postParams = new PostQueryParameters();
 
 			try
-			{//Searching for posts which contain that input in their title
+			{//Searching for posts which contain that input in their title.
 				postParams.Title = input;
-				results.PostsWithTitle = postService.GetPosts(postParams);
+				results.PostsWithTitle = postService.GetPosts(postParams).Select(p => mapper.Map<PostViewModelAbbreviated>(p)).ToList();
 			}
 			catch (Exception e)
 			{
@@ -83,10 +93,10 @@ namespace ForumSystem.Web.ViewControllers
 			}
 
 			try
-			{//Searching for posts which have that input like a tag
+			{//Searching for posts which have that input like a tag.
 				postParams.Title = null;
 				postParams.Tag = input;
-				results.PostsWithTag = postService.GetPosts(postParams);
+				results.PostsWithTag = postService.GetPosts(postParams).Select(p => mapper.Map<PostViewModelAbbreviated>(p)).ToList();
 			}
 			catch (Exception e)
 			{
@@ -94,7 +104,7 @@ namespace ForumSystem.Web.ViewControllers
 				this.ViewData["ErrorMessage"] = e.Message;
 				return View("Error");
 			}
-
+			results.input = input;
 			return View(results);
 		}
 		[HttpGet]

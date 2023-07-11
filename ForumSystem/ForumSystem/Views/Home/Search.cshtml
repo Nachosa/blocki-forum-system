@@ -1,0 +1,168 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ForumSystemDTO.ViewModels.HomeViewModels.SearchViewModel
+@{
+    int? loggedUserId = Context.Session.GetInt32("userId");
+    bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
+    bool isAuthenticated = !string.IsNullOrEmpty(Context.Session.GetString("LoggedUser"));
+    //bool userIsBlocked = Model.UserWithUsername.RoleId == 1;
+    // bool userIsNotBlocked = Model.UserWithUsername.RoleId == 2;
+}
+
+
+@if (Model.PostsWithTag.Count == 0 && Model.PostsWithTitle.Count == 0 && isAuthenticated is false)
+{
+    <h3>No results for '@Model.input'</h3>
+}
+else
+{
+    if (Model.UsersWhichContainInput.Count != 0 && isAuthenticated is false)
+    {
+        <h2>Must login to see the results for users.</h2>
+    }
+    if (Model.UsersWhichContainInput.Count != 0 && isAuthenticated is true)
+    {
+        <div class="labeled-table-container">
+            <div id="button-label-row">
+                <h2 class="table-label">Users wihch username contains '@Model.input'.</h2>
+            </div>
+
+
+            <table class="custom-table">
+                <thead class="custom-table">
+                    <tr class="custom-table">
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>PhoneNumber</th>
+                        <th>Posts</th>
+                        <th>Comments</th>
+
+                    </tr>
+                </thead>
+                <tbody class="custom-table">
+                    @foreach (var user in Model.UsersWhichContainInput)
+                    {
+                        <tr>
+                            <td>@user.FirstName</td>
+                            <td>@user.LastName</td>
+                            <td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@user.Id">@user.Username</a></td>
+                            <td>@user.Email</td>
+                            <td>
+                                @(
+                                    user.PhoneNumber is not null ? user.PhoneNumber : "No phone number yet."
+                                    )
+                            </td>
+                            <td>
+                                @(
+                                    user.Posts.Count > 0 ? user.Posts.Count.ToString() : "No posts yet."
+                                    )
+                            </td>
+                            <td>
+                                @(
+                                    user.Comments.Count > 0 ? user.Comments.Count.ToString() : "No comments yet."
+                                    )
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    }
+
+    if (Model.PostsWithTitle.Count != 0)
+    {
+        <div class="labeled-table-container">
+            <h2 class="table-label">All Matching Posts which title contains '@Model.input'.</h2>
+            <table class="custom-table">
+                <thead class="custom-table">
+                    <tr class="custom-table">
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Comments</th>
+                        <th>Created On</th>
+                        <th>Likes</th>
+                        <th>Dislikes</th>
+                        <th>Tags</th>
+                        @if (isAdmin)
+                        {
+                            <th>Delete</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody class="custom-table">
+                    @foreach (var post in Model.PostsWithTag)
+                    {
+                        <tr>
+                            <td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@post.Id">@post.Title</a></td>
+                            <td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@post.User.Id">@post.User.Username</a></td>
+                            <td>@post.CommentsCount</td>
+                            <td>@post.CreatedOn</td>
+                            <td>@post.LikesCount</td>
+                            <td>@post.DislikesCount</td>
+                            <td>@(post.Tags.Any() ? string.Join(", ", post.Tags) : "none")</td>
+                            @if (isAdmin || loggedUserId == post.User.Id)
+                            {
+                                <th>
+                                    <div class="button-container">
+                                        <a asp-controller="Post" asp-action="DeletePost" asp-route-Id="@post.Id" class="button-normal">Delete</a>
+                                    </div>
+                                </th>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+    }
+    if (Model.PostsWithTag.Count != 0)
+    {
+        <div class="labeled-table-container">
+            <h2 class="table-label">All Matching Posts which Tag's contain tag:'@Model.input'.</h2>
+            <table class="custom-table">
+                <thead class="custom-table">
+                    <tr class="custom-table">
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Comments</th>
+                        <th>Created On</th>
+                        <th>Likes</th>
+                        <th>Dislikes</th>
+                        <th>Tags</th>
+                        @if (isAdmin)
+                        {
+                            <th>Delete</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody class="custom-table">
+                    @foreach (var post in Model.PostsWithTag)
+                    {
+                        <tr>
+                            <td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@post.Id">@post.Title</a></td>
+                            <td class="table-hyperlink"><a asp-controller="User" asp-action="UserDetails" asp-route-id="@post.User.Id">@post.User.Username</a></td>
+                            <td>@post.CommentsCount</td>
+                            <td>@post.CreatedOn</td>
+                            <td>@post.LikesCount</td>
+                            <td>@post.DislikesCount</td>
+                            <td>@(post.Tags.Any() ? string.Join(", ", post.Tags) : "none")</td>
+                            @if (isAdmin || loggedUserId == post.User.Id)
+                            {
+                                <th>
+                                    <div class="button-container">
+                                        <a asp-controller="Post" asp-action="DeletePost" asp-route-Id="@post.Id" class="button-normal">Delete</a>
+                                    </div>
+                                </th>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    }
+}

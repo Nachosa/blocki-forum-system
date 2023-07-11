@@ -16,7 +16,10 @@ namespace ForumSystem.DataAccess.UserRepo
         User GetUserById(int userId);
 
         User GetUserByUserName(string userName);
-        User GetUserByEmail(string email);
+
+		List<User> GetUsersByUsernameContains(string input);
+
+		User GetUserByEmail(string email);
 
         int GetUsersCount();
 
