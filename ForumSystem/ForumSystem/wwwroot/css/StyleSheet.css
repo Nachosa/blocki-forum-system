@@ -113,7 +113,6 @@ footer {
     width: fit-content;
     height: fit-content;
 }
-
 /*#region scrollbar*/
 .container {
     display: flex;
@@ -229,11 +228,23 @@ nav {
 
 .site-logo {
     margin-top: 10px;
-    width:120px;
-    height:40px;
+    width: 120px;
+    height: 40px;
+}
+
+.validation-error-message {
+    position: absolute;
+    top: 25px;
+    min-width: 200px;
+    font-size: 12px;
+}
+
+#error-message-position {
+    position: relative;
+    top: -25px;
+    left: -35px;
 }
 /*#endregion*/
-
 /*#region tables*/
 .custom-table {
     background: #404040;
@@ -876,7 +887,7 @@ h2.table-label {
     position: relative;
 }
 
-/*    .post-card .post-card-pfp .circle-2 {
+    /*    .post-card .post-card-pfp .circle-2 {
         position: absolute;
         box-sizing: border-box;
         width: 30px;
