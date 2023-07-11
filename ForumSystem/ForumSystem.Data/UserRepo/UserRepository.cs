@@ -28,22 +28,47 @@ namespace ForumSystem.DataAccess.UserRepo
         //Retrun all NOT DELETED USERS!
         public IEnumerable<User> GetAllUsers()
         {
-            var result = forumDb.Users
-                .Include(p => p.Posts.Where(p => p.IsDeleted == false))
-                    .ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-				.Include(p => p.Posts.Where(p => p.IsDeleted == false))
-                    .ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-				.Include(c => c.Comments).Where(c => c.IsDeleted == false).Where(u => u.IsDeleted == false).ToList();
-
-            return result;
+            var result = GetUsers();
+            return result.ToList();
         }
 
         public User GetUserById(int Id)
         {
             var userWithThatId = GetUsers().FirstOrDefault(u => u.Id == Id && u.IsDeleted == false);
-
             return userWithThatId;
         }
+
+        public User GetUserByUserName(string Username)
+        {
+            var userWithThatUserName = GetUsers().FirstOrDefault(u => u.Username == Username && u.IsDeleted == false);
+			return userWithThatUserName;
+        }
+		public List<User> GetUsersByUsernameContains(string input)
+		{
+
+			var usersWhichUsernameCointainsInput=GetUsers().Where(u => u.Username.ToLower().Contains(input.ToLower()) && u.IsDeleted == false);
+			return usersWhichUsernameCointainsInput.ToList();
+		}
+
+        public User GetUserByEmail(string email)
+        {
+            var userWithThatEmail = GetUsers().FirstOrDefault(u => u.Email == email && u.IsDeleted == false);
+			return userWithThatEmail;
+        }
+
+        public IEnumerable<User> GetUsersByFirstName(string firstName)
+        {
+            var usersWithThatName = GetUsers().Where(u => u.FirstName == firstName && u.IsDeleted == false);
+			return usersWithThatName;
+        }
+
+        public int GetUsersCount()
+        {
+            var activeUsersCount = forumDb.Users.Count(u => u.IsDeleted == false);
+            return activeUsersCount;
+
+        }
+
         private IQueryable<User> GetUsers()
         {
 			var users = forumDb.Users
@@ -55,75 +80,10 @@ namespace ForumSystem.DataAccess.UserRepo
 										.ThenInclude(c => c.Likes.Where(l => l.IsDeleted == false));
             return users;
 		}
-        public User GetUserByUserName(string Username)
-        {
-            var userWithThatUserName = forumDb.Users
-                                    .Include(p => p.Posts.Where(p => p.IsDeleted == false))
-										.ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-									.Include(p => p.Posts.Where(p => p.IsDeleted == false))
-										.ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-									.Include(u => u.Comments.Where(c => c.IsDeleted == false))
-										.ThenInclude(c => c.Likes.Where(l => l.IsDeleted == false))
-
-									.FirstOrDefault(u => u.Username == Username && u.IsDeleted == false);
-            return userWithThatUserName;
-        }
-		public List<User> GetUsersByUsernameContains(string input)
-		{
-			//var usersWhichUsernameCointainsInput = forumDb.Users
-			//                                         .Include(p => p.Posts.Where(p => p.IsDeleted == false))
-			//                                             .ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-			//						        .Include(p => p.Posts.Where(p => p.IsDeleted == false))
-			//                                             .ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-			//						        .Include(c => c.Comments).Where(c => c.IsDeleted == false)
-
-			var usersWhichUsernameCointainsInput=GetUsers().Where(u => u.Username.ToLower().Contains(input.ToLower()) && u.IsDeleted == false);
-
-			return usersWhichUsernameCointainsInput.ToList();
-		}
-
-        public User GetUserByEmail(string email)
-        {
-            var userWithThatEmail = forumDb.Users.Include(p => p.Posts.Where(p => p.IsDeleted == false))
-										.ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-									.Include(p => p.Posts.Where(p => p.IsDeleted == false))
-										.ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-									.Include(u => u.Comments.Where(c => c.IsDeleted == false))
-										.ThenInclude(c => c.Likes.Where(l => l.IsDeleted == false))
-
-									.FirstOrDefault(u => u.Email == email && u.IsDeleted == false);
-            return userWithThatEmail;
-        }
-
-        public IEnumerable<User> GetUsersByFirstName(string firstName)
-        {
-            var usersWithThatName = forumDb.Users
-                                    .Include(p => p.Posts.Where(p => p.IsDeleted == false))
-                                        .ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-									.Include(p => p.Posts.Where(p => p.IsDeleted == false))
-                                        .ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-									.Include(c => c.Comments).Where(c => c.IsDeleted == false)
-                                        .Where(u => u.FirstName == firstName && u.IsDeleted == false);
-            return usersWithThatName;
-        }
-
-        public int GetUsersCount()
-        {
-            var activeUsersCount = forumDb.Users.Count(u => u.IsDeleted == false);
-            return activeUsersCount;
-
-        }
-
         public List<User> SearchBy(UserQueryParams queryParams)
         {
-            var query = forumDb.Users
-                .Include(p => p.Posts.Where(p => p.IsDeleted == false))
-                    .ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
-                .Include(p => p.Posts.Where(p => p.IsDeleted == false))
-                    .ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
-                .Include(c => c.Comments)
-                .Where(c => c.IsDeleted == false);
-                //.Where(u => u.IsDeleted == false);
+            var query = GetUsers();
+
 
             if (queryParams.FirstName is not null)
             {
