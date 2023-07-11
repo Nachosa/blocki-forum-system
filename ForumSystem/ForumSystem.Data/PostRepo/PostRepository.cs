@@ -193,6 +193,11 @@ namespace ForumSystem.DataAccess.PostRepo
                 posts = posts.FindAll(post => post.Title.Contains(filterParameters.Title, StringComparison.InvariantCultureIgnoreCase));
             }
 
+			if (!string.IsNullOrEmpty(filterParameters.Content))
+			{
+				posts = posts.FindAll(post => post.Content.Contains(filterParameters.Content, StringComparison.InvariantCultureIgnoreCase));
+			}
+
 			if (filterParameters.MaxDate.HasValue)
             {
 				DateTime maxDate = filterParameters.MaxDate.Value.Date;
