@@ -65,8 +65,9 @@ namespace ForumSystem.Business.AutoMapperProfile
 				.ForMember(cDto => cDto.LikesCount, opt => opt.MapFrom(c => c.Likes.Count))
 				.ForMember(cDto => cDto.Username, opt => opt.MapFrom(c => c.User.Username));
 			CreateMap<UpdateCommentContentDto, Comment>();
-			CreateMap<Comment, CommentViewModel>();
-			//.ForMember(cDto => cDto.LikesCount, opt => opt.MapFrom(c => c.Likes.Count))
+			CreateMap<Comment, CommentViewModel>()
+				.ForMember(cVM => cVM.LikesCount, opt => opt.MapFrom(c => c.Likes.Where(l => l.IsDislike == false).Count()))
+				.ForMember(cVM => cVM.DislikesCount, opt => opt.MapFrom(c => c.Likes.Where(l => l.IsDislike == true).Count()));
 
 			CreateMap<CreateUserDTO, User>();
 			CreateMap<UpdateUserDTO, User>();

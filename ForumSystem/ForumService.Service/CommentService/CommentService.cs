@@ -21,13 +21,15 @@ namespace ForumSystem.Business.CommentService
         private readonly ICommentRepository commentRepository;
         private readonly IPostService postService;
         private readonly IUserService userService;
+        private readonly IUserRepository userRepository;
 
-        public CommentService(IAuthManager authManager, ICommentRepository commentRepository, IPostService postService, IUserService userService)
+        public CommentService(IAuthManager authManager, ICommentRepository commentRepository, IPostService postService, IUserService userService, IUserRepository userRepository)
         {
             this.authManager = authManager;
             this.commentRepository = commentRepository;
             this.postService = postService;
             this.userService = userService;
+            this.userRepository = userRepository;
         }
 
         public bool DeleteCommentById(int commentId, string username)
@@ -91,5 +93,51 @@ namespace ForumSystem.Business.CommentService
 
             return comments;
         }
-    }
+
+		public bool LikeComment(int commentId, string userName)
+        {
+			var comment = commentRepository.GetCommentById(commentId);
+			var user = userRepository.GetUserByUserName(userName);
+
+			var like = commentRepository.GetLike(commentId, user.Id);
+
+			if (like is null)
+			{
+				commentRepository.CreateLike(comment, user);
+			}
+			else if (like is not null & (like.IsDeleted || like.IsDislike))
+			{
+				commentRepository.LikeComment(like);
+			}
+			else
+			{
+				commentRepository.DeleteLike(like);
+			}
+
+			return true;
+		}
+
+		public bool DislikeComment(int commentId, string userName)
+        {
+			var comment = commentRepository.GetCommentById(commentId);
+			var user = userRepository.GetUserByUserName(userName);
+
+			var like = commentRepository.GetLike(commentId, user.Id);
+
+			if (like is null)
+			{
+				commentRepository.CreateLike(comment, user);
+			}
+			else if (like is not null & (like.IsDeleted || !like.IsDislike))
+			{
+				commentRepository.DislikeComment(like);
+			}
+			else
+			{
+				commentRepository.DeleteLike(like);
+			}
+
+			return true;
+		}
+	}
 }

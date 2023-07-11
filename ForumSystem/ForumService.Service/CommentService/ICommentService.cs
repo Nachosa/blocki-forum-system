@@ -22,5 +22,9 @@ namespace ForumSystem.Business.CommentService
         public Comment UpdateCommentContent(Comment comment, int commentId, string username);
 
         public ICollection<Comment> GetComments(CommentQueryParameters queryParameters);
-    }
+
+		bool LikeComment(int commentId, string userName);
+
+		bool DislikeComment(int commentId, string userName);
+	}
 }

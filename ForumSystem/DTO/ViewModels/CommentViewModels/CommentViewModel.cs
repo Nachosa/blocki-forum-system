@@ -1,4 +1,5 @@
-﻿using ForumSystemDTO.ViewModels.UserViewModels;
+﻿using ForumSystem.DataAccess.Models;
+using ForumSystemDTO.ViewModels.UserViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,5 +19,11 @@ namespace ForumSystemDTO.ViewModels.CommentViewModels
 		public DateTime CreatedOn { get; set; }
 
 		public UserDetailsViewModel User { get; set; }
+
+		public List<Like> Likes { get; set; }
+
+		public int LikesCount { get; set; }
+
+		public int DislikesCount { get; set; }
 	}
 }
