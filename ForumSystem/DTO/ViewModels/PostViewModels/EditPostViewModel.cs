@@ -13,5 +13,7 @@ namespace ForumSystemDTO.ViewModels.PostViewModels
 		[MinLength(32, ErrorMessage = "The {0} must be at least {1} characters long.")]
 		[MaxLength(8192, ErrorMessage = "The {0} must be no more than {1} characters long.")]
 		public string Content { get; set; }
+
+		public string Tags { get; set; }
 	}
 }

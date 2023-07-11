@@ -80,7 +80,19 @@ namespace ForumSystem.DataAccess.TagRepo
             return t;
         }
 
-        public List<Tag> FilterBy(TagQueryParameters filterParameters, List<Tag> tags)
+		public void AddTagToPost(int postId, int tagId)
+		{
+			PostTag postTag = new PostTag
+			{
+				PostId = postId,
+				TagId = tagId
+			};
+
+			forumDb.PostTags.Add(postTag);
+			forumDb.SaveChanges();
+		}
+
+		public List<Tag> FilterBy(TagQueryParameters filterParameters, List<Tag> tags)
         {
             if (!string.IsNullOrEmpty(filterParameters.Name))
             {

@@ -45,8 +45,13 @@ namespace ForumSystem.Business.AutoMapperProfile
 				.ForMember(pDto => pDto.CommentsCount, opt => opt.MapFrom(p => p.Comments.Count));
 			CreateMap<UpdatePostContentDto, Post>();
 			CreateMap<CreatePostViewModel, Post>();
-			CreateMap<EditPostViewModel, Post>();
-			CreateMap<Post, EditPostViewModel>();
+
+			CreateMap<EditPostViewModel, Post>()
+				//.ForMember(dest => dest.Tags, opt => opt.MapFrom(src => src.Tags));
+				.ForMember(dest => dest.Tags, opt => opt.Ignore());
+
+			CreateMap<Post, EditPostViewModel>()
+				.ForMember(pVM => pVM.Tags, opt => opt.MapFrom(p => string.Join(",", p.Tags.Select(pt => pt.Tag.Name))));
 			CreateMap<Post, PostDetailsViewModel>()
 				.ForMember(pVM => pVM.CreatedBy, opt => opt.MapFrom(p => p.User.Username))
 				.ForMember(pVM => pVM.LikesCount, opt => opt.MapFrom(p => p.Likes.Where(l => l.IsDislike == false).Count()))
@@ -76,8 +81,8 @@ namespace ForumSystem.Business.AutoMapperProfile
 			CreateMap<EditUser, User>();
 			CreateMap<RegisterUser, User>();
 			CreateMap<User, UserDetailsViewModel>()
-				.ForMember(uVM => uVM.LikesCount, opt => opt.MapFrom(u => u.Posts.Sum(p => p.Likes.Where(l => !l.IsDislike).Count())))
-				.ForMember(uVM => uVM.DislikesCount, opt => opt.MapFrom(u => u.Posts.Sum(p => p.Likes.Where(l => l.IsDislike).Count())))
+				.ForMember(uVM => uVM.LikesCount, opt => opt.MapFrom(u => u.Posts.Sum(p => p.Likes.Where(l => !l.IsDislike).Count() + u.Comments.Sum(c => c.Likes.Where(l => !l.IsDislike).Count()))))
+				.ForMember(uVM => uVM.DislikesCount, opt => opt.MapFrom(u => u.Posts.Sum(p => p.Likes.Where(l => l.IsDislike).Count() + u.Comments.Sum(c => c.Likes.Where(l => l.IsDislike).Count()))))
 				.ForMember(uVM => uVM.Comments, opt => opt.MapFrom(u => !(u.Comments.Count <= 0) ? u.Comments.Select(c => c).ToList() : null))
 				.ForMember(uVM => uVM.Posts, opt => opt.MapFrom(u => !(u.Posts.Count <= 0) ? u.Posts.Select(p => p).ToList() : null));
 

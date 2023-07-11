@@ -2,6 +2,7 @@
 using ForumSystem.Api.QueryParams;
 using ForumSystem.Business;
 using ForumSystem.Business.AuthenticationManager;
+using ForumSystem.Business.TagService;
 using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Exceptions;
 using ForumSystem.DataAccess.Models;
@@ -25,14 +26,16 @@ namespace ForumSystem.Web.ViewControllers
         private readonly IMapper mapper;
         private readonly IAuthManager authManager;
         private readonly IAuthorizator authorizator;
+        private readonly ITagService tagService;
 
-        public PostController(IPostService postService, IMapper mapper, IUserService userService, IAuthManager authManager, IAuthorizator authorizator)
+        public PostController(IPostService postService, IMapper mapper, IUserService userService, IAuthManager authManager, IAuthorizator authorizator, ITagService tagService)
         {
             this.postService = postService;
             this.mapper = mapper;
             this.userService = userService;
             this.authManager = authManager;
             this.authorizator = authorizator;
+            this.tagService = tagService;
         }
 
 		public IActionResult Index(FilterPosts filterParams)
@@ -401,8 +404,7 @@ namespace ForumSystem.Web.ViewControllers
                 this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
                 return View("Error");
             }
-            var currPost = postService.GetPostById(id);
-            var editPostForm = mapper.Map<EditPostViewModel>(currPost);
+            var editPostForm = mapper.Map<EditPostViewModel>(post);
             return View(editPostForm);
         }
 
@@ -432,7 +434,11 @@ namespace ForumSystem.Web.ViewControllers
                 {
                     var postEditsMapped = mapper.Map<Post>(postEdits);
                     var updatedPost = postService.UpdatePostContent(id, postEditsMapped, loggedUser);
-                    return RedirectToAction("PostDetails", "Post", new { id });
+
+					// Add tags to the post
+					tagService.AddTagsToPost(id, postEdits.Tags);
+
+					return RedirectToAction("PostDetails", "Post", new { id });
                 }
 
                 throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");

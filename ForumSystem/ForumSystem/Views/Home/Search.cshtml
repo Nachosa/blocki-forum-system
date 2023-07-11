@@ -93,7 +93,7 @@ else
                     </tr>
                 </thead>
                 <tbody class="custom-table">
-                    @foreach (var post in Model.PostsWithTag)
+                    @foreach (var post in Model.PostsWithTitle)
                     {
                         <tr>
                             <td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@post.Id">@post.Title</a></td>

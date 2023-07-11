@@ -17,6 +17,13 @@
 			<label asp-for="Content" class="placeholder">Content</label>
 		</div>
 
+		<div class="input-container big-input-container">
+			<input asp-for="Tags" class="basic-form-input" type="text" placeholder=" " value="@Model.Tags">
+			<span asp-validation-for="Tags" class="validation-error-message"></span><br>
+			<div class="cut"></div>
+			<label asp-for="Tags" class="placeholder">Tags (comma-separated)</label>
+		</div>
+
 		<form asp-controller="Post" asp-action="Edit" method="post">
 			<button type="submit" class="basic-form-submit">Submit</button>
 		</form>
