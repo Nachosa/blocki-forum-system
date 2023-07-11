@@ -21,5 +21,15 @@ namespace ForumSystem.DataAccess.CommentRepo
         public IEnumerable<Comment> GetComments(CommentQueryParameters queryParameters);
 
         public IEnumerable<Comment> GetCommentsByPostId(int postId);
-    }
+
+		public Like GetLike(int commentId, int userId);
+
+		bool CreateLike(Comment comment, User user);
+
+		bool LikeComment(Like like);
+
+		bool DislikeComment(Like like);
+
+		public bool DeleteLike(Like like);
+	}
 }

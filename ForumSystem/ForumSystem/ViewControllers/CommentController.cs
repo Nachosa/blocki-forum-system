@@ -382,5 +382,76 @@ namespace ForumSystem.Web.ViewControllers
             }
         }
 
-    }
+		[HttpGet]
+		public IActionResult LikeComment(int id)
+		{
+			try
+			{
+				if (!authorizator.isLogged("LoggedUser"))
+				{
+					return RedirectToAction("Login", "User");
+				}
+
+				string loggedUsername = HttpContext.Session.GetString("LoggedUser");
+
+				_ = userService.GetUserByUserName(loggedUsername);
+
+				commentService.LikeComment(id, loggedUsername);
+                var comment = commentService.GetCommentById(id);
+
+				return RedirectToAction("PostDetails", "Post", new { Id = comment.PostId });
+
+			}
+			catch (EntityNotFoundException e)
+			{
+				Response.StatusCode = StatusCodes.Status404NotFound;
+				ViewData["ErrorMessage"] = e.Message;
+
+				return View("Error");
+			}
+			catch (Exception e)
+			{
+				Response.StatusCode = StatusCodes.Status500InternalServerError;
+				ViewData["ErrorMessage"] = e.Message;
+
+				return View("Error");
+			}
+		}
+
+		[HttpGet]
+		public IActionResult DislikeComment(int id)
+		{
+			try
+			{
+				if (!authorizator.isLogged("LoggedUser"))
+				{
+					return RedirectToAction("Login", "User");
+				}
+
+				string loggedUsername = HttpContext.Session.GetString("LoggedUser");
+
+				_ = userService.GetUserByUserName(loggedUsername);
+
+				commentService.DislikeComment(id, loggedUsername);
+                var comment = commentService.GetCommentById(id);
+
+				return RedirectToAction("PostDetails", "Post", new { Id = comment.PostId });
+
+			}
+			catch (EntityNotFoundException e)
+			{
+				Response.StatusCode = StatusCodes.Status404NotFound;
+				ViewData["ErrorMessage"] = e.Message;
+
+				return View("Error");
+			}
+			catch (Exception e)
+			{
+				Response.StatusCode = StatusCodes.Status500InternalServerError;
+				ViewData["ErrorMessage"] = e.Message;
+
+				return View("Error");
+			}
+		}
+	}
 }

@@ -119,5 +119,46 @@ namespace ForumSystem.DataAccess.CommentRepo
 
             return comments;
         }
-    }
+
+		public Like GetLike(int commentId, int userId)
+        {
+			var like = forumDb.Likes.FirstOrDefault(l => l.CommentId == commentId && l.UserId == userId);
+			return like;
+		}
+
+		public bool CreateLike(Comment comment, User user)
+        {
+			forumDb.Likes.Add(new Like { CommentId = comment.Id, UserId = user.Id });
+			forumDb.SaveChanges();
+			return true;
+		}
+
+		public bool LikeComment(Like like)
+        {
+			like.IsDeleted = false;
+			like.DeletedOn = null;
+			like.CreatedOn = DateTime.Now;
+			like.IsDislike = false;
+			forumDb.SaveChanges();
+			return true;
+		}
+
+		public bool DislikeComment(Like like)
+        {
+			like.IsDeleted = false;
+			like.DeletedOn = null;
+			like.CreatedOn = DateTime.Now;
+			like.IsDislike = true;
+			forumDb.SaveChanges();
+			return true;
+		}
+
+		public bool DeleteLike(Like like)
+        {
+			like.IsDeleted = true;
+			like.DeletedOn = DateTime.Now;
+			forumDb.SaveChanges();
+			return true;
+		}
+	}
 }
