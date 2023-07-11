@@ -1,5 +1,5 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model List<ForumSystemDTO.ViewModels.PostViewModels.PostViewModelAbbreviated>
+@model ForumSystemDTO.ViewModels.PostViewModels.FilterPosts
 @{
 	bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
 }
@@ -8,32 +8,35 @@
 	<h2 class="table-label">All Matching Posts</h2>
 	<div>
 		<form asp-controller="Post" asp-action="Index" method="get">
-			<label for="filterBy">Filter By:</label>
-			<select name="filterBy">
-				<option value="author" selected="@(ViewBag.FilterBy == "author")">Author</option>
-				<option value="tags" selected="@(ViewBag.FilterBy == "tags")">Tags</option>
-				<option value="title" selected="@(ViewBag.FilterBy == "title")">Title</option>
-			</select>
 
-			<label for="filterValue">Filter Value:</label>
-			<input type="text" name="filterValue" value="@ViewBag.FilterValue" />
+			<label for="Title">Title:</label>
+			<input type="text" name="Title" value="@ViewBag.Title" />
 
-			<label for="startDate">Start Date:</label>
-			<input type="date" name="startDate" value="@ViewBag.StartDate" />
+			<label for="Content">Content:</label>
+			<input type="text" name="Content" value="@ViewBag.Content" />
 
-			<label for="endDate">End Date:</label>
-			<input type="date" name="endDate" value="@ViewBag.EndDate" />
+			<label for="CreatedBy">Created by:</label>
+			<input type="text" name="CreatedBy" value="@ViewBag.CreatedBy" />
 
-			<label for="sortBy">Sort By:</label>
-			<select name="sortBy">
+			<label for="Tag">Tag:</label>
+			<input type="text" name="Tag" value="@ViewBag.Tag" />
+
+			<label for="MinDate">Start Date:</label>
+			<input type="date" name="MinDate" value="@ViewBag.MinDate" />
+
+			<label for="MaxDate">End Date:</label>
+			<input type="date" name="MaxDate" value="@ViewBag.MaxDate" />
+
+			<label for="SortBy">Sort By:</label>
+			<select name="SortBy">
 				<option value="comments" selected="@(ViewBag.SortBy == "comments")">Comments</option>
 				<option value="date" selected="@(ViewBag.SortBy == "date")">Date</option>
 				<option value="likes" selected="@(ViewBag.SortBy == "likes")">Likes</option>
 				<option value="title" selected="@(ViewBag.SortBy == "title")">Title</option>
 			</select>
 
-			<label for="sortOrder">Sort Order:</label>
-			<select name="sortOrder">
+			<label for="SortOrder">Sort Order:</label>
+			<select name="SortOrder">
 				<option value="asc" selected="@(ViewBag.SortOrder == "asc")">Ascending</option>
 				<option value="desc" selected="@(ViewBag.SortOrder == "desc")">Descending</option>
 			</select>
@@ -61,7 +64,7 @@
 			<button type="submit">Apply</button>
 		</form>*@
 	</div>
-	@if (Model != null && Model.Count > 0)
+	@if (Model != null && Model.Posts.Count > 0)
 	{
 		<table class="custom-table">
 			<thead class="custom-table">
@@ -80,7 +83,7 @@
 				</tr>
 			</thead>
 			<tbody class="custom-table">
-				@foreach (var post in Model)
+				@foreach (var post in Model.Posts)
 				{
 					<tr>
 						<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@post.Id">@post.Title</a></td>
@@ -111,21 +114,21 @@
 						@if (ViewBag.CurrentPage > 1)
 						{
 							<li class="page-item">
-								<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage - 1)&filterBy=@ViewBag.FilterBy&sortBy=@ViewBag.SortBy&sortOrder=@ViewBag.SortOrder">Previous</a>
+								<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage - 1)">Previous</a>
 							</li>
 						}
 
 						@for (int i = 1; i <= ViewBag.TotalPages; i++)
 						{
 							<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-								<a class="page-link" href="/Post/Index?page=@i&filterBy=@ViewBag.FilterBy&sortBy=@ViewBag.SortBy&sortOrder=@ViewBag.SortOrder">@i</a>
+								<a class="page-link" href="/Post/Index?page=@i">@i</a>
 							</li>
 						}
 
 						@if (ViewBag.CurrentPage < ViewBag.TotalPages)
 						{
 							<li class="page-item">
-								<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage + 1)&filterBy=@ViewBag.FilterBy&sortBy=@ViewBag.SortBy&sortOrder=@ViewBag.SortOrder">Next</a>
+								<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage + 1)">Next</a>
 							</li>
 						}
 					</ul>

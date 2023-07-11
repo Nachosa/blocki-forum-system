@@ -193,17 +193,16 @@ namespace ForumSystem.DataAccess.PostRepo
                 posts = posts.FindAll(post => post.Title.Contains(filterParameters.Title, StringComparison.InvariantCultureIgnoreCase));
             }
 
-			if (filterParameters.MaxDate.HasValue && filterParameters.MinDate.HasValue)
+			if (filterParameters.MaxDate.HasValue)
             {
 				DateTime maxDate = filterParameters.MaxDate.Value.Date;
-				DateTime minDate = filterParameters.MinDate.Value.Date;
-				posts = posts.FindAll(post => post.CreatedOn.Date <= maxDate && post.CreatedOn.Date >= minDate);
+				posts = posts.FindAll(post => post.CreatedOn.Date <= maxDate);
             }
 
-			if (!filterParameters.MaxDate.HasValue && filterParameters.MinDate.HasValue)
+			if (filterParameters.MinDate.HasValue)
 			{
 				DateTime minDate = filterParameters.MinDate.Value.Date;
-				posts = posts.FindAll(post => post.CreatedOn.Date == minDate);
+				posts = posts.FindAll(post => post.CreatedOn.Date >= minDate);
 			}
 
 			return posts;

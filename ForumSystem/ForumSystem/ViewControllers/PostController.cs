@@ -35,57 +35,58 @@ namespace ForumSystem.Web.ViewControllers
             this.authorizator = authorizator;
         }
 
-		public IActionResult Index(DateTime? endDate, DateTime? startDate, string filterBy, string filterValue, string sortBy, string sortOrder, int? page)
+		public IActionResult Index(FilterPosts filterParams)
 		{
 			try
 			{
-				var parameters = new PostQueryParameters();
+                var parameters = mapper.Map<PostQueryParameters>(filterParams);
+
 				var result = new List<Post>();
 
-				if (!string.IsNullOrEmpty(filterValue))
-				{
-					switch (filterBy)
-					{
-						case "author":
-							parameters.CreatedBy = filterValue;
+				//if (!string.IsNullOrEmpty(filterValue))
+				//{
+				//	switch (filterBy)
+				//	{
+				//		case "author":
+				//			parameters.CreatedBy = filterValue;
 
-							break;
-						case "tags":
-							parameters.Tag = filterValue;
+				//			break;
+				//		case "tags":
+				//			parameters.Tag = filterValue;
 
-							break;
-						case "title":
-							parameters.Title = filterValue;
+				//			break;
+				//		case "title":
+				//			parameters.Title = filterValue;
 
-							break;
-						default:
-							break;
-					}
-				}
+				//			break;
+				//		default:
+				//			break;
+				//	}
+				//}
 
-                if (endDate.HasValue && startDate.HasValue)
-                {
-					parameters.MaxDate = endDate;
-					parameters.MinDate = startDate;
-				}
-                else if (startDate.HasValue)
-                {
-                    parameters.MinDate = startDate;
-                }
+    //            if (endDate.HasValue && startDate.HasValue)
+    //            {
+				//	parameters.MaxDate = endDate;
+				//	parameters.MinDate = startDate;
+				//}
+    //            else if (startDate.HasValue)
+    //            {
+    //                parameters.MinDate = startDate;
+    //            }
 
-                parameters.SortBy = sortBy;
-				parameters.SortOrder = sortOrder;
+    //            parameters.SortBy = sortBy;
+				//parameters.SortOrder = sortOrder;
 
 				result = postService.GetPosts(parameters);
 				var postViewModels = result.Select(p => mapper.Map<PostViewModelAbbreviated>(p)).ToList();
 
-				ViewBag.EndDate = endDate;
-				ViewBag.FilterBy = filterBy;
-				ViewBag.SortBy = sortBy;
-				ViewBag.StartDate = startDate;
+				//ViewBag.Title = Title;
+				//ViewBag.FilterBy = filterBy;
+				//ViewBag.SortBy = sortBy;
+				//ViewBag.StartDate = startDate;
 
 				// Pagination logic
-				var currentPage = page ?? 1;
+				var currentPage = filterParams.Page ?? 1;
 				var pageSize = 5;
 				var totalPosts = postViewModels.Count;
 
@@ -97,8 +98,9 @@ namespace ForumSystem.Web.ViewControllers
 
 				// Apply pagination
 				postViewModels = postViewModels.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+                filterParams.Posts = postViewModels;
 
-				return View(postViewModels);
+				return View(filterParams);
 			}
 			catch (Exception e)
 			{
