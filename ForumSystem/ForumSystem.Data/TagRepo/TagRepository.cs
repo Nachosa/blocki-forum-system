@@ -35,6 +35,7 @@ namespace ForumSystem.DataAccess.TagRepo
                 throw new EntityNotFoundException($"Tag with id={tagId} doesn't exist.");
             else
                 tag.IsDeleted = true;
+                tag.DeletedOn= DateTime.Now;
 
             forumDb.SaveChanges();
 

@@ -55,6 +55,18 @@ namespace ForumSystem.DataAccess
                 .HasForeignKey(l => l.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.Entity<User>()
+                .HasMany(u => u.Tags)
+                .WithOne(t => t.User)
+                .HasForeignKey(t => t.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+    //        builder.Entity<Tag>()
+    //            .HasOne(t => t.User)
+    //            .WithMany(u => u.Tags)
+				//.HasForeignKey(t => t.UserId)
+				//.OnDelete(DeleteBehavior.NoAction);
+
             // Configure Post and Like relationship
             //modelBuilder.Entity<Post>()
             //    .HasMany(p => p.Likes)
@@ -434,25 +446,29 @@ namespace ForumSystem.DataAccess
                 new Tag
                 {
                     Id = 1,
-                    Name = "investments"
+                    Name = "investments",
+                    UserId=1
                 },
 
 				new Tag
 				{
 					Id = 2,
-					Name = "boolish"
+					Name = "boolish",
+					UserId=2
 				},
 
 				new Tag
 				{
 					Id = 3,
-					Name = "future"
+					Name = "future",
+					UserId=10
 				},
 
 				new Tag
 				{
 					Id = 4,
-					Name = "safe"
+					Name = "safe",
+					UserId=10
 				},
 			};
 

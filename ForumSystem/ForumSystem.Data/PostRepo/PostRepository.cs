@@ -129,6 +129,7 @@ namespace ForumSystem.DataAccess.PostRepo
 
 		public Post GetPostById(int postId)
 		{
+
 			//Include преди FirstOrDefault ми се струва много бавно.
 			var post = forumDb.Posts.Include(p => p.Likes.Where(l => l.IsDeleted == false))
 									.Include(p => p.User)

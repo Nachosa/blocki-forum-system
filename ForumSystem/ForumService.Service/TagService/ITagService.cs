@@ -23,6 +23,6 @@ namespace ForumSystem.Business.TagService
 
 		Tag GetTagByName(string tagName);
 
-		public void AddTagsToPost(int postId, string tags);
+		public void AddTagsToPost(string userName,int postId, string tags);
 	}
 }

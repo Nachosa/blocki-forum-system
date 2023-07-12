@@ -36,6 +36,8 @@ namespace ForumSystem.DataAccess.Models
         [JsonIgnore]
         public ICollection<Like> Likes { get; set; } = new List<Like>();
 
+        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
+
         public int RoleId { get; set; } = 2;
         public Role Role { get; set; }
     }
