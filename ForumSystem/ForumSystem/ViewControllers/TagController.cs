@@ -102,6 +102,12 @@ namespace ForumSystem.Web.ViewControllers
 
 				return View("Error");
 			}
+			catch (Exception e)
+			{
+				this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+				this.ViewData["ErrorMessage"] = e.Message;
+				return View("Error");
+			}
 		}
 
 		[HttpPost]
@@ -129,6 +135,12 @@ namespace ForumSystem.Web.ViewControllers
 				Response.StatusCode = StatusCodes.Status404NotFound;
 				ViewData["ErrorMessage"] = e.Message;
 
+				return View("Error");
+			}
+			catch (Exception e)
+			{
+				this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+				this.ViewData["ErrorMessage"] = e.Message;
 				return View("Error");
 			}
 		}
@@ -177,6 +189,12 @@ namespace ForumSystem.Web.ViewControllers
 
 				return View("Error");
 			}
+			catch (Exception e)
+			{
+				this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+				this.ViewData["ErrorMessage"] = e.Message;
+				return View("Error");
+			}
 		}
 
 		[HttpPost]
@@ -223,6 +241,12 @@ namespace ForumSystem.Web.ViewControllers
 
 				return View("Error");
 			}
+			catch (Exception e)
+			{
+				this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+				this.ViewData["ErrorMessage"] = e.Message;
+				return View("Error");
+			}
 		}
 
 		[HttpPost]
@@ -262,7 +286,19 @@ namespace ForumSystem.Web.ViewControllers
 			{
 				Response.StatusCode = StatusCodes.Status404NotFound;
 				ViewData["ErrorMessage"] = ex.Message;
+				return View("Error");
+			}
+			catch (UnauthenticatedOperationException e)
+			{
+				Response.StatusCode = StatusCodes.Status403Forbidden;
+				ViewData["ErrorMessage"] = e.Message;
+				return View("Error");
 
+			}
+			catch (Exception e)
+			{
+				this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+				this.ViewData["ErrorMessage"] = e.Message;
 				return View("Error");
 			}
 		}
