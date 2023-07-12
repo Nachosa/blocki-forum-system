@@ -1,0 +1,14 @@
+﻿@model ForumSystem.DataAccess.Models.Tag
+
+<h1>Tag Details</h1>
+
+<div>
+    <h3>Tag Name: @Model.Name</h3>
+    <h3>Created On: @Model.CreatedOn</h3>
+    @*Owner: the tag's creator*@
+</div>
+
+<div>
+    <a asp-controller="Tag" asp-action="EditTag" asp-route-id="@Model.Id" asp-route-postId="@ViewData["PostId"]">Edit</a> |
+    <a asp-controller="Tag" asp-action="DeleteTag" asp-route-id="@Model.Id" asp-route-postId="@ViewData["PostId"]">Delete</a>
+</div>

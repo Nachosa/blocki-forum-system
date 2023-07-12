@@ -1,0 +1,17 @@
+﻿@model ForumSystem.DataAccess.Models.Tag
+
+<h2>Edit Tag</h2>
+
+<form asp-controller="Tag" asp-action="UpdateTag" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div class="form-group">
+        <label asp-for="Name">Tag Name:</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <form asp-controller="Tag" asp-action="UpdateTag" method="post">
+        <button type="submit" class="basic-form-submit">Save Changes</button>
+    </form>
+</form>

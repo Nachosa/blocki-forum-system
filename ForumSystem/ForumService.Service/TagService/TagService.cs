@@ -44,9 +44,9 @@ namespace ForumSystem.Business.TagService
 			return repo.GetTags(queryParams).ToList();
 		}
 
-		public Tag UpdateTagName(int tagId, Tag tag, string userName)
+		public Tag UpdateTagName(int tagId, Tag tag)
 		{
-			return repo.UpdateTagName(tagId, tag, userName);
+			return repo.UpdateTagName(tagId, tag);
 		}
 
 		public void AddTagsToPost(int postId, string tags)
@@ -82,6 +82,11 @@ namespace ForumSystem.Business.TagService
 					}
 				}
 			}
+		}
+
+		public Tag GetTagByName(string tagName)
+		{
+			return repo.GetTagByName(tagName);
 		}
 	}
 }
