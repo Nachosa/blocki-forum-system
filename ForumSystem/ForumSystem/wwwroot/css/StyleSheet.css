@@ -113,6 +113,13 @@ footer {
     width: fit-content;
     height: fit-content;
 }
+
+.search-page-headings {
+    margin: auto;
+    margin-top: 40px;
+    max-width: fit-content;
+}
+
 /*#region scrollbar*/
 .container {
     display: flex;
@@ -232,7 +239,7 @@ nav {
     height: 40px;
 }
 
-.validation-error-message {
+#search-error-message {
     position: absolute;
     top: 25px;
     min-width: 200px;
