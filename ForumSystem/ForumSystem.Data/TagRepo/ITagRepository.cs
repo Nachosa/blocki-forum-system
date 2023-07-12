@@ -19,7 +19,7 @@ namespace ForumSystem.DataAccess.TagRepo
 
         Tag CreateTag(Tag tag);
 
-        Tag UpdateTagName(int tagId, Tag tag, string userName);
+        Tag UpdateTagName(int tagId, Tag tag);
 
         bool DeleteTagById(int tagId);
 

@@ -15,12 +15,14 @@ namespace ForumSystem.Business.TagService
 
         public Tag CreateTag(Tag tag);
 
-        public Tag UpdateTagName(int tagId, Tag tag, string userName);
+        public Tag UpdateTagName(int tagId, Tag tag);
 
         bool DeleteTagById(int tagId);
 
         Tag GetTagById(int tagId);
 
-        public void AddTagsToPost(int postId, string tags);
+		Tag GetTagByName(string tagName);
+
+		public void AddTagsToPost(string userName,int postId, string tags);
 	}
 }

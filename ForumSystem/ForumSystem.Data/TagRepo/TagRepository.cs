@@ -35,6 +35,7 @@ namespace ForumSystem.DataAccess.TagRepo
                 throw new EntityNotFoundException($"Tag with id={tagId} doesn't exist.");
             else
                 tag.IsDeleted = true;
+                tag.DeletedOn= DateTime.Now;
 
             forumDb.SaveChanges();
 
@@ -53,7 +54,7 @@ namespace ForumSystem.DataAccess.TagRepo
 
         public Tag GetTagByName(string name)
         {
-            var tag = forumDb.Tags.FirstOrDefault(tag => tag.Name == name);
+            var tag = forumDb.Tags.Where(t => t.IsDeleted == false).FirstOrDefault(tag => tag.Name == name);
             return tag;
         }
 
@@ -65,7 +66,7 @@ namespace ForumSystem.DataAccess.TagRepo
             return tagsToProcess;
         }
 
-        public Tag UpdateTagName(int tagId, Tag tag, string userName)
+        public Tag UpdateTagName(int tagId, Tag tag)
         {
             var t = forumDb.Tags.FirstOrDefault(t => t.Id == tagId);
 

@@ -1,0 +1,28 @@
+﻿@model ForumSystem.DataAccess.Models.Tag
+@{
+    int postId = (int)ViewData["PostId"];
+    bool isLoggedUserTagCreator = Context.Session.GetInt32("userId") == Model.UserId;
+    bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
+}
+<h1>Tag Details</h1>
+
+<div>
+    <h3>Tag Name: @Model.Name</h3>
+    <h3>Created On: @Model.CreatedOn</h3>
+    @*Owner: the tag's creator*@
+</div>
+@if (isAdmin || isLoggedUserTagCreator)
+{
+    if (postId != 0)
+    {
+        <div>
+            <a asp-controller="Tag" asp-action="EditTag" asp-route-id="@Model.Id" asp-route-postId="@postId">Edit</a> |
+            <a asp-controller="Tag" asp-action="DeleteTag" asp-route-id="@Model.Id" asp-route-postId="@postId">Delete</a> |
+            <form asp-controller="Tag" asp-action="RemoveTag" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="hidden" name="postId" value="@ViewData["PostId"]" />
+                <button type="submit">Remove Tag From Post</button>
+            </form>
+        </div>
+    }
+}

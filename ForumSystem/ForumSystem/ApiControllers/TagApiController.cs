@@ -79,7 +79,7 @@ namespace ForumSystem.Web.ApiControllers
                 string username = userInfo[0];
 
                 var mappedTag = mapper.Map<Tag>(tagDto);
-                var updatedTag = tagService.UpdateTagName(id, mappedTag, username);
+                var updatedTag = tagService.UpdateTagName(id, mappedTag);
                 var updatedTagDto = mapper.Map<TagDto>(updatedTag);
                 return StatusCode(StatusCodes.Status200OK, updatedTagDto);
             }

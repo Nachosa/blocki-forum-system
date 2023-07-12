@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ForumSystem.Business.UserService;
 using ForumSystem.DataAccess.Models;
 using ForumSystem.DataAccess.PostRepo;
 using ForumSystem.DataAccess.QueryParams;
@@ -16,11 +17,12 @@ namespace ForumSystem.Business.TagService
 	{
 		private readonly ITagRepository repo;
 		private readonly IPostService postService;
-
-		public TagService(ITagRepository repo, IPostService postService)
+		private readonly IUserService userService;
+		public TagService(ITagRepository repo, IPostService postService, IUserService userService)
 		{
 			this.repo = repo;
 			this.postService = postService;
+			this.userService = userService;
 		}
 
 		public Tag CreateTag(Tag tag)
@@ -44,12 +46,12 @@ namespace ForumSystem.Business.TagService
 			return repo.GetTags(queryParams).ToList();
 		}
 
-		public Tag UpdateTagName(int tagId, Tag tag, string userName)
+		public Tag UpdateTagName(int tagId, Tag tag)
 		{
-			return repo.UpdateTagName(tagId, tag, userName);
+			return repo.UpdateTagName(tagId, tag);
 		}
 
-		public void AddTagsToPost(int postId, string tags)
+		public void AddTagsToPost(string userName, int postId, string tags)
 		{
 			string[] tagArray = tags.Split(',');
 
@@ -63,8 +65,8 @@ namespace ForumSystem.Business.TagService
 				if (existingTag == null)
 				{
 					// Create a new tag if it doesn't exist
-					var newTag = new Tag() { Name = normalizedTag };
-
+					var user = userService.GetUserByUserName(userName);
+					var newTag = new Tag() { Name = normalizedTag, User = user, UserId = user.Id };
 					repo.CreateTag(newTag);
 
 					// Associate the new tag with the post
@@ -82,6 +84,11 @@ namespace ForumSystem.Business.TagService
 					}
 				}
 			}
+		}
+
+		public Tag GetTagByName(string tagName)
+		{
+			return repo.GetTagByName(tagName);
 		}
 	}
 }

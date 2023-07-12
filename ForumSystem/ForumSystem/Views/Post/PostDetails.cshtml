@@ -92,8 +92,21 @@
 				<div class="post-card-title">
 					@Model.Title
 				</div>
+
 				<div class="post-card-content">
 					@Model.Content
+				</div>
+
+				<div class="post-card-tags">
+					@if (Model.Tags != null && Model.Tags.Count > 0)
+					{
+						<div class="tags">
+							@foreach (var tag in Model.Tags)
+							{
+								<a asp-controller="Tag" asp-action="TagDetails" asp-route-tagName="@tag" asp-route-postId="@Model.Id" class="tag">#@tag</a>
+							}
+						</div>
+					}
 				</div>
 			</div>
 			<div class="post-additional-info ">

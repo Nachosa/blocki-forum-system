@@ -434,9 +434,9 @@ namespace ForumSystem.Web.ViewControllers
                 {
                     var postEditsMapped = mapper.Map<Post>(postEdits);
                     var updatedPost = postService.UpdatePostContent(id, postEditsMapped, loggedUser);
-
+                    var loggedUserName = this.HttpContext.Session.GetString("LoggedUser");
 					// Add tags to the post
-					tagService.AddTagsToPost(id, postEdits.Tags);
+					tagService.AddTagsToPost(loggedUser,id, postEdits.Tags);
 
 					return RedirectToAction("PostDetails", "Post", new { id });
                 }
