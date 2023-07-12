@@ -1,8 +1,12 @@
-﻿@model ForumSystem.DataAccess.Models.Tag
+﻿@using ForumSystem.Business;
+@model ForumSystem.DataAccess.Models.Tag
 @{
+    @inject IPostService postService
     int postId = (int)ViewData["PostId"];
     bool isLoggedUserTagCreator = Context.Session.GetInt32("userId") == Model.UserId;
+    int? loggedUserId = Context.Session.GetInt32("userId");
     bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
+    var post = postService.GetPostById(postId);
 }
 <h1>Tag Details</h1>
 
@@ -18,11 +22,22 @@
         <div>
             <a asp-controller="Tag" asp-action="EditTag" asp-route-id="@Model.Id" asp-route-postId="@postId">Edit</a> |
             <a asp-controller="Tag" asp-action="DeleteTag" asp-route-id="@Model.Id" asp-route-postId="@postId">Delete</a> |
+        </div>
+    }
+}
+@if (isAdmin || loggedUserId == post.UserId)
+{
+    if (postId != 0)
+    {
+        <div>
+
             <form asp-controller="Tag" asp-action="RemoveTag" method="post">
                 <input type="hidden" name="id" value="@Model.Id" />
                 <input type="hidden" name="postId" value="@ViewData["PostId"]" />
                 <button type="submit">Remove Tag From Post</button>
             </form>
         </div>
+
     }
+
 }
