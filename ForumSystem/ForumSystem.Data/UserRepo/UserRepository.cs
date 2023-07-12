@@ -151,7 +151,7 @@ namespace ForumSystem.DataAccess.UserRepo
         {
 			var users = forumDb.Users
                                     .Include(p => p.Posts.Where(p => p.IsDeleted == false))
-										.ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false))
+										.ThenInclude(p => p.Tags.Where(pt => pt.Tag.IsDeleted == false)).ThenInclude(pt=>pt.Tag)
 									.Include(p => p.Posts.Where(p => p.IsDeleted == false))
 										.ThenInclude(p => p.Likes.Where(l => l.IsDeleted == false))
 									.Include(u => u.Comments.Where(c => c.IsDeleted == false))
