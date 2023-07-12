@@ -66,14 +66,14 @@ namespace ForumSystem.Web.ViewControllers
 				{
 					return RedirectToAction("Login", "User");
 				}
-				var post = postService.GetPostById(postId);
+				//var post = postService.GetPostById(postId);
 				var tag = tagService.GetTagById(id);
 
 				// tag should have author creator property
 				// we should check if the currently-logged user is admin or the creator of the tag
 				// only they can edit it
 				// right now anyone can, as long as they're an admin or it's their post
-				if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
+				if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", tag.UserId))
 				{
 					HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
 					ViewData["ErrorMessage"] = Authorizator.notAthorized;
@@ -85,8 +85,8 @@ namespace ForumSystem.Web.ViewControllers
 				{
 					throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
 				}
-
-				return View(tag);
+                ViewData["PostId"] = postId;
+                return View(tag);
 			}
 			catch (EntityNotFoundException e)
 			{
@@ -97,7 +97,7 @@ namespace ForumSystem.Web.ViewControllers
 			}
 			catch (UnauthorizedAccessException e)
 			{
-				Response.StatusCode = StatusCodes.Status404NotFound;
+				Response.StatusCode = StatusCodes.Status403Forbidden;
 				ViewData["ErrorMessage"] = e.Message;
 
 				return View("Error");
@@ -111,7 +111,7 @@ namespace ForumSystem.Web.ViewControllers
 		}
 
 		[HttpPost]
-		public IActionResult UpdateTag(Tag tag)
+		public IActionResult UpdateTag(Tag tag,int postId)
 		{
 			try
 			{
@@ -119,13 +119,19 @@ namespace ForumSystem.Web.ViewControllers
 				{
 					return RedirectToAction("Login", "User");
 				}
-				if (ModelState.IsValid)
+                var originalTag = tagService.GetTagById(tag.Id);
+                if (ModelState.IsValid)
 				{
-					var existingTag = tagService.GetTagById(tag.Id);
+                    if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", originalTag.UserId))
+                    {
+                        HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                        ViewData["ErrorMessage"] = Authorizator.notAthorized;
 
-					tagService.UpdateTagName(tag.Id, tag);
+                        return View("Error");
+                    }
 
-					return RedirectToAction("TagDetails", new { tagName = tag.Name, postId = ViewData["PostId"] });
+                    tagService.UpdateTagName(tag.Id, tag);
+                    return RedirectToAction("TagDetails", new { tagName = tag.Name, postId = ViewData["PostId"] });
 				}
 
 				return View(tag);
@@ -155,12 +161,12 @@ namespace ForumSystem.Web.ViewControllers
 					return RedirectToAction("Login", "User");
 				}
 
-				var post = postService.GetPostById(postId);
+				//var post = postService.GetPostById(postId);
 				var tag = tagService.GetTagById(id);
 
 				ViewData["PostId"] = postId;
 
-				if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
+				if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", tag.UserId))
 				{
 					HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
 					ViewData["ErrorMessage"] = Authorizator.notAthorized;
@@ -210,7 +216,7 @@ namespace ForumSystem.Web.ViewControllers
 				var post = postService.GetPostById(postId);
 				var tag = tagService.GetTagById(id);
 
-				if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
+				if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", tag.UserId))
 				{
 					HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
 					ViewData["ErrorMessage"] = Authorizator.notAthorized;
