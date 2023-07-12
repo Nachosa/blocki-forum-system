@@ -33,8 +33,14 @@ namespace ForumSystem.Web.ViewControllers
 		[HttpGet]
 		public IActionResult TagDetails(string tagName, int postId)
 		{
+
 			try
 			{
+				if (!authorizator.isLogged("LoggedUser"))
+				{
+					return RedirectToAction("Login", "User");
+				}
+
 				var tag = tagService.GetTagByName(tagName);
 
 				ViewData["PostId"] = postId;
@@ -53,8 +59,13 @@ namespace ForumSystem.Web.ViewControllers
 		[HttpGet]
 		public IActionResult EditTag(int id, int postId)
 		{
+
 			try
 			{
+				if (!authorizator.isLogged("LoggedUser"))
+				{
+					return RedirectToAction("Login", "User");
+				}
 				var post = postService.GetPostById(postId);
 				var tag = tagService.GetTagById(id);
 
@@ -84,6 +95,13 @@ namespace ForumSystem.Web.ViewControllers
 
 				return View("Error");
 			}
+			catch (UnauthorizedAccessException e)
+			{
+				Response.StatusCode = StatusCodes.Status404NotFound;
+				ViewData["ErrorMessage"] = e.Message;
+
+				return View("Error");
+			}
 		}
 
 		[HttpPost]
@@ -91,6 +109,10 @@ namespace ForumSystem.Web.ViewControllers
 		{
 			try
 			{
+				if (!authorizator.isLogged("LoggedUser"))
+				{
+					return RedirectToAction("Login", "User");
+				}
 				if (ModelState.IsValid)
 				{
 					var existingTag = tagService.GetTagById(tag.Id);
@@ -208,8 +230,21 @@ namespace ForumSystem.Web.ViewControllers
 		{
 			try
 			{
+				if (!authorizator.isLogged("LoggedUser"))
+				{
+					return RedirectToAction("Login", "User");
+				}
+
 				var post = postService.GetPostById(postId);
 				var tag = tagService.GetTagById(id);
+
+				if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", post.UserId))
+				{
+					HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+					ViewData["ErrorMessage"] = Authorizator.notAthorized;
+
+					return View("Error");
+				}
 
 				if (post.Tags.Any(pt => pt.Tag.Id == tag.Id))
 				{
