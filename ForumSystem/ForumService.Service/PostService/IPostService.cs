@@ -24,7 +24,9 @@ namespace ForumSystem.Business
 
 		bool TagPost(int postId, string userName, Tag tag);
 
-        public Post UpdatePostContent(int postId, Post post, string userName);
+		public Post UpdatePostTags(Post post, string userName);
+
+		public Post UpdatePostContent(int postId, Post post, string userName);
 
         bool DeletePostById(int postId, string userName);
 

@@ -36,7 +36,9 @@ namespace ForumSystem.DataAccess.PostRepo
 
         bool TagPost(Post post, Tag tag);
 
-        Post UpdatePostContent(Post newPost, Post currPost);
+		public Post UpdatePostTags(Post newPost, Post currPost);
+
+		Post UpdatePostContent(Post newPost, Post currPost);
 
         bool DeletePostById(int postId);
     }

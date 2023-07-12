@@ -11,6 +11,7 @@ using ForumSystem.Business.CommentService;
 using ForumSystem.Web.Helpers;
 using ForumSystemDTO.ViewModels.CommentViewModels;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
 
 namespace ForumSystem.Web.ViewControllers
 {
@@ -19,12 +20,14 @@ namespace ForumSystem.Web.ViewControllers
 		private readonly IAuthorizator authorizator;
 		private readonly IPostService postService;
 		private readonly ITagService tagService;
+		private readonly IUserService userService;
 
-		public TagController(IAuthorizator authorizator, IPostService postService, ITagService tagService)
+		public TagController(IAuthorizator authorizator, IPostService postService, ITagService tagService, IUserService userService)
 		{
 			this.authorizator = authorizator;
 			this.postService = postService;
 			this.tagService = tagService;
+			this.userService = userService;
 		}
 
 		[HttpGet]
@@ -199,5 +202,35 @@ namespace ForumSystem.Web.ViewControllers
 				return View("Error");
 			}
 		}
+
+		[HttpPost]
+		public IActionResult RemoveTag(int id, int postId)
+		{
+			try
+			{
+				var post = postService.GetPostById(postId);
+				var tag = tagService.GetTagById(id);
+
+				if (post.Tags.Any(pt => pt.Tag.Id == tag.Id))
+				{
+					var postTagToRemove = post.Tags.First(pt => pt.Tag.Id == tag.Id);
+
+					// Remove the postTagToRemove from the post's tags collection
+					post.Tags.Remove(postTagToRemove);
+
+					postService.UpdatePostTags(post, HttpContext.Session.GetString("LoggedUser"));
+				}
+
+				return RedirectToAction("PostDetails", "Post", new { id = post.Id });
+			}
+			catch (EntityNotFoundException ex)
+			{
+				Response.StatusCode = StatusCodes.Status404NotFound;
+				ViewData["ErrorMessage"] = ex.Message;
+
+				return View("Error");
+			}
+		}
+
 	}
 }

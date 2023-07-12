@@ -148,6 +148,13 @@ namespace ForumSystem.DataAccess.PostRepo
 				return post;
 		}
 
+		public Post UpdatePostTags(Post newPost, Post currPost)
+		{
+			currPost.Tags = newPost.Tags;
+			forumDb.SaveChanges();
+			return currPost;
+		}
+
 		public Post UpdatePostContent(Post newPost, Post currPost)
 		{
 			currPost.Content = newPost.Content;

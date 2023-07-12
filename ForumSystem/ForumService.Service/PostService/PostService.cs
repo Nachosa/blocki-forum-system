@@ -122,7 +122,19 @@ namespace ForumSystem.Business
             return true;
         }
 
-        public Post UpdatePostContent(int postId, Post newPost, string userName)
+		public Post UpdatePostTags(Post post, string userName)
+        {
+			var currPost = postRepo.GetPostById(post.Id);
+
+			var loggedUser = userRepo.GetUserByUserName(userName);
+
+			if (!authManager.AdminCheck(loggedUser) && currPost.User.Username != userName)
+				throw new UnauthenticatedOperationException("Can't update other user's posts!");
+			else
+				return postRepo.UpdatePostTags(post, currPost);
+		}
+
+		public Post UpdatePostContent(int postId, Post newPost, string userName)
         {
             var currPost = postRepo.GetPostById(postId);
             var loggedUser = userRepo.GetUserByUserName(userName);

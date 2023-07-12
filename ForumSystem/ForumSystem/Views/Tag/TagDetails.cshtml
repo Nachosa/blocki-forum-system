@@ -10,5 +10,10 @@
 
 <div>
     <a asp-controller="Tag" asp-action="EditTag" asp-route-id="@Model.Id" asp-route-postId="@ViewData["PostId"]">Edit</a> |
-    <a asp-controller="Tag" asp-action="DeleteTag" asp-route-id="@Model.Id" asp-route-postId="@ViewData["PostId"]">Delete</a>
+    <a asp-controller="Tag" asp-action="DeleteTag" asp-route-id="@Model.Id" asp-route-postId="@ViewData["PostId"]">Delete</a> |
+    <form asp-controller="Tag" asp-action="RemoveTag" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <input type="hidden" name="postId" value="@ViewData["PostId"]" />
+        <button type="submit">Remove Tag From Post</button>
+    </form>
 </div>
