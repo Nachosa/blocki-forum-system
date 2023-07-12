@@ -41,15 +41,6 @@
 				{
 					<li><a href="/Admin/SearchUser" data-item='AdminPanel'>AdminPanel</a></li>
 				}
-				@if (SearchErrorMessage is not null)
-				{
-					<li>
-						<div class="validation-error-message">
-							<p>@SearchErrorMessage</p>
-						</div>
-
-					</li>
-				}
 				<li>
 					<div class="search-bar-box">
 
@@ -66,8 +57,15 @@
 							</a>
 							<input type="text" class="input" name="input">
 						</form>
+						@if (SearchErrorMessage is not null)
+						{
+							<div id="error-message-position">
+							<div class="validation-error-message">@SearchErrorMessage</div>
+							</div>
+						}
 					</div>
 				</li>
+
 
 				@if (isLogged is false)
 				{
