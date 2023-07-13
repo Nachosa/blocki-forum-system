@@ -6,7 +6,7 @@
 
 <h2>Edit Tag</h2>
 
-<form asp-controller="Tag" asp-action="UpdateTag" method="post">
+<form asp-controller="Tag" asp-action="UpdateTag" asp-route-postId="@postId" method="post">
     <input type="hidden" asp-for="Id" />
 
     <div class="form-group">

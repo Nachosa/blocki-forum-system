@@ -57,7 +57,7 @@ namespace ForumSystem.Web.ViewControllers
 		}
 
 		[HttpGet]
-		public IActionResult EditTag(int id, int postId)
+		public IActionResult EditTag(int id, [FromQuery] int postId)
 		{
 
 			try
@@ -111,7 +111,7 @@ namespace ForumSystem.Web.ViewControllers
 		}
 
 		[HttpPost]
-		public IActionResult UpdateTag(Tag tag,int postId)
+		public IActionResult UpdateTag(Tag tag,[FromQuery] int postId)
 		{
 			try
 			{
@@ -130,8 +130,8 @@ namespace ForumSystem.Web.ViewControllers
                         return View("Error");
                     }
 
-                    tagService.UpdateTagName(tag.Id, tag);
-                    return RedirectToAction("TagDetails", new { tagName = tag.Name, postId = ViewData["PostId"] });
+                    var updatedTag=tagService.UpdateTagName(tag.Id, tag);
+                    return RedirectToAction("TagDetails", new { tagName = tag.Name, postId=postId });
 				}
 
 				return View(tag);
