@@ -36,19 +36,13 @@ namespace ForumSystem.Web.ViewControllers
                 int userId = HttpContext.Session.GetInt32("userId") ?? 0;
                 var user = userService.GetUserById(userId);
 
-                if (user == null || userId == 0)
-                {
-                    throw new EntityNotFoundException("Entity not found.");
-                }
-
                 if (authManager.AdminCheck(user) == true || authManager.BlockedCheck(user) == false)
                 {
                     return RedirectToAction("CommentForm", new { id });
                 }
 
-                throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+                throw new UnauthorizedAccessException("You are blocked and cannot perform this action.");
             }
-            //TODO:Тук липсва някакъв ексепшън, трябва да проверя по-късно.
             catch (EntityNotFoundException ex)
             {
                 Response.StatusCode = StatusCodes.Status404NotFound;
@@ -65,8 +59,9 @@ namespace ForumSystem.Web.ViewControllers
             }
             catch (Exception e)
             {
-                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                this.ViewData["ErrorMessage"] = e.Message;
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                ViewData["ErrorMessage"] = e.Message;
+
                 return View("Error");
             }
         }
@@ -80,12 +75,11 @@ namespace ForumSystem.Web.ViewControllers
                 {
                     return RedirectToAction("Login", "User");
                 }
+
                 if (!authorizator.isAdmin("roleId") && authorizator.isBlocked("roleId"))
                 {
-                    throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+                    throw new UnauthorizedAccessException("You are blocked and cannot perform this action.");
                 }
-
-                // return RedirectToAction("CommentForm", new { id });
 
                 var model = new CommentFormViewModel
                 {
@@ -93,7 +87,6 @@ namespace ForumSystem.Web.ViewControllers
                 };
 
                 return View(model);
-
             }
             catch (EntityNotFoundException ex)
             {
@@ -111,11 +104,11 @@ namespace ForumSystem.Web.ViewControllers
             }
             catch (Exception e)
             {
-                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                this.ViewData["ErrorMessage"] = e.Message;
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                ViewData["ErrorMessage"] = e.Message;
+
                 return View("Error");
             }
-
         }
 
         [HttpPost]
@@ -127,10 +120,12 @@ namespace ForumSystem.Web.ViewControllers
                 {
                     return RedirectToAction("Login", "User");
                 }
+
                 if (!authorizator.isAdmin("roleId") && authorizator.isBlocked("roleId"))
                 {
-                    throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+                    throw new UnauthorizedAccessException("You are blocked and cannot perform this action.");
                 }
+
                 if (!ModelState.IsValid)
                 {
                     return View("CommentForm", model);
@@ -145,7 +140,6 @@ namespace ForumSystem.Web.ViewControllers
 
                 _ = commentService.CreateComment(comment, model.PostId);
                 return RedirectToAction("PostDetails", "Post", new { id = model.PostId });
-
             }
             catch (EntityNotFoundException ex)
             {
@@ -163,8 +157,9 @@ namespace ForumSystem.Web.ViewControllers
             }
             catch (Exception e)
             {
-                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                this.ViewData["ErrorMessage"] = e.Message;
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                ViewData["ErrorMessage"] = e.Message;
+
                 return View("Error");
             }
         }
@@ -182,13 +177,15 @@ namespace ForumSystem.Web.ViewControllers
 
                 if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", comment.UserId))
                 {
-                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                    HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    ViewData["ErrorMessage"] = Authorizator.notAthorized;
+
                     return View("Error");
                 }
+
                 if (!authorizator.isAdmin("roleId") && authorizator.isBlocked("roleId"))
                 {
-                    throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+                    throw new UnauthorizedAccessException("You are blocked and cannot perform this action.");
                 }
 
                 var model = new EditCommentViewModel
@@ -198,7 +195,6 @@ namespace ForumSystem.Web.ViewControllers
                 };
 
                 return View("EditCommentForm", model);
-
             }
             catch (EntityNotFoundException ex)
             {
@@ -216,12 +212,13 @@ namespace ForumSystem.Web.ViewControllers
             }
             catch (Exception e)
             {
-                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                this.ViewData["ErrorMessage"] = e.Message;
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                ViewData["ErrorMessage"] = e.Message;
+
                 return View("Error");
             }
-
         }
+
         [HttpPost]
         public IActionResult UpdateComment(EditCommentViewModel model)
         {
@@ -232,6 +229,7 @@ namespace ForumSystem.Web.ViewControllers
                 {
                     return View("EditCommentForm", model);
                 }
+
                 if (!authorizator.isLogged("LoggedUser"))
                 {
                     return RedirectToAction("Login", "User");
@@ -241,13 +239,15 @@ namespace ForumSystem.Web.ViewControllers
 
                 if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", comment.UserId))
                 {
-                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                    HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    ViewData["ErrorMessage"] = Authorizator.notAthorized;
+
                     return View("Error");
                 }
+
                 if (!authorizator.isAdmin("roleId") && authorizator.isBlocked("roleId"))
                 {
-                    throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+                    throw new UnauthorizedAccessException("You are blocked and cannot perform this action.");
                 }
 
                 comment.Content = model.EditedComment;
@@ -270,8 +270,9 @@ namespace ForumSystem.Web.ViewControllers
             }
             catch (Exception e)
             {
-                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                this.ViewData["ErrorMessage"] = e.Message;
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                ViewData["ErrorMessage"] = e.Message;
+
                 return View("Error");
             }
         }
@@ -289,13 +290,15 @@ namespace ForumSystem.Web.ViewControllers
 
                 if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", comment.UserId))
                 {
-                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                    HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    ViewData["ErrorMessage"] = Authorizator.notAthorized;
+
                     return View("Error");
                 }
+
                 if (!authorizator.isAdmin("roleId") && authorizator.isBlocked("roleId"))
                 {
-                    throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+                    throw new UnauthorizedAccessException("You are blocked and cannot perform this action.");
                 }
 
                 var model = new EditCommentViewModel
@@ -305,7 +308,6 @@ namespace ForumSystem.Web.ViewControllers
                 };
 
                 return View("DeleteCommentForm", model);
-
             }
             catch (EntityNotFoundException ex)
             {
@@ -323,8 +325,9 @@ namespace ForumSystem.Web.ViewControllers
             }
             catch (Exception e)
             {
-                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                this.ViewData["ErrorMessage"] = e.Message;
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                ViewData["ErrorMessage"] = e.Message;
+
                 return View("Error");
             }
         }
@@ -348,13 +351,15 @@ namespace ForumSystem.Web.ViewControllers
 
                 if (!authorizator.isAdmin("roleId") && !authorizator.isContentCreator("userId", comment.UserId))
                 {
-                    this.HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
-                    this.ViewData["ErrorMessage"] = Authorizator.notAthorized;
+                    HttpContext.Response.StatusCode = StatusCodes.Status403Forbidden;
+                    ViewData["ErrorMessage"] = Authorizator.notAthorized;
+
                     return View("Error");
                 }
+
                 if (!authorizator.isAdmin("roleId") && authorizator.isBlocked("roleId"))
                 {
-                    throw new UnauthorizedAccessException("You'rе blocked - you can't perform this action.");
+                    throw new UnauthorizedAccessException("You are blocked and cannot perform this action.");
                 }
 
                 commentService.DeleteCommentById(comment.Id, HttpContext.Session.GetString("LoggedUser"));
@@ -376,8 +381,9 @@ namespace ForumSystem.Web.ViewControllers
             }
             catch (Exception e)
             {
-                this.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                this.ViewData["ErrorMessage"] = e.Message;
+                Response.StatusCode = StatusCodes.Status500InternalServerError;
+                ViewData["ErrorMessage"] = e.Message;
+
                 return View("Error");
             }
         }
@@ -392,6 +398,11 @@ namespace ForumSystem.Web.ViewControllers
 					return RedirectToAction("Login", "User");
 				}
 
+				if (authorizator.isBlocked("roleId"))
+				{
+					throw new UnauthorizedAccessException("You are blocked and cannot perform this action.");
+				}
+
 				string loggedUsername = HttpContext.Session.GetString("LoggedUser");
 
 				_ = userService.GetUserByUserName(loggedUsername);
@@ -400,12 +411,18 @@ namespace ForumSystem.Web.ViewControllers
                 var comment = commentService.GetCommentById(id);
 
 				return RedirectToAction("PostDetails", "Post", new { Id = comment.PostId });
-
 			}
 			catch (EntityNotFoundException e)
 			{
 				Response.StatusCode = StatusCodes.Status404NotFound;
 				ViewData["ErrorMessage"] = e.Message;
+
+				return View("Error");
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				Response.StatusCode = StatusCodes.Status403Forbidden;
+				ViewData["ErrorMessage"] = ex.Message;
 
 				return View("Error");
 			}
@@ -428,6 +445,11 @@ namespace ForumSystem.Web.ViewControllers
 					return RedirectToAction("Login", "User");
 				}
 
+				if (authorizator.isBlocked("roleId"))
+				{
+					throw new UnauthorizedAccessException("You are blocked and cannot perform this action.");
+				}
+
 				string loggedUsername = HttpContext.Session.GetString("LoggedUser");
 
 				_ = userService.GetUserByUserName(loggedUsername);
@@ -436,12 +458,18 @@ namespace ForumSystem.Web.ViewControllers
                 var comment = commentService.GetCommentById(id);
 
 				return RedirectToAction("PostDetails", "Post", new { Id = comment.PostId });
-
 			}
 			catch (EntityNotFoundException e)
 			{
 				Response.StatusCode = StatusCodes.Status404NotFound;
 				ViewData["ErrorMessage"] = e.Message;
+
+				return View("Error");
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				Response.StatusCode = StatusCodes.Status403Forbidden;
+				ViewData["ErrorMessage"] = ex.Message;
 
 				return View("Error");
 			}

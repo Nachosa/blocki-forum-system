@@ -39,12 +39,6 @@ namespace ForumSystem.DataAccess.CommentRepo
 
         public Comment CreateComment(Comment comment)
         {
-            //comment.Id = forumDb.Comments
-            //    .Where(c => c.IsDeleted == false)
-            //    .OrderByDescending(c => c.Id)
-            //    .Select(c => c.Id)
-            //    .FirstOrDefault() + 1;
-
             forumDb.Comments.Add(comment);
             forumDb.SaveChanges();
             return comment;
@@ -89,7 +83,7 @@ namespace ForumSystem.DataAccess.CommentRepo
 
         public List<Comment> FilterBy(CommentQueryParameters queryParameters, List<Comment> comments)
         {
-            if (queryParameters.MinDate <= queryParameters.MaxDate)
+			if (queryParameters.MinDate <= queryParameters.MaxDate)
             {
                 comments = comments.FindAll(comment => comment.CreatedOn >= queryParameters.MinDate && comment.CreatedOn <= queryParameters.MaxDate);
             }
@@ -123,6 +117,7 @@ namespace ForumSystem.DataAccess.CommentRepo
 		public Like GetLike(int commentId, int userId)
         {
 			var like = forumDb.Likes.FirstOrDefault(l => l.CommentId == commentId && l.UserId == userId);
+
 			return like;
 		}
 
@@ -135,28 +130,31 @@ namespace ForumSystem.DataAccess.CommentRepo
 
 		public bool LikeComment(Like like)
         {
-			like.IsDeleted = false;
-			like.DeletedOn = null;
 			like.CreatedOn = DateTime.Now;
+			like.DeletedOn = null;
+			like.IsDeleted = false;
 			like.IsDislike = false;
+
 			forumDb.SaveChanges();
 			return true;
 		}
 
 		public bool DislikeComment(Like like)
         {
-			like.IsDeleted = false;
-			like.DeletedOn = null;
 			like.CreatedOn = DateTime.Now;
+			like.DeletedOn = null;
+			like.IsDeleted = false;
 			like.IsDislike = true;
+
 			forumDb.SaveChanges();
 			return true;
 		}
 
 		public bool DeleteLike(Like like)
         {
-			like.IsDeleted = true;
 			like.DeletedOn = DateTime.Now;
+			like.IsDeleted = true;
+
 			forumDb.SaveChanges();
 			return true;
 		}

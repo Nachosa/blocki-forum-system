@@ -42,6 +42,11 @@ namespace ForumSystem.Business.CommentService
                 throw new UnauthorizedOperationException("Only the comment's author can delete the comment.");
             }
 
+            if (authManager.BlockedCheck(user))
+            {
+				throw new UnauthorizedOperationException("You are blocked and cannot perform this action.");
+			}
+
             return commentRepository.DeleteCommentById(commentId);
         }
 
@@ -74,10 +79,10 @@ namespace ForumSystem.Business.CommentService
         {
             var user = userService.GetUserByUserName(username);
 
-            if (comment.UserId != user.Id)
-            {
-                throw new UnauthorizedOperationException("Only the comment's author can update the comment.");
-            }
+			if (!authManager.AdminCheck(user) && comment.UserId != user.Id)
+			{
+				throw new UnauthorizedOperationException("Only the comment's author can update the comment.");
+			}
 
             return commentRepository.UpdateCommentContent(comment, commentId);
         }
@@ -101,11 +106,11 @@ namespace ForumSystem.Business.CommentService
 
 			var like = commentRepository.GetLike(commentId, user.Id);
 
-			if (like is null)
+			if (like == null)
 			{
 				commentRepository.CreateLike(comment, user);
 			}
-			else if (like is not null & (like.IsDeleted || like.IsDislike))
+			else if (like != null & (like.IsDeleted || like.IsDislike))
 			{
 				commentRepository.LikeComment(like);
 			}
@@ -124,11 +129,11 @@ namespace ForumSystem.Business.CommentService
 
 			var like = commentRepository.GetLike(commentId, user.Id);
 
-			if (like is null)
+			if (like == null)
 			{
 				commentRepository.CreateLike(comment, user);
 			}
-			else if (like is not null & (like.IsDeleted || !like.IsDislike))
+			else if (like != null & (like.IsDeleted || !like.IsDislike))
 			{
 				commentRepository.DislikeComment(like);
 			}
