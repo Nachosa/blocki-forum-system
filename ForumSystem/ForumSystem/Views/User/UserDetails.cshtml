@@ -1,171 +1,178 @@
 ﻿@model ForumSystemDTO.ViewModels.UserViewModels.UserDetailsViewModel;
 
 @{
-	int? loggedUserId = this.Context.Session.GetInt32("userId");
-	bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
-	bool userIsBlocked = Model.RoleId == 1;
-	bool userIsNotBlocked = Model.RoleId == 2;
+    int? loggedUserId = this.Context.Session.GetInt32("userId");
+    bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
+    bool userIsBlocked = Model.RoleId == 1;
+    bool userIsNotBlocked = Model.RoleId == 2;
 }
 
 <div id="profile-page-body">
-	<div id="profile-card-container">
-		<div class="profile-card">
-			<div class="profile-info-box-1">
-				<div class="profile-card-pfp">
-					<div class="circle-1"></div>
-					<img src="~/images/pfp.jpg">
-				</div>
-				<div class="profile-title">@this.Model.Username</div>
-				<div class="profile-subtitle">@this.Model.FirstName @this.Model.LastName</div>
-				@if (this.Model.RoleId == 3)
-				{
-					<div class="profile-subtitle" id="profile-admin-label">Status: Admin</div>
-				}
-				@if (isAdmin == true || loggedUserId == this.Model.Id)
-				{
-					if (this.Model.RoleId == 1)
-					{
-						<div class="profile-subtitle">Status: Blocked</div>
+    <div id="profile-card-container">
+        <div class="profile-card">
+            <div class="profile-info-box-1">
+                <div class="profile-card-pfp">
+                    <div class="circle-1"></div>
+                    @if (Model.ProfilePicPath is not null)
+                    {
+                        <img src="@Model.ProfilePicPath">
+                    }
+                    else
+                    {
+                        <img src="~/images/pfp.jpg">
+                    }
+                </div>
+                <div class="profile-title">@this.Model.Username</div>
+                <div class="profile-subtitle">@this.Model.FirstName @this.Model.LastName</div>
+                @if (this.Model.RoleId == 3)
+                {
+                    <div class="profile-subtitle" id="profile-admin-label">Status: Admin</div>
+                }
+                @if (isAdmin == true || loggedUserId == this.Model.Id)
+                {
+                    if (this.Model.RoleId == 1)
+                    {
+                        <div class="profile-subtitle">Status: Blocked</div>
 
-					}
-					else if (this.Model.RoleId == 2)
-					{
-						<div class="profile-subtitle">Status: Not Blocked</div>
-					}
-				}
-				@if (this.Model.PhoneNumber is not null)
-				{
-					<div class="profile-subtitle">@this.Model.PhoneNumber</div>
-				}
-			</div>
-			<div class="likes-box">
-				<img class="profile-icon" src="~/images/ratingicons/likeicon.png" />
-				<span>@this.Model.LikesCount</span>
-				@*TODO:Likes*@
-			</div>
-			<div class="dislikes-box">
-				<img class="profile-icon" src="~/images/ratingicons/dislikeicon.png" />
-				<span>@this.Model.DislikesCount</span>
-				@*TODO:Dislikes*@
-			</div>
-			<div class="posts-box">
-				<img class="profile-icon" src="~/images/postIcon.png">
-				<span>@this.Model.Posts.Count</span>
-			</div>
-			<div class="comments-box">
-				<img class="profile-icon" src="~/images/commentIcon.png">
-				<span>@this.Model.Comments.Count</span>
-			</div>
-		</div>
+                    }
+                    else if (this.Model.RoleId == 2)
+                    {
+                        <div class="profile-subtitle">Status: Not Blocked</div>
+                    }
+                }
+                @if (this.Model.PhoneNumber is not null)
+                {
+                    <div class="profile-subtitle">@this.Model.PhoneNumber</div>
+                }
+            </div>
+            <div class="likes-box">
+                <img class="profile-icon" src="~/images/ratingicons/likeicon.png" />
+                <span>@this.Model.LikesCount</span>
+                @*TODO:Likes*@
+            </div>
+            <div class="dislikes-box">
+                <img class="profile-icon" src="~/images/ratingicons/dislikeicon.png" />
+                <span>@this.Model.DislikesCount</span>
+                @*TODO:Dislikes*@
+            </div>
+            <div class="posts-box">
+                <img class="profile-icon" src="~/images/postIcon.png">
+                <span>@this.Model.Posts.Count</span>
+            </div>
+            <div class="comments-box">
+                <img class="profile-icon" src="~/images/commentIcon.png">
+                <span>@this.Model.Comments.Count</span>
+            </div>
+        </div>
 
-		<div id="profile-button-row">
-			@if (loggedUserId == this.Model.Id || isAdmin == true)
-			{
-				//Окей ли е да се ползва линк в див за бутон?
-				//Отговор на въпроса ти - нямам никаква идея
-				<div class="button-container">
-					<a asp-controller="User" asp-action="EditUser" asp-route-Id="@Model.Id" class="button-normal">Edit</a>
-				</div>
-				<div class="button-container">
-					<a asp-controller="User" asp-action="DeleteUser" asp-route-Id="@Model.Id" class="button-normal">Delete</a>
-				</div>
+        <div id="profile-button-row">
+            @if (loggedUserId == this.Model.Id || isAdmin == true)
+            {
+                //Окей ли е да се ползва линк в див за бутон?
+                //Отговор на въпроса ти - нямам никаква идея
+                <div class="button-container">
+                    <a asp-controller="User" asp-action="EditUser" asp-route-Id="@Model.Id" class="button-normal">Edit</a>
+                </div>
+                <div class="button-container">
+                    <a asp-controller="User" asp-action="DeleteUser" asp-route-Id="@Model.Id" class="button-normal">Delete</a>
+                </div>
 
-			}
-			@if (isAdmin == true)
-			{
-				if (userIsNotBlocked)
-				{
-					<div class="button-container">
-						<a asp-controller="Admin" asp-action="BlockUser" asp-route-Id="@Model.Id" class="button-normal">Block</a>
-					</div>
+            }
+            @if (isAdmin == true)
+            {
+                if (userIsNotBlocked)
+                {
+                    <div class="button-container">
+                        <a asp-controller="Admin" asp-action="BlockUser" asp-route-Id="@Model.Id" class="button-normal">Block</a>
+                    </div>
 
-				}
-				else if (userIsBlocked)
-				{
-					<div class="button-container">
-						<a asp-controller="Admin" asp-action="UnBlockUser" asp-route-Id="@Model.Id" class="button-normal">UnBlock</a>
-					</div>
-				}
-			}
-		</div>
-	</div>
+                }
+                else if (userIsBlocked)
+                {
+                    <div class="button-container">
+                        <a asp-controller="Admin" asp-action="UnBlockUser" asp-route-Id="@Model.Id" class="button-normal">UnBlock</a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 
-	<div id="comments-posts-tables">
-		<div class="labeled-table-container">
-			<h2 class="table-label">Posts</h2>
-			@*<div id="button-label-row">
-			<h2 class="table-label">User Posts</h2>
-			<div id="create-post-button">
-			<a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
-			</div>
-			</div>*@
-			@if (Model.Posts != null && Model.Posts.Count > 0)
-			{
-				<table class="custom-table">
-					<thead class="custom-table">
-						<tr class="custom-table">
-							<th>Title</th>
-							<th>Comments</th>
-							<th>Created On</th>
-							<th>Likes</th>
-							<th>Dislikes</th>
-							<th>Tags</th>
-						</tr>
-					</thead>
-					<tbody class="custom-table">
-						@foreach (var item in Model.Posts)
-						{
-							<tr>
-								<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
-								<td>@item.CommentsCount</td>
-								<td>@item.CreatedOn</td>
-								<td>@item.LikesCount</td>
-								<td>@item.DislikesCount</td>
-								<td>@(item.Tags.Any() ? string.Join(", ", item.Tags) : "none")</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-			}
-			else
-			{
-				<p class="no-content-labels">@Model.Username hasn't made any posts yet.</p>
-			}
-		</div>
+    <div id="comments-posts-tables">
+        <div class="labeled-table-container">
+            <h2 class="table-label">Posts</h2>
+            @*<div id="button-label-row">
+            <h2 class="table-label">User Posts</h2>
+            <div id="create-post-button">
+            <a asp-controller="Post" asp-action="Create" class="button-normal">Create Post</a>
+            </div>
+            </div>*@
+            @if (Model.Posts != null && Model.Posts.Count > 0)
+            {
+                <table class="custom-table">
+                    <thead class="custom-table">
+                        <tr class="custom-table">
+                            <th>Title</th>
+                            <th>Comments</th>
+                            <th>Created On</th>
+                            <th>Likes</th>
+                            <th>Dislikes</th>
+                            <th>Tags</th>
+                        </tr>
+                    </thead>
+                    <tbody class="custom-table">
+                        @foreach (var item in Model.Posts)
+                        {
+                            <tr>
+                                <td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.Id">@item.Title</a></td>
+                                <td>@item.CommentsCount</td>
+                                <td>@item.CreatedOn</td>
+                                <td>@item.LikesCount</td>
+                                <td>@item.DislikesCount</td>
+                                <td>@(item.Tags.Any() ? string.Join(", ", item.Tags) : "none")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="no-content-labels">@Model.Username hasn't made any posts yet.</p>
+            }
+        </div>
 
-		<div class="labeled-table-container">
-			<div id="button-label-row">
-				<h2 class="table-label">Comments</h2>
-			</div>
-			@if (Model.Comments != null && Model.Comments.Count > 0)
-			{
-				<table class="custom-table">
-					<thead class="custom-table">
-						<tr class="custom-table">
-							@*Може би да излиза тайтъла на поста, или пак да си излиза контент, но ако е твърде дълъг с точки?*@
-							<th>Content</th>
-							<th>Created On</th>
-							<th>Likes</th>
-							<th>Dislikes</th>
-						</tr>
-					</thead>
-					<tbody class="custom-table">
-						@foreach (var item in Model.Comments)
-						{
-							<tr>
-								<td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.PostId">@item.Content</a></td>
-								<td>@item.CreatedOn</td>
-								<td>@item.LikesCount</td>
-								<td>@item.DislikesCount</td>
-							</tr>
-						}
-					</tbody>
-				</table>
-			}
-			else
-			{
-				<p class="no-content-labels">@Model.Username hasn't made any comments yet.</p>
-			}
-		</div>
-	</div>
+        <div class="labeled-table-container">
+            <div id="button-label-row">
+                <h2 class="table-label">Comments</h2>
+            </div>
+            @if (Model.Comments != null && Model.Comments.Count > 0)
+            {
+                <table class="custom-table">
+                    <thead class="custom-table">
+                        <tr class="custom-table">
+                            @*Може би да излиза тайтъла на поста, или пак да си излиза контент, но ако е твърде дълъг с точки?*@
+                            <th>Content</th>
+                            <th>Created On</th>
+                            <th>Likes</th>
+                            <th>Dislikes</th>
+                        </tr>
+                    </thead>
+                    <tbody class="custom-table">
+                        @foreach (var item in Model.Comments)
+                        {
+                            <tr>
+                                <td class="table-hyperlink"><a asp-controller="Post" asp-action="PostDetails" asp-route-id="@item.PostId">@item.Content</a></td>
+                                <td>@item.CreatedOn</td>
+                                <td>@item.LikesCount</td>
+                                <td>@item.DislikesCount</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p class="no-content-labels">@Model.Username hasn't made any comments yet.</p>
+            }
+        </div>
+    </div>
 </div>

@@ -36,5 +36,7 @@ namespace ForumSystemDTO.ViewModels.UserViewModels
 		public int DislikesCount { get; set; }
 
 		public int RoleId { get; set; }
+
+		public string ProfilePicPath { get; set; }
 	}
 }

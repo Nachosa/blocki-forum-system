@@ -40,5 +40,7 @@ namespace ForumSystem.DataAccess.Models
 
         public int RoleId { get; set; } = 2;
         public Role Role { get; set; }
+
+        public string ProfilePicPath { get; set; }
     }
 }

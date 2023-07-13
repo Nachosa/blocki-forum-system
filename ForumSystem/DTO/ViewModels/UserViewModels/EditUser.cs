@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -29,5 +30,10 @@ namespace ForumSystemDTO.ViewModels.UserViewModels
 
         [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Please enter a valid phone number.")]
         public string PhoneNumber { get; set; }
+
+        public IFormFile ProfilePic { get; set; }
+        public string ProfilePicPath { get; set; }
+
+        public string DeleteProfilePicOption { get; set; }
     }
 }

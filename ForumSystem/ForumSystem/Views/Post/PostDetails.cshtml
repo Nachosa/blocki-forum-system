@@ -112,7 +112,14 @@
 			<div class="post-additional-info ">
 				<div class="post-card-pfp">
 					<div class="circle-2"></div>
-					<img src="~/images/pfp.jpg">
+					@if (Model.User.ProfilePicPath is not null)
+					{
+						<img src="@Model.User.ProfilePicPath">
+					}
+					else
+					{
+						<img src="~/images/pfp.jpg">
+					}
 				</div>
 				<div class="post-card-light-text">
 					Posted by:&nbsp;
@@ -242,7 +249,14 @@
 							<div class="post-additional-info ">
 								<div class="post-card-pfp">
 									<div class="circle-2"></div>
-									<img src="~/images/pfp.jpg">
+									@if (comment.User.ProfilePicPath is not null)
+									{
+										<img src="@comment.User.ProfilePicPath">
+									}
+									else
+									{
+										<img src="~/images/pfp.jpg">
+									}
 								</div>
 								<div class="post-card-light-text">
 									Posted by:&nbsp;

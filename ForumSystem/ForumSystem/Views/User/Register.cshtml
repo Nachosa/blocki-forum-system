@@ -4,7 +4,7 @@
 	<div id="basic-form-title">Welcome</div>
 	<div id="basic-form-subtitle">Let's create your account!</div>
 
-	<form id="register-form" asp-controller="User" asp-action="Register" method="post">
+	<form id="register-form" method="post" enctype="multipart/form-data" asp-controller="User" asp-action="Register">
 
 		<div class="validation-error-message">
 			@if (this.ViewData["ErrorMessage"] is not null)
@@ -55,11 +55,12 @@
 			<label asp-for="PhoneNumber" class="placeholder">Phone</label>
 		</div>
 
-		@*<input asp-controller="User" asp-action="Register" class="button-normal" method="post" type="submit" value="Register">*@
-		@*<button class="submit" asp-controller="User" asp-action="Register" method="post">
-			<a asp-controller="User" asp-action="Register" method="post" type="submit" class="submit" value="Register">Register</a>
-		</button>*@
-		<form asp-controller="User" asp-action="Register" method="post">
+		<div >
+			<input class="basic-form-submit" asp-for=ProfilePic accept="image/*" class="basic-form-input" />
+			<label asp-for="ProfilePic" class="placeholder">Profile picture.</label>
+		</div>
+		<br>
+		<form method="post" enctype="multipart/form-data" asp-controller="User" asp-action="Register">
 			<button type="submit" class="basic-form-submit">Register</button>
 		</form>
 	</form>

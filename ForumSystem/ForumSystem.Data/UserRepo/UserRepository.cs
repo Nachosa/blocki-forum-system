@@ -97,13 +97,16 @@ namespace ForumSystem.DataAccess.UserRepo
 
         public User UpdateUser(string userName, User user)
         {
-            var userToupdate = forumDb.Users.FirstOrDefault(u => u.Username == userName);
-            userToupdate.FirstName = user.FirstName ?? userToupdate.FirstName;
-            userToupdate.LastName = user.LastName ?? userToupdate.LastName;
-            userToupdate.Email = user.Email ?? userToupdate.Email;
-            userToupdate.Password = user.Password ?? userToupdate.Password;
-            forumDb.SaveChanges();
-            return userToupdate;
+            var userToUpdate = forumDb.Users.FirstOrDefault(u => u.Username == userName);
+            userToUpdate.FirstName = user.FirstName ?? userToUpdate.FirstName;
+            userToUpdate.LastName = user.LastName ?? userToUpdate.LastName;
+            userToUpdate.Email = user.Email ?? userToUpdate.Email;
+            userToUpdate.Password = user.Password ?? userToUpdate.Password;
+			userToUpdate.PhoneNumber = user.PhoneNumber ?? userToUpdate.PhoneNumber;
+			userToUpdate.ProfilePicPath = user.ProfilePicPath ?? userToUpdate.ProfilePicPath;
+			if (user.ProfilePicPath == "Delete") { userToUpdate.ProfilePicPath = null; }
+			forumDb.SaveChanges();
+            return userToUpdate;
         }
         public User UpdateUser(int id, User user)
         {
@@ -113,9 +116,21 @@ namespace ForumSystem.DataAccess.UserRepo
             userToUpdate.Email = user.Email ?? userToUpdate.Email;
             userToUpdate.Password = user.Password ?? userToUpdate.Password;
             userToUpdate.PhoneNumber = user.PhoneNumber ?? userToUpdate.PhoneNumber;
+            userToUpdate.ProfilePicPath = user.ProfilePicPath ?? userToUpdate.ProfilePicPath;
+            if (user.ProfilePicPath == "Delete") { userToUpdate.ProfilePicPath =null; }
             forumDb.SaveChanges();
             return userToUpdate;
         }
+        private void Update(User userToUpdate,User userNewValues)
+        {
+			userToUpdate.FirstName = userNewValues.FirstName ?? userToUpdate.FirstName;
+			userToUpdate.LastName = userNewValues.LastName ?? userToUpdate.LastName;
+			userToUpdate.Email = userNewValues.Email ?? userToUpdate.Email;
+			userToUpdate.Password = userNewValues.Password ?? userToUpdate.Password;
+			userToUpdate.PhoneNumber = userNewValues.PhoneNumber ?? userToUpdate.PhoneNumber;
+			userToUpdate.ProfilePicPath = userNewValues.ProfilePicPath ?? userToUpdate.ProfilePicPath;
+			forumDb.SaveChanges();
+		}
 
 
         public bool EmailExist(string email)
