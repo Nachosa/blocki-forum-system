@@ -96,7 +96,7 @@ namespace ForumSystemTests.AdminServiceTest
 
             userRepoMock.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns(user);
 
-            Assert.ThrowsException<EntityNotBlockedException>(() => sut.UnBlockUser(1, null));
+            Assert.ThrowsException<EntityAlreadyUnBlockedException>(() => sut.UnBlockUser(1, null));
 
         }
         [TestMethod]
@@ -178,7 +178,7 @@ namespace ForumSystemTests.AdminServiceTest
 
             userRepoMock.Setup(repo => repo.GetUserByEmail(It.IsAny<string>())).Returns(user);
 
-            Assert.ThrowsException<EntityNotBlockedException>(() => sut.UnBlockUser(null, "validMail"));
+            Assert.ThrowsException<EntityAlreadyUnBlockedException>(() => sut.UnBlockUser(null, "validMail"));
 
         }
         [TestMethod]

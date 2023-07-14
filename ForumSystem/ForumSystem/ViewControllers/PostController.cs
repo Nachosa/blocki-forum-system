@@ -187,7 +187,13 @@ namespace ForumSystem.Web.ViewControllers
 
                 return View("Error");
             }
-        }
+			catch (Exception e)
+			{
+				this.Response.StatusCode = StatusCodes.Status500InternalServerError;
+				this.ViewData["ErrorMessage"] = e.Message;
+				return View("Error");
+			}
+		}
 
         [HttpGet]
         public IActionResult LikePost([FromRoute] int id)
