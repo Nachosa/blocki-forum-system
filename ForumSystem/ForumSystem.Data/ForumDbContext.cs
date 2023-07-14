@@ -204,7 +204,7 @@ namespace ForumSystem.DataAccess
 				Email = "Andrea@gmail.com",
 				Password = "MTIzNDU2Nzg5MA==",
 				RoleId = 2,
-				ProfilePicPath="/Images/UserProfilePics/2c616bd5-e885-440c-add7-ca852b7e72f2_Image_13437876_40_0.jpg"
+				ProfilePicPath="/Images/UserProfilePics/1a630573-6728-4ac3-abd1-5acf7aebb02c_Image_13437876_40_0.jpg"
 
                 //1234567890
             },
