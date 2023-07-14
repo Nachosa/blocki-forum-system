@@ -146,5 +146,60 @@ namespace ForumSystemTests.AdminServiceTest
             Assert.ThrowsException<ArgumentNullException>(() => sut.MakeUserAdmin(null, null));
 
         }
-    }
+		[TestMethod]
+		public void Throw_When_User_With_Id_Already_Admin()
+        {
+
+			User user = new User
+			{
+				FirstName = "TestFirstName"
+			   ,
+				LastName = "TestLastName"
+			   ,
+				Username = "TestUsername"
+			   ,
+				Password = "1234567890",
+				Email = "test@mail.com",
+				RoleId = 3
+
+			};
+			var adminRepoMock = new Mock<IAdminRepository>();
+			var userRepoMock = new Mock<IUserRepository>();
+			var postRepoMock = new Mock<IPostRepository>();
+			var mapperMock = new Mock<IMapper>();
+			var sut = new AdminService(userRepoMock.Object, postRepoMock.Object, mapperMock.Object, adminRepoMock.Object);
+
+			userRepoMock.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns(user); 
+
+			Assert.ThrowsException<EntityAlreadyAdminException>(() => sut.MakeUserAdmin(1, null));
+		}
+		[TestMethod]
+		public void Throw_When_User_With_Email_Already_Admin()
+		{
+
+			User user = new User
+			{
+				FirstName = "TestFirstName"
+			   ,
+				LastName = "TestLastName"
+			   ,
+				Username = "TestUsername"
+			   ,
+				Password = "1234567890",
+				Email = "test@mail.com",
+				RoleId = 3
+
+			};
+			var adminRepoMock = new Mock<IAdminRepository>();
+			var userRepoMock = new Mock<IUserRepository>();
+			var postRepoMock = new Mock<IPostRepository>();
+			var mapperMock = new Mock<IMapper>();
+			var sut = new AdminService(userRepoMock.Object, postRepoMock.Object, mapperMock.Object, adminRepoMock.Object);
+
+			userRepoMock.Setup(repo => repo.GetUserByEmail(It.IsAny<string>())).Returns(user);
+
+			Assert.ThrowsException<EntityAlreadyAdminException>(() => sut.MakeUserAdmin(null, "validEmail"));
+		}
+
+	}
 }

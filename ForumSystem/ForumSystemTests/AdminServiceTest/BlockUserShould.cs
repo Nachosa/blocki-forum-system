@@ -142,5 +142,59 @@ namespace ForumSystemTests.AdminServiceTest
             Assert.ThrowsException<ArgumentNullException>(() => sut.BlockUser(null, null));
 
         }
-    }
+
+        [TestMethod]
+		public void Throw_When_User_WithID_Already_Blocked()
+        {
+			User user = new User
+			{
+				FirstName = "TestFirstName"
+			   ,
+				LastName = "TestLastName"
+			   ,
+				Username = "TestUsername"
+			   ,
+				Password = "1234567890",
+				Email = "test@mail.com",
+				RoleId = 1
+
+			};
+			var adminRepoMock = new Mock<IAdminRepository>();
+			var userRepoMock = new Mock<IUserRepository>();
+			var postRepoMock = new Mock<IPostRepository>();
+			var mapperMock = new Mock<IMapper>();
+			var sut = new AdminService(userRepoMock.Object, postRepoMock.Object, mapperMock.Object, adminRepoMock.Object);
+
+			userRepoMock.Setup(repo => repo.GetUserById(It.IsAny<int>())).Returns(user);
+
+            Assert.ThrowsException<EntityAlreadyBlockedException>(() => sut.BlockUser(1, null));
+		}
+		[TestMethod]
+		public void Throw_When_User_WithEmail_Already_Blocked()
+		{
+			User user = new User
+			{
+				FirstName = "TestFirstName"
+			   ,
+				LastName = "TestLastName"
+			   ,
+				Username = "TestUsername"
+			   ,
+				Password = "1234567890",
+				Email = "test@mail.com",
+				RoleId = 1
+
+			};
+			var adminRepoMock = new Mock<IAdminRepository>();
+			var userRepoMock = new Mock<IUserRepository>();
+			var postRepoMock = new Mock<IPostRepository>();
+			var mapperMock = new Mock<IMapper>();
+			var sut = new AdminService(userRepoMock.Object, postRepoMock.Object, mapperMock.Object, adminRepoMock.Object);
+
+			userRepoMock.Setup(repo => repo.GetUserByEmail(It.IsAny<string>())).Returns(user);
+
+			Assert.ThrowsException<EntityAlreadyBlockedException>(() => sut.BlockUser(null, "validEmail"));
+		}
+
+	}
 }
