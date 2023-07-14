@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace ForumSystemTests.UserServiceTest
 {
     [TestClass]
-    public class UpdateUserShould
+    public class UpdateUserShouldByUsername
     {
         [TestMethod]
         public void Update_When_Valid_Input()

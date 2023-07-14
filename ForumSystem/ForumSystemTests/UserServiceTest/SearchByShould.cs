@@ -50,8 +50,11 @@ namespace ForumSystemTests.UserServiceTest
             };
 
             var queryParams = new UserQueryParams();
+            queryParams.Email = null;
+			queryParams.FirstName = null;
+			queryParams.Username = null;
 
-            var userRepoMock = new Mock<IUserRepository>();
+			var userRepoMock = new Mock<IUserRepository>();
             var postRepoMock = new Mock<IPostRepository>();
             var mapperMock = new Mock<IMapper>();
             var sut = new UserService(userRepoMock.Object, mapperMock.Object, postRepoMock.Object);
@@ -64,6 +67,54 @@ namespace ForumSystemTests.UserServiceTest
 
         }
         [TestMethod]
+		public void Return_All_Filtered_Users()
+		{
+			List<User> users = new List<User>()
+			{
+				 new User
+				 {
+					 FirstName = "TestFirstName"
+					 ,
+					 LastName = "TestLastName"
+						 ,
+					  Username = "TestUsername"
+					   ,
+					   Password = "1234567890",
+					 Email = "test@mail.com"
+
+				 },
+				 new User
+				 {
+					 FirstName = "TestFirstName"
+					 ,
+					 LastName = "TestLastName"
+						 ,
+					  Username = "TestUsername"
+					   ,
+					   Password = "1234567890",
+					 Email = "test2@mail.com"
+
+				 }
+			};
+
+			var queryParams = new UserQueryParams();
+			queryParams.Email = null;
+			queryParams.FirstName = null;
+			queryParams.Username = "a";
+
+			var userRepoMock = new Mock<IUserRepository>();
+			var postRepoMock = new Mock<IPostRepository>();
+			var mapperMock = new Mock<IMapper>();
+			var sut = new UserService(userRepoMock.Object, mapperMock.Object, postRepoMock.Object);
+
+			userRepoMock.Setup(repo => repo.SearchBy(queryParams)).Returns(users);
+
+			var result = sut.SearchBy(queryParams);
+
+			CollectionAssert.AreEqual(users, result);
+
+		}
+		[TestMethod]
         public void Throw_When_UsersCount_is_zero()
         {
             List<User> users = new List<User>();

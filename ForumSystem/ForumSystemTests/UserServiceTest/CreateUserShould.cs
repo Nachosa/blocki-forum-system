@@ -21,14 +21,7 @@ namespace ForumSystemTests.UserServiceTest
         [TestMethod]
         public void Create_When_Valid_Input()
         {
-            CreateUserDTO userDTO = new CreateUserDTO
-            { 
-                FirstName = "TestFirstName"
-                , LastName = "TestLastName"
-                , Username = "TestUsername"
-                , Password = "1234567890",
-                Email = "test@mail.com" 
-            };
+
             User user = new User
             {
                 FirstName = "TestFirstName"
@@ -66,17 +59,7 @@ namespace ForumSystemTests.UserServiceTest
         [TestMethod]
         public void Throw_When_Email_Exist()
         {
-            CreateUserDTO userDTO = new CreateUserDTO
-            {
-                FirstName = "TestFirstName"
-                ,
-                LastName = "TestLastName"
-                ,
-                Username = "TestUsername"
-                ,
-                Password = "1234567890",
-                Email = "test@mail.com"
-            };
+
             User user = new User
             {
                 FirstName = "TestFirstName"
@@ -106,5 +89,37 @@ namespace ForumSystemTests.UserServiceTest
             Assert.ThrowsException<EmailAlreadyExistException>(() => sut.CreateUser(user));
         }
 
-    }
+		[TestMethod]
+		public void Throw_When_Username_Exist()
+		{
+			User user = new User
+			{
+				FirstName = "TestFirstName"
+				,
+				LastName = "TestLastName"
+				,
+				Username = "TestUsername"
+				,
+				Password = "1234567890",
+				Email = "test@mail.com"
+
+			};
+			var userRepoMock = new Mock<IUserRepository>();
+			var postRepoMock = new Mock<IPostRepository>();
+			var mapperMock = new Mock<IMapper>();
+			var sut = new UserService(userRepoMock.Object, mapperMock.Object, postRepoMock.Object);
+
+			userRepoMock
+				.Setup(repo => repo.EmailExist(It.IsAny<string>()))
+				.Returns(false);
+
+			userRepoMock
+				.Setup(repo => repo.UsernameExist(It.IsAny<string>()))
+				.Returns(true);
+
+
+			Assert.ThrowsException<UsernameAlreadyExistException>(() => sut.CreateUser(user));
+		}
+
+	}
 }
