@@ -37,7 +37,7 @@ Blockie Forum System
 * In this forum system, every visitor of the website is provided with the ability to access and view all created posts. Additionally, visitors have the option to utilize the search feature to refine their browsing experience by searching for posts based on the following criteria:
 
      * Title - By entering specific keywords or phrases into the search bar, all posts that contain the input in their titles will be displayed. 
-     * Content – all posts that contain the input in their content will be displayed.
+     * Content – By entering specific keywords or phrases into the search bar,all posts that contain the input in their content will be displayed.
      * Created by - By entering a specific username as input, all posts that match the input and were created by the corresponding user will be displayed.
      * Tag - By entering relevant keywords or phrases as input, all posts that contain matching tags will be displayed. 
 	 * Start/End Date - By selecting a start date and an end date, the system will retrieve and display all posts that fall within that date range.
@@ -46,7 +46,7 @@ Blockie Forum System
 		 * Comments
 		 * Likes
 		 * Date
-	 *Order posts in either ascending or descending order.
+		* Order posts in either ascending or descending order.
 ### Main Search for NOT logged users
 * Anonymous visitors are granted access to the search functionality available in the navigation bar. This feature allows them to search for posts based on specific keywords present in the post title, as well as filter results by relevant tags.
 
@@ -54,7 +54,7 @@ Blockie Forum System
 * Once a visitor is authenticated, they gain access to the main search feature, which enables them to search for other users based on specific keywords present in their profile title.
 
 ### Create Post 
-* Logged-in users have the ability to create posts within the forum system and enhance their visibility by adding relevant tags.
+* Logged-in users have the ability to create posts within the forum system.
 
 ### Edit Post
 * Furthermore, logged-in users who are the creators of a post possess the capability to make edits to the post, including modifying the title, content, and adding or modifying tags associated with the post.
