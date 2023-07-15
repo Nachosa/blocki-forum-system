@@ -185,7 +185,10 @@ namespace ForumSystem.Web.ViewControllers
 
 					string serverFolder = Path.Combine(webHostEnvironment.WebRootPath, folder);
 
-					editedUser.ProfilePic.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+					using (FileStream fileStream = new FileStream(serverFolder, FileMode.Create))
+					{
+						editedUser.ProfilePic.CopyToAsync(fileStream);
+					}
 				}
 				else if (editedUser.DeleteProfilePicOption == "Yes")
 				{
@@ -239,7 +242,10 @@ namespace ForumSystem.Web.ViewControllers
 
 					string serverFolder = Path.Combine(webHostEnvironment.WebRootPath, folder);
 
-					registerUserFilled.ProfilePic.CopyToAsync(new FileStream(serverFolder, FileMode.Create));
+					using (FileStream fileStream = new FileStream(serverFolder, FileMode.Create))
+					{
+						registerUserFilled.ProfilePic.CopyToAsync(fileStream);
+					}
 				}
 
 				var user = mapper.Map<User>(registerUserFilled);
@@ -309,6 +315,13 @@ namespace ForumSystem.Web.ViewControllers
 		{
 			try
 			{
+				var user = userService.GetUserById(id);
+
+				if (user.ProfilePicPath is not null)
+				{
+					DeleteProfilePicFromRoot(user.ProfilePicPath);
+				}
+
 				userService.DeleteUser(null, id);
 
 				if (!authorizator.isAdmin("roleId"))
@@ -341,6 +354,7 @@ namespace ForumSystem.Web.ViewControllers
 			string path = webHostEnvironment.WebRootPath + fileName;
 			if (System.IO.File.Exists(path))
 			{
+				
 				System.IO.File.Delete(path);
 			}
 
