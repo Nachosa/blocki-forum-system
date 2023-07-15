@@ -76,6 +76,14 @@ footer {
     margin-top: 20px;
 }
 
+#edit-user-dropdown-label {
+    color: #f2f2f2;
+}
+
+#edit-user-dropdown {
+    margin-top: 5px;
+}
+
 #button-label-row {
     display: flex;
     flex-direction: row;
@@ -402,10 +410,12 @@ h2.table-label {
     box-sizing: border-box;
     height: fit-content;
     padding: 20px;
-    max-width: 320px;
+    max-width: 400px;
     width: 100%;
     margin: auto;
     margin-top: 40px;
+
+    position: relative;
 }
 
 #basic-form-title {
@@ -425,7 +435,6 @@ h2.table-label {
     position: relative;
     width: 100%;
     margin-top: 30px;
-    margin-bottom: 40px;
 }
 
 .basic-form-input {
@@ -502,19 +511,44 @@ h2.table-label {
     transition: all 0.5s ease-in-out;
     text-decoration: none;
     font-family: 'Century Gothic';
+    margin-top: 30px;
+
+/*    display: flex;
+    justify-content: center;
+    line-height: 50px;*/
 }
 
-    .basic-form-submit:hover {
-        background: #73e600;
-        transition: all 0.5s ease-in-out;
-        cursor: pointer;
-    }
+.basic-form-submit:hover {
+    background: #73e600;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
 
 .validation-error-message {
     color: #ff0000;
 }
-/*#endregion*/
 
+.basic-form-upload-pic {
+    display: flex;
+    justify-content: center;
+    line-height: 50px;
+    transition: all 0.5s ease-in-out;
+}
+
+.photo-input {
+    position: absolute;
+    opacity: 0;
+    height: 50px;
+    width: 100%;
+    margin: 0px;
+}
+
+    .photo-input:hover ~ .basic-form-upload-pic {
+        transition: all 0.5s ease-in-out;
+        background: #73e600;
+        cursor: pointer;
+    }
+/*#endregion*/
 /*#region postCommentForm*/
 .basic-form.big-basic-form {
     max-width: 800px;

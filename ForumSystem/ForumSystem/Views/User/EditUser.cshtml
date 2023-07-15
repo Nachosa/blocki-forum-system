@@ -49,15 +49,16 @@
 			<div class="cut cut-short"></div>
 			<label asp-for="PhoneNumber" class="placeholder">Phone number</label>
 		</div>
-		<div>
-			<input class="basic-form-submit" asp-for=ProfilePic accept="image/*" class="basic-form-input" />
-			@*<label asp-for="ProfilePic" class="placeholder">Profile picture.</label>*@
+		<div class="input-container">
+			<input class="photo-input" asp-for=ProfilePic accept="image/*" />
+			<div class="basic-form-submit basic-form-upload-pic">Upload photo</div>
+			@*			<label asp-for="ProfilePic" class="placeholder"></label>*@
 		</div>
 		@if (this.Model.ProfilePicPath is not null)
 		{
-			<p>Delete current profile picture?</p>
-			<div id="user-search-dropdown">
-				<div class="dropdown-select" tabindex="1">
+			<div class="input-container">
+				<div id="edit-user-dropdown-label">Set default profile picture?</div>
+				<div class="dropdown-select" id="edit-user-dropdown" tabindex="1">
 					<input asp-for="DeleteProfilePicOption" class="dropdown-selectopt" id="opt1" value="No" type="radio" name="DeleteProfilePicOption" checked>
 					<label for="opt1" class="dropdown-opt-label">No</label>
 
@@ -66,11 +67,10 @@
 
 				</div>
 			</div>
-			<input type="hidden" asp-for="ProfilePicPath"/>
+			<input type="hidden" asp-for="ProfilePicPath" />
 		}
-		<br>
-		
-			<button type="submit" class="basic-form-submit">Save</button>
-		
+
+		<button type="submit" class="basic-form-submit">Save</button>
+
 	</form>
 </div>

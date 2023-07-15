@@ -55,11 +55,11 @@
 			<label asp-for="PhoneNumber" class="placeholder">Phone</label>
 		</div>
 
-		<div >
-			<input class="basic-form-submit" asp-for=ProfilePic accept="image/*" class="basic-form-input" />
-			<label asp-for="ProfilePic" class="placeholder">Profile picture.</label>
+		<div class="input-container">
+			<input class="photo-input" asp-for=ProfilePic accept="image/*"/>
+			<div class="basic-form-submit basic-form-upload-pic">Upload photo</div>
+@*			<label asp-for="ProfilePic" class="placeholder"></label>*@
 		</div>
-		<br>
 		<form method="post" enctype="multipart/form-data" asp-controller="User" asp-action="Register">
 			<button type="submit" class="basic-form-submit">Register</button>
 		</form>
