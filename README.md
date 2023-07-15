@@ -14,4 +14,4 @@ Blockie Forum System
 #### Home Page
 * The home page of our forum system showcases real-time active user count, total post count, and tables featuring the top ten most commented and created posts, providing visitors with a glimpse into the vibrant community and engaging discussions.
 
-![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/tree/main/ImagesForREADME/homepage.jpeg)
+![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/homepage.jpeg)
