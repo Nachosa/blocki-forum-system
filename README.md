@@ -4,8 +4,8 @@ Blockie Forum System
 ====================
 
 
->Blockie is a forum system for crypto currencies that allows users to create posts and comments about different crypto topics, like or dislike posts and comments and search for different users and posts.
->Blockie is a project written in ASP.NET Core 6. It Includes a public API and a User Interface (MVC).
+>Blockie is a forum system designed for cryptocurrency enthusiasts. It empowers users to actively engage in discussions by creating posts and comments related to various crypto topics. Users have the freedom to express their opinions by liking or disliking posts and comments. Additionally, Blockie offers a comprehensive search functionality, enabling users to easily find specific users or posts of interest.
+ This project is developed using the ASP.NET Core 6 framework and encompasses a public API and a User Interface built with MVC, ensuring a seamless and intuitive user experience.
 
 ## Project Description
 ### Areas
@@ -19,11 +19,29 @@ Blockie Forum System
 ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/homepage.jpeg)
 
 
- **Also anonymous visitors can read open and read posts but they can't create posts,comment posts or like or dislike them also they cant open other users profiles.**
+* **Additionally, anonymous visitors have the privilege to read and view posts, enabling them to access valuable information. However, they are restricted from creating posts, commenting on existing posts, liking or disliking content, and accessing other users' profiles.**
 
 
 ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/post.png)
 
-#### Login page
+#### Login Page
+* The login page provides visitors with the opportunity to access the full potential of the website by logging in with their accounts, unlocking various features and functionalities.
 
 ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/login.png)
+
+
+### Register Page
+* Visitors can register for the system and unlock the full potential o the website.
+
+### Main Search for NOT logged users
+* Anonymous visitors are granted access to the search functionality available in the navigation bar. This feature allows them to search for posts based on specific keywords present in the post title, as well as filter results by relevant tags.
+
+### Main Search for logged users
+*Once a visitor is authenticated, they gain access to the main search feature, which enables them to search for other users based on specific keywords present in their profile title.
+
+### Create Post 
+*Logged-in users have the ability to create posts within the forum system and enhance their visibility by adding relevant tags.
+
+### Add Comment
+*Logged-in users are provided with the privilege to actively engage with the community by adding comments to existing posts.
+
