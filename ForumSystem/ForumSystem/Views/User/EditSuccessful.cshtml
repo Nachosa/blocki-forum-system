@@ -1,5 +1,20 @@
-﻿
-<h2>User edited successful!</h2>
-<form asp-controller="Home" asp-action="Index">
-    <button type="submit" class="basic-form-submit">Home page</button>
-</form>
+﻿<div class="basic-form">
+
+    <div id="basic-form-title">User edited successfully.</div>
+
+
+    <br>
+
+
+    <div class="validation-error-message">
+        @if (this.ViewData["ErrorMessage"] is not null)
+        {
+            <p>@this.ViewData["ErrorMessage"]</p>
+        }
+    </div>
+
+    <form asp-controller="Home" asp-action="Index">
+        <button type="submit" class="basic-form-submit">Home page</button>
+    </form>
+
+</div>

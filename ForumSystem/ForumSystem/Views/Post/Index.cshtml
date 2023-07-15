@@ -213,65 +213,37 @@
 			</tbody>
 		</table>
 
-		<div class="pagination-container">
+		<div class="pager-container">
 			@if (ViewBag.TotalPages > 1)
 			{
-				<nav aria-label="Page navigation">
-					<ul class="pagination">
-						@if (ViewBag.CurrentPage > 1)
-						{
-							<li class="page-item">
-								<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage - 1)@(BuildQueryString())">Previous</a>
-							</li>
-						}
+				<ul class="pager">
+					@if (ViewBag.CurrentPage > 1)
+					{
+						<li class="pager-item">
+							<a class="pager-link" href="/Post/Index?page=@(ViewBag.CurrentPage - 1)@(BuildQueryString())">
+								<img src="~/images/pagination/leftarrow.png" class="page-arrow"/>
+								</a>
+						</li>
+					}
 
-						@for (int i = 1; i <= ViewBag.TotalPages; i++)
-						{
-							<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-								<a class="page-link" href="/Post/Index?page=@i@(BuildQueryString())">@i</a>
-							</li>
-						}
+					@for (int i = 1; i <= ViewBag.TotalPages; i++)
+					{
+						<li class="pager-item @(i == ViewBag.CurrentPage ? "active" : "")">
+							<a class="pager-link" href="/Post/Index?page=@i@(BuildQueryString())">@i</a>
+						</li>
+					}
 
-						@if (ViewBag.CurrentPage < ViewBag.TotalPages)
-						{
-							<li class="page-item">
-								<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage + 1)@(BuildQueryString())">Next</a>
-							</li>
-						}
-					</ul>
-				</nav>
+					@if (ViewBag.CurrentPage < ViewBag.TotalPages)
+					{
+						<li class="pager-item">
+							<a class="pager-link" href="/Post/Index?page=@(ViewBag.CurrentPage + 1)@(BuildQueryString())">
+								<img src="~/images/pagination/rightarrow.png" class="page-arrow" />
+								</a>
+						</li>
+					}
+				</ul>
 			}
 		</div>
-
-		@*<div class="pagination-container">
-	@if (ViewBag.TotalPages > 1)
-	{
-	<nav aria-label="Page navigation">
-	<ul class="pagination">
-	@if (ViewBag.CurrentPage > 1)
-	{
-	<li class="page-item">
-	<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage - 1)">Previous</a>
-	</li>
-	}
-
-	@for (int i = 1; i <= ViewBag.TotalPages; i++)
-	{
-	<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-	<a class="page-link" href="/Post/Index?page=@i">@i</a>
-	</li>
-	}
-
-	@if (ViewBag.CurrentPage < ViewBag.TotalPages)
-	{
-	<li class="page-item">
-	<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage + 1)">Next</a>
-	</li>
-	}
-	</ul>
-	</nav>
-	}
-	</div>*@
 	}
 	else
 	{
