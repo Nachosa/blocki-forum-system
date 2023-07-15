@@ -76,14 +76,6 @@ footer {
     margin-top: 20px;
 }
 
-#edit-user-dropdown-label {
-    color: #f2f2f2;
-}
-
-#edit-user-dropdown {
-    margin-top: 5px;
-}
-
 #button-label-row {
     display: flex;
     flex-direction: row;
@@ -126,6 +118,10 @@ footer {
     margin: auto;
     margin-top: 40px;
     max-width: fit-content;
+}
+
+#sort-filter-posts-form {
+    max-width: 500px;
 }
 
 /*#region scrollbar*/
@@ -260,6 +256,7 @@ nav {
     left: -35px;
 }
 /*#endregion*/
+
 /*#region tables*/
 .custom-table {
     background: #404040;
@@ -409,12 +406,11 @@ h2.table-label {
     border-radius: 5px;
     box-sizing: border-box;
     height: fit-content;
-    padding: 20px;
+    padding: 20px 20px 20px 20px;
     max-width: 400px;
     width: 100%;
     margin: auto;
     margin-top: 40px;
-
     position: relative;
 }
 
@@ -433,8 +429,10 @@ h2.table-label {
 .input-container {
     height: 100%;
     position: relative;
-    width: 100%;
     margin-top: 30px;
+
+    width: 100%;
+    margin-right: 10px;
 }
 
 .basic-form-input {
@@ -448,8 +446,8 @@ h2.table-label {
     min-height: 50px;
     outline: 0;
     padding: 4px 20px 0;
-    width: 100%;
     font-family: 'Century Gothic';
+    width: 100%;
 }
 
 .cut {
@@ -461,7 +459,7 @@ h2.table-label {
     top: -20px;
     transform: translateY(0);
     transition: transform 200ms;
-    width: 76px;
+    width: 85px;
 }
 
 .cut-short {
@@ -511,18 +509,16 @@ h2.table-label {
     transition: all 0.5s ease-in-out;
     text-decoration: none;
     font-family: 'Century Gothic';
-    margin-top: 30px;
-
-/*    display: flex;
+    /*    display: flex;
     justify-content: center;
     line-height: 50px;*/
 }
 
-.basic-form-submit:hover {
-    background: #73e600;
-    transition: all 0.5s ease-in-out;
-    cursor: pointer;
-}
+    .basic-form-submit:hover {
+        background: #73e600;
+        transition: all 0.5s ease-in-out;
+        cursor: pointer;
+    }
 
 .validation-error-message {
     color: #ff0000;
@@ -548,7 +544,17 @@ h2.table-label {
         background: #73e600;
         cursor: pointer;
     }
+
+.basic-form-row {
+    display: flex;
+    flex-flow: row;
+}
+
+.basic-form-row-last {
+    margin-right: 0px;
+}
 /*#endregion*/
+
 /*#region postCommentForm*/
 .basic-form.big-basic-form {
     max-width: 800px;
@@ -787,6 +793,7 @@ h2.table-label {
     width: 100%;
     height: 30px;
     color: #f2f2f2;
+    margin-top: 5px;
 }
 
 .dropdown-opt-label {
@@ -853,6 +860,10 @@ h2.table-label {
             content: '';
             background: #666;
         }
+
+.dropdown-label {
+    color: #f2f2f2;
+}
 /*#endregion*/
 
 /*#region postDetails*/

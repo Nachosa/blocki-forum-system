@@ -29,66 +29,148 @@
 	}
 }
 
+	@*		<form asp-controller="Post" asp-action="Index" method="get">
+
+	<label for="Title">Title:</label>
+	<input type="text" name="Title" value="@ViewBag.Title" />
+
+	<label for="Content">Content:</label>
+	<input type="text" name="Content" value="@ViewBag.Content" />
+
+	<label for="CreatedBy">Created by:</label>
+	<input type="text" name="CreatedBy" value="@ViewBag.CreatedBy" />
+
+	<label for="Tag">Tag:</label>
+	<input type="text" name="Tag" value="@ViewBag.Tag" />
+
+	<label for="MinDate">Start Date:</label>
+	<input type="date" name="MinDate" value="@ViewBag.MinDate" />
+
+	<label for="MaxDate">End Date:</label>
+	<input type="date" name="MaxDate" value="@ViewBag.MaxDate" />
+
+	<label for="SortBy">Sort By:</label>
+	<select name="SortBy">
+	<option value="comments" selected="@(ViewBag.SortBy == "comments")">Comments</option>
+	<option value="date" selected="@(ViewBag.SortBy == "date")">Date</option>
+	<option value="likes" selected="@(ViewBag.SortBy == "likes")">Likes</option>
+	<option value="title" selected="@(ViewBag.SortBy == "title")">Title</option>
+	</select>
+
+	<label for="SortOrder">Sort Order:</label>
+	<select name="SortOrder">
+	<option value="asc" selected="@(ViewBag.SortOrder == "asc")">Ascending</option>
+	<option value="desc" selected="@(ViewBag.SortOrder == "desc")">Descending</option>
+	</select>
+
+	<button type="submit">Apply</button>
+	</form>*@
+
+<div class="basic-form" id="sort-filter-posts-form">
+	<div id="basic-form-title">Hello!</div>
+	<div id="basic-form-subtitle">Enter your preferred filter and sort parameters.</div>
+
+	<form method="get" asp-controller="Post" asp-action="Index">
+
+		<div class="basic-form-row">
+			<div class="input-container">
+				<input asp-for="Title" id="title" class="basic-form-input" type="text" placeholder=" " value="@ViewBag.Title" />
+				<div class="cut cut-short"></div>
+				<label asp-for="Title" class="placeholder">Title</label>
+			</div>
+
+			<div class="input-container">
+				<input asp-for="Content" class="basic-form-input" type="text" placeholder=" " value="@ViewBag.Content" />
+				<div class="cut"></div>
+				<label asp-for="Content" class="placeholder">Content</label>
+			</div>
+
+			<div class="input-container  basic-form-row-last">
+				<input asp-for="CreatedBy" id="createdby" class="basic-form-input" type="text" placeholder=" " value="@ViewBag.CreatedBy" />
+				<div class="cut"></div>
+				<label asp-for="CreatedBy" class="placeholder">Created by</label>
+			</div>
+		</div>
+
+		<div class="basic-form-row">
+			<div class="input-container">
+				<input asp-for="Tag" id="tag" class="basic-form-input" type="text" placeholder=" " value="@ViewBag.Tag" />
+				<div class="cut cut-short"></div>
+				<label asp-for="Tag" class="placeholder">Tag</label>
+			</div>
+
+			<div class="input-container">
+				<input asp-for="MinDate" id="startdate" class="basic-form-input" type="text" placeholder=" " value="@ViewBag.MinDate" />
+				<div class="cut"></div>
+				<label asp-for="MinDate" class="placeholder">Start Date</label>
+			</div>
+
+			<div class="input-container basic-form-row-last">
+				<input asp-for="MaxDate" id="enddate" class="basic-form-input" type="text" placeholder=" " value="@ViewBag.MaxDate" />
+				<div class="cut"></div>
+				<label asp-for="MaxDate" class="placeholder">End Date</label>
+			</div>
+		</div>
+
+		<div class="basic-form-row">
+			<div class="input-container">
+				<div class="dropdown-label">Sort By:</div>
+				<div class="dropdown-select" tabindex="1">
+					<input asp-for="SortBy" class="dropdown-selectopt" id="sort-by-opt-1" value="comments" type="radio" name="SortBy" selected="@(ViewBag.SortBy == "comments")" checked>
+					<label for="sort-by-opt-1" class="dropdown-opt-label">Comments</label>
+
+					<input asp-for="SortBy" class="dropdown-selectopt" id="sort-by-opt-2" value="date" type="radio" name="SortBy" selected="@(ViewBag.SortBy == "date")">
+					<label for="sort-by-opt-2" class="dropdown-opt-label">Date</label>
+
+					<input asp-for="SortBy" class="dropdown-selectopt" id="sort-by-opt-3" value="likes" type="radio" name="SortBy" selected="@(ViewBag.SortBy == "likes")">
+					<label for="sort-by-opt-3" class="dropdown-opt-label">Likes</label>
+
+					<input asp-for="SortBy" class="dropdown-selectopt" id="sort-by-opt-4" value="title" type="radio" name="SortBy" selected="@(ViewBag.SortBy == "title")">
+					<label for="sort-by-opt-4" class="dropdown-opt-label">Title</label>
+				</div>
+			</div>
+
+
+			<div class="input-container basic-form-row-last">
+				<div class="dropdown-label">Sort Order:</div>
+				<div class="dropdown-select" tabindex="1">
+					<input asp-for="SortOrder" class="dropdown-selectopt" id="sort-order-opt-1" value="asc" type="radio" name="SortOrder" selected="@(ViewBag.SortBy == "asc")" checked>
+					<label for="sort-order-opt-1" class="dropdown-opt-label">Ascending</label>
+
+					<input asp-for="SortOrder" class="dropdown-selectopt" id="sort-order-opt-2" value="desc" type="radio" name="SortOrder" selected="@(ViewBag.SortBy == "desc")">
+					<label for="sort-order-opt-2" class="dropdown-opt-label">Descending</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="input-container">
+			<button type="submit" class="basic-form-submit">Save</button>
+		</div>
+	</form>
+
+	@*<form asp-controller="Post" asp-action="Index" method="get">
+	<label for="filterBy">Filter By:</label>
+	<input type="text" name="filterBy" value="@ViewBag.FilterBy" />
+	<label for="sortBy">Sort By:</label>
+	<select name="sortBy">
+	<option value="">-- Select Sorting Option --</option>
+	<option value="title" selected="@(ViewBag.SortBy == "title")">Title</option>
+	<option value="date" selected="@(ViewBag.SortBy == "date")">Date</option>
+	<option value="likes" selected="@(ViewBag.SortBy == "likes")">Likes</option>
+	<option value="comments" selected="@(ViewBag.SortBy == "comments")">Comments</option>
+	<!-- Add more sorting options as needed -->
+	</select>
+	<label for="sortOrder">Sort Order:</label>
+	<select name="sortOrder">
+	<option value="asc" selected="@(ViewBag.SortOrder == "asc")">Ascending</option>
+	<option value="desc" selected="@(ViewBag.SortOrder == "desc")">Descending</option>
+	</select>
+	<button type="submit">Apply</button>
+	</form>*@
+</div>
+
 <div class="labeled-table-container">
 	<h2 class="table-label">All Matching Posts</h2>
-	<div>
-		<form asp-controller="Post" asp-action="Index" method="get">
-
-			<label for="Title">Title:</label>
-			<input type="text" name="Title" value="@ViewBag.Title" />
-
-			<label for="Content">Content:</label>
-			<input type="text" name="Content" value="@ViewBag.Content" />
-
-			<label for="CreatedBy">Created by:</label>
-			<input type="text" name="CreatedBy" value="@ViewBag.CreatedBy" />
-
-			<label for="Tag">Tag:</label>
-			<input type="text" name="Tag" value="@ViewBag.Tag" />
-
-			<label for="MinDate">Start Date:</label>
-			<input type="date" name="MinDate" value="@ViewBag.MinDate" />
-
-			<label for="MaxDate">End Date:</label>
-			<input type="date" name="MaxDate" value="@ViewBag.MaxDate" />
-
-			<label for="SortBy">Sort By:</label>
-			<select name="SortBy">
-				<option value="comments" selected="@(ViewBag.SortBy == "comments")">Comments</option>
-				<option value="date" selected="@(ViewBag.SortBy == "date")">Date</option>
-				<option value="likes" selected="@(ViewBag.SortBy == "likes")">Likes</option>
-				<option value="title" selected="@(ViewBag.SortBy == "title")">Title</option>
-			</select>
-
-			<label for="SortOrder">Sort Order:</label>
-			<select name="SortOrder">
-				<option value="asc" selected="@(ViewBag.SortOrder == "asc")">Ascending</option>
-				<option value="desc" selected="@(ViewBag.SortOrder == "desc")">Descending</option>
-			</select>
-
-			<button type="submit">Apply</button>
-		</form>
-
-		@*<form asp-controller="Post" asp-action="Index" method="get">
-			<label for="filterBy">Filter By:</label>
-			<input type="text" name="filterBy" value="@ViewBag.FilterBy" />
-			<label for="sortBy">Sort By:</label>
-			<select name="sortBy">
-				<option value="">-- Select Sorting Option --</option>
-				<option value="title" selected="@(ViewBag.SortBy == "title")">Title</option>
-				<option value="date" selected="@(ViewBag.SortBy == "date")">Date</option>
-				<option value="likes" selected="@(ViewBag.SortBy == "likes")">Likes</option>
-				<option value="comments" selected="@(ViewBag.SortBy == "comments")">Comments</option>
-				<!-- Add more sorting options as needed -->
-			</select>
-			<label for="sortOrder">Sort Order:</label>
-			<select name="sortOrder">
-				<option value="asc" selected="@(ViewBag.SortOrder == "asc")">Ascending</option>
-				<option value="desc" selected="@(ViewBag.SortOrder == "desc")">Descending</option>
-			</select>
-			<button type="submit">Apply</button>
-		</form>*@
-	</div>
 	@if (Model != null && Model.Posts.Count > 0)
 	{
 		<table class="custom-table">
@@ -118,7 +200,7 @@
 						<td>@post.LikesCount</td>
 						<td>@post.DislikesCount</td>
 						<td>@(post.Tags.Any() ? string.Join(", ", post.Tags) : "none")</td>
-						@if (isAdmin || loggedUserId==post.User.Id)
+						@if (isAdmin || loggedUserId == post.User.Id)
 						{
 							<th>
 								<div class="button-container">
@@ -162,34 +244,34 @@
 		</div>
 
 		@*<div class="pagination-container">
-			@if (ViewBag.TotalPages > 1)
-			{
-				<nav aria-label="Page navigation">
-					<ul class="pagination">
-						@if (ViewBag.CurrentPage > 1)
-						{
-							<li class="page-item">
-								<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage - 1)">Previous</a>
-							</li>
-						}
+	@if (ViewBag.TotalPages > 1)
+	{
+	<nav aria-label="Page navigation">
+	<ul class="pagination">
+	@if (ViewBag.CurrentPage > 1)
+	{
+	<li class="page-item">
+	<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage - 1)">Previous</a>
+	</li>
+	}
 
-						@for (int i = 1; i <= ViewBag.TotalPages; i++)
-						{
-							<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-								<a class="page-link" href="/Post/Index?page=@i">@i</a>
-							</li>
-						}
+	@for (int i = 1; i <= ViewBag.TotalPages; i++)
+	{
+	<li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+	<a class="page-link" href="/Post/Index?page=@i">@i</a>
+	</li>
+	}
 
-						@if (ViewBag.CurrentPage < ViewBag.TotalPages)
-						{
-							<li class="page-item">
-								<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage + 1)">Next</a>
-							</li>
-						}
-					</ul>
-				</nav>
-			}
-		</div>*@
+	@if (ViewBag.CurrentPage < ViewBag.TotalPages)
+	{
+	<li class="page-item">
+	<a class="page-link" href="/Post/Index?page=@(ViewBag.CurrentPage + 1)">Next</a>
+	</li>
+	}
+	</ul>
+	</nav>
+	}
+	</div>*@
 	}
 	else
 	{

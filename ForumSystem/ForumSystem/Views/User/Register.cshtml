@@ -13,18 +13,20 @@
 			}
 		</div>
 
-		<div class="input-container">
-			<input asp-for="FirstName" class="basic-form-input" type="text" placeholder=" " />
-			<span asp-validation-for="FirstName" class="validation-error-message"></span><br>
-			<div class="cut"></div>
-			<label asp-for="FirstName" class="placeholder">First Name</label>
-		</div>
+		<div class="basic-form-row">
+			<div class="input-container">
+				<input asp-for="FirstName" id="firstname" class="basic-form-input" type="text" placeholder=" " />
+				<span asp-validation-for="FirstName" class="validation-error-message"></span><br>
+				<div class="cut"></div>
+				<label asp-for="FirstName" class="placeholder">First Name</label>
+			</div>
 
-		<div class="input-container">
-			<input asp-for="LastName" class="basic-form-input" type="text" placeholder=" " />
-			<span asp-validation-for="LastName" class="validation-error-message"></span><br>
-			<div class="cut"></div>
-			<label asp-for="LastName" class="placeholder">Last Name</label>
+			<div class="input-container basic-form-row-last">
+				<input asp-for="LastName" class="basic-form-input" type="text" placeholder=" " />
+				<span asp-validation-for="LastName" class="validation-error-message"></span><br>
+				<div class="cut"></div>
+				<label asp-for="LastName" class="placeholder">Last Name</label>
+			</div>
 		</div>
 
 		<div class="input-container">
@@ -61,7 +63,9 @@
 @*			<label asp-for="ProfilePic" class="placeholder"></label>*@
 		</div>
 		<form method="post" enctype="multipart/form-data" asp-controller="User" asp-action="Register">
+			<div class="input-container">
 			<button type="submit" class="basic-form-submit">Register</button>
+			</div>
 		</form>
 	</form>
 </div>

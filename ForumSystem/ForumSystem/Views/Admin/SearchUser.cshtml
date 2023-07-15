@@ -16,7 +16,7 @@
 
     <form asp-controller="Admin" asp-action="SearchUser" method="post">
 
-        <div id="user-search-dropdown">
+        <div id="user-search-dropdown" class="input-container">
             <div class="dropdown-select" tabindex="1">
                 <input asp-for="SearchOption" class="dropdown-selectopt" id="opt1" value="Username" type="radio" name="SearchOption" checked>
                 <label for="opt1" class="dropdown-opt-label">Username</label>
@@ -24,7 +24,7 @@
                 <input asp-for="SearchOption" class="dropdown-selectopt" id="opt2" value="FirstName" type="radio" name="SearchOption">
                 <label for="opt2" class="dropdown-opt-label">First name</label>
 
-                <input asp-for="SearchOption" class="dropdown-selectopt" id="opt3" value="Email" type="radio" name="SearchOption">
+                <input asp-for="SearchOption" class="dropdown-selectopt basic-form-row-last" id="opt3" value="Email" type="radio" name="SearchOption">
                 <label for="opt3" class="dropdown-opt-label">Email</label>
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="cut cut-short"></div>
             <label asp-for="SearchOptionValue" class="placeholder">Value</label>
         </div>
-        <div>
+        <div class="input-container">
             <button type="submit" class="basic-form-submit">Search</button>
         </div>
     </form>
