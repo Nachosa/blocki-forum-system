@@ -9,7 +9,7 @@
 }
 
 
-@if (Model.PostsWithTag.Count == 0 && Model.PostsWithTitle.Count == 0)
+@if (Model.PostsWithTag.Count == 0 && Model.PostsWithTitle.Count == 0 && Model.UsersWhichContainInput.Count==0)
 {
     <h3 class="search-page-headings">No results for '@Model.input'</h3>
 }
