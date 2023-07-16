@@ -49,44 +49,54 @@ Blockie Forum System
 		 * Likes
 		 * Date
 	* Order posts in either ascending or descending order.
+		<br><br>
 	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/ViewAllPosts.png)
 ### Main Search for NOT logged users
 * Anonymous visitors are granted access to the search functionality available in the navigation bar. This feature allows them to search for posts based on specific keywords present in the post title, as well as filter results by relevant tags.
+	<br><br>
 	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/Search.png)
 * Results
+	<br><br>
 	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/NOTloggedResults.png)
 	
 ### Main Search for logged users
 * Once a visitor is authenticated, they gain access to the main search feature, which enables them to search for other users based on specific keywords present in their profile title.
+	<br><br>
 	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/LoggedResults.png)
 ### Create Post 
 * Logged-in users have the ability to create posts within the forum system.
+	<br><br>
 	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/CreatePost.png)
 ### Edit Post
 * Furthermore, logged-in users who are the creators of a post possess the capability to make edits to the post, including modifying the title, content, and adding or modifying tags associated with the post.
+	<br><br>
 	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/EditPost.png)
 ### Add Comment
 * Logged-in users are provided with the privilege to actively engage with the community by adding comments to existing posts.
+	<br><br>
     ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/AddComment.png)
 ### Tag Details
 * If a logged-in user is either the creator of a tag or an admin, they have the additional privileges of deleting or editing the tag. Furthermore, if a logged-in user is the owner of a post or an admin, they have the authority to remove existing tags associated with that particular post.
+	<br><br>
     ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/TagDetails.png)
 ## Administrative part
 * When an admin is logged into the system, they gain access to the Admin panel, unlocking a range of administrative functionalities. Within the Admin panel, admins are empowered to search for individuals based on their first name, username, or email address.
+	<br><br>
     ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/AdminPanel.png)
 	<br><br>
 * From the Admin panel, administrators have comprehensive access to user profiles, allowing them to view detailed user information. Additionally, administrators are provided with several options to manage user accounts effectively, including the ability to edit user profiles, block or unblock accounts, delete user accounts, or promote users to the admin role.
+	<br><br>
     ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/Admin.png)
 	<br><br>
 * When the Admin utilizes the "View All Posts" functionality, they are presented with an option to directly delete posts from the search results.
+	<br><br>
     ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/AdminPosts.png)
 	<br><br>
 ## API
 * The Blockie forum system provides API documentation in Swagger format, allowing developers to easily explore and understand the available endpoints, request/response structures, and supported operations. The Swagger documentation provides a user-friendly interface where developers can interactively test API endpoints, view sample requests and responses, and access detailed descriptions of each API resource. 
     ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/API.png)
 ## Database Diagram
-* 
-A detailed database diagram is included to provide a comprehensive and objective view of the underlying data structure in the Blockie forum system. This diagram visually represents the relationships between different database tables and the structure of the data model. It offers insights into the organization of user data, posts, comments, tags, and other relevant entities within the system. 
+* A detailed database diagram is included to provide a comprehensive and objective view of the underlying data structure in the Blockie forum system. This diagram visually represents the relationships between different database tables and the structure of the data model. It offers insights into the organization of user data, posts, comments, tags, and other relevant entities within the system. 
     ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/DatabaseDiagram.png)
 
 ## Additionally
