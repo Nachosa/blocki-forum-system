@@ -147,7 +147,7 @@
 		</div>
 
 		<div class="input-container">
-			<button type="submit" class="basic-form-submit">Save</button>
+			<button type="submit" class="basic-form-submit">Search</button>
 		</div>
 	</form>
 
@@ -173,7 +173,7 @@
 </div>
 
 <div class="labeled-table-container">
-	<h2 class="table-label">All Matching Posts</h2>
+	<h2 class="table-label">All matching posts</h2>
 	@if (Model != null && Model.Posts.Count > 0)
 	{
 		<table class="custom-table">
@@ -202,7 +202,7 @@
 						<td>@post.CreatedOn</td>
 						<td>@post.LikesCount</td>
 						<td>@post.DislikesCount</td>
-						<td>@(post.Tags.Any() ? string.Join(", ", post.Tags) : "none")</td>
+						<td>@(post.Tags.Any() ? string.Join(", ", post.Tags) : "-")</td>
 						@if (isAdmin || loggedUserId == post.User.Id)
 						{
 							<th>

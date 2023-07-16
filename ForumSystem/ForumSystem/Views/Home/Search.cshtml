@@ -23,7 +23,7 @@ else
     {
         <div class="labeled-table-container">
             <div id="button-label-row">
-                <h2 class="table-label">Users wihch username contains '@Model.input'.</h2>
+                <h2 class="table-label">Users whose username contains '@Model.input'.</h2>
             </div>
 
 
@@ -75,7 +75,7 @@ else
     if (Model.PostsWithTitle.Count != 0)
     {
         <div class="labeled-table-container">
-            <h2 class="table-label">All Matching Posts which title contains '@Model.input'.</h2>
+            <h2 class="table-label">Posts whose title contains '@Model.input'.</h2>
             <table class="custom-table">
                 <thead class="custom-table">
                     <tr class="custom-table">
@@ -122,7 +122,7 @@ else
     if (Model.PostsWithTag.Count != 0)
     {
         <div class="labeled-table-container">
-            <h2 class="table-label">All Matching Posts which Tag's contain tag:'@Model.input'.</h2>
+            <h2 class="table-label">Posts with tag:'@Model.input'.</h2>
             <table class="custom-table">
                 <thead class="custom-table">
                     <tr class="custom-table">
