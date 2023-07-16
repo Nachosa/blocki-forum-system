@@ -227,7 +227,11 @@ namespace ForumSystem.DataAccess.PostRepo
 				}
 				if (sortParameters.SortBy.Equals("likes", StringComparison.InvariantCultureIgnoreCase))
 				{
-					posts = posts.OrderBy(post => post.Likes.Count).ToList();
+					posts = posts.OrderBy(post => post.Likes.Where(l => l.IsDislike == false).Count()).ToList();
+				}
+				if (sortParameters.SortBy.Equals("dislikes", StringComparison.InvariantCultureIgnoreCase))
+				{
+					posts = posts.OrderBy(post => post.Likes.Where(l => l.IsDislike == true).Count()).ToList();
 				}
 				if (sortParameters.SortBy.Equals("comments", StringComparison.InvariantCultureIgnoreCase))
 				{
