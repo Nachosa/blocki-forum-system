@@ -33,6 +33,8 @@ Blockie Forum System
 ### Register Page
 * Visitors can register for the system and unlock the full potential o the website.
 
+![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/Register.png)
+
 ### View All Posts
 * In this forum system, every visitor of the website is provided with the ability to access and view all created posts. Additionally, visitors have the option to utilize the search feature to refine their browsing experience by searching for posts based on the following criteria:
 
@@ -46,22 +48,57 @@ Blockie Forum System
 		 * Comments
 		 * Likes
 		 * Date
-		* Order posts in either ascending or descending order.
+	* Order posts in either ascending or descending order.
+	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/ViewAllPosts.png)
 ### Main Search for NOT logged users
 * Anonymous visitors are granted access to the search functionality available in the navigation bar. This feature allows them to search for posts based on specific keywords present in the post title, as well as filter results by relevant tags.
-
+	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/Search.png)
+* Results
+	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/NOTloggedResults.png)
+	
 ### Main Search for logged users
 * Once a visitor is authenticated, they gain access to the main search feature, which enables them to search for other users based on specific keywords present in their profile title.
-
+	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/LoggedResults.png)
 ### Create Post 
 * Logged-in users have the ability to create posts within the forum system.
-
+	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/CreatePost.png)
 ### Edit Post
 * Furthermore, logged-in users who are the creators of a post possess the capability to make edits to the post, including modifying the title, content, and adding or modifying tags associated with the post.
-
+	![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/EditPost.png)
 ### Add Comment
 * Logged-in users are provided with the privilege to actively engage with the community by adding comments to existing posts.
+    ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/AddComment.png)
+### Tag Details
+* If a logged-in user is either the creator of a tag or an admin, they have the additional privileges of deleting or editing the tag. Furthermore, if a logged-in user is the owner of a post or an admin, they have the authority to remove existing tags associated with that particular post.
+    ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/TagDetails.png)
+## Administrative part
+* When an admin is logged into the system, they gain access to the Admin panel, unlocking a range of administrative functionalities. Within the Admin panel, admins are empowered to search for individuals based on their first name, username, or email address.
+    ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/AdminPanel.png)
+* From the Admin panel, administrators have comprehensive access to user profiles, allowing them to view detailed user information. Additionally, administrators are provided with several options to manage user accounts effectively, including the ability to edit user profiles, block or unblock accounts, delete user accounts, or promote users to the admin role.
+    ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/Admin.png)
+* When the Admin utilizes the "View All Posts" functionality, they are presented with an option to directly delete posts from the search results.
+    ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/AdminPosts.png)
+## API
+* The Blockie forum system provides API documentation in Swagger format, allowing developers to easily explore and understand the available endpoints, request/response structures, and supported operations. The Swagger documentation provides a user-friendly interface where developers can interactively test API endpoints, view sample requests and responses, and access detailed descriptions of each API resource. 
+    ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/API.png)
+## Database Diagram
+    ![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/DatabaseDiagram.png)
 
-
-
-
+## Additionally
+* In-memory database, MSTest and Moq for testing
+* Data transfer objects(DTOs)
+* Auto-Mapper
+* Above 80% Unit test code coverage of the business logic
+* Public API's
+* Technologies
+     * ASP.NET Core
+	 * Entity Framework Core
+	 * Mock Framework
+	 * MS SQL Server
+	 * HTML
+	 * CSS
+## Team Members
+* Atanas Iliev - [GitLab](https://gitlab.com/atanasiliev1293)
+* Nikolai Gigov - [GitLab](https://gitlab.com/NG02)
+* Katrin Lilova - [GitLab](https://gitlab.com/katrinlilova)
+* Telerik Acedemy Official Project
