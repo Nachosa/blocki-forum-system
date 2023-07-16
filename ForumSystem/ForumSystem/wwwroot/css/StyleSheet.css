@@ -56,6 +56,8 @@ footer {
     text-align: center;
     margin-top: 40px;
     margin-bottom: 80px;
+
+margin: 40px 180px 80px 180px;
 }
 
     .user-post-info span {
@@ -269,10 +271,7 @@ nav {
 }
 
     .custom-table thead tr, .custom-table thead th {
-        padding-bottom: 30px;
-        border-top: none;
-        border-bottom: none !important;
-        border: none;
+        color: #8c8c8c;
         background: #404040;
         font-size: 11px;
         text-transform: uppercase;
@@ -465,6 +464,10 @@ h2.table-label {
 
 .cut-short {
     width: 50px;
+}
+
+.cut-long {
+    width: 175px;
 }
 
 .basic-form-input:focus ~ .cut,
@@ -1017,6 +1020,10 @@ h2.table-label {
         color: #73e600;
         transition: all 0.3s ease-in-out;
     }
+
+.post-card-tags {
+    margin-top: 20px;
+}
 /*#endregion*/
 
 /*#region commentCard*/

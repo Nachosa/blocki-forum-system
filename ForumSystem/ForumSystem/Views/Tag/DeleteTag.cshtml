@@ -1,19 +1,45 @@
 ﻿@model ForumSystem.DataAccess.Models.Tag
 @{
-    var postId = ViewData["PostId"];
+	var postId = ViewData["PostId"];
+	//bool isAdmin = this.Context.Session.GetInt32("roleId") == 3;
 }
-<h2>Delete Tag</h2>
+@*<h2>Delete Tag</h2>
 
 <div>
-    <h3>Tag Name: @Model.Name</h3>
+	<h3>Tag Name: @Model.Name</h3>
 </div>
 
 <form asp-controller="Tag" asp-action="DeleteTagConfirmed" asp-route-postId="@postId" method="post">
-    <input type="hidden" asp-for="Id" />
+	<input type="hidden" asp-for="Id" />
 
-    <p>Are you sure you want to delete this tag?</p>
+	<p>Are you sure you want to delete this tag?</p>
 
-    <button type="submit" class="btn btn-danger">Delete</button>
-    <a asp-controller="Post" asp-action="PostDetails" class="btn btn-secondary">Cancel</a>
-    <input type="hidden" name="postId" value="@postId" />
-</form>
+	<button type="submit" class="btn btn-danger">Delete</button>
+	<a asp-controller="Post" asp-action="PostDetails" class="btn btn-secondary">Cancel</a>
+	<input type="hidden" name="postId" value="@postId" />
+</form>*@
+
+
+<div class="basic-form">
+	<div id="basic-form-title">Delete tag.</div>
+	<div id="basic-form-subtitle">Confirm to continue.</div>
+
+	<br>
+
+	<div class="validation-error-message">
+		@if (this.ViewData["ErrorMessage"] is not null)
+		{
+			<p>@this.ViewData["ErrorMessage"]</p>
+		}
+	</div>
+
+	<form asp-controller="Tag" asp-action="DeleteTagConfirmed" asp-route-postId="@postId" method="post">
+		<input type="hidden" asp-for="Id" />
+		<button type="submit" class="basic-form-submit">Delete</button>
+	</form>
+	<br>
+	<form asp-controller="Home" asp-action="Index">
+		<button type="submit" class="basic-form-submit">Home page</button>
+	</form>
+
+</div>

@@ -4,16 +4,16 @@
 	int? postIdToDelete = this.ViewBag.postIdToDelete;
 }
 
-<div class="credentials-form">
+<div class="basic-form">
 	@if (!isAdmin)
 	{
-		<div id="credentials-title">Delete your post.</div>
-		<div id="register-subtitle">Choose your action.</div>
+		<div id="basic-form-title">Delete your post.</div>
+		<div id="basic-form-subtitle">Confirm to continue.</div>
 	}
 	else
 	{
-		<div id="credentials-title">Hello Admin.</div>
-		<div id="register-subtitle">Confirm to continue your action.</div>
+		<div id="basic-form-title">Hello Admin.</div>
+		<div id="basic-form-subtitle">Confirm to continue.</div>
 	}
 	<br>
 
@@ -26,15 +26,11 @@
 	</div>
 
 	<form asp-controller="Post" asp-action="DeletePost" asp-route-id="@postIdToDelete" method="post">
-		<div class="input-container">
-			<button type="submit" class="submit">Delete</button>
-		</div>
+			<button type="submit" class="basic-form-submit">Delete</button>
 	</form>
 	<br>
 	<form asp-controller="Home" asp-action="Index">
-		<div class="input-container">
-			<button type="submit" class="submit">Home page</button>
-		</div>
+			<button type="submit" class="basic-form-submit">Home page</button>
 	</form>
 
 </div>

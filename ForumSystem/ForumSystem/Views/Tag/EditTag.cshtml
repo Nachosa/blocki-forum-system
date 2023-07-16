@@ -1,10 +1,9 @@
 ﻿@model ForumSystem.DataAccess.Models.Tag
 @{
     int postId = (int)this.ViewData["PostId"];
-
 }
 
-<h2>Edit Tag</h2>
+@*<h2>Edit Tag</h2>
 
 <form asp-controller="Tag" asp-action="UpdateTag" asp-route-postId="@postId" method="post">
     <input type="hidden" asp-for="Id" />
@@ -18,4 +17,30 @@
     <form asp-controller="Tag" asp-action="UpdateTag" asp-route-postId="@postId" method="post">
         <button type="submit" class="basic-form-submit">Save Changes</button>
     </form>
-</form>
+</form>*@
+
+<div class="basic-form">
+	<div id="basic-form-title">Edit tag</div>
+	<form asp-controller="Tag" asp-action="UpdateTag" asp-route-postId="@postId" method="post">
+		<input type="hidden" asp-for="Id" />
+		<div class="validation-error-message">
+			@if (this.ViewData["ErrorMessage"] is not null)
+			{
+				<p>@this.ViewData["ErrorMessage"]</p>
+			}
+		</div>
+
+		<div class="input-container">
+			<input asp-for="Name" class="basic-form-input" type="text" placeholder=" ">
+			<span asp-validation-for="Name" class="validation-error-message"></span><br>
+			<div class="cut"></div>
+			<label asp-for="Name" class="placeholder">Name</label>
+		</div>
+
+		<form asp-controller="Tag" asp-action="UpdateTag" asp-route-postId="@postId" method="post">
+			<div class="input-container">
+				<button type="submit" class="basic-form-submit">Submit</button>
+			</div>
+		</form>
+	</form>
+</div>

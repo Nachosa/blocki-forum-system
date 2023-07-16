@@ -102,19 +102,19 @@
 			<div class="input-container">
 				<input asp-for="MinDate" id="startdate" class="basic-form-input" type="text" placeholder=" " value="@ViewBag.MinDate" />
 				<div class="cut"></div>
-				<label asp-for="MinDate" class="placeholder">Start Date</label>
+				<label asp-for="MinDate" class="placeholder">Start date</label>
 			</div>
 
 			<div class="input-container basic-form-row-last">
 				<input asp-for="MaxDate" id="enddate" class="basic-form-input" type="text" placeholder=" " value="@ViewBag.MaxDate" />
 				<div class="cut"></div>
-				<label asp-for="MaxDate" class="placeholder">End Date</label>
+				<label asp-for="MaxDate" class="placeholder">End date</label>
 			</div>
 		</div>
 
 		<div class="basic-form-row">
 			<div class="input-container">
-				<div class="dropdown-label">Sort By:</div>
+				<div class="dropdown-label">Sort by:</div>
 				<div class="dropdown-select" tabindex="1">
 					<input asp-for="SortBy" class="dropdown-selectopt" id="sort-by-opt-1" value="comments" type="radio" name="SortBy" selected="@(ViewBag.SortBy == "comments")" checked>
 					<label for="sort-by-opt-1" class="dropdown-opt-label">Comments</label>
@@ -132,7 +132,7 @@
 
 
 			<div class="input-container basic-form-row-last">
-				<div class="dropdown-label">Sort Order:</div>
+				<div class="dropdown-label">Sort order:</div>
 				<div class="dropdown-select" tabindex="1">
 					<input asp-for="SortOrder" class="dropdown-selectopt" id="sort-order-opt-1" value="asc" type="radio" name="SortOrder" selected="@(ViewBag.SortBy == "asc")" checked>
 					<label for="sort-order-opt-1" class="dropdown-opt-label">Ascending</label>
