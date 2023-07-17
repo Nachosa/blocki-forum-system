@@ -18,9 +18,10 @@ using ForumSystem.Business.AuthenticationManager;
 namespace ForumSystemTests.PostServiceTest
 {
     [TestClass]
-    public class CreatePostShould
+    public class CreatePostShould : PostServiceTestShared
     {
-        [TestMethod]
+
+		[TestMethod]
         public void Create_When_Valid_Input()
         {
 
@@ -40,21 +41,13 @@ namespace ForumSystemTests.PostServiceTest
                 Content = "Don't mind this content, just testing!",
             };
 
-            var userRepoMock = new Mock<IUserRepository>();
-            var postRepoMock = new Mock<IPostRepository>();
-            var tagRepoMock = new Mock<ITagRepository>();
-            var authManagerMock = new Mock<IAuthManager>();
-            var spt = new PostService(postRepoMock.Object, userRepoMock.Object, tagRepoMock.Object, authManagerMock.Object);
-
             userRepoMock
                 .Setup(repo => repo.GetUserByUserName(user.Username))
                 .Returns(user);        
 
-            var result = spt.CreatePost(post, user.Username);
+            var result = postServiceMock.CreatePost(post, user.Username);
 
             Assert.AreEqual(post, result);
         }
-
-        //Тестове при неправилни дании (за Title/Content с грешна дължина, атрибутите?)
-    }
+	}
 }
