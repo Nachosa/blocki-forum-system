@@ -186,10 +186,14 @@
 					<th>Likes</th>
 					<th>Dislikes</th>
 					<th>Tags</th>
-					@if (isAdmin)
+					@if (loggedUserId != null)
 					{
 						<th>Delete</th>
 					}
+					else
+					{
+					}
+
 				</tr>
 			</thead>
 			<tbody class="custom-table">
@@ -203,13 +207,16 @@
 						<td>@post.LikesCount</td>
 						<td>@post.DislikesCount</td>
 						<td>@(post.Tags.Any() ? string.Join(", ", post.Tags) : "-")</td>
-						@if (isAdmin || loggedUserId == post.User.Id)
+						@if (loggedUserId != null)
 						{
-							<th>
-								<div class="button-container">
-									<a asp-controller="Post" asp-action="DeletePost" asp-route-Id="@post.Id" class="button-normal">Delete</a>
-								</div>
-							</th>
+							<td>
+								@if (isAdmin || loggedUserId == post.User.Id)
+								{
+									<div class="button-container">
+										<a asp-controller="Post" asp-action="DeletePost" asp-route-Id="@post.Id" class="button-normal">Delete</a>
+									</div>
+								}
+							</td>
 						}
 					</tr>
 				}
@@ -225,8 +232,8 @@
 					{
 						<li class="pager-item">
 							<a class="pager-link" href="/Post/Index?page=@(ViewBag.CurrentPage - 1)@(BuildQueryString())">
-								<img src="~/images/pagination/leftarrow.png" class="page-arrow"/>
-								</a>
+								<img src="~/images/pagination/leftarrow.png" class="page-arrow" />
+							</a>
 						</li>
 					}
 
@@ -242,7 +249,7 @@
 						<li class="pager-item">
 							<a class="pager-link" href="/Post/Index?page=@(ViewBag.CurrentPage + 1)@(BuildQueryString())">
 								<img src="~/images/pagination/rightarrow.png" class="page-arrow" />
-								</a>
+							</a>
 						</li>
 					}
 				</ul>
