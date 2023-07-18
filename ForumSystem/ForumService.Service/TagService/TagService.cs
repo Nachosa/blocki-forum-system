@@ -53,34 +53,38 @@ namespace ForumSystem.Business.TagService
 
 		public void AddTagsToPost(string userName, int postId, string tags)
 		{
-			string[] tagArray = tags.Split(',');
-
-			foreach (string tag in tagArray)
+			if (tags is not null)
 			{
-				string normalizedTag = tag.Trim().ToLower();
 
-				// Check if the tag already exists in the database
-				var existingTag = repo.GetTagByName(normalizedTag);
+				string[] tagArray = tags.Split(',');
 
-				if (existingTag == null)
+				foreach (string tag in tagArray)
 				{
-					// Create a new tag if it doesn't exist
-					var user = userService.GetUserByUserName(userName);
-					var newTag = new Tag() { Name = normalizedTag, User = user, UserId = user.Id };
-					repo.CreateTag(newTag);
+					string normalizedTag = tag.Trim().ToLower();
 
-					// Associate the new tag with the post
-					repo.AddTagToPost(postId, newTag.Id);
-				}
-				else
-				{
-					var post = postService.GetPostById(postId);
-					bool tagExist = post.Tags.Any(pt => pt.Tag.Id == existingTag.Id);
-					if (tagExist is false)
+					// Check if the tag already exists in the database
+					var existingTag = repo.GetTagByName(normalizedTag);
+
+					if (existingTag == null)
 					{
-						// Associate the existing tag with the post
-						repo.AddTagToPost(postId, existingTag.Id);
+						// Create a new tag if it doesn't exist
+						var user = userService.GetUserByUserName(userName);
+						var newTag = new Tag() { Name = normalizedTag, User = user, UserId = user.Id };
+						repo.CreateTag(newTag);
 
+						// Associate the new tag with the post
+						repo.AddTagToPost(postId, newTag.Id);
+					}
+					else
+					{
+						var post = postService.GetPostById(postId);
+						bool tagExist = post.Tags.Any(pt => pt.Tag.Id == existingTag.Id);
+						if (tagExist is false)
+						{
+							// Associate the existing tag with the post
+							repo.AddTagToPost(postId, existingTag.Id);
+
+						}
 					}
 				}
 			}
