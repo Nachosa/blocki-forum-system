@@ -1,5 +1,3 @@
-![Alt text](https://gitlab.com/project-one-group-five/forum-system/-/raw/main/ImagesForREADME/telerik.PNG)
-
 Blockie Forum System
 ====================
 
