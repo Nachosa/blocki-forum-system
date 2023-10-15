@@ -1,8 +1,8 @@
-Blockie Forum System
+Blocki Forum System
 ====================
 
 
->Blockie is a forum system designed for cryptocurrency enthusiasts. It empowers users to actively engage in discussions by creating posts and comments related to various crypto topics. Users have the freedom to express their opinions by liking or disliking posts and comments. Additionally, Blockie offers a comprehensive search functionality, enabling users to easily find specific users or posts of interest.
+>Blocki is a forum system designed for cryptocurrency enthusiasts. It empowers users to actively engage in discussions by creating posts and comments related to various crypto topics. Users have the freedom to express their opinions by liking or disliking posts and comments. Additionally, Blocki offers a comprehensive search functionality, enabling users to easily find specific users or posts of interest.
  This project is developed using the ASP.NET Core 6 framework and encompasses a public API and a User Interface built with MVC, ensuring a seamless and intuitive user experience.
 
 ## Project Description
@@ -88,9 +88,11 @@ Blockie Forum System
     ![Alt text](https://github.com/Nachosa/blocki-forum-system/blob/main/ImagesForREADME/AdminPosts.png)
 	<br><br>
 ## API
-The Blockie forum system provides API documentation in Swagger format, allowing developers to easily explore and understand the available endpoints, request/response structures, and supported operations. The Swagger documentation provides a user-friendly interface where developers can interactively test API endpoints, view sample requests and responses, and access detailed descriptions of each API resource. 
+* The Blocki forum system provides API documentation in Swagger format, allowing developers to easily explore and understand the available endpoints, request/response structures, and supported operations. The Swagger documentation provides a user-friendly interface where developers can interactively test API endpoints, view sample requests and responses, and access detailed descriptions of each API resource. 
+	<br><br>
+    ![Alt text](https://github.com/Nachosa/blocki-forum-system/blob/main/ImagesForREADME/SwaggerAPI.png)
 ## Database Diagram
-A detailed database diagram is included to provide a comprehensive and objective view of the underlying data structure in the Blockie forum system. This diagram visually represents the relationships between different database tables and the structure of the data model. It offers insights into the organization of user data, posts, comments, tags, and other relevant entities within the system.
+* A detailed database diagram is included to provide a comprehensive and objective view of the underlying data structure in the Blocki forum system. This diagram visually represents the relationships between different database tables and the structure of the data model. It offers insights into the organization of user data, posts, comments, tags, and other relevant entities within the system.
 	<br><br>
     ![Alt text](https://github.com/Nachosa/blocki-forum-system/blob/main/ImagesForREADME/DatabaseDiagram.png)
 
