@@ -79,9 +79,6 @@ Blockie Forum System
     ![Alt text](https://github.com/Nachosa/blocki-forum-system/blob/main/ImagesForREADME/TagDetails.png)
 ## Administrative part
 * When an admin is logged into the system, they gain access to the Admin panel, unlocking a range of administrative functionalities. Within the Admin panel, admins are empowered to search for individuals based on their first name, username, or email address.
-	<br><br>
-    ![Alt text](https://github.com/Nachosa/blocki-forum-system/blob/main/ImagesForREADME/AdminPanel.png)
-	<br><br>
 * From the Admin panel, administrators have comprehensive access to user profiles, allowing them to view detailed user information. Additionally, administrators are provided with several options to manage user accounts effectively, including the ability to edit user profiles, block or unblock accounts, delete user accounts, or promote users to the admin role.
 	<br><br>
     ![Alt text](https://github.com/Nachosa/blocki-forum-system/blob/main/ImagesForREADME/Admin.png)
@@ -91,10 +88,10 @@ Blockie Forum System
     ![Alt text](https://github.com/Nachosa/blocki-forum-system/blob/main/ImagesForREADME/AdminPosts.png)
 	<br><br>
 ## API
-* The Blockie forum system provides API documentation in Swagger format, allowing developers to easily explore and understand the available endpoints, request/response structures, and supported operations. The Swagger documentation provides a user-friendly interface where developers can interactively test API endpoints, view sample requests and responses, and access detailed descriptions of each API resource. 
-    ![Alt text](https://github.com/Nachosa/blocki-forum-system/blob/main/ImagesForREADME/API.png)
+The Blockie forum system provides API documentation in Swagger format, allowing developers to easily explore and understand the available endpoints, request/response structures, and supported operations. The Swagger documentation provides a user-friendly interface where developers can interactively test API endpoints, view sample requests and responses, and access detailed descriptions of each API resource. 
 ## Database Diagram
-* A detailed database diagram is included to provide a comprehensive and objective view of the underlying data structure in the Blockie forum system. This diagram visually represents the relationships between different database tables and the structure of the data model. It offers insights into the organization of user data, posts, comments, tags, and other relevant entities within the system. 
+A detailed database diagram is included to provide a comprehensive and objective view of the underlying data structure in the Blockie forum system. This diagram visually represents the relationships between different database tables and the structure of the data model. It offers insights into the organization of user data, posts, comments, tags, and other relevant entities within the system.
+	<br><br>
     ![Alt text](https://github.com/Nachosa/blocki-forum-system/blob/main/ImagesForREADME/DatabaseDiagram.png)
 
 ## Additionally
